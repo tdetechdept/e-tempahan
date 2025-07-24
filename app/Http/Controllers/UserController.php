@@ -4,16 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::role('User')->get();
-        return view("admin.users.index")->with("users", $users);
-    }
+    // public function index()
+    // {
+    //     $users = User::role('User')->get();
+    //     return view("admin.users.index")->with("users", $users);
+    // }
 
+    public function index(Request $request)
+    {
+        $filter = strtolower($request->get('filter', 'all'));
+    
+        $query = User::role('User');
+    
+        $statusMap = [
+            'new' => 1,
+            'pending' => 2,
+            'approved' => 3,
+            'rejected' => 4,
+            'cancelled' => 5,
+        ];
+    
+        if ($filter !== 'all' && isset($statusMap[$filter])) {
+            $query->where('status', $statusMap[$filter]);
+        }
+    
+        $users = $query->get();
+    
+        if ($request->ajax()) {
+            return view('admin.users.partials.table', compact('users'))->render(); // <tbody> only
+        }
+    
+        return view('admin.users.index', compact('users'));
+    }
     public function create()
     {
         //
@@ -42,7 +69,7 @@ class UserController extends Controller
 
     public function deactivateSuccess()
     {
-        return view("admin.users.status");
+        return view("admin.users.success-deactivate");
     }
 
     public function edit(string $id)
@@ -53,19 +80,25 @@ class UserController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'name'           => 'max:255',
-            'identity_card'  => 'max:50',
-            'position'       => 'max:100',
-            'grade'          => 'max:50',
-            'section'        => 'max:100',
-            'phone_office'   => 'max:20',
-            'phone_mobile'   => 'max:20',
-            'email'          => 'max:255',
+        $validator = Validator::make($request->all(), [
+            'name'           => 'required|string',
+            'identity_card'  => 'nullable|string',
+            'position'       => 'nullable|string',
+            'grade'          => 'nullable|string',
+            'section'        => 'nullable|string',
+            'phone_office'   => 'nullable|string',
+            'phone_mobile'   => 'nullable|string',
+            'email'          => 'required|email|max:255|unique:users,email,' . $id,
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)  
+                ->withInput();         
+        }
+        
+        $validated = $validator->validated();
         $user = User::role('User')->findOrFail($id);
-
         $user->update([
             'name'            => $validated['name'],
             'id_number'       => $validated['identity_card'],

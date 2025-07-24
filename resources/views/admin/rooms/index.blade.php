@@ -6,17 +6,16 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Room</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Home</a>
             <span class="mx-2">/</span>
-            <span>Room List</span>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-success">Room List</a>
         </div>
     </div>
 @endsection
 
 @section('content')
     <main class="main-content">
-
-
+        
         <!-- Content Card -->
         <div class="content-card">
             <!-- Header -->
@@ -86,15 +85,14 @@
     <script>
         $(document).ready(function() {
             var table = $('#rooms-table').DataTable({
-                pageLength: 5,
-                lengthMenu: [5, 10, 20, 50, -1],
+                pageLength: 10,
+                lengthMenu: [10, 20, 50, -1],
                 ordering: true,
                 dom: 't<"d-flex justify-content-between align-items-center mt-3"lip>',
                 language: {
                     search: '',
                     searchPlaceholder: 'Search rooms...',
                     lengthMenu: 'Show <select class="form-select form-select-sm">' +
-                        '<option value="5">5</option>' +
                         '<option value="10">10</option>' +
                         '<option value="20">20</option>' +
                         '<option value="50">50</option>' +
