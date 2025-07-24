@@ -1,0 +1,49 @@
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+
+.phpunit.result.cache
+Homestead.yaml
+Homestead.json
+/nitro.yaml
+
+# Laravel IDE Helper
+.phpstorm.meta.php
+/_ide_helper.php
+/_ide_helper_models.php
+
+# Laravel Telescope
+/storage/telescope
+
+# Laravel Vapor
+.vapor/
+
+# Laravel Nova
+nova-components/
+
+# Logs and caches
+/storage/logs
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
+/storage/framework/testing
+
+# Composer & NPM logs
+composer.lock
+yarn.lock
+pnpm-lock.yaml
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Build output
+/public/hot
