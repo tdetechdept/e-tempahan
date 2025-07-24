@@ -99,7 +99,7 @@
 
             @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('profile.index')}}">
                     <i class="far fa-fw fa-user"></i>
                     <span>Profil</span>
                 </a>

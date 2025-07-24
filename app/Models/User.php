@@ -31,7 +31,7 @@ class User extends Authenticatable
 
         static::creating(function ($user) {
             do {
-                $user->identification = str_pad(random_int(100000000000, 999999999999), 12, '0', STR_PAD_LEFT);
+                $user->id_number = str_pad(random_int(100000000000, 999999999999), 12, '0', STR_PAD_LEFT);
             } while (User::where('id_number', $user->id_number)->exists());
         });
     }
