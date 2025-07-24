@@ -102,10 +102,12 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a href="{{ route('rooms.show', $room->id) }}">
                                     <button
                                         class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                         <span class="material-symbols-rounded eb-eye-btn"></span> See
                                     </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -183,10 +185,12 @@
                                 </td>
 
                                 <td>
-                                    <button
-                                        class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
-                                        <span class="material-symbols-rounded eb-eye-btn"></span> See
-                                    </button>
+                                    <a href="{{ route('users.show', $user->id) }}">
+                                        <button
+                                            class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                            <span class="material-symbols-rounded eb-eye-btn"></span> See
+                                        </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -223,33 +227,53 @@
                                 <td>{{ $booking->created_at->format('Y-m-d') }}</td>
                                 <td>
                                     @php
-                                        $statusLabels = [
-                                            1 => 'New',
-                                            2 => 'Pending',
-                                            3 => 'Approved',
-                                            4 => 'Rejected',
-                                            5 => 'Cancelled',
+                                        $statusStyles = [
+                                            1 => [ // New
+                                                'label' => 'NEW',
+                                                'bg' => '#fff3cd', 
+                                                'text' => '#856404',
+                                            ],
+                                            2 => [ // Pending
+                                                'label' => 'PENDING',
+                                                'bg' => '#d1ecf1', 
+                                                'text' => '#0c5460',
+                                            ],
+                                            3 => [ // Approved
+                                                'label' => 'APPROVED',
+                                                'bg' => '#d4edda', 
+                                                'text' => '#155724',
+                                            ],
+                                            4 => [ // Rejected
+                                                'label' => 'REJECTED',
+                                                'bg' => '#f8d7da', 
+                                                'text' => '#721c24',
+                                            ],
+                                            5 => [ // Cancelled
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
                                         ];
-                                        $statusColors = [
-                                            1 => 'secondary',
-                                            2 => 'warning',
-                                            3 => 'success',
-                                            4 => 'danger',
-                                            5 => 'dark',
+                                
+                                        $status = $statusStyles[$booking->status] ?? [
+                                            'label' => 'UNKNOWN',
+                                            'bg' => '#f8f9fa',
+                                            'text' => '#6c757d',
                                         ];
-                                        $status = $booking->status ?? 1;
                                     @endphp
-                                    <span
-                                        class="badge text-bg-{{ $statusColors[$status] ?? 'secondary' }} text-center block w-100 py-2 rounded-4">
-                                        {{ strtoupper($statusLabels[$status] ?? 'UNKNOWN') }}
+                                
+                                    <span class="badge d-block text-center w-100 py-2 rounded-4"
+                                        style="background-color: {{ $status['bg'] }}; color: {{ $status['text'] }};">
+                                        {{ $status['label'] }}
                                     </span>
-                                    <!-- <span class="block py-2 text-center badge text-bg-success w-100 rounded-4">ACTIVE</span> -->
                                 </td>
                                 <td>
-                                    <button
-                                        class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
-                                        <span class="material-symbols-rounded eb-eye-btn"></span> See
-                                    </button>
+                                    <a href="{{ route('booking.show', $booking->id) }}">
+                                        <button 
+                                            class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                            <span class="material-symbols-rounded eb-eye-btn"></span> See
+                                        </button>
+                                    </a>
                                 </td>
                             </tr>
                         @empty

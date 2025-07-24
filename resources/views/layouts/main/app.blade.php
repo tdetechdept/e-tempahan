@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'E-Tempahan')</title>
 
@@ -119,7 +120,6 @@
     <script src="{{ asset('admin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admin2/js/demo/chart-pie-demo.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src=" {{ URL('assets/js/custom.js') }}"></script>
 
     <!-- Page level custom scripts -->
     @stack('js')
