@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             // BookingSeeder::class,
             UserTableSeeder::class,
             PermissionRoleSeeder::class,
+
         ]);
     }
 }

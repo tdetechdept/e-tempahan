@@ -110,7 +110,7 @@ class RoomController extends Controller
         $room = Room::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'room_name'     => 'required|string|max:255',
+            'room_name' => ['required', 'string', 'max:255', Rule::unique('rooms', 'room_name')->ignore($room->id),],
             'description'   => 'required|string',
             'room_capacity' => 'required|integer|min:1',
             'facilities'    => 'nullable|string',

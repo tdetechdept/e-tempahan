@@ -6,17 +6,18 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Room</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Home</a>
             <span class="mx-2">/</span>
-            <span>Room List</span>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-dark">Room List</a>
             <span class="mx-2">/</span>
-            <span class="breadcrumb-active">Edit Room</span>
+            <a href="{{ route('rooms.show', $room->id) }}" class="text-decoration-none text-dark">Room Information</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('rooms.edit', $room->id) }}" class="text-decoration-none text-success">Edit Room</a>
         </div>
     </div>
 @endsection
 
 @section('content')
-    {{-- <div class="py-2 container-fluid"> --}}
     <main class="main-content">
         <div class="content-card">
             <div class="eb-create-room-information">
@@ -103,13 +104,13 @@
                                         </div>
                                     @endif
 
-
                                     <div class="eb-uplaod-file position-relative">
                                         <input type="file" name="picture" class="form-control" id="picture">
                                         <span
                                             class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
                                         <p class="form-text" id="pictureName"></p>
                                     </div>
+                                    <p class="form-text" id="pictureChangedMessage" style="display: none; color: red;">You have changed the picture.</p>
                                     @error('picture')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -133,6 +134,7 @@
                                             class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
                                         <p class="form-text" id="layoutName"></p>
                                     </div>
+                                    <p class="form-text" id="layoutChangedMessage" style="display: none; color: red;">You have changed the Layout/plan.</p>
                                     @error('layout_plan')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -185,6 +187,24 @@
 
     {{-- JS for handling uploads and facilities --}}
     <script>
+    document.getElementById('picture').addEventListener('change', function () {
+        const message = document.getElementById('pictureChangedMessage');
+        if (this.files.length > 0) {
+            message.style.display = 'block';
+        } else {
+            message.style.display = 'none';
+        }
+    });
+
+    document.getElementById('layoutPlan').addEventListener('change', function () {
+        const message = document.getElementById('layoutChangedMessage');
+        if (this.files.length > 0) {
+            message.style.display = 'block';
+        } else {
+            message.style.display = 'none';
+        }
+    });
+
         const facilities = @json(old('facilities') ? explode(',', old('facilities')) : $room->facilities ?? []);
 
         function addFacility() {

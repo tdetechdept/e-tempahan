@@ -6,11 +6,11 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Room</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Home</a>
             <span class="mx-2">/</span>
-            <span>Room List</span>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-dark">Room List</a>
             <span class="mx-2">/</span>
-            <span class="breadcrumb-active">Add Room</span>
+            <a href="{{ route('rooms.create') }}" class="text-decoration-none text-success">Edit Room</a>
         </div>
     </div>
 @endsection
