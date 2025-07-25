@@ -26,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->role == 'User') {
+            // If the user is a regular user, redirect to the user home view
+
+                $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 1)->get();
+                $approvedBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 3)->get();
+                $waitBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 2)->get();
+
+            return view('user.home', compact('newBookings', 'approvedBookings', 'waitBookings'));
+        }
+
         $totalUsers = User::count();
         $totalRooms = Room::count();
         $totalBookings = Booking::count();
