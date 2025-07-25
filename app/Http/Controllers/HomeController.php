@@ -29,9 +29,9 @@ class HomeController extends Controller
         $totalUsers = User::count();
         $totalRooms = Room::count();
         $totalBookings = Booking::count();
-        $rooms = Room::get();
-        $users = User::get();
-        $bookings = Booking::with('user', 'room')->get();
+        $rooms = Room::latest()->take(5)->get(); 
+        $users = User::latest()->take(5)->get(); 
+        $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
         return view('home',compact('totalUsers','totalRooms','totalBookings','rooms','users','bookings'));
     }
 }

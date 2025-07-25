@@ -22,11 +22,11 @@ class UserController extends Controller
         $query = User::role('User');
     
         $statusMap = [
-            'new' => 1,
-            'pending' => 2,
-            'approved' => 3,
-            'rejected' => 4,
-            'cancelled' => 5,
+            'new' => 0,
+            'pending' => 1,
+            'approved' => 2,
+            'rejected' => 3,
+            'cancelled' => 4,
         ];
     
         if ($filter !== 'all' && isset($statusMap[$filter])) {
