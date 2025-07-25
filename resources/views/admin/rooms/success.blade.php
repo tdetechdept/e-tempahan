@@ -8,10 +8,10 @@
             <div class="card-body">
                 <div class="mb-3">
                     <div class="mx-auto mb-2 eb-registration-icon"></div>
-                    <h3 class="card-title">New room registration successful</h3>
-                    <p class="card-text">This room can now be selected by users for booking.</p>
+                    <h3 class="card-title">Pendaftaran bilik baharu berjaya</h3>
+                    <p class="card-text"> Bilik ini kini boleh dipilih oleh pengguna untuk membuat tempahan</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Dashboard</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Laman Utama</a>
             </div>
         </div>
     </div>

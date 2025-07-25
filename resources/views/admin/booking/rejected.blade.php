@@ -5,10 +5,10 @@
             <div class="card-body">
                 <div class="mb-3">
                     <div class="mx-auto mb-2 eb-registration-icon"></div>
-                    <h3 class="card-title">Booking has been declined</h3>
-                    <p class="card-text">This booking request has been rejected. Please check your email for the next level.</p>
+                    <h3 class="card-title">Tempahan telah ditolak</h3>
+                    <p class="card-text">Permohonan tempahan ini telah ditolak. Mohon lihat emel anda untuk ke peringkat seterusnya.</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Dashboard</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
     </div>

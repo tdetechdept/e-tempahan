@@ -9,10 +9,10 @@
             <div class="card-body">
                 <div class="mb-3">
                     <div class="mx-auto mb-2 eb-registration-icon"></div>
-                    <h3 class="card-title"> User update successful</h3>
-                    <p class="card-text">User have been updated and saved successfully.</p>
+                    <h3 class="card-title">Kemaskini pengguna berjaya</h3>
+                    <p class="card-text">Maklumat pengguna telah berjaya dikemaskini</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Back to Dashboard</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
 </div>

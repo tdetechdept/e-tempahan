@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-  
 </head>
 <body>
 
@@ -25,7 +24,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-size: 20px;line-height: 1;color: #111827;font-weight: bold;font-family: Helvetica, sans-serif;">
-                                        Booking Review</td>
+                                        Ulasan Tempahan</td>
                                         <td></td>
                                 </tr>
                                 <tr>
@@ -34,7 +33,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-size: 14px;line-height: 1;color: #13808C;font-weight: bold;font-family: Helvetica, sans-serif;">
-                                        Room Booking Information</td>
+                                        Maklumat Tempahan Bilik</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -43,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827;height:40px;">Meeting Name</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827;height:40px;">Nama Mesyuarat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -55,7 +54,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->meeting_name}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; height:40px;">Chairman</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; height:40px;">Pengerusi</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -73,7 +72,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Meeting Date</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Tarikh Mesyuarat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -87,7 +86,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280; ">
-                                                            Start Date
+                                                            Tarikh Mula
                                                         </td>
                                                          <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
                                                            {{\Carbon\Carbon::parse($booking->start_date)->format('F d, Y')}}
@@ -98,7 +97,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
-                                                            End Date
+                                                            Tarikh Tamat
                                                         </td>
                                                          <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
                                                             {{\Carbon\Carbon::parse($booking->end_date)->format('F d, Y')}}
@@ -109,7 +108,7 @@
                                         </span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Meeting Time</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Masa Mesyuarat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -123,7 +122,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
-                                                            Start Time
+                                                            Masa Mula
                                                         </td>
                                                          <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
                                                            {{\Carbon\Carbon::parse($booking->start_time)->format('h:i A')}}
@@ -134,7 +133,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
-                                                            End Time
+                                                            Masa Tamat
                                                         </td>
                                                          <td style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">
                                                             {{\Carbon\Carbon::parse($booking->end_time)->format('h:i A')}}
@@ -151,7 +150,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Number of Participants</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Bilangan Peserta</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -160,10 +159,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->number_of_participants}} People</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->number_of_participants}} Orang</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Description</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Keterangan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -181,7 +180,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Room </p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Bilik </p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -193,7 +192,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->room->room_name}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Type </p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Jenis </p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -223,7 +222,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{ $booking->status_name }}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Repetition Type </p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Jenis Ulangan </p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -241,7 +240,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Repeat Date</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Tarikh Ulangan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -253,7 +252,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{\Carbon\Carbon::parse($booking->repeat_date)->format('F d, Y')}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Layout/Plan</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Susun Atur / Pelan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -271,7 +270,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-size: 14px;line-height: 1;color: #13808C;font-weight: bold;font-family: Helvetica, sans-serif;">
-                                        Applicant Information</td>
+                                        Maklumat Pemohon</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -280,7 +279,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Applicant Name</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Nama Pemohon</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -292,7 +291,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->user->name}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Name of Ministry / Division / Department</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Nama Kementerian / Bahagian / Jabatan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -310,7 +309,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Position </p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Jawatan </p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -322,7 +321,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->user->position}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Grade</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Gred</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -340,7 +339,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Office Phone</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon Pejabat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -352,7 +351,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->user->office_number}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Mobile Phone</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon Bimbit</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -370,7 +369,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Email</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Emel</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -402,7 +401,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Secretariat Name</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Nama Sekretariat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -414,7 +413,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->secretariat_name ?? '-'}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Office Phone</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon Pejabat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -432,7 +431,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Mobile Phone</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon Bimbit</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -444,7 +443,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->secretariat_mobile_phone ?? '-'}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Email</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Emel</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -462,7 +461,7 @@
                                 </tr>
                                 <tr>
                                     <td style="font-size: 14px;line-height: 1;color: #13808C;font-weight: bold;font-family: Helvetica, sans-serif;">
-                                        Other Booking Information</td>
+                                        Maklumat Tempahan Lain</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -471,7 +470,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Food</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Makanan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -483,7 +482,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{ $booking->food ? 'Yes' : 'No' }}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Equipment</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Peralatan</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -501,7 +500,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Catering Name</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Nama Katering</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -513,7 +512,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{ $booking->catering_name ?? '-'}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telephone</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -531,7 +530,7 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Other Needs (Car)</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Keperluan Lain (Kereta)</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -543,7 +542,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{ $booking->car_number ?? '-' }}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Technical Services</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Perkhidmatan Teknikal</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -561,7 +560,7 @@
                                 </tr>
                                 <tr>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">ICT services</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Perkhidmatan ICT</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -573,7 +572,7 @@
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->ict_services ? 'Yes' : 'No'}} </span>
                                     </td>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Update Information</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Kemas Kini Maklumat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>

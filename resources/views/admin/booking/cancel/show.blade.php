@@ -4,13 +4,13 @@
     <main class="main-content" >
         <!-- Breadcrumb -->
         <div class="breadcrumb-section">
-            <h1 class="breadcrumb-title">Booking Review</h1>
+            <h1 class="breadcrumb-title">Semakan Tempahan</h1>
             <div class="breadcrumb-nav">
-                <span>Home Page</span>
+                <span>Laman Utama</span>
                 <span class="mx-2">/</span>
-                <span>Reservation List</span>
+                <span>Senarai Tempaha</span>
                 <span class="mx-2">/</span>
-                <span class="breadcrumb-active">Booking Information</span>
+                <span class="breadcrumb-active">Maklumat Tempahan</span>
             </div>
         </div>
 
@@ -27,19 +27,19 @@
                     ];
                 @endphp
                 <div class="d-flex justify-content-between align-items-center eb-booking-status-top mb-4">
-                    <h4>Application Status </h4>
+                    <h4>Status Permohonan </h4>
                     <p>{{ $statuses[$booking->status] ?? 'Unknown' }} </p>
                 </div>
                 <h3 class="mb-4">{{$booking->meeting_name}} </h3>
                 <div class="eb-meeting-room-block mb-4">
                     <div class="eb-meeting-room-block-inner">
-                        <p class="d-flex justify-content-between align-items-center  mb-4">Meeting Room Name <span>{{$booking->room->room_name}}</span></p>
-                        <p class="d-flex justify-content-between align-items-center  mb-4">Level <span>Level {{$booking->room->level}} </span></p>
-                        <p class="d-flex justify-content-between align-items-center mb-0">Meeting Room Capacity  <span>{{$booking->room->capacity}} people  </span></p>
+                        <p class="d-flex justify-content-between align-items-center  mb-4">Nama Bilik Mesyuarat <span>{{$booking->room->room_name}}</span></p>
+                        <p class="d-flex justify-content-between align-items-center  mb-4">Aras <span>Aras {{$booking->room->level}} </span></p>
+                        <p class="d-flex justify-content-between align-items-center mb-0">Kapasiti Bilik Mesyuarat  <span>{{$booking->room->capacity}} people  </span></p>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-4 eb-app-search-wrap">
-                    <h3 class="">Reservation Application List </h3>
+                    <h3 class="">Senarai Permohonan Tempahan </h3>
                     <div class="eb-application-search">
                         <input type="text" class="form-control" placeholder="Search" id="search" />
                     </div>
@@ -48,25 +48,25 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Name / Ministry / Division </label>
+                                <label>Nama / Kementerian / Bahagian </label>
                                 <p>{{$booking->user->name}} </p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Room </label>
+                                <label>Bilik </label>
                                 <p>{{$booking->room->room_name}}</p>
                             </div>
                         </div>
                          <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Date / Time  </label>
+                                <label>Tarikh /Masa  </label>
                                 <p>{{ \Carbon\Carbon::parse($booking->start_date)->format('d/m/Y') }} <span>{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}  - {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</span></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Reservation  </label>
+                                <label>Tempahan</label>
                                 @php
                                     $facilities = $booking->room->facilities;
 
@@ -81,33 +81,33 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Status  </label>
+                                <label>Status</label>
                                 <p>{{ $booking->status_name }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Room Reservation Status   </label>
+                                <label>Status Tempahan Bilik</label>
                                 <p>{{ $booking->room->status }} (L) </p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Apply Date </label>
+                                <label>Tarikh Mohon</label>
                                 <p>{{ $booking->created_at->format('d/m/Y') }}</p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Pass Date </label>
+                                <label>Tarikh Lulus</label>
                                 <p>{{ $booking->updated_at->format('d/m/Y') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>  
                 <div class="eb-booking-info-btns ">
-                    <a href="{{ url()->previous() }}" type="button" class="btn btn-secondry">Back</a>
-                    <button type="button" class="btn btn-primary eb-btn-cancel"  data-toggle="modal" data-target="#cancel" >Cancel</button>
+                    <a href="{{ url()->previous() }}" type="button" class="btn btn-secondry">Kembali</a>
+                    <button type="button" class="btn btn-primary eb-btn-cancel"  data-toggle="modal" data-target="#cancel" >Batalkan</button>
                 </div>
             </div>  
         </div> 
@@ -119,13 +119,13 @@
             <div class="modal-content">
             <div class="modal-body">
                 <div class="eb-delete-icon"></div>
-                <h3>Are you sure?</h3>
-                <p>Are you sure you want to cancel this room reservation?</p>
+                <h3>Adakah anda pasti?</h3>
+                <p>Adakah anda pasti anda ingin batalkan tempahan bilik ini?</p>
                 <div class="eb-popup-btns">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                     <form id="cancelForm" action="{{ route('booking.cancel', $booking->id) }}" method="POST" class="d-inline">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="submit" class="btn btn-primary">Ya</button>
                     </form>
                     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rcancelled" >Yes</button> -->
                 </div>

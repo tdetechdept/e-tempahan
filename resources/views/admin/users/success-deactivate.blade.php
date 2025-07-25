@@ -8,10 +8,10 @@
             <div class="card-body">
                 <div class="mb-3">
                     <div class="mx-auto mb-2 eb-registration-icon"></div>
-                    <h3 class="card-title"> User has been deactivated.</h3>
-                    <p class="card-text">Access to the system is no longer allowed until reactivated.</p>
+                    <h3 class="card-title"> Pengguna telah dinyahaktifkan.</h3>
+                    <p class="card-text">Akses ke sistem tidak lagi dibenarkan sehingga diaktifkan semula.</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Back to Dashboard</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
 </div>

@@ -222,9 +222,4 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         return view('admin.booking.approved', compact('booking'));
     }
-    public function test($id)
-    {
-        dd("correct");
-    }
-
 }
