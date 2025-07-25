@@ -11,7 +11,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Papan Pemuka</span></a>
             </li>
@@ -136,11 +136,16 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Laporan:</h6>
                         <a class="collapse-item" href="#">Laporan</a>
-                        <a class="collapse-item" href="#">Log Audit</a>
+                        <a class="collapse-item" href="/Audit">Log Audit</a>
+                        <a class="collapse-item" href="/Log_Details_Information">Log Details Information</a>
+
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Pengurusan:</h6>
-                        <a class="collapse-item" href="#">Kalendar</a>
-                        <a class="collapse-item" href="#">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/Calender">Kalendar</a>
+                        <a class="collapse-item" href="/pengurusan_pengguna">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/maklumat_pengguna">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Pengguna_berjaya_didaftarkan">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Laporan">Laporan</a>
                     </div>
                 </div>
             </li>
@@ -170,4 +175,61 @@
             </li>
 
         </ul>
-        <!-- End of Sidebar -->
+        <!-- End of Sidebar --> <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Keep track of which collapse menus should stay open
+            const collapseElements = document.querySelectorAll('.collapse');
+            
+            // Add click event listeners to collapse items
+            document.querySelectorAll('.collapse-item').forEach(function(item) {
+                item.addEventListener('click', function(e) {
+                    // Remove active class from all collapse items
+                    document.querySelectorAll('.collapse-item').forEach(function(ci) {
+                        ci.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Keep the parent collapse menu open
+                    const parentCollapse = this.closest('.collapse');
+                    if (parentCollapse) {
+                        parentCollapse.classList.add('show');
+                        const parentNavItem = parentCollapse.closest('.nav-item');
+                        if (parentNavItem) {
+                            parentNavItem.classList.add('active');
+                            const parentLink = parentNavItem.querySelector('.nav-link');
+                            if (parentLink) {
+                                parentLink.classList.remove('collapsed');
+                                parentLink.setAttribute('aria-expanded', 'true');
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Handle main nav link clicks
+            document.querySelectorAll('.nav-link[data-toggle="collapse"]').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('data-target'));
+                    const parentNavItem = this.closest('.nav-item');
+                    
+                    if (target.classList.contains('show')) {
+                        // If already open, close it
+                        target.classList.remove('show');
+                        this.classList.add('collapsed');
+                        this.setAttribute('aria-expanded', 'false');
+                        parentNavItem.classList.remove('active');
+                    } else {
+                        // If closed, open it
+                        target.classList.add('show');
+                        this.classList.remove('collapsed');
+                        this.setAttribute('aria-expanded', 'true');
+                        parentNavItem.classList.add('active');
+                    }
+                });
+            });
+        });
+        </script>

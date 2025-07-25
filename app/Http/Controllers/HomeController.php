@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Room;
-use App\Models\Booking;
 
 class HomeController extends Controller
 {
@@ -26,12 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $totalUsers = User::count();
-        $totalRooms = Room::count();
-        $totalBookings = Booking::count();
-        $rooms = Room::get();
-        $users = User::get();
-        $bookings = Booking::with('user', 'room')->get();
-        return view('home',compact('totalUsers','totalRooms','totalBookings','rooms','users','bookings'));
+        return view('home');
     }
 }

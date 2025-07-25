@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Admin\RoomController;
-use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,13 +9,34 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group(['middleware' => ['auth']], function() {
-    // Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
-    Route::post('users/{id}/deactivate', [ UserController::class , 'deactivate'])->name('users.deactivate');
-    Route::get('users/deactivate/success', [UserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
+Route::get('/pengurusan_pengguna', function () {
+    return view('pengurusan_pengguna');
+})->name('pengurusan.pengguna');
 
-    Route::get('/rooms/cancelled', [RoomController::class, 'cancelled'])->name('rooms.cancelled');
-    Route::resource('rooms',  RoomController::class);
-});
+Route::get('/maklumat_pengguna', function () {
+    return view('maklumat_pengguna');
+})->name('pengurusan.pengguna');
 
+Route::get('/Pengguna_berjaya_didaftarkan', function () {
+    return view('Pengguna_berjaya_didaftarkan');
+})->name('pengurusan.pengguna');
+
+Route::get('/Laporan', function () {
+    return view('Laporan');
+})->name('pengurusan.pengguna');
+
+Route::get('/Audit', function () {
+    return view('Audit');
+})->name('pengurusan.pengguna');
+
+Route::get('/Maklumat_Pengguna2', function () {
+    return view('Maklumat_Pengguna2');
+})->name('pengurusan.pengguna');
+
+Route::get('/Log_Details_Information', function () {
+    return view('Log_Details_Information');
+})->name('pengurusan.pengguna');
+
+Route::get('/Calender', function () {
+    return view('Calender');
+})->name('pengurusan.pengguna');
