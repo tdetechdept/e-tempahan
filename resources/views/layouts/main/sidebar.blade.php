@@ -67,7 +67,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
-                        <a class="collapse-item" href="{{ route('rooms.create') }}">Carian Bilik</a>
+                        <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
                         <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
                         <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
                     </div>

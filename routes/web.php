@@ -8,6 +8,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ProfileController;
 
 
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
+
 Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');

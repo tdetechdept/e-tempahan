@@ -50,6 +50,13 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'id_number' => ['required', 'string', 'max:12', 'unique:users,id_number'],
+            'position' => ['required'],
+            'grade' => ['required'],
+            'section' => ['required'],
+            'department' => ['required'],
+            'office_number' => ['required', 'string', 'max:15'],
+            'phone_number' => ['required', 'string', 'max:15'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -63,10 +70,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
+            'id_number' => $data['id_number'],
+            'position' => $data['position'],
+            'grade' => $data['grade'],
+            'section' => $data['section'],
+            'department' => $data['department'],
+            'office_number' => $data['office_number'],
+            'phone_number' => $data['phone_number'],    
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->assignRole('User'); //Assign the 'User' role to the newly created user
+
+        return redirect()->route('register.success')->with('success', 'Pendaftaran berjaya! Sila log masuk.');
+    }
+
+    public function showRegistrationMsg()
+    {
+        return view('auth.register_msg');
     }
 }
