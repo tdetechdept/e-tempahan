@@ -10,8 +10,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="/home">
+            <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <a class="nav-link " href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Papan Pemuka</span></a>
             </li>
@@ -67,9 +67,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
-                        <a class="collapse-item" href="#">Carian Bilik</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Batal</a>
+                        <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
+                        <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
                     </div>
                 </div>
             </li>
@@ -86,8 +86,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Semakan:</h6> --}}
                         <a class="collapse-item" href="#">Baharu</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Batal</a>
+                        <a class="collapse-item" href="{{ route('booking.index') }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('booking.cancel.index') }}">Batal</a>
                         <a class="collapse-item" href="#">Ad-hoc</a>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
 
             @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('profile.index')}}">
                     <i class="far fa-fw fa-user"></i>
                     <span>Profil</span>
                 </a>
@@ -107,8 +107,8 @@
             @endrole
 
             @role('Admin')
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengurusan Pengguna</span>
                 </a>

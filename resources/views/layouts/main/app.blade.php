@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>E-Tempahan</title>
 
@@ -125,6 +126,10 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admin2/js/demo/chart-pie-demo.js') }}"></script>
+<<<<<<< HEAD
+=======
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+>>>>>>> bce7a3267d6ea4b1ed067a864f3b71b40aa3564a
 
     <!-- Page level custom scripts -->
     @stack('js')

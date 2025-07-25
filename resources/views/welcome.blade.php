@@ -30,6 +30,46 @@
       background: #fff;
       color: #000;
     }
+
+
+        /* Carousel styles */
+        @media (min-width: 768px) {
+          .carousel-inner {
+            display: flex;
+          }
+          .carousel-item {
+            margin-right: 0;
+            flex: 0 0 33.333333%;
+            display: block;
+          }
+        }
+        .carousel-inner{
+            padding: 1em;
+        }
+        .card{
+            margin: 0 .5em;
+            box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+            border: none;
+        }
+        .carousel-control-prev, .carousel-control-next{
+            background-color: #e1e1e1;
+            width: 6vh;
+            height: 6vh;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .card .img-wrapper {
+          max-width: 100%;
+          height: 13em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        img{
+          max-height: 100%;
+        }
     </style>
 
 @endpush
@@ -46,6 +86,7 @@
 
   <!-- Introduction Section -->
   <section class="theme-color  py-5 text-center">
+    {{-- PENGENALAN SISTEM E-TEMPAHAN --}}
     <div class="container">
       <h2 class="fw-bold">PENGENALAN SISTEM E-TEMPAHAN</h2>
       <p class="mt-3">Sistem eTempahan dibangunkan bagi kemudahan warga KK membuat tempahan:</p>
@@ -85,7 +126,94 @@
         </div>
       </div>
     </div>
-  </section>
+
+        {{-- GALERI --}}
+    <div id="" class="container mt-5 pt-3">
+      <h2 class="fw-bold">GALERI</h2>
+      <p class="mt-3">Fasiliti bilik / Ruang bilik yang disediakan di Kementerian Komunikasi</p>
+
+          <div id="carouselExampleControls" class="carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card">
+                        <div class="img-wrapper">
+                        <img src="https://placehold.co/600x400/1a237e/ffffff?text=Dewan+Serbaguna+B1" class="card-img-top" alt="Dewan Serbaguna B1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dewan Serbaguna B1</h5>
+                            <p class="card-text">Aras 21</p>
+                        </div>
+                    </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+    </div>
+
+</section>
 
   <section class="py-5 bg-white text-center">
     <div class="container">
@@ -127,3 +255,46 @@
 </div> --}}
 @endsection
 
+@push('js')
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script>
+        var carouselWidth = $(".carousel-inner")[0].scrollWidth;
+        var cardWidth = $(".carousel-item").width();
+        var scrollPosition = 0;
+
+        $(".carousel-control-next").on("click", function () {
+          if (scrollPosition < (carouselWidth - cardWidth * 4)) { //check if you can go any further
+            scrollPosition += cardWidth;  //update scroll position
+            $(".carousel-inner").animate({ scrollLeft: scrollPosition },600); //scroll left
+          }
+        });
+
+        $(".carousel-control-prev").on("click", function () {
+          if (scrollPosition > 0) {
+            scrollPosition -= cardWidth;
+            $(".carousel-inner").animate(
+              { scrollLeft: scrollPosition },
+              600
+            );
+          }
+        });
+
+        var multipleCardCarousel = document.querySelector(
+          "#carouselExampleControls"
+        );
+        if (window.matchMedia("(min-width: 768px)").matches) {
+          //rest of the code
+          var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+            interval: false
+          });
+        } else {
+          $(multipleCardCarousel).addClass("slide");
+        }
+
+        var carousel = new bootstrap.Carousel(multipleCardCarousel, {
+          interval: false,
+          wrap: false,
+        });
+    </script>
+@endpush
