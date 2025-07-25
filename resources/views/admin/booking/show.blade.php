@@ -5,13 +5,13 @@
     <main class="main-content" >
         <!-- Breadcrumb -->
         <div class="breadcrumb-section">
-            <h1 class="breadcrumb-title">Booking Review</h1>
+            <h1 class="breadcrumb-title">Semakan Tempahan</h1>
             <div class="breadcrumb-nav">
-                <span>Dashboard</span>
+                <span>Papan Pemuka</span>
                 <span class="mx-2">/</span>
-                <span>Reservation Application List</span>
+                <span>Senarai Permohonan Tempahan</span>
                 <span class="mx-2">/</span>
-                <span class="breadcrumb-active">Booking Review</span>
+                <span class="breadcrumb-active"> Semakan Tempahan</span>
             </div>
         </div>
 
@@ -31,16 +31,16 @@
                     <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#pills-other-info" role="tab" aria-controls="pills-other-info" aria-selected="false">Other Booking Information</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-booking-info-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="pills-booking-info" aria-selected="true">Room Booking Information</a>
+                    <a class="nav-link active" id="pills-booking-info-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="pills-booking-info" aria-selected="true">Maklumat Tempahan Bilik</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="pills-applicant-info" aria-selected="false">Applicant Information</a>
+                    <a class="nav-link" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="pills-applicant-info" aria-selected="false">Maklumat Sekretariat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-secretariat-info-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="pills-secretariat-info" aria-selected="false">Secretariat Information</a>
+                    <a class="nav-link" id="pills-secretariat-info-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="pills-secretariat-info" aria-selected="false">Maklumat Urusetia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="pills-other-info" aria-selected="false">Other Booking Information</a>
+                    <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="pills-other-info" aria-selected="false">Tempahan Lain</a>
                 </li>
             </ul>
             <div class="tab-content eb-tabs-booking-info" id="pills-tabContent">
@@ -49,51 +49,51 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Meeting Name</label>
+                                    <label>Nama Mesyuarat</label>
                                     <p>{{$booking->meeting_name}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Chairman</label>
+                                    <label>Pengerusi</label>
                                     <p>{{$booking->chairman}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4 eb-meeting-group">
-                                    <label>Meeting Date</label>
-                                    <p class="d-flex align-items-center justify-content-between mb-2"><span>Start Date</span> {{\Carbon\Carbon::parse($booking->start_date)->format('F d, Y')}}</p>
-                                    <p class="d-flex align-items-center justify-content-between"><span>End Date</span> {{\Carbon\Carbon::parse($booking->end_date)->format('F d, Y')}}</p>
+                                    <label>Tarikh Mesyuarat</label>
+                                    <p class="d-flex align-items-center justify-content-between mb-2"><span>Tarikh Muld</span> {{\Carbon\Carbon::parse($booking->start_date)->format('F d, Y')}}</p>
+                                    <p class="d-flex align-items-center justify-content-between"><span>Tarikh Tamat</span> {{\Carbon\Carbon::parse($booking->end_date)->format('F d, Y')}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4 eb-meeting-group">
-                                    <label>Meeting Time</label>
-                                    <p class="d-flex align-items-center justify-content-between mb-2"><span>Start Time</span> {{\Carbon\Carbon::parse($booking->start_time)->format('h:i A')}}</p>
-                                    <p class="d-flex align-items-center justify-content-between"><span>End Time</span>{{\Carbon\Carbon::parse($booking->end_time)->format('h:i A')}}</p>
+                                    <label>Masa Mesyuarat</label>
+                                    <p class="d-flex align-items-center justify-content-between mb-2"><span>Masa Mula</span> {{\Carbon\Carbon::parse($booking->start_time)->format('h:i A')}}</p>
+                                    <p class="d-flex align-items-center justify-content-between"><span>Masa Tamat</span>{{\Carbon\Carbon::parse($booking->end_time)->format('h:i A')}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Number of Participants</label>
+                                    <label>Bilangan Peserta</label>
                                     <p>{{$booking->number_of_participants}} People</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Description</label>
+                                    <label>Penerangan</label>
                                     <p><strong>{{$booking->description}}</strong></p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Room </label>
+                                    <label>Bilik </label>
                                     <p>{{$booking->room->room_name}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Type </label>
+                                    <label>Jenis</label>
                                     <p>{{$booking->type}}</p>
                                 </div>
                             </div>
@@ -105,26 +105,26 @@
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Repetition Type </label>
+                                    <label>Jenis Ulangan </label>
                                     <p>{{$booking->repetition_type}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Repeat Date </label>
+                                    <label>Tarikh Ulangan </label>
                                     <p>{{\Carbon\Carbon::parse($booking->repeat_date)->format('F d, Y')}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Layout/Plan </label>
+                                    <label>Layout/Pelan </label>
                                     <p>{{$booking->room_plan}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="eb-booking-info-btns">
                             <!-- <button type="button" class="btn btn-secondry btn-back">Back</button> -->
-                               <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Next</button>
+                               <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Seterusnya</button>
                         </div>
                     </div>   
                 </div>
@@ -133,43 +133,43 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Applicant Name</label>
+                                    <label>Nama Pemohon</label>
                                     <p>{{$booking->user->name}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Name of Ministry / Division / Department</label>
+                                    <label>Nama Kementrian / Bahagian / Jabatan</label>
                                     <p>{{$booking->user->department}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Position </label>
+                                    <label>Jawatan </label>
                                     <p> {{$booking->user->position}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Grade </label>
+                                    <label>Gred </label>
                                     <p> {{$booking->user->grade}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>No. Office Phone </label>
+                                    <label>No. Telefon Pejabat </label>
                                     <p> {{$booking->user->office_number}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>No. Mobile Phone </label>
+                                    <label>No. Telefon Bimbit </label>
                                     <p> {{$booking->user->phone_number}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Email</label>
+                                    <label>Emel</label>
                                     <p>{{$booking->user->email}}</p>
                                 </div>
                             </div>
@@ -182,8 +182,8 @@
                         </div>
                         <div class="eb-booking-info-btns">
                             <!-- <button type="button" class="btn btn-secondary btn-back">Back</button> -->
-                            <button class="btn btn-secondary btn-back tab-nav" data-tab-step="-1">Back</button>
-                            <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Next</button>
+                            <button class="btn btn-secondary eb-form-submit eb-delete-btn btn-back tab-nav" data-tab-step="-1">Kembali</button>
+                            <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Seterusnya</button>
                             <!-- <button type="button" class="btn btn-primary btn-next">Next</button> -->
                         </div>
                     </div> 
@@ -193,32 +193,32 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Secretariat Name</label>
+                                    <label>Nama Urusetia</label>
                                     <p>{{$booking->secretariat_name ?? '-'}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>No. Office Phone</label>
+                                    <label>No. Telefon Pejabat</label>
                                     <p>{{$booking->secretariat_office_phone ?? '-'}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>No. Mobile Phone </label>
+                                    <label>No. Telefon Bimbit </label>
                                     <p> {{$booking->secretariat_mobile_phone ?? '-'}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Email </label>
+                                    <label>Emel </label>
                                     <p> {{$booking->secretariat_email ?? '-'}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="eb-booking-info-btns">
-                            <button class="btn btn-secondary btn-back tab-nav" data-tab-step="-1">Back</button>
-                            <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Next</button>
+                            <button class="btn btn-secondary eb-form-submit eb-delete-btn btn-back tab-nav" data-tab-step="-1">Kembali</button>
+                            <button class="btn btn-primary btn-next tab-nav" data-tab-step="1">Seterusnya</button>
                         </div>
                     </div> 
                 </div>
@@ -227,13 +227,13 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Food</label>
+                                    <label>Makanan</label>
                                     <p>{{ $booking->food ? 'Yes' : 'No' }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Equipment</label>
+                                    <label>Peralatan</label>
                                     <p>{{ is_array($booking->equipment) ? implode(', ', $booking->equipment) : implode(', ', json_decode($booking->equipment, true)) }}</p>
                                 </div>
                             </div>
@@ -241,13 +241,13 @@
                                 <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
-                                        <label>Catering Name</label>
+                                        <label>Nama Katering</label>
                                         <p>{{ $booking->catering_name ?? '-'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
-                                        <label>No. Telephone </label>
+                                        <label>No. Telefon</label>
                                         <p> {{ $booking->catering_phone ?? '-'}}</p>
                                     </div>
                                 </div>
@@ -256,19 +256,19 @@
                         
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Other Needs (Car) </label>
+                                    <label>Keperluan Lain (Kereta) </label>
                                     <p>{{ $booking->car_number ?? '-' }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Technical Services</label>
+                                    <label>Perkhidmatan Teknikal</label>
                                     <p>{{$booking->technical_services ? 'Yes' : 'No'}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>ICT services</label>
+                                    <label>Perkhidmatan ICT</label>
                                     <p>{{$booking->ict_services ? 'Yes' : 'No'}}</p>
                                 </div>
                             </div>
@@ -285,7 +285,7 @@
                             @method('PUT')
                             <div class="col-lg-6 col-md-12" id="updateInfoContainer" style="display: none;">
                                 <div class="form-group mb-4">
-                                    <label>Reviews</label>
+                                    <label>Ulasan</label>
                                     <textarea class="form-control" name="reviews" placeholder="Please state the reason you are rejecting this booking.">{{ old('reviews', $booking->reviews) }}</textarea>
                                 </div>
                             </div>
@@ -297,11 +297,11 @@
                                 <button type="button" class="btn btn-primary" >Pass</button>
                             </div> -->
                             <div class="eb-booking-info-btns">
-                                <button type="button" class="btn btn-primary" id="showUpdateBtn">Update</button>
+                                <button type="button" class="btn btn-primary" id="showUpdateBtn">Kemaskini</button>
                                 <!-- <button type="button" submitvalue="reject" class="btn btn-secondary">Reject</button> -->
-                                <button type="submit" name="action" value="reject" class="btn btn-secondary">Reject</button>
+                                <button type="submit" name="action" value="reject" class="btn btn-secondary">Tolak</button>
                                 <input type="hidden" name="booking_id" value="{{$booking->id}}">
-                                <button type="button" class="btn btn-primary" name="action" value="pass" data-toggle="modal" data-target="#successfully">Pass</button>
+                                <button type="button" class="btn btn-primary" name="action" value="pass" data-toggle="modal" data-target="#successfully">Luluskan</button>
                                 <!-- <button type="submit" name="action" value="pass" class="btn btn-primary">Pass</button> -->
                                
                             </div>
@@ -321,11 +321,11 @@
                 </button>
                 <div class="modal-body">
                     <div class="eb-successfully-icon"></div>
-                    <h3>Application Successfully Approved</h3>
-                    <p> Please keep a copy for reference. You can download the document in PDF format and print it now.</p>
+                    <h3>Permohonan Berjaya Diluluskan</h3>
+                    <p>Sila simpan salinan untuk rujukan. Anda boleh memuat turun dokumen dalam format PDF dan mencetaknya sekarang.</p>
                     <div class="eb-popup-btns">
-                        <button type="button" class="btn btn-primary eb-pdf-download-btn" id="downloadPDF" data-dismiss="modal">Download PDF</button>
-                        <button type="button" id="printPDF" class="btn btn-primary eb-pdf-print-btn">Print</button>
+                        <button type="button" class="btn btn-primary eb-pdf-download-btn" id="downloadPDF" data-dismiss="modal">Muat Turun PDF</button>
+                        <button type="button" id="printPDF" class="btn btn-primary eb-pdf-print-btn">Cetak</button>
 
                         <!-- <button type="button" class="btn btn-primary eb-pdf-print-btn">Print</button> -->
                     </div>

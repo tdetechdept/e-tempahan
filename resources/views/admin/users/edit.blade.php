@@ -2,15 +2,15 @@
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">User Management</h1>
+        <h1 class="breadcrumb-title">Pengurusan Pengguna</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Home</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.index')}}" class="text-decoration-none text-dark">User Management</a>
+            <a href="{{ route('users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.show', $user->id) }}" class="text-decoration-none text-dark">User Information</a>
+            <a href="{{ route('users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.edit', $user->id) }}" class="text-decoration-none text-success">Edit User Information</a>
+            <a href="{{ route('users.edit', $user->id) }}" class="text-decoration-none text-success">Kemaskini Maklumat Pengguna</a>
         </div>
     </div>
 @endsection
@@ -24,13 +24,13 @@
     <main class="main-content">
         <div class="content-card">
             <div class="eb-create-room-information">
-                <h3>Update User Information</h3>
-                <p>Please update the user information below.</p>
+                <h3>Kemaskini Maklumat Pengguna</h3>
+                <p>Sila mengemaskini maklumat pengguna dibawah </p>
                     
                 <div class="eb-form-section">
                     <table class="table table-borderless">
                         <tr>
-                            <th class="text-end align-middle">Officer Name *</th>
+                            <th class="text-end align-middle">Nama Pegawai *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}">
                                @error('name')
@@ -40,7 +40,7 @@
                            
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">No. Identity Card *</th>
+                            <th class="text-end align-middle">No. Kad Pengenalan *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="identity_card" value="{{ old('identity_card', $user->identification) }}">
                                 @error('identity_card')
@@ -50,7 +50,7 @@
                              
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">Position *</th>
+                            <th class="text-end align-middle">Jawatan *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="position" value="{{ old('position', $user->position) }}">
                                 @error('position')
@@ -60,7 +60,7 @@
                              
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">Grade *</th>
+                            <th class="text-end align-middle">Gred *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="grade" value="{{ old('grade', $user->grade) }}">
                                 @error('grade')
@@ -69,7 +69,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">Section *</th>
+                            <th class="text-end align-middle">Bahagian *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="section" value="{{ old('section', $user->section) }}">
                                 @error('section')
@@ -79,7 +79,7 @@
                             
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">No. Office Phone *</th>
+                            <th class="text-end align-middle">No. Telefon Pejabat *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="phone_office" value="{{ old('phone_office', $user->office_number) }}">
                                 @error('phone_office')
@@ -89,7 +89,7 @@
                             
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">No. Mobile Phone *</th>
+                            <th class="text-end align-middle">No. Telefon Bimbit *</th>
                             <td style="border: none;">
                                 <input type="text" class="form-control" name="phone_mobile" value="{{ old('phone_mobile', $user->phone_number) }}">
                                 @error('phone_mobile')
@@ -98,7 +98,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th class="text-end align-middle">Email *</th>
+                            <th class="text-end align-middle">Emel *</th>
                             <td style="border: none;">
                                 <input type="email" class="form-control" name="email" value="{{ old('email', $user->email) }}">
                             @error('email')
@@ -108,7 +108,7 @@
                         </tr>
                     </table>
                     <div class="eb-form-btn-submit">
-                        <button type="button" class="btn btn-secondary eb-form-submit" onclick="openUpdateModal()">Update User</button>
+                        <button type="button" class="btn btn-secondary eb-form-submit" onclick="openUpdateModal()">Kemaskini Pengguna</button>
                     </div>
                 </div>
             </div>
@@ -121,11 +121,11 @@
 				<div class="modal-content">
 					<div class="modal-body text-center">
 						<div class="eb-delete-icon mb-3"></div>
-						<h3>Are you sure?</h3>
-						<p>Are you sure you want to update this user information?</p>
+						<h3>Adakah anda pasti?</h3>
+						<p>Adakah anda pasti anda ingin mengemaskini maklumat pengguna ini</p>
 						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-							<button type="submit" class="btn btn-primary">Yes</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+							<button type="submit" class="btn btn-primary">Ya</button>
 						</div>
 					</div>
 				</div>
@@ -134,12 +134,12 @@
 	</div>
     </main>
 </form>    
+    @push('js')
     <script>
         function openUpdateModal() {
             const modal = new bootstrap.Modal(document.getElementById('UpdateUserModal'));
             modal.show();
-        }
-        
+        }  
     </script>
-
+     @endpush
 @endsection
