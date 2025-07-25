@@ -34,7 +34,7 @@ class BookingSeeder extends Seeder
                 'number_of_participants' => $faker->numberBetween(10, 100),
                 'description' => $faker->paragraph,
                 // 'room_id' => rand(1, 3),
-                'room_id' => 14,
+                'room_id' => 14, // Assuming room_id 14 is a valid room
                 'type' => $faker->randomElement(['Interior', 'External']),
                 'status' => rand(1, 5),
                 'repetition_type' => $faker->randomElement(['Daily', 'Weekly', null]),
