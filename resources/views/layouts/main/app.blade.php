@@ -126,10 +126,7 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admin2/js/demo/chart-pie-demo.js') }}"></script>
-<<<<<<< HEAD
-=======
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
->>>>>>> bce7a3267d6ea4b1ed067a864f3b71b40aa3564a
 
     <!-- Page level custom scripts -->
     @stack('js')

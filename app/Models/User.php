@@ -21,16 +21,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-<<<<<<< HEAD
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-=======
         'email_verified_at',
         'id_number',
         'position',
@@ -54,7 +44,6 @@ class User extends Authenticatable
         });
     }
 
->>>>>>> bce7a3267d6ea4b1ed067a864f3b71b40aa3564a
     protected $hidden = [
         'password',
         'remember_token',

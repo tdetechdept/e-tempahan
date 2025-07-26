@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Room;
+use App\Models\Booking;
 
 class HomeController extends Controller
 {
@@ -23,9 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        return view('home');
-=======
         if(auth()->user()->role == 'User') {
             // If the user is a regular user, redirect to the user home view
 
@@ -43,6 +43,5 @@ class HomeController extends Controller
         $users = User::latest()->take(5)->get(); 
         $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
         return view('home',compact('totalUsers','totalRooms','totalBookings','rooms','users','bookings'));
->>>>>>> bce7a3267d6ea4b1ed067a864f3b71b40aa3564a
     }
 }
