@@ -1,6 +1,6 @@
 @extends('layouts.main.app')
 
-@section('title', 'User Management')
+@section('title', content: 'Pengurusan Pengguna')
 
 @section('breadcrumb')
 	<div class="breadcrumb-section">
@@ -63,27 +63,44 @@
 				<hr class="my-4">
 
 				<div class="eb-form-btn-submit eb-readonly-btns">
-					<button type="button" class="btn btn-warning eb-form-submit eb-delete-btn"
-						onclick="openDeactivateModal(this)" data-url="{{ route('users.deactivate', $user->id) }}">
-						Pendaftaran Tidak Berjaya
-					</button>
-					<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit">Pendaftaran Berjaya</a>
+					@if ($user->status == 0)
+						<!-- Unsuccessful Registration -->
+						<button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn"
+							onclick="openModal('unsuccessfulModal', 'unsuccessfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+							Pendaftaran Tidak Berjaya
+						</button>
+
+						<!-- Successful Registration -->
+						<button type="button" class="btn btn-secondary eb-form-submit"
+							onclick="openModal('successfulModal', 'successfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+							Pendaftaran Berjaya
+						</button>
+					@else
+						<!-- Otherwise, show deactivate/edit user buttons -->
+						<button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn"
+							onclick="openModal('deactivateUserModal', 'deactivateUserForm', '{{ route('users.deactivate', $user->id) }}')">
+							Nyahaktif Pengguna
+						</button>
+						<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit">
+							Kemaskini Pengguna
+						</a>
+					@endif
 				</div>
 			</div>
 		</div>
 	</main>
 
-	<!-- User Deactivate Modal -->
-	<div class="modal fade eb-delete-popup" id="deactivateUserModal" tabindex="-1" role="dialog"
-		aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+	<div class="modal fade eb-delete-popup" id="unsuccessfulModal" tabindex="-1" role="dialog"
+		aria-labelledby="unsuccessfulModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
-			<form id="dynamicDeactivateForm" method="POST">
+			<form id="unsuccessfulForm" method="POST">
 				@csrf
+				<input type="hidden" name="status" value="3">
 				<div class="modal-content">
 					<div class="modal-body text-center">
 						<div class="eb-delete-icon mb-3"></div>
 						<h3>Adakah anda pasti?</h3>
-						<p>Adakah anda pasti anda ingin berjayakan pendaftaran pengguna ini</p>
+						<p>Adakah anda pasti anda ingin menolak pendaftaran pengguna ini?</p>
 						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
 							<button type="submit" class="btn btn-primary">Ya</button>
@@ -93,14 +110,58 @@
 			</form>
 		</div>
 	</div>
-	
-	<script>
-		function openDeactivateModal(button) {
-			const url = button.getAttribute('data-url');
-			document.getElementById('dynamicDeactivateForm').action = url;
 
-			const modal = new bootstrap.Modal(document.getElementById('deactivateUserModal'));
-			modal.show();
+
+	<!-- User Deactivate Modal -->
+	<div class="modal fade eb-delete-popup" id="deactivateUserModal" tabindex="-1" role="dialog"
+		aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<form id="deactivateUserForm" method="POST">
+				@csrf
+				<input type="hidden" name="status" value="5">
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<div class="eb-delete-icon mb-3"></div>
+						<h3>Adakah anda pasti?</h3>
+						<p>Adakah anda pasti anda ingin menyahaktifkan pengguna ini?</p>
+						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+							<button type="submit" class="btn btn-primary">Ya</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- Confirm Status Update Modal -->
+	<div class="modal fade eb-delete-popup" id="successfulModal" tabindex="-1" role="dialog"
+		aria-labelledby="successfulModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<form id="successfulForm" method="POST">
+				@csrf
+				<input type="hidden" name="status" value="1">
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<div class="eb-delete-icon mb-3"></div>
+						<h3>Adakah anda pasti?</h3>
+						<p>Adakah anda pasti anda ingin berjayakan pendaftaran pengguna ini?</p>
+						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+							<button type="submit" class="btn btn-primary">Ya</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function openModal(modalId, formId, actionUrl) {
+			const form = document.getElementById(formId);
+			form.action = actionUrl;
+			$('#' + modalId).modal('show');
 		}
 	</script>
 @endsection

@@ -1,5 +1,7 @@
 @extends('layouts.main.app')
 
+@section('title', 'Semakan Tempahan')
+
 @section('content')
 <!-- Room Information  Review page start -->
     <main class="main-content" >
@@ -272,14 +274,8 @@
                                     <p>{{$booking->ict_services ? 'Yes' : 'No'}}</p>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-6 col-md-12">
-                                <div class="form-group mb-4">
-                                    <label>Update Information</label>
-                                    <textarea class="form-control" id="" placeholder="Please enter information to update."></textarea>
-                                </div>
-                            </div> -->
                         </div>
-                        <form action="{{ route('booking.update', $booking->id) }}" method="POST">
+                        <!-- <form action="{{ route('booking.update', $booking->id) }}" method="POST">
 
                             @csrf
                             @method('PUT')
@@ -289,21 +285,38 @@
                                     <textarea class="form-control" name="reviews" placeholder="Please state the reason you are rejecting this booking.">{{ old('reviews', $booking->reviews) }}</textarea>
                                 </div>
                             </div>
-                           
-                       
-                            <!-- <div class="eb-booking-info-btns">
-                                <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#successfully">Update</button>
-                                <button type="button" class="btn btn-secondry">Reject</button>
-                                <button type="button" class="btn btn-primary" >Pass</button>
-                            </div> -->
                             <div class="eb-booking-info-btns">
                                 <button type="button" class="btn btn-primary" id="showUpdateBtn">Kemaskini</button>
-                                <!-- <button type="button" submitvalue="reject" class="btn btn-secondary">Reject</button> -->
                                 <button type="submit" name="action" value="reject" class="btn btn-secondary">Tolak</button>
                                 <input type="hidden" name="booking_id" value="{{$booking->id}}">
                                 <button type="button" class="btn btn-primary" name="action" value="pass" data-toggle="modal" data-target="#successfully">Luluskan</button>
-                                <!-- <button type="submit" name="action" value="pass" class="btn btn-primary">Pass</button> -->
-                               
+                            </div>
+                        </form> -->
+                        <form method="POST" action="{{ route('booking.update', $booking->id) }}" id="rejectForm">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12" id="updateInfoContainer" style="display: none;">
+                                    <div class="form-group mb-4">
+                                        <label>Maklumat Kemaskini</label>
+                                        <textarea class="form-control" name="update_info" placeholder="Sila masukkan maklumat untuk dikemas kini.">{{ old('reviews', $booking->update_info) }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12" id="rejectInfoContainer" style="display: none;">
+                                    <div class="form-group mb-4">
+                                        <label>Ulasan</label>
+                                        <textarea class="form-control" name="reviews" id="reviews" placeholder="Sila nyatakan sebab anda menolak tempahan ini.">{{ old('reviews', $booking->reviews) }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="eb-booking-info-btns">
+                                <button type="button" class="btn btn-primary" id="showUpdateBtn">Kemaskini</button>
+                                <button type="button" class="btn btn-secondary" id="rejectBtn">Tolak</button>
+                                <input type="hidden" name="action" id="actionInput" value="">
+                                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                                <button type="submit" class="btn btn-primary" onclick="document.getElementById('actionInput').value='pass'">Luluskan</button>
                             </div>
                         </form>
                     </div> 
@@ -347,6 +360,37 @@
                 showUpdateBtn.style.display = 'none';           // Hide the Update button
             });
         });
+
+        // Reject button
+        document.addEventListener('DOMContentLoaded', function () {
+            const rejectBtn = document.getElementById('rejectBtn');
+            const rejectInfoContainer = document.getElementById('rejectInfoContainer');
+            const actionInput = document.getElementById('actionInput');
+            const rejectForm = document.getElementById('rejectForm');
+            const reviewsTextarea = document.getElementById('reviews');
+
+            let rejectClickedOnce = false;
+
+            rejectBtn.addEventListener('click', function () {
+                if (!rejectClickedOnce) {
+                    // First click: show textarea
+                    rejectInfoContainer.style.display = 'block';
+                    rejectBtn.textContent = 'Hantar Tolakan'; // Change label
+                    rejectClickedOnce = true;
+                } else {
+                    // Second click: validate and submit
+                    const review = reviewsTextarea.value.trim();
+                    if (review === '') {
+                        alert('Sila nyatakan sebab penolakan.'); // Please state reason for rejection
+                        return;
+                    }
+
+                    actionInput.value = 'reject';
+                    rejectForm.submit();
+                }
+            });
+        });
+
         // pdf download
         document.getElementById('downloadPDF').addEventListener('click', function () {
             const bookingId = document.querySelector('input[name="booking_id"]').value;
@@ -422,7 +466,7 @@
                 // Delay the redirect slightly to ensure popup is opened before navigating away
                 setTimeout(() => {
                     window.location.href = `${baseURL}/booking/${bookingId}/approved`;
-                }, 1500); // Adjust timing as needed (1.5 seconds is usually safe)
+                }, 1500); 
             })
             .catch(error => {
                 alert('Error opening PDF for print');

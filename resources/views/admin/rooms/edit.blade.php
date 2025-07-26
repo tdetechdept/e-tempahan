@@ -1,6 +1,6 @@
 @extends('layouts.main.app')
 
-@section('title', 'Edit Room')
+@section('title', 'Kemaskini Bilik')
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
@@ -12,7 +12,7 @@
             <span class="mx-2">/</span>
             <a href="{{ route('rooms.show', $room->id) }}" class="text-decoration-none text-dark">Maklumat</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('rooms.edit', $room->id) }}" class="text-decoration-none text-success">Edit Room</a>
+            <a href="{{ route('rooms.edit', $room->id) }}" class="text-decoration-none text-success">Kemaskini Bilik</a>
         </div>
     </div>
 @endsection

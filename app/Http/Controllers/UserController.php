@@ -117,4 +117,22 @@ class UserController extends Controller
     {
         //
     }
+
+    public function updateStatus(Request $request, User $user)
+    {
+        $request->validate([
+            'status' => 'required|in:1,3,5'
+        ]);
+
+        $user->status = $request->status;
+        $user->save();
+
+        switch ($user->status) {
+            case 1:
+                return view("admin.users.register-success");
+            case 3:
+               return view("admin.users.register-unsuccess");
+        }
+    }
+
 }
