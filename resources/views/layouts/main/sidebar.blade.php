@@ -57,19 +57,27 @@
 
             @hasanyrole('Admin|Super Admin')
             <!-- Nav Item - Bilik Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBilik"
-                    aria-expanded="true" aria-controls="collapseBilik">
+                    @php
+                        $bilikRoutes = ['rooms.index', 'rooms.create', 'rooms.cancelled'];
+                        $isBilikActive = in_array(Route::currentRouteName(), $bilikRoutes);
+                    @endphp
+            <li class="nav-item {{ $isBilikActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isBilikActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+                    data-target="#collapseBilik" aria-expanded="{{ $isBilikActive ? 'true' : 'false' }}"
+                    aria-controls="collapseBilik">
                     <i class="fas fa-fw fa-map-marked-alt"></i>
                     <span>Bilik</span>
                 </a>
-                <div id="collapseBilik" class="collapse" aria-labelledby="headingBilik"
-                    data-parent="#accordionSidebar">
+
+                <div id="collapseBilik" class="collapse {{ $isBilikActive ? 'show' : '' }}"
+                        aria-labelledby="headingBilik" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
-                        <a class="collapse-item" href="{{ route('rooms.create') }}">Carian Bilik</a>
-                        <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
-                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
+                        <a class="collapse-item {{ Route::is('rooms.index') ? 'active' : '' }}"
+                            href="{{ route('rooms.index') }}">Carian Bilik</a>
+                        <a class="collapse-item {{ Route::is('rooms.edit') || Route::is('rooms.edit*') ? 'active' : '' }}"
+                            href="{{ route('rooms.index') }}">Kemaskini</a>
+                        <a class="collapse-item {{ Route::is('rooms.cancelled') ? 'active' : '' }}"
+                            href="{{ route('rooms.cancelled') }}">Batal</a>
                     </div>
                 </div>
             </li>

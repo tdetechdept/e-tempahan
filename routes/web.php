@@ -16,6 +16,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::post('users/{id}/deactivate', [ UserController::class , 'deactivate'])->name('users.deactivate');
     Route::get('users/deactivate/success', [UserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
+    Route::post('/users/{user}/update-status', [UserController::class, 'updateStatus'])->name('users.updateStatus');
 
     Route::get('/rooms/cancelled', [RoomController::class, 'cancelled'])->name('rooms.cancelled');
     Route::resource('rooms',  RoomController::class);

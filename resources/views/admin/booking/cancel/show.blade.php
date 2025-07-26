@@ -1,4 +1,7 @@
 @extends('layouts.main.app')
+
+@section('title', 'Semakan Tempahan')
+
 @section('content')
  <!-- Application Status page start -->
     <main class="main-content" >

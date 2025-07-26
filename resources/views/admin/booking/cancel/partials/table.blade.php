@@ -1,19 +1,5 @@
-<div class="table-responsive eb-table-main">
-    <table id="rezervationTable" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Bil.</th>
-                <th>Nama / Kementerian / Bahagian</th>
-                <th>Nama Bilik</th>
-                <th>Tarikh /Masa</th>
-                <th>Tarikh Mohon</th>
-                <th>Status</th>
-                <th>Tindakan</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @forelse ($bookings as $index => $booking)
+            @foreach ($bookings as $index => $booking)
                 <tr>
                     <th>{{ $index + 1 }}</th>
                     <td>{{ $booking->user->name ?? '-' }}</td>
@@ -72,12 +58,6 @@
                     </td>
                     <td><a href="{{ route('booking.cancelled.show', $booking) }}" class="eb-view-eye-btn">Lihat</a></td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="7" class="text-center py-4 text-gray-500">Tiada tempahan dijumpai.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
-</div>
-
+         
+            @endforeach
+       

@@ -1,6 +1,6 @@
 @extends('layouts.main.app')
 
-@section('title', 'Room Created')
+@section('title', 'Bilik Telah Dicipta')
 
 @section('content')
      <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">

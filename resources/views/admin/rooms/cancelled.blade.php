@@ -1,6 +1,6 @@
 @extends('layouts.main.app')
 
-@section('title', 'Cancelled Rooms')
+@section('title', 'Bilik Dibatalkan')
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
