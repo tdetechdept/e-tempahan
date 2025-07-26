@@ -1,7 +1,5 @@
 @extends('layouts.main.app')
 
-@section('title', 'Dashboard')
-
 @section('content')
     <div class="mb-4 row">
         <div class="mb-3 col-lg-7">

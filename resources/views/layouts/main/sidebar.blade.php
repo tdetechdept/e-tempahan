@@ -142,11 +142,16 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Laporan:</h6>
                         <a class="collapse-item" href="#">Laporan</a>
-                        <a class="collapse-item" href="#">Log Audit</a>
+                        <a class="collapse-item" href="/Audit">Log Audit</a>
+                        <a class="collapse-item" href="/Log_Details_Information">Log Details Information</a>
+
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Pengurusan:</h6>
-                        <a class="collapse-item" href="#">Kalendar</a>
-                        <a class="collapse-item" href="#">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/Calender">Kalendar</a>
+                        <a class="collapse-item" href="/pengurusan_pengguna">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/maklumat_pengguna">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Pengguna_berjaya_didaftarkan">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Laporan">Laporan</a>
                     </div>
                 </div>
             </li>
@@ -176,4 +181,4 @@
             </li>
 
         </ul>
-        <!-- End of Sidebar -->
+        
