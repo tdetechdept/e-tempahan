@@ -72,12 +72,10 @@
                 <div id="collapseBilik" class="collapse {{ $isBilikActive ? 'show' : '' }}"
                         aria-labelledby="headingBilik" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ Route::is('rooms.index') ? 'active' : '' }}"
-                            href="{{ route('rooms.index') }}">Carian Bilik</a>
-                        <a class="collapse-item {{ Route::is('rooms.edit') || Route::is('rooms.edit*') ? 'active' : '' }}"
-                            href="{{ route('rooms.index') }}">Kemaskini</a>
-                        <a class="collapse-item {{ Route::is('rooms.cancelled') ? 'active' : '' }}"
-                            href="{{ route('rooms.cancelled') }}">Batal</a>
+                        {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
+                        <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
+                        <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
                     </div>
                 </div>
             </li>

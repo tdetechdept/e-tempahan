@@ -23,6 +23,7 @@ class User extends Authenticatable
         'office_number',
         'phone_number',
         'status',
+        'password',
     ];
 
     protected static function boot()
