@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Room;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-
+use OwenIt\Auditing\Models\Audit;
 class RoomController extends Controller
 {
     /**
@@ -68,7 +68,7 @@ class RoomController extends Controller
             $data['layout_plan'] = $layoutName;
         }
 
-        Room::create([
+        $room  = Room::create([
             'room_name'      => $data['room_name'],
             'description'    => $data['description'],
             'room_capacity'  => $data['room_capacity'],
@@ -78,6 +78,11 @@ class RoomController extends Controller
             'status'         => $data['status'],
             'level'          => $data['level'],
         ]);
+
+          // Add custom audit message
+          $room->auditEvent = 'room_created';
+          $room->isCustomEvent = true;
+          $room->save();
 
         return view('admin.rooms.success');
     }
@@ -163,6 +168,26 @@ class RoomController extends Controller
             'status'          => $data['status'],
         ]);
 
+
+         // Update room with custom audit message
+         $room->update([
+            'room_name' => $data['room_name'],
+            'description' => $data['description'],
+            'room_capacity' => $data['room_capacity'],
+            'facilities' => array_map('trim', explode(',', $data['facilities'] ?? '')),
+            'picture' => $data['picture'] ?? $room->picture,
+            'layout' => $data['layout'] ?? $room->layout,
+            'level' => $data['level'],
+            'status' => $data['status'],
+        ]);
+
+        // Add custom audit message if status changed
+        if ($originalValues['status'] != $data['status']) {
+            $room->auditEvent = $data['status'] == Room::STATUS_ACTIVE ? 'room_activated' : 'room_deactivated';
+            $room->isCustomEvent = true;
+            $room->save();
+        }
+
         return view('admin.rooms.success-update');
     }
 
@@ -183,6 +208,11 @@ class RoomController extends Controller
             unlink(public_path(Room::PLAN_PATH . '/' . $room->layout));
         }
 
+        // Add custom audit message before deletion
+        $room->auditEvent = 'room_deleted';
+        $room->isCustomEvent = true;
+        $room->save();
+        
         $room->delete();
 
         return view('admin.rooms.success-delete');

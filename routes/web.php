@@ -42,3 +42,36 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 }); 
+
+
+
+//For Super Admin will for my design theing
+Route::middleware(['auth'])
+    ->prefix('super_admin')  // URL prefix ONLY
+    ->as('super_admin.')
+    ->group(function () {
+ 
+    // Now URL is /super_admin but route name is just 'super_admin'
+    Route::view('/', 'super_admin')->name('super_admin');
+ 
+    Route::view('/audit', 'super_admin.administrator.audit.Audit')->name('audit');
+ 
+    Route::view('/audit/record-user-activity', 'super_admin.administrator.audit.record-user-activity.Log_Details_Information')
+        ->name('record_user_activity');
+ 
+    Route::view('/calendar', 'super_admin.administrator.calendar.Calendar')->name('calendar');
+    Route::view('/calendar/create-special-holiday', 'super_admin.administrator.calendar.create-special-holiday.Calendar')
+        ->name('calendar.create_special_holiday');
+ 
+    Route::view('/report', 'super_admin.administrator.report.report')->name('report');
+ 
+    Route::view('/pengurusan-pengguna', 'super_admin.administrator.user-management.pengurusan_pengguna')
+        ->name('pengurusan_pengguna');
+    Route::view('/maklumat-pengguna', 'super_admin.administrator.user-management.user-information.maklumat_pengguna')
+        ->name('maklumat_pengguna');
+    Route::view('/maklumat-pengguna-edit', 'super_admin.administrator.user-management.user-information-edit.Maklumat_Pengguna2')
+        ->name('maklumat_pengguna_edit');
+ 
+    Route::view('/user-registered-success', 'super_admin.administrator.user-successfully-registered.Pengguna_berjaya_didaftarkan')
+        ->name('user_registered');
+});

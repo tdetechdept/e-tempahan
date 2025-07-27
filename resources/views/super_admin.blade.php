@@ -1,0 +1,200 @@
+@extends('layouts.super_admin.app')
+
+@section('content')
+    
+
+
+
+
+    <div class="content-wrapper">
+        <div class="dashboard-card">
+            <div class="card-intro">
+                <h2>Selamat Datang ke sistem rTempahan</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+            </div>
+
+            <div class="card-metrics">
+                <div class="metric-box">
+
+                    <div class="metric_content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M7 3.25a.75.75 0 0 1 .75.75v1.668a48 48 0 0 1 8.5 0V4a.75.75 0 0 1 1.5 0v1.816a3.375 3.375 0 0 1 2.872 2.899l.087.653c.364 2.746.332 5.53-.094 8.268a3.01 3.01 0 0 1-2.678 2.532l-1.193.118a48.4 48.4 0 0 1-9.488 0l-1.193-.118a3.01 3.01 0 0 1-2.678-2.532a29 29 0 0 1-.094-8.268l.087-.653A3.375 3.375 0 0 1 6.25 5.816V4A.75.75 0 0 1 7 3.25m.445 3.953c3.03-.299 6.08-.299 9.11 0l.905.09c.867.085 1.56.756 1.675 1.619l.087.653q.045.342.082.685H4.696q.037-.343.082-.685l.087-.653a1.875 1.875 0 0 1 1.675-1.62zM4.577 11.75a27.5 27.5 0 0 0 .29 5.655a1.51 1.51 0 0 0 1.343 1.27l1.193.118c3.057.302 6.137.302 9.194 0l1.193-.118a1.51 1.51 0 0 0 1.343-1.27c.292-1.872.388-3.767.29-5.655z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p class="metric-label">Total Tempahan</p>
+                        <p class="metric-value">50</p>
+                    </div>
+                </div>
+
+                <div class="metric-box">
+
+                    <div class="metric_content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24">
+                            <path fill="currentColor" fill-rule="evenodd"
+                                d="M7 3.25a.75.75 0 0 1 .75.75v1.668a48 48 0 0 1 8.5 0V4a.75.75 0 0 1 1.5 0v1.816a3.375 3.375 0 0 1 2.872 2.899l.087.653c.364 2.746.332 5.53-.094 8.268a3.01 3.01 0 0 1-2.678 2.532l-1.193.118a48.4 48.4 0 0 1-9.488 0l-1.193-.118a3.01 3.01 0 0 1-2.678-2.532a29 29 0 0 1-.094-8.268l.087-.653A3.375 3.375 0 0 1 6.25 5.816V4A.75.75 0 0 1 7 3.25m.445 3.953c3.03-.299 6.08-.299 9.11 0l.905.09c.867.085 1.56.756 1.675 1.619l.087.653q.045.342.082.685H4.696q.037-.343.082-.685l.087-.653a1.875 1.875 0 0 1 1.675-1.62zM4.577 11.75a27.5 27.5 0 0 0 .29 5.655a1.51 1.51 0 0 0 1.343 1.27l1.193.118c3.057.302 6.137.302 9.194 0l1.193-.118a1.51 1.51 0 0 0 1.343-1.27c.292-1.872.388-3.767.29-5.655z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <p class="metric-label">Total Tempahan</p>
+                        <p class="metric-value">50</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calender_section">
+            <div class="calendar1-container">
+                <header class="calendar1-header">
+                    <div class="calender-align-header">
+                        <p class="calendar1-current-date">July 2025</p>
+                    </div>
+                    <div class="calendar1-navigation calender-align-header">
+                        <span id="calendar1-prev" class="material-symbols-rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" d="m14 7l-5 5l5 5" />
+                            </svg>
+                        </span>
+                        <span id="calendar1-next" class="material-symbols-rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M9.31 6.71a.996.996 0 0 0 0 1.41L13.19 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.72 6.7c-.38-.38-1.02-.38-1.41.01" />
+                            </svg>
+                        </span>
+                    </div>
+                </header>
+
+                <div class="calendar1-body">
+                    <ul class="calendar1-weekdays">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thu</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                    <ul class="calendar1-dates">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+                <div class="calendar1-events">
+                    <p><strong><span class="dot"></span> 13 July : Hari Wesak</strong></p>
+                    <p><strong><span class="dot"></span> 22 July : Cuti Khas</strong></p>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="table-section">
+        <h4>Senarai Pengguna</h4>
+        <div class="dropdown-section">
+            <div>
+                <p>Senarai</p>
+                <select name="status" id="status">
+                    <option value="semua">Semua</option>
+                    <option value="aktif">Aktif</option>
+                    <option value="tidak_aktif">Tidak Aktif</option>
+                </select>
+            </div>
+            <a href="#">Lihat Semua</a>
+        </div>
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Bil.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Tarikh / Masa</th>
+                        <th>Tarikh Mohon</th>
+                        <th>Status</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Anik Azmain</td>
+                        <td>anik@example.com</td>
+                        <td>30/01/2025 08:00-12:00</td>
+                        <td>18/01/2025</td>
+                        <td><span class="badge AKTIF">AKTIF</span></td>
+                        <td>
+                            <p class="btn-view"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="currentColor"
+                                        d="M515.472 321.408c-106.032 0-192 85.968-192 192c0 106.016 85.968 192 192 192s192-85.968 192-192s-85.968-192-192-192m0 320c-70.576 0-129.473-58.816-129.473-129.393s57.424-128 128-128c70.592 0 128 57.424 128 128s-55.935 129.393-126.527 129.393m508.208-136.832c-.368-1.616-.207-3.325-.688-4.91c-.208-.671-.624-1.055-.864-1.647c-.336-.912-.256-1.984-.72-2.864c-93.072-213.104-293.663-335.76-507.423-335.76S95.617 281.827 2.497 494.947c-.4.897-.336 1.824-.657 2.849c-.223.624-.687.975-.895 1.567c-.496 1.616-.304 3.296-.608 4.928c-.591 2.88-1.135 5.68-1.135 8.592c0 2.944.544 5.664 1.135 8.591c.32 1.6.113 3.344.609 4.88c.208.72.672 1.024.895 1.68c.336.88.256 1.968.656 2.848c93.136 213.056 295.744 333.712 509.504 333.712c213.776 0 416.336-120.4 509.44-333.505c.464-.912.369-1.872.72-2.88c.224-.56.655-.976.848-1.6c.496-1.568.336-3.28.687-4.912c.56-2.864 1.088-5.664 1.088-8.624c0-2.816-.528-5.6-1.104-8.497M512 800.595c-181.296 0-359.743-95.568-447.423-287.681c86.848-191.472 267.68-289.504 449.424-289.504c181.68 0 358.496 98.144 445.376 289.712C872.561 704.53 693.744 800.595 512 800.595" />
+                                </svg> Lihat</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Anik Azmain</td>
+                        <td>anik@example.com</td>
+                        <td>30/01/2025 08:00-12:00</td>
+                        <td>18/01/2025</td>
+                        <td><span class="badge BAHARU">BAHARU</span></td>
+                        <td>
+                            <p class="btn-view"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="currentColor"
+                                        d="M515.472 321.408c-106.032 0-192 85.968-192 192c0 106.016 85.968 192 192 192s192-85.968 192-192s-85.968-192-192-192m0 320c-70.576 0-129.473-58.816-129.473-129.393s57.424-128 128-128c70.592 0 128 57.424 128 128s-55.935 129.393-126.527 129.393m508.208-136.832c-.368-1.616-.207-3.325-.688-4.91c-.208-.671-.624-1.055-.864-1.647c-.336-.912-.256-1.984-.72-2.864c-93.072-213.104-293.663-335.76-507.423-335.76S95.617 281.827 2.497 494.947c-.4.897-.336 1.824-.657 2.849c-.223.624-.687.975-.895 1.567c-.496 1.616-.304 3.296-.608 4.928c-.591 2.88-1.135 5.68-1.135 8.592c0 2.944.544 5.664 1.135 8.591c.32 1.6.113 3.344.609 4.88c.208.72.672 1.024.895 1.68c.336.88.256 1.968.656 2.848c93.136 213.056 295.744 333.712 509.504 333.712c213.776 0 416.336-120.4 509.44-333.505c.464-.912.369-1.872.72-2.88c.224-.56.655-.976.848-1.6c.496-1.568.336-3.28.687-4.912c.56-2.864 1.088-5.664 1.088-8.624c0-2.816-.528-5.6-1.104-8.497M512 800.595c-181.296 0-359.743-95.568-447.423-287.681c86.848-191.472 267.68-289.504 449.424-289.504c181.68 0 358.496 98.144 445.376 289.712C872.561 704.53 693.744 800.595 512 800.595" />
+                                </svg> Lihat</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Anik Azmain</td>
+                        <td>anik@example.com</td>
+                        <td>30/01/2025 08:00-12:00</td>
+                        <td>18/01/2025</td>
+                        <td><span class="badge NYAHAKTIF">NYAHAKTIF</span></td>
+                        <td>
+                            <p class="btn-view"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 1024 1024">
+                                    <path fill="currentColor"
+                                        d="M515.472 321.408c-106.032 0-192 85.968-192 192c0 106.016 85.968 192 192 192s192-85.968 192-192s-85.968-192-192-192m0 320c-70.576 0-129.473-58.816-129.473-129.393s57.424-128 128-128c70.592 0 128 57.424 128 128s-55.935 129.393-126.527 129.393m508.208-136.832c-.368-1.616-.207-3.325-.688-4.91c-.208-.671-.624-1.055-.864-1.647c-.336-.912-.256-1.984-.72-2.864c-93.072-213.104-293.663-335.76-507.423-335.76S95.617 281.827 2.497 494.947c-.4.897-.336 1.824-.657 2.849c-.223.624-.687.975-.895 1.567c-.496 1.616-.304 3.296-.608 4.928c-.591 2.88-1.135 5.68-1.135 8.592c0 2.944.544 5.664 1.135 8.591c.32 1.6.113 3.344.609 4.88c.208.72.672 1.024.895 1.68c.336.88.256 1.968.656 2.848c93.136 213.056 295.744 333.712 509.504 333.712c213.776 0 416.336-120.4 509.44-333.505c.464-.912.369-1.872.72-2.88c.224-.56.655-.976.848-1.6c.496-1.568.336-3.28.687-4.912c.56-2.864 1.088-5.664 1.088-8.624c0-2.816-.528-5.6-1.104-8.497M512 800.595c-181.296 0-359.743-95.568-447.423-287.681c86.848-191.472 267.68-289.504 449.424-289.504c181.68 0 358.496 98.144 445.376 289.712C872.561 704.53 693.744 800.595 512 800.595" />
+                                </svg> Lihat</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @push('js')
+        <script>
+            $(document).ready(function() {
+                const seeAllLink = $('#seeAllLink');
+
+                $('.eb-select-room-list').on('change', function() {
+                    const selected = $(this).val();
+
+                    $('#roomTableWrapper').toggle(selected === 'room');
+                    $('#userTableWrapper').toggle(selected === 'user');
+                    $('#rezervationTableWrapper').toggle(selected === 'rezervation');
+
+                    $('#addRoomButtonWrapper').toggle(selected === 'room');
+
+                    switch (selected) {
+                        case 'room':
+                            seeAllLink.attr('href', '{{ route('rooms.index') }}');
+                            break;
+                        case 'user':
+                            seeAllLink.attr('href', '{{ route('users.index') }}');
+                            break;
+                        case 'rezervation':
+                            seeAllLink.attr('href', '{{ route('booking.index') }}');
+                            break;
+                    }
+                });
+
+                $('.eb-select-room-list').trigger('change');
+            });
+        </script>
+    @endpush
+@endsection

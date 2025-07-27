@@ -153,6 +153,7 @@
                         <a class="collapse-item" href="/Pengguna_berjaya_didaftarkan">Maklumat Pengguna</a>
                         <a class="collapse-item" href="/Laporan">Laporan</a>
                     </div>
+                    
                 </div>
             </li>
             @endrole
