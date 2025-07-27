@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, AuditableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -60,5 +60,36 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Attributes to include in audits
+    protected $auditInclude = [
+        'name',
+        'email',
+        'position',
+        'status'
+    ];
+    
+    // Attributes to exclude from audits
+    protected $auditExclude = [
+        'password',
+        'remember_token'
+    ];
+    
+    // Only track changed attributes
+    protected $auditOnlyDirty = true;
+    
+    // Events to audit
+    protected $auditEvents = [
+        'created',
+        'updated',
+        'deleted'
+    ];
+
+    // Transform audit data
+    public function transformAudit(array $data): array
+    {
+        $data['ip_address'] = request()->ip();
+        return $data;
     }
 }

@@ -57,14 +57,20 @@
 
             @hasanyrole('Admin|Super Admin')
             <!-- Nav Item - Bilik Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBilik"
-                    aria-expanded="true" aria-controls="collapseBilik">
+                    @php
+                        $bilikRoutes = ['rooms.index', 'rooms.create', 'rooms.cancelled'];
+                        $isBilikActive = in_array(Route::currentRouteName(), $bilikRoutes);
+                    @endphp
+            <li class="nav-item {{ $isBilikActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isBilikActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+                    data-target="#collapseBilik" aria-expanded="{{ $isBilikActive ? 'true' : 'false' }}"
+                    aria-controls="collapseBilik">
                     <i class="fas fa-fw fa-map-marked-alt"></i>
                     <span>Bilik</span>
                 </a>
-                <div id="collapseBilik" class="collapse" aria-labelledby="headingBilik"
-                    data-parent="#accordionSidebar">
+
+                <div id="collapseBilik" class="collapse {{ $isBilikActive ? 'show' : '' }}"
+                        aria-labelledby="headingBilik" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
                         <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
@@ -135,13 +141,17 @@
                 <div id="collapsePentadbir" class="collapse" aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Laporan:</h6>
-                        <a class="collapse-item" href="">Laporan</a>
-                        <a class="collapse-item" href="">Log Audit</a>
-                    
+                        <a class="collapse-item" href="#">Laporan</a>
+                        <a class="collapse-item" href="/Audit">Log Audit</a>
+                        <a class="collapse-item" href="/Log_Details_Information">Log Details Information</a>
+
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Pengurusan:</h6>
-                        <a class="collapse-item" href="">Kalendar</a>
-                        <a class="collapse-item" href="">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/Calender">Kalendar</a>
+                        <a class="collapse-item" href="/pengurusan_pengguna">Pengurusan Pengguna</a>
+                        <a class="collapse-item" href="/maklumat_pengguna">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Pengguna_berjaya_didaftarkan">Maklumat Pengguna</a>
+                        <a class="collapse-item" href="/Laporan">Laporan</a>
                     </div>
                     
                 </div>

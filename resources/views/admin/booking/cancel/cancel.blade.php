@@ -1,4 +1,7 @@
 @extends('layouts.main.app')
+
+@section('title', 'Permohonan tempahan ini dibatalkan')
+
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="text-center border-0 shadow-sm card p-4">

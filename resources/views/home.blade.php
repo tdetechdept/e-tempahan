@@ -37,13 +37,13 @@
                         <span class="text-white fs-5">{{ $totalBookings }}</span>
                     </div>
                 </div>
-    </div> 
+    </div>
     <div class="p-1 py-2 mb-3 card rounded-4">
         <div class="bg-white card-header border-bottom-0 rounded-top-4">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                <h5 class="mb-2 card-title mb-md-0 fw-semibold">Senarai Bilik</h5>
+                <h5 id="dashboardCardTitle" class="mb-2 card-title mb-md-0 fw-semibold">Senarai Bilik</h5>
                 <div id="addRoomButtonWrapper">
-                    <button class="btn btn-primary-custom">Tambah Bilik</button>
+                    <a href="{{ route('rooms.create') }}" class="btn btn-primary-custom">Tambah Bilik</a>
                 </div>
             </div>
         </div>
@@ -51,25 +51,24 @@
         <div class="card-body">
             <!-- Table Controls -->
             <div class="mb-3 row align-items-center">
-            <!-- Left: Dropdown & Label -->
-            <div class="col-md-6 d-flex align-items-center gap-2 flex-wrap">
-                <span class="font-medium small eb-custom-color">Senarai</span>
-                <select class="form-select form-select-sm eb-select-room-list" style="width: auto;">
-                    <option value="room">Bilik</option>
-                    <option value="user">Pengguna</option>
-                    <option value="rezervation">Tempahan</option>
-                </select>
+                <!-- Left: Dropdown & Label -->
+                <div class="col-md-6 d-flex align-items-center gap-2 flex-wrap">
+                    <span class="font-medium small eb-custom-color">Senarai</span>
+                    <select class="form-select form-select-sm eb-select-room-list" style="width: auto;">
+                        <option value="room">Bilik</option>
+                        <option value="user">Pengguna</option>
+                        <option value="rezervation">Tempahan</option>
+                    </select>
+                </div>
+
+                <!-- Right: Link aligned to end -->
+                <div class="col-md-6 d-flex justify-content-end">
+                    <a id="seeAllLink" href="{{ route('rooms.index') }}" class="small text-decoration-underline"
+                        style="color: #299d91; white-space: nowrap;">
+                        Lihat Semua
+                    </a>
+                </div>
             </div>
-        
-            <!-- Right: Link aligned to end -->
-            <div class="col-md-6 d-flex justify-content-end">
-                <a id="seeAllLink" href="{{ route('rooms.index') }}"
-                    class="small text-decoration-underline"
-                    style="color: #299d91; white-space: nowrap;">
-                    Lihat Semua
-                </a>
-            </div>
-        </div>
 
             <!-- Room Table -->
             <div id="roomTableWrapper" class="table-responsive eb-table-wrapper">
@@ -289,18 +288,13 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-    
     @push('js')
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 const seeAllLink = $('#seeAllLink');
+                const dashboardTitle = $('#dashboardCardTitle');
 
-                $('.eb-select-room-list').on('change', function() {
+                $('.eb-select-room-list').on('change', function () {
                     const selected = $(this).val();
 
                     $('#roomTableWrapper').toggle(selected === 'room');
@@ -312,12 +306,15 @@
                     switch (selected) {
                         case 'room':
                             seeAllLink.attr('href', '{{ route('rooms.index') }}');
+                            dashboardTitle.text('Senarai Bilik');
                             break;
                         case 'user':
                             seeAllLink.attr('href', '{{ route('users.index') }}');
+                            dashboardTitle.text('Senarai Pengguna');
                             break;
                         case 'rezervation':
                             seeAllLink.attr('href', '{{ route('booking.index') }}');
+                            dashboardTitle.text('Senarai Permohonan Tempahan');
                             break;
                     }
                 });

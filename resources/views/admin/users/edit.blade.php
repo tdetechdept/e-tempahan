@@ -1,5 +1,7 @@
 @extends('layouts.main.app')
 
+@section('title', 'Kemaskini Pengguna')
+
 @section('breadcrumb')
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Pengurusan Pengguna</h1>

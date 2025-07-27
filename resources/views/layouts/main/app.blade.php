@@ -118,7 +118,6 @@
     {{-- calendar js --}}
     <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
     <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
-    <script src="{{ asset('admin2/js/Calender3.js') }}"></script>
     <script src="{{ asset('admin2/js/Dropdown.js') }}"></script>
 
     <!-- Page level plugins -->
