@@ -8,17 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>E-Tempahan</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin2/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin2/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('app.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
     @stack('css')
@@ -98,7 +104,8 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('admin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -108,6 +115,11 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('admin2/js/sb-admin-2.min.js') }}"></script>
+    {{-- calendar js --}}
+    <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
+    <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
+    <script src="{{ asset('admin2/js/Calender3.js') }}"></script>
+    <script src="{{ asset('admin2/js/Dropdown.js') }}"></script>
 
     <!-- Page level plugins -->
     <script src="{{ asset('admin2/vendor/chart.js/Chart.min.js') }}"></script>
@@ -115,7 +127,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin2/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admin2/js/demo/chart-pie-demo.js') }}"></script>
-    
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
     <!-- Page level custom scripts -->
     @stack('js')
 

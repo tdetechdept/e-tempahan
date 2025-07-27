@@ -38,6 +38,22 @@
       background-color: #299D91;
       border: none;
     }
+    .btn-outline-primary {
+       --bs-btn-color: #299D91;
+      --bs-btn-border-color: #299D91;
+      --bs-btn-hover-color: #fff;
+      --bs-btn-hover-bg: #299D91;
+      --bs-btn-hover-border-color: #299D91;
+      --bs-btn-focus-shadow-rgb: 25, 135, 84;
+      --bs-btn-active-color: #fff;
+      --bs-btn-active-bg: #299D91;
+      --bs-btn-active-border-color: #299D91;
+      --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+      --bs-btn-disabled-color: #299D91;
+      --bs-btn-disabled-bg: transparent;
+      --bs-btn-disabled-border-color: #299D91;
+      --bs-gradient: none;
+    }
     .btn-primary:hover {
       background-color: #299D91;
     }
@@ -61,6 +77,9 @@
       background-color: #299D91;
     }
   </style>
+
+     <!-- Custom styles for this page -->
+      @stack('css')
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -116,5 +135,19 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+      <script>
+        $(".formattedInputICWithoutDash").on("input", function () {
+            var value = $(this).val().replace(/\D/g, ""); // Remove non-digits
+
+            if (value.length > 12) {
+                value = value.substring(0, 12);
+            }
+
+            $(this).val(value);
+        });
+    </script>
+    <!-- Custom styles for this page -->
+      @stack('js')
 </body>
 </html>
