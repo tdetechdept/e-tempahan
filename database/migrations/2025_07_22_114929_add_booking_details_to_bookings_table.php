@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('room_id')->after('description');
             $table->string('type')->after('room_id');
             $table->tinyInteger('status')->default(1)->after('type')
-                  ->comment('1 = New, 2 = Pending, 3 = Approved, 4 = Rejected, 5 = Cancelled');
+                  ->comment('1 = New, 2 = Pending, 3 = Approved, 4 = Rejected, 5 = Cancelled by User, 6 = Updated by User, 7 = Confirmed by User');
             $table->string('repetition_type')->nullable()->after('status');
             $table->date('repeat_date')->nullable()->after('repetition_type');
             $table->string('room_plan')->after('repeat_date');

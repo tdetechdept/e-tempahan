@@ -200,7 +200,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('booking.show', $new->id) }}">
+                                    <a href="{{ route('user.booking.show', $new->id) }}">
                                         <button 
                                             class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                             <span class="material-symbols-rounded eb-eye-btn"></span> See
@@ -286,7 +286,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('booking.show', $approved->id) }}">
+                                    <a href="{{ route('user.booking.show', $approved->id) }}">
                                         <button 
                                             class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                             <span class="material-symbols-rounded eb-eye-btn"></span> See
@@ -373,7 +373,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('booking.show', $wait->id) }}">
+                                    <a href="{{ route('user.booking.show', $wait->id) }}">
                                         <button 
                                             class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                             <span class="material-symbols-rounded eb-eye-btn"></span> See

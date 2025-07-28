@@ -15,8 +15,9 @@ Route::get('/', function () {
 Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
 
 Auth::routes();
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::group(['middleware' => ['auth']], function() {
     // Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
@@ -44,16 +45,33 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 
+    // BookingList
+    Route::get('/booking/{status}/list', [App\Http\Controllers\User\BookingController::class, 'index'])->name('booking.list');
+    // Search
+    Route::get('/search', [App\Http\Controllers\User\BookingController::class, 'search'])->name('search.index');
+    Route::get('/search/result', [App\Http\Controllers\User\BookingController::class, 'searchResult'])->name('search.result');
+    Route::get('/search/view/{id}', [App\Http\Controllers\User\BookingController::class, 'searchView'])->name('search.view');
+
+
     // Boooking
     Route::get('/booking/adhoc', [App\Http\Controllers\User\BookingController::class, 'adHoc'])->name('booking.adhoc');
+    Route::get('/booking/new/{user}/{room}', [App\Http\Controllers\User\BookingController::class, 'newBooking'])->name('booking.new');
+    Route::post('/booking/new', [App\Http\Controllers\User\BookingController::class, 'store'])->name('booking.store');
+    Route::get('/booking/{id}/show', [App\Http\Controllers\User\BookingController::class, 'show'])->name('booking.show');
+    
+
+    Route::get('/booking/new/{id}/edit', [App\Http\Controllers\User\BookingController::class, 'edit'])->name('booking.edit');
+    Route::put('/booking/new/{id}', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
+    Route::delete('/booking/new/{id}', [App\Http\Controllers\User\BookingController::class, 'destroy'])->name('booking.destroy');
+    Route::get('/booking/new/{id}/pdf', [App\Http\Controllers\User\BookingController::class, 'downloadPDF'])->name('booking.downloadPDF');
 }); 
 
 //For Super Admin will for my design theing
 Route::middleware(['auth'])->group(function () {
  
     // Dashboard
-    Route::get('/', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('dashboard');
-    
+    Route::get('/super_admin', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('dashboard');
+
     // Audit Routes
     Route::controller(App\Http\Controllers\AuditController::class)->group(function () {
         Route::get('/audit', 'index')->name('audit');

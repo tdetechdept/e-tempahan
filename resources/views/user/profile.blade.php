@@ -37,7 +37,11 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Gambar Profil</label>
                     <div class="row mx-2">
-                        <img src="{{asset('img/img1.png')}}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">
+                        @if (auth()->user()->image)
+                            <img src="{{ asset('storage/' . auth()->user()->image) }}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">
+                        @else
+                            <img src="{{ asset('admin2/img/undraw_profile.svg') }}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">      
+                        @endif
                         <div class="">
                             <button type="button" class="ml-5 btn btn-primary">Muat Naik Gambar</button>
                             <button type="button" class="btn btn-outline-primary">Buang Gambar</button>

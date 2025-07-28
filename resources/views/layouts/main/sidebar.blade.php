@@ -43,13 +43,13 @@
                 <div id="collapseTempahan" class="collapse" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item" href="#">Carian Bilik</a>
-                        <a class="collapse-item" href="#">Permohonan Baharu</a>
+                        <a class="collapse-item" href="{{ route('user.search.index') }}">Carian Bilik</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 1) }}">Permohonan Baharu</a>
                         <a class="collapse-item" href="{{ route('user.booking.adhoc') }}">Permohonan Ad-Hoc</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Pengesahan</a>
-                        <a class="collapse-item" href="#">Pembatalan</a>
-                        <a class="collapse-item" href="#">Senarai Tempahan</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 6) }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 3) }}">Pengesahan</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 5) }}">Pembatalan</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 0) }}">Senarai Tempahan</a>
                     </div>
                 </div>
             </li>

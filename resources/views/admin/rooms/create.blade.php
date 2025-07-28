@@ -149,7 +149,7 @@
                                         <button type="button" class="btn btn-primary eb-form-btn"
                                             onclick="addFacility()">Tambah</button>
                                     </div>
-                                    <div id="facilitiesList" class="flex-wrap gap-2 mb-2 d-flex"
+                                    <div id="facilitiesList" class="flex-wrap gap-2 mb-2 mt-2 d-flex"
                                         style="display: flex; flex-wrap: wrap; margin-bottom: 0.5rem;"></div>
                                     <input type="hidden" name="facilities" id="facilitiesHidden"
                                         value="{{ old('facilities') }}">
