@@ -11,10 +11,11 @@ use App\Http\Controllers\User\ProfileController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
 
 Auth::routes();
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
     // Route::resource('roles', RoleController::class);
@@ -37,10 +38,14 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+
+    // Boooking
+    Route::get('/booking/adhoc', [App\Http\Controllers\User\BookingController::class, 'adHoc'])->name('booking.adhoc');
 }); 
 
 

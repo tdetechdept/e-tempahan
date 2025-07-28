@@ -1,1 +1,4 @@
 .env
+# Environment configuration file for e-temp application
+composer.lock
+package-lock.json

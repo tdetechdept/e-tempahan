@@ -21,7 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin2/css/sb-admin-2.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin2/css/bootstrap.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('admin2/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('app.css') }}" rel="stylesheet">

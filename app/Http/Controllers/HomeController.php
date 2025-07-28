@@ -26,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->role == 'SuperAdmin') {
+            // If the user is a Super Admin, show the admin dashboard
+            return view('super_admin');
+        }
         if(auth()->user()->role == 'User') {
             // If the user is a regular user, redirect to the user home view
 
