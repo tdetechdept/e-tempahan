@@ -41,7 +41,12 @@ class HomeController extends Controller
                 $approvedBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 3)->get();
                 $waitBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 2)->get();
 
-            return view('user.home', compact('newBookings', 'approvedBookings', 'waitBookings'));
+                // COUNT
+                $allBook = Booking::where('user_id', auth()->id())->count();
+                $updateBook = Booking::where('user_id', auth()->id())->where('status', 6)->count();
+                $cancelBook = Booking::where('user_id', auth()->id())->where('status', 5)->count();
+
+            return view('user.home', compact('newBookings', 'approvedBookings', 'waitBookings', 'allBook', 'updateBook', 'cancelBook'));
         }
 
         $totalUsers = User::count();
