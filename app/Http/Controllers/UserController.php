@@ -110,6 +110,19 @@ class UserController extends Controller
             'email'           => $validated['email'],
         ]);
 
+            // Update user - audit will be automatically logged here
+            $user->update([
+                'name' => $validated['name'],
+                'id_number' => $validated['identity_card'] ?? $user->id_number,
+                'position' => $validated['position'],
+                'grade' => $validated['grade'],
+                'section' => $validated['section'],
+                'office_number' => $validated['phone_office'],
+                'phone_number' => $validated['phone_mobile'],
+                'email' => $validated['email'],
+            ]);
+            
+
        return view('admin.users.success-update');
     }
 

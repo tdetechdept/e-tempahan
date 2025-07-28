@@ -132,28 +132,22 @@
             </div>
 
             <!-- Nav Item - Pentadbir Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePentadbir"
-                    aria-expanded="true" aria-controls="collapsePentadbir">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pendtadbir</span>
+            <li class="nav-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}">
+                <a class="nav-link {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? '' : 'collapsed' }}" 
+                   href="#" data-toggle="collapse" data-target="#collapsePentadbir"
+                   aria-expanded="{{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'true' : 'false' }}" 
+                   aria-controls="collapsePentadbir">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Pentadbir</span>
                 </a>
-                <div id="collapsePentadbir" class="collapse" aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
+                <div id="collapsePentadbir" class="collapse {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'show' : '' }}" 
+                     aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Laporan:</h6>
-                        <a class="collapse-item" href="#">Laporan</a>
-                        <a class="collapse-item" href="/Audit">Log Audit</a>
-                        <a class="collapse-item" href="/Log_Details_Information">Log Details Information</a>
-
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Pengurusan:</h6>
-                        <a class="collapse-item" href="/Calender">Kalendar</a>
-                        <a class="collapse-item" href="/pengurusan_pengguna">Pengurusan Pengguna</a>
-                        <a class="collapse-item" href="/maklumat_pengguna">Maklumat Pengguna</a>
-                        <a class="collapse-item" href="/Pengguna_berjaya_didaftarkan">Maklumat Pengguna</a>
-                        <a class="collapse-item" href="/Laporan">Laporan</a>
+                        <a class="collapse-item {{ request()->routeIs('report') ? 'active' : '' }}" href="{{ route('report') }}">Laporan</a>
+                        <a class="collapse-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') ? 'active' : '' }}" href="{{ route('audit') }}">Log Audit</a>
+                        <a class="collapse-item {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">Kalendar</a>
+                        <a class="collapse-item {{ request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}" href="{{ route('pengurusan_pengguna') }}">Pengurusan Pengguna</a>
                     </div>
-                    
                 </div>
             </li>
             @endrole

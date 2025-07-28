@@ -14,7 +14,8 @@ window.addEventListener("DOMContentLoaded", () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const events = [];
+    // Use dynamic events from server or fallback to empty array
+    const events = window.calendarEvents || [];
 
     function renderCalendar() {
         if (!calendarGrid || !currentMonthYear) return;
@@ -99,12 +100,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 const dateString = fullDate.toISOString().split('T')[0];
                 const dayEvents = events.filter(event => event.date === dateString);
+                
                 const isToday = isCurrentMonthDay && fullDate.toDateString() === today.toDateString() ? 'today-highlight' : '';
 
                 html += `<div class="col day-cell month-view ${dayClass} ${isToday}">`;
                 html += `<div class="day-number">${dayNumber}</div>`;
                 dayEvents.forEach(event => {
-                    html += `<div class="event ${event.type === 'meeting' ? 'meeting' : ''}">${event.time} ${event.title}</div>`;
+                    const eventClass = getEventClass(event.title);
+                    const truncatedTitle = truncateText(event.title, 15);
+                    const tooltipText = event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${event.title} - ${event.room} - ${event.user}`;
+                    html += `<div class="event ${eventClass}" title="${tooltipText}">${event.time} ${truncatedTitle}</div>`;
                 });
                 html += `</div>`;
             }
@@ -134,7 +139,10 @@ window.addEventListener("DOMContentLoaded", () => {
             html += `<div class="day-number ${isTodayText}">${day.getDate()}</div>`;
             html += `<div class="text-center w-100 mb-2 ${isTodayText}">${day.toLocaleDateString('en-US', { weekday: 'short' })}</div>`;
             dayEvents.forEach(event => {
-                html += `<div class="event ${event.type === 'meeting' ? 'meeting' : ''}">${event.time} ${event.title}</div>`;
+                const eventClass = getEventClass(event.title);
+                const truncatedTitle = truncateText(event.title, 15);
+                const tooltipText = event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${event.title} - ${event.room} - ${event.user}`;
+                html += `<div class="event ${eventClass}" title="${tooltipText}">${event.time} ${truncatedTitle}</div>`;
             });
             html += `</div>`;
         }
@@ -157,7 +165,12 @@ window.addEventListener("DOMContentLoaded", () => {
         })}</h5>`;
         if (dayEvents.length > 0) {
             dayEvents.forEach(event => {
-                html += `<div class="event ${event.type === 'meeting' ? 'meeting' : ''}">${event.time} ${event.title}</div>`;
+                const eventClass = getEventClass(event.title);
+                const truncatedTitle = truncateText(event.full_title || event.title, 30);
+                html += `<div class="event ${eventClass} mb-2 p-2">
+                    <strong>${event.time} - ${truncatedTitle}</strong><br>
+                    <small>Room: ${event.room} | User: ${event.user} | Participants: ${event.participants}</small>
+                </div>`;
             });
         } else {
             html += `<p class="text-muted text-center mt-3">No events for this day.</p>`;
@@ -192,7 +205,12 @@ window.addEventListener("DOMContentLoaded", () => {
                     lastDate = formattedDate;
                 }
 
-                html += `<div class="event ${event.type === 'meeting' ? 'meeting' : ''}">${event.time} - ${event.title}</div>`;
+                const statusClass = getStatusClass(event.status);
+                const eventStyle = `background-color: ${event.color}; color: white;`;
+                html += `<div class="event ${statusClass} mb-2 p-2" style="${eventStyle}">
+                    <strong>${event.time} - ${event.title}</strong><br>
+                    <small>Room: ${event.room} | User: ${event.user} | Status: ${getStatusText(event.status)}</small>
+                </div>`;
             });
         } else {
             html += `<p class="text-muted text-center mt-3">No upcoming events.</p>`;
@@ -200,6 +218,44 @@ window.addEventListener("DOMContentLoaded", () => {
 
         html += '</div></div>';
         calendarGrid.innerHTML = html;
+    }
+
+    function getEventClass(title) {
+        const lowerTitle = title.toLowerCase();
+        if (lowerTitle.includes('temuduga') || lowerTitle.includes('interview')) {
+            return 'event-temuduga';
+        } else if (lowerTitle.includes('mesyuarat') || lowerTitle.includes('meeting')) {
+            return 'event-mesyuarat';
+        } else {
+            return getStatusClass(1); // Default to new status
+        }
+    }
+
+    function truncateText(text, maxLength) {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength) + '...';
+    }
+
+    function getStatusClass(status) {
+        switch (status) {
+            case 1: return 'status-new';
+            case 2: return 'status-pending';
+            case 3: return 'status-approved';
+            case 4: return 'status-rejected';
+            default: return 'status-default';
+        }
+    }
+
+    function getStatusText(status) {
+        switch (status) {
+            case 1: return 'New';
+            case 2: return 'Pending';
+            case 3: return 'Approved';
+            case 4: return 'Rejected';
+            default: return 'Unknown';
+        }
     }
 
     // Safe event listeners
