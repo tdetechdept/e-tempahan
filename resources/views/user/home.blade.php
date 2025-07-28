@@ -67,7 +67,7 @@
         </div>
         <div class="col-9">
             <h5>Jumlah Tempahan</h5>
-            <p>10</p>
+            <p>{{$allBook}}</p>
         </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
         </div>
         <div class="col-9">
             <h5>Kemaskini Tempahan</h5>
-            <p>1</p>
+            <p>{{$updateBook}}</p>
         </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="col-9">
             <h5>Batal Tempahan</h5>
-            <p>1</p>
+            <p>{{$cancelBook}}</p>
         </div>
         </div>
       </div>
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- Room Table -->
+            <!-- New Booking -->
             <div id="newTableWrapper" class="table-responsive eb-table-wrapper">
                 <table id="newTable" class="table">
                     <thead>
@@ -146,7 +146,7 @@
                     </thead>
                     <tbody>
 
-                        @forelse ($newBookings as $index => $new)
+                        @foreach ($newBookings as $index => $new)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $new->room->room_name ?? 'N/A' }}</td>
@@ -208,15 +208,12 @@
                                     </a>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">No bookings found.</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <!-- User Table -->
+
+            <!-- Approve Booking -->
             <div id="approvedTableWrapper" class="table-responsive eb-table-wrapper" style="display: none;">
                 <table id="approvedTable" class="table">
                     <thead>
@@ -232,17 +229,17 @@
                     </thead>
                     <tbody>
 
-                        @forelse ($approvedBookings as $index => $approved)
+                        @foreach ($approvedBookings as $index => $appv)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td class="fw-semibold">{{ $approved->meeting_name }}</td>
-                                <td>{{ $approved->room->room_name ?? 'N/A' }}</td>
-                                <td>{{ $approved->start_date }}
-                                    {{ \Carbon\Carbon::parse($approved->start_time)->format('H:i') }}
+                                <td>{{ $appv->room->room_name ?? 'N/A' }}</td>
+                                <td>{{ $appv->room->level ?? 'N/A' }}</td>
+                                <td>{{ $appv->start_date }}
+                                    {{ \Carbon\Carbon::parse($appv->start_time)->format('H:i') }}
                                     -
-                                    {{ \Carbon\Carbon::parse($approved->end_time)->format('H:i') }}
+                                    {{ \Carbon\Carbon::parse($appv->end_time)->format('H:i') }}
                                 </td>
-                                <td>{{ $approved->created_at->format('Y-m-d') }}</td>
+                                <td>{{ $appv->created_at->format('Y-m-d') }}</td>
                                 <td>
                                     @php
                                         $statusStyles = [
@@ -273,7 +270,7 @@
                                             ],
                                         ];
                                 
-                                        $status = $statusStyles[$approved->status] ?? [
+                                        $status = $statusStyles[$new->status] ?? [
                                             'label' => 'UNKNOWN',
                                             'bg' => '#f8f9fa',
                                             'text' => '#6c757d',
@@ -286,7 +283,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('user.booking.show', $approved->id) }}">
+                                    <a href="{{ route('user.booking.show', $appv->id) }}">
                                         <button 
                                             class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                             <span class="material-symbols-rounded eb-eye-btn"></span> See
@@ -294,14 +291,11 @@
                                     </a>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">No bookings found.</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
+
 
             <!-- Rezervation Table -->
             <div id="waitTableWrapper" class="table-responsive eb-table-wrapper" style="display: none;">
@@ -319,7 +313,7 @@
                     </thead>
                     <tbody>
 
-                        @forelse ($waitBookings as $index => $wait)
+                        @foreach ($waitBookings as $index => $wait)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td class="fw-semibold">{{ $wait->meeting_name }}</td>
@@ -381,11 +375,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center">No bookings found.</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

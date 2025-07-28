@@ -51,8 +51,8 @@ class BookingSeeder extends Seeder
             ]);
         }
 
-        // Booking statuses: 1=New, 2=Pending, 3=Approved, 4=Rejected, 5=Cancelled
-        $statuses = [1, 2, 3, 4, 5];
+        // Booking statuses: 1 = New, 2 = Pending, 3 = Approved, 4 = Rejected, 5 = Cancelled by User, 6 = Updated by User, 7 = Confirmed by User
+        $statuses = [1, 2, 3, 4, 5, 6, 7];
         
         // Meeting names for variety
         $meetingNames = [
