@@ -45,7 +45,7 @@
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                         <a class="collapse-item" href="#">Carian Bilik</a>
                         <a class="collapse-item" href="#">Permohonan Baharu</a>
-                        <a class="collapse-item" href="#">Permohonan Ad-Hoc</a>
+                        <a class="collapse-item" href="{{ route('user.booking.adhoc') }}">Permohonan Ad-Hoc</a>
                         <a class="collapse-item" href="#">Kemaskini</a>
                         <a class="collapse-item" href="#">Pengesahan</a>
                         <a class="collapse-item" href="#">Pembatalan</a>
@@ -105,7 +105,7 @@
 
             @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="{{route('profile.index')}}">
+                <a class="nav-link" href="{{route('user.profile.index')}}">
                     <i class="far fa-fw fa-user"></i>
                     <span>Profil</span>
                 </a>
