@@ -61,8 +61,8 @@
 
                         <!-- Right-aligned Button -->
                         <div id="addUserButtonWrapper" class="ms-3">
-                            <a href="#" class="btn btn-primary-custom">
-                                Daftar Pengguna
+                            <a href="{{ route('admin.users.create') }}" class="btn btn-primary-custom">
+                                <i class="fas fa-plus"></i> Daftar Pengguna
                             </a>
                         </div>
                     </div>

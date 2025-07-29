@@ -7,7 +7,7 @@
 
         <div class="pengurusan_pengguna_page">
 
-            <div class="calender_section">
+            <div class=" Laporan_content_bg">
                 <h4 class="table_title">Laporan</h4>
                 <p>Sila mengemaskini maklumat pengguna dibawah</p>
 
