@@ -1,0 +1,1148 @@
+/* === BASE GRID LAYOUT === */
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 60% auto;
+  gap: 30px;
+  
+}
+
+/* === Dashboard Card (container for intro + metrics) === */
+.dashboard-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 320px;
+  /* or set a fixed height if needed */
+}
+
+/* === Card Intro Styling === */
+.card-intro {
+  flex: 7;
+  /* 70% height */
+  background-color: #007D7C;
+  border-radius: 15px;
+  padding: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.card-intro h2 {
+  font-family: "Nunito", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.card-intro p {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.2rem;
+  color: #e0e0e0;
+}
+
+/* === Metrics === */
+.card-metrics {
+  flex: 3;
+  /* 30% height */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.metric-box {
+  display: flex;
+  align-items: center;
+  background-color: #007D7C;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.metric_content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.metric_content svg {
+  width: 50px;
+}
+
+.metric-label {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  margin: 0;
+}
+
+.metric-value {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 0;
+}
+.calendar1-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 0 auto;
+  font-family: "Nunito", sans-serif;
+  max-width: 500px;
+}
+
+.calendar1-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calender-align-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.calendar1-current-date {
+  color: #259B91;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.calendar1-navigation span {
+  cursor: pointer;
+  color: gray;
+  font-size: 20px;
+  user-select: none;
+}
+
+.calendar1-body {
+  margin-top: 10px;
+}
+
+.calendar1-weekdays,
+.calendar1-dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.calendar1-dates li,
+.calendar1-weekdays li {
+  font-size: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar1-dates li p {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.calendar1-dates li:hover p {
+  background-color: #f1f1f1;
+}
+
+.calendar1-dates li p.today {
+  background-color: #E05F64;
+  color: #fff;
+}
+
+.calendar1-dates li.selected p {
+  background-color: #259B91;
+  color: #fff;
+}
+
+.calendar1-dates li.highlight p {
+  background-color: #d43131;
+  color: white;
+}
+
+.calendar1-events {
+  border-top: 1px solid #eee;
+  margin-top: 12px;
+  padding-top: 8px;
+  font-size: 13px;
+  color: #444;
+}
+
+.calendar1-events p {
+  margin: 4px 0;
+  border-left: 2px solid #058281;
+  padding-left: 16px;
+}
+
+.calendar1-events .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #d43131;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+
+/* === Table Section === */
+.table-section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 20px;
+}
+
+.table_title {
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+/* === Dropdown Section === */
+.dropdown-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dropdown-section>div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-section p {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  font-weight: 500;
+  color: #555;
+}
+
+.dropdown-section select {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.dropdown-section select option {
+  background-color: #fff;
+  color: #333;
+}
+
+.dropdown-section select option:hover {
+  background-color: #59C378;
+  color: white;
+}
+
+.dropdown-section a {
+  font-family: "Nunito", sans-serif;
+  color: #59C378;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+
+
+/* === Table Styling === */
+.table-container {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+  background-color: #fff;
+}
+
+.custom-table thead {
+  background-color: #EEF9F9;
+  color: #5c636d;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: solid 1px #ddd;
+}
+
+.custom-table th,
+.custom-table td {
+  font-family: "Nunito", sans-serif;
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #EEF9F9;
+}
+
+/* === Badges === */
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.badge.AKTIF {
+  background-color: #DCF5EB;
+  color: #337863;
+}
+
+.badge.BAHARU {
+  background-color: #E1EBF9;
+  color: #3758A8;
+}
+
+.badge.NYAHAKTIF {
+  background-color: #FAD2D3;
+  color: #9D2022;
+}
+
+.btn-view {
+  font-family: "Nunito", sans-serif;
+  border: solid 2px #007D7C;
+  color: #007D7C;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* pengurusan_pengguna_page Start */
+.pengurusan_pengguna_page {
+  background-color: #EBF0F0;
+  padding: 20px;
+}
+
+.page_title {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.breadcrumbs {
+  color: #B4B7B9;
+  font-weight: 600;
+}
+
+.breadcrumbs span {
+  color: #007D7C;
+}
+
+.pengurusan_pengguna_page .badge {
+  width: fit-content;
+}
+
+.pengurusan_pengguna_page .btn-view {
+  width: fit-content;
+}
+
+.search-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-control {
+  border-radius: 15px;
+}
+
+.tab_button {
+  font-family: "Nunito", sans-serif;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.tab_button.active {
+  background-color: #007D7C;
+  color: white;
+}
+
+.Flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button_primary {
+  font-family: "Nunito", sans-serif;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #007D7C;
+  background-color: #007D7C;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+.button_primary:hover {
+  color: white;
+}
+
+.pagination_align {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination_align p {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #777E91;
+}
+
+button:focus,
+a:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.maklumat_pengguna {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.section_title {
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #EAEDF1;
+}
+
+.Info_content {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  padding: 10px 25px;
+  border-bottom: 2px solid #EAEDF1;
+}
+
+.Info_title,
+.Info_desc {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.Info_title {
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #41464B;
+  width: 250px;
+}
+
+.Info_title span {
+  color: #E84745;
+  margin-left: 4px;
+}
+
+.Info_desc {
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  color: #797E88;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Optional: remove bottom margins on paragraphs */
+.Info_title p,
+.Info_desc p {
+  margin-bottom: 18px;
+}
+
+.button_Pendaftaran1,
+.button_Pendaftaran2 {
+  font-family: "Nunito", sans-serif;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #007D7C;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.button_Pendaftaran1 {
+  background-color: #D31F27;
+}
+
+.Flex_center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.modal-header,
+.modal-footer,
+.modal-body {
+  border: none;
+}
+
+.modal-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-contents h4 {
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2F2F32;
+  margin: 0;
+}
+
+.modal-contents svg {
+  width: 50px;
+  height: 50px;
+  background-color: #EBF0F0;
+  padding: 5px;
+  border-radius: 10px;
+  color: #007D7C;
+}
+
+.modal_desc {
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  max-width: 80%;
+}
+
+.custom_btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 2px solid #007D7C;
+  background-color: transparent;
+  color: #007D7C;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+.custom_btn2 {
+  font-family: "Nunito", sans-serif;
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 2px solid #007D7C;
+  background-color: #007D7C;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* On hover, slightly change background for clarity */
+.custom_btn:hover {
+  background-color: rgba(0, 125, 124, 0.1);
+  color: #007D7C;
+}
+
+/* Footer button alignment */
+.modal_align_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Confirm button styling */
+
+.modal-footer .btn-primary {
+  font-family: "Nunito", sans-serif;
+  background-color: #007D7C;
+  border: 1px solid #007D7C;
+  font-weight: 600;
+}
+
+/* Confirm hover */
+.modal-footer .btn-primary:hover {
+  background-color: #299D91 !important;
+  border-color: #299D91 !important;
+}
+
+.pagination {
+  gap: 10px;
+}
+
+.page-item:last-child .page-link,
+.page-item.active .page-link {
+  border-radius: 10px;
+}
+
+.page-item .page-link {
+  border-radius: 10px;
+}
+
+/*
+==================================
+ Pengguna_berjaya_didaftarkan page  
+ =================================
+*/
+.success-message-wrapper {
+  min-height: 89vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.success-message-card {
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 700px;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+
+.success-message-wrapper svg {
+  background-color: #259B91;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  border-radius: 100%;
+  border: 10px solid #6DD1C8;
+  color: white;
+  margin-bottom: 30px;
+
+}
+
+.success-message-wrapper h4 {
+  font-family: "Nunito", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #23282D;
+  margin-bottom: 25px;
+}
+
+.success-message-wrapper p {
+  font-family: "Nunito", sans-serif;
+  font-size: 18px;
+  color: #8A8A8C;
+  margin-bottom: 25px;
+}
+
+.dashboard-btn {
+  padding: 10px 50px;
+  background-color: #259B91;
+  margin: 0 auto;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.dashboard-btn:hover {
+  background-color: #299d91dc;
+}
+
+/*
+==================================
+ Laporan_content page  
+ =================================
+*/.Laporan_content {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.02);
+  padding: 20px;
+}
+
+.Laporan_content .search-section .table_title {
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Filter Block Layout */
+.filter-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Each row with label and input/select */
+.filter-row {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-row label {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  color: #2f2f32;
+  white-space: nowrap;
+}
+.filter-row span {
+  color: #E43235;
+}
+
+/* Input and Select Styling */
+.filter-row select,
+.filter-row input {
+  font-family: "Nunito", sans-serif;
+  padding: 10px 12px;
+  font-size: 14px;
+  background-color: #F5FAFA;
+  border: 2px solid #E1E6EB;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+/* Focus effect */
+.filter-row select:focus,
+.filter-row input:focus {
+  outline: none;
+  border-color: #c5d7e0;
+  background-color: #f0fafa;
+}
+.Button_position_Laporan{
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.audit_table_container{
+  background-color: white;
+  border-radius: 16px ;
+  padding: 20px;
+
+
+}
+.input_filds_date_name {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.input_filds_date_name .form-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.input_filds_date_name label {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.input_filds_date_name .form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 10px 12px;
+  width: 75%;
+  box-sizing: border-box;
+}
+.Log_Details_Information {
+
+display: flex;
+justify-content: flex-end;
+}
+.Log_Details_Information .dashboard-btn{
+
+margin: 0;
+}
+.Log_Details_Information .dashboard-btn:hover{
+  color: white;
+}
+/* 
+===========================
+Calender Page
+=========================== 
+*/
+
+.calendar-container2 {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 40px auto;
+}
+
+.calendar-header2 {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 20px;
+}
+
+.calendar-header2 .btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.calendar-header2 h4 {
+  font-weight: 600;
+  color: #343a40;
+}
+
+.day-names {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.day-cell {
+  min-height: 100px;
+  border: 1px solid #e9ecef;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border-radius: 5px;
+  margin: -1px;
+}
+
+.day-cell.month-view {
+  min-height: 100px;
+  padding: 10px
+}
+
+.day-cell.week-view {
+  min-height: 200px;
+  align-items: flex-start;
+}
+
+.day-cell.day-view {
+  min-height: 400px;
+  align-items: flex-start;
+}
+
+.calendar-grid .row:first-child .day-cell:first-child {
+  border-top-left-radius: 10px;
+}
+
+.calendar-grid .row:first-child .day-cell:last-child {
+  border-top-right-radius: 10px;
+}
+
+.calendar-grid .row:last-child .day-cell:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.calendar-grid .row:last-child .day-cell:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.day-number {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.day-cell.week-view .day-number,
+.day-cell.day-view .day-number {
+  align-self: flex-end;
+}
+
+.event {
+  width: 100%;
+  background-color: #e0f2f1;
+  border-left: 4px solid #009688;
+  padding: 6px 8px;
+  margin-bottom: 5px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.event.meeting {
+  background-color: #e3f2fd;
+  border-left: 4px solid #2196f3;
+}
+
+.current-month-day {
+  color: #343a40;
+  background-color: #ffffff;
+}
+
+.other-month-day {
+  color: #adb5bd;
+  background-color: #f8f9fa;
+}
+
+.day-cell.other-month-day:empty {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+.btn-group-toggle .btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-group-toggle .btn.active {
+  background-color: #007D7C;
+  color: white;
+  border-radius: 10px !important;
+}
+
+
+.day-cell.today-highlight {
+  background-color: #e6ffe6;
+}
+
+.day-cell.today-highlight .day-number {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.today-header-highlight {
+  color: #28a745 !important;
+  font-weight: bold !important;
+}
+
+.pengurusan_pengguna_page .search_input input{
+
+ border-radius: 10px;
+
+}
+.Calender_input_align{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.Calender_input_align .search_input{
+width: 400px;
+}
+.nav_button_group #prevBtn,
+.nav_button_group #nextBtn{
+border-radius: 10px;
+background-color: #259B91;
+color: white;
+border: none;
+}
+
+/* 
+===========================
+Calender Page end
+=========================== 
+*/
+/* === RESPONSIVE MEDIA QUERIES === */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-card,
+  .calender_section {
+    margin-bottom: 20px;
+  }
+
+  .card-metrics {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .metric-box {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-intro h2 {
+    font-size: 1.5rem;
+  }
+
+  .card-intro p {
+    font-size: 1rem;
+  }
+
+  .dropdown-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dropdown-section>div {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .custom-table {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .calendar-weekdays div,
+  .calendar-days div {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  .dropdown-section select {
+    width: 100%;
+  }
+
+  .custom-table {
+    min-width: 600px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .btn-view {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+
+@media (max-width: 575.98px) {
+  .day-cell {
+      min-height: 80px;
+      padding: 5px;
+  }
+
+  .day-number {
+      font-size: 0.8em;
+  }
+
+  .event {
+      font-size: 0.7em;
+      padding: 4px 6px;
+  }
+
+  .calendar-header2 h4 {
+      font-size: 1.25rem;
+  }
+
+  .calendar-header2 .btn {
+      padding: .25rem .5rem;
+      font-size: .875rem;
+  }
+
+  .btn-group-toggle .btn {
+      padding: .25rem .5rem;
+      font-size: .875rem;
+  }
+
+  .day-cell.week-view,
+  .day-cell.day-view {
+      min-height: auto;
+  }
+
+  .day-cell.week-view .day-number,
+  .day-cell.day-view .day-number {
+      align-self: flex-start;
+      width: 100%;
+      text-align: right;
+  }
+}
+

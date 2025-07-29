@@ -1,44 +1,59 @@
+@php $count = 1; @endphp
+@foreach ($users as $user)
+    @php
+        $statusText = $statusLabels[$user->status] ?? 'Unknown';
+      @endphp
+    <tr data-url="{{ route('users.show', $user->id) }}" data-status="{{ strtolower($statusText) }}">
+        <td>{{ $count++ }}</td>
+        <td>{{ $user->name ?? '-' }}</td>
+        <td>{{ $user->section ?? 'N/A' }}</td>
+        <td>
+            @php
+                $statusStyles = [
+                    0 => [
+                        'label' => 'BAHARU',
+                        'bg' => '#fff3cd',
+                        'text' => '#856404',
+                    ],
+                    1 => [
+                        'label' => 'AkTIF',
+                        'bg' => '#d4edda',
+                        'text' => '#155724',
+                    ],
+                    2 => [
+                        'label' => 'DILULUSKAN',
+                        'bg' => '#cce5ff',
+                        'text' => '#004085',
+                    ],
+                    3 => [
+                        'label' => 'DITOLAK',
+                        'bg' => '#f8d7da',
+                        'text' => '#721c24',
+                    ],
+                    4 => [
+                        'label' => 'DIBATALKAN',
+                        'bg' => '#e2e3e5',
+                        'text' => '#383d41',
+                    ],
+                    5 => [
+                        'label' => 'NYAHAKTIF',
+                        'bg' => '#fefefe',
+                        'text' => '#6c757d',
+                    ],
+                ];
 
- @php $count = 1; @endphp
- <div class="table-responsive eb-table-main">
-                <table id="userMgmtTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Section</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
+                $status = $statusStyles[$user->status] ?? [
+                    'label' => 'Unknown',
+                    'bg' => '#f8f9fa',
+                    'text' => '#6c757d',
+                ];
+            @endphp
 
-                    <tbody>
-                        @forelse ($users as $user)
-                            <tr data-url="{{ route('users.show', $user->id) }}">
-                                <th>{{ $count++ }}</th>
-                                <td>{{ $user->name ?? '-' }}</td>
-                                <td>{{ $user->section ?? 'N/A' }}</td>
-                                <td>
-                                    @php
-                                        $statusLabels = [
-                                            1 => 'New',
-                                            2 => 'Pending',
-                                            3 => 'Approved',
-                                            4 => 'Rejected',
-                                            5 => 'Cancelled',
-                                        ];
-
-                                        $statusText = $statusLabels[$user->status] ?? 'Unknown';
-                                        $statusClass = 'eb-' . strtolower($statusText); // e.g., 'eb-approved'
-                                    @endphp
-
-                                    <span class="eb-status-tag {{ $statusClass }}">{{ $statusText }}</span>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center py-4 text-gray-500">No bookings found.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+            <span class="badge d-block text-center w-100 py-2 rounded-4"
+                style="background-color: {{ $status['bg'] }}; color: {{ $status['text'] }};">
+                {{ $status['label'] }}
+            </span>
+        </td>
+    </tr>
+@endforeach
+</tbody>

@@ -1,35 +1,34 @@
 @extends('layouts.main.app')
 
-@section('title', 'Room List')
+@section('title', 'Senarai Bilik')
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">Room</h1>
+        <h1 class="breadcrumb-title">Bilik</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <span>Room List</span>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-success">Senarai Bilik</a>
         </div>
     </div>
 @endsection
 
 @section('content')
     <main class="main-content">
-
-
+        
         <!-- Content Card -->
         <div class="content-card">
             <!-- Header -->
             <div class="mb-3 content-header d-flex justify-content-between align-items-center top-header-block">
-                <h2 class="mb-0 h4">Room List</h2>
+                <h2 class="mb-0 h4">Senarai Bilik</h2>
                 <div class="gap-3 d-flex align-items-center search-main-block">
                     <div class="search-input">
                         <span class="material-symbols-rounded">search</span>
-                        <input type="text" id="roomSearch" class="form-control" placeholder="Search">
+                        <input type="text" id="roomSearch" class="form-control" placeholder="Carian">
                     </div>
                     <a href="{{ route('rooms.create') }}" class="gap-2 btn btn-primary-custom d-flex align-items-center">
                         <span class="material-symbols-rounded">add</span>
-                        Room
+                        Bilik
                     </a>
                 </div>
             </div>
@@ -39,12 +38,12 @@
                 <table id="rooms-table" class="table mb-0 table-hover ">
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Room Name</th>
-                            <th>Picture</th>
-                            <th>Capacity</th>
-                            <th>Facilities</th>
-                            <th>Action</th>
+                            <th>Bil.</th>
+                            <th>Name Bilik</th>
+                            <th>Gambar</th>
+                            <th>kapasiti</th>
+                            <th>Fasiliti</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +60,7 @@
                                         <span class="text-muted">No Image</span>
                                     @endif
                                 </td>
-                                <td>{{ $room->room_capacity }} people</td>
+                                <td>{{ $room->room_capacity }} Orang</td>
                                 <td>
                                     {{ is_array($room->facilities) ? implode(', ', $room->facilities) : $room->facilities }}
                                 </td>
@@ -69,7 +68,7 @@
                                     <a href="{{ route('rooms.show', $room) }}"
                                         class="gap-2 btn btn-sm btn-outline-custom d-flex align-items-center eye-btn">
                                         <span class="material-symbols-rounded">visibility</span>
-                                        See
+                                        Lihat
                                     </a>
                                 </td>
                             </tr>
@@ -80,37 +79,51 @@
         </div>
     </main>
 
-    <!-- DataTables -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    @push('js')
     <script>
-        $(document).ready(function() {
-            var table = $('#rooms-table').DataTable({
-                pageLength: 5,
-                lengthMenu: [5, 10, 20, 50, -1],
-                ordering: true,
-                dom: 't<"d-flex justify-content-between align-items-center mt-3"lip>',
-                language: {
-                    search: '',
-                    searchPlaceholder: 'Search rooms...',
-                    lengthMenu: 'Show <select class="form-select form-select-sm">' +
-                        '<option value="5">5</option>' +
-                        '<option value="10">10</option>' +
-                        '<option value="20">20</option>' +
-                        '<option value="50">50</option>' +
-                        '<option value="-1">All</option>' +
-                        '</select> entries',
-                    info: 'Showing _START_ to _END_ of _TOTAL_ rooms',
-                    paginate: {
-                        previous: 'Prev',
-                        next: 'Next'
-                    }
+       $(document).ready(function () {
+        var table = $('#rooms-table').DataTable({
+            pageLength: 5,
+            lengthMenu: [5, 10, 20, 50, -1],
+            ordering: true,
+            dom: 't<"d-flex justify-content-between align-items-center mt-3"lp>',
+            language: {
+                search: '',
+                searchPlaceholder: 'Search rooms...',
+                lengthMenu: 'Tunjuk <select class="form-select form-select-sm">' +
+                    '<option value="5">5</option>' +
+                    '<option value="10">10</option>' +
+                    '<option value="20">20</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="-1">All</option>' +
+                    '</select> bilik',
+                paginate: {
+                    previous: '<',
+                    next: '>'
                 }
-            });
-
-            $('#roomSearch').on('keyup', function() {
-                table.search(this.value).draw();
-            });
+            },
+            columnDefs: [
+                {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0 
+                }
+            ],
+            order: [[1, 'asc']] 
         });
+
+        // Custom search input
+        $('#roomSearch').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // Auto-increment Bil. column on search/pagination/order
+        table.on('order.dt search.dt draw.dt', function () {
+            table.column(0, { search: 'applied', order: 'applied', page: 'current' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    });
     </script>
+    @endpush
 @endsection

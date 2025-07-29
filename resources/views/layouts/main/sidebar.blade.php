@@ -10,8 +10,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#">
+            <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <a class="nav-link " href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Papan Pemuka</span></a>
             </li>
@@ -43,13 +43,13 @@
                 <div id="collapseTempahan" class="collapse" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
-                        <a class="collapse-item" href="#">Carian Bilik</a>
-                        <a class="collapse-item" href="#">Permohonan Baharu</a>
-                        <a class="collapse-item" href="#">Permohonan Ad-Hoc</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Pengesahan</a>
-                        <a class="collapse-item" href="#">Pembatalan</a>
-                        <a class="collapse-item" href="#">Senarai Tempahan</a>
+                        <a class="collapse-item" href="{{ route('user.search.index') }}">Carian Bilik</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 1) }}">Permohonan Baharu</a>
+                        <a class="collapse-item" href="{{ route('user.booking.adhoc') }}">Permohonan Ad-Hoc</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 6) }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 3) }}">Pengesahan</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 5) }}">Pembatalan</a>
+                        <a class="collapse-item" href="{{ route('user.booking.list', 0) }}">Senarai Tempahan</a>
                     </div>
                 </div>
             </li>
@@ -57,19 +57,25 @@
 
             @hasanyrole('Admin|Super Admin')
             <!-- Nav Item - Bilik Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBilik"
-                    aria-expanded="true" aria-controls="collapseBilik">
+                    @php
+                        $bilikRoutes = ['rooms.index', 'rooms.create', 'rooms.cancelled'];
+                        $isBilikActive = in_array(Route::currentRouteName(), $bilikRoutes);
+                    @endphp
+            <li class="nav-item {{ $isBilikActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isBilikActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
+                    data-target="#collapseBilik" aria-expanded="{{ $isBilikActive ? 'true' : 'false' }}"
+                    aria-controls="collapseBilik">
                     <i class="fas fa-fw fa-map-marked-alt"></i>
                     <span>Bilik</span>
                 </a>
-                <div id="collapseBilik" class="collapse" aria-labelledby="headingBilik"
-                    data-parent="#accordionSidebar">
+
+                <div id="collapseBilik" class="collapse {{ $isBilikActive ? 'show' : '' }}"
+                        aria-labelledby="headingBilik" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
-                        <a class="collapse-item" href="#">Carian Bilik</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Batal</a>
+                        <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
+                        <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
                     </div>
                 </div>
             </li>
@@ -86,8 +92,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Semakan:</h6> --}}
                         <a class="collapse-item" href="#">Baharu</a>
-                        <a class="collapse-item" href="#">Kemaskini</a>
-                        <a class="collapse-item" href="#">Batal</a>
+                        <a class="collapse-item" href="{{ route('booking.index') }}">Kemaskini</a>
+                        <a class="collapse-item" href="{{ route('booking.cancel.index') }}">Batal</a>
                         <a class="collapse-item" href="#">Ad-hoc</a>
                     </div>
                 </div>
@@ -99,7 +105,7 @@
 
             @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('user.profile.index')}}">
                     <i class="far fa-fw fa-user"></i>
                     <span>Profil</span>
                 </a>
@@ -107,8 +113,8 @@
             @endrole
 
             @role('Admin')
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengurusan Pengguna</span>
                 </a>
@@ -126,21 +132,21 @@
             </div>
 
             <!-- Nav Item - Pentadbir Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePentadbir"
-                    aria-expanded="true" aria-controls="collapsePentadbir">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pendtadbir</span>
+            <li class="nav-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}">
+                <a class="nav-link {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? '' : 'collapsed' }}" 
+                   href="#" data-toggle="collapse" data-target="#collapsePentadbir"
+                   aria-expanded="{{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'true' : 'false' }}" 
+                   aria-controls="collapsePentadbir">
+                    <i class="fas fa-fw fa-user-cog"></i>
+                    <span>Pentadbir</span>
                 </a>
-                <div id="collapsePentadbir" class="collapse" aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
+                <div id="collapsePentadbir" class="collapse {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'show' : '' }}" 
+                     aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Laporan:</h6>
-                        <a class="collapse-item" href="#">Laporan</a>
-                        <a class="collapse-item" href="#">Log Audit</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Pengurusan:</h6>
-                        <a class="collapse-item" href="#">Kalendar</a>
-                        <a class="collapse-item" href="#">Pengurusan Pengguna</a>
+                        <a class="collapse-item {{ request()->routeIs('report') ? 'active' : '' }}" href="{{ route('report') }}">Laporan</a>
+                        <a class="collapse-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') ? 'active' : '' }}" href="{{ route('audit') }}">Log Audit</a>
+                        <a class="collapse-item {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">Kalendar</a>
+                        <a class="collapse-item {{ request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}" href="{{ route('pengurusan_pengguna') }}">Pengurusan Pengguna</a>
                     </div>
                 </div>
             </li>
@@ -170,4 +176,4 @@
             </li>
 
         </ul>
-        <!-- End of Sidebar -->
+        

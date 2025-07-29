@@ -26,12 +26,35 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        if(auth()->user()->role === 'SuperAdmin') {
+            // If the user is a Super Admin, show the admin dashboard
+            
+            $users = User::latest()->take(5)->get(); 
+            return view('super_admin.super_admin',compact('users'));
+        }
+        
+        if(auth()->user()->role === 'User') {
+            // If the user is a regular user, redirect to the user home view
+
+                $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 1)->get();
+                $approvedBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 3)->get();
+                $waitBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 2)->get();
+
+                // COUNT
+                $allBook = Booking::where('user_id', auth()->id())->count();
+                $updateBook = Booking::where('user_id', auth()->id())->where('status', 6)->count();
+                $cancelBook = Booking::where('user_id', auth()->id())->where('status', 5)->count();
+
+            return view('user.home', compact('newBookings', 'approvedBookings', 'waitBookings', 'allBook', 'updateBook', 'cancelBook'));
+        }
+
         $totalUsers = User::count();
         $totalRooms = Room::count();
         $totalBookings = Booking::count();
-        $rooms = Room::get();
-        $users = User::get();
-        $bookings = Booking::with('user', 'room')->get();
+        $rooms = Room::latest()->take(5)->get(); 
+        $users = User::latest()->take(5)->get(); 
+        $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
         return view('home',compact('totalUsers','totalRooms','totalBookings','rooms','users','bookings'));
     }
 }

@@ -1,16 +1,16 @@
 @extends('layouts.main.app')
 
-@section('title', 'Add Room')
+@section('title', 'Tambah Bilik')
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">Room</h1>
+        <h1 class="breadcrumb-title">Bilik</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <span>Room List</span>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-dark">Senarai Bilik</a>
             <span class="mx-2">/</span>
-            <span class="breadcrumb-active">Add Room</span>
+            <a href="{{ route('rooms.create') }}" class="text-decoration-none text-success">Tambah Bilik</a>
         </div>
     </div>
 @endsection
@@ -20,18 +20,18 @@
     <main class="main-content">
         <div class="content-card mb-3">
             <div class="eb-create-room-information">
-                <h3>Create Room Information</h3>
-                <p>Please complete the creation information below.</p>
+                <h3>Cipta Maklumat Bilik</h3>
+                <p>Sila lengkapkan maklumat penciptaan dibawah.</p>
 
                 <div class="eb-form-section">
                     <form action="{{ route('rooms.store') }}" method="POST" enctype="multipart/form-data"
                         onsubmit="return validateForm()">
                         @csrf
                         <div class="row">
-                            <!-- Room Name -->
+                            <!-- Name Bilik -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="roomName">Room Name</label>
+                                    <label for="roomName">Name Bilik</label>
                                     <input type="text" name="room_name" value="{{ old('room_name') }}"
                                         class="form-control" id="roomName">
                                     @error('room_name')
@@ -43,7 +43,7 @@
                             <!-- Description -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="description">Description</label>
+                                    <label for="description">Penerangan</label>
                                     <input type="text" name="description" value="{{ old('description') }}"
                                         class="form-control" id="description">
                                     @error('description')
@@ -55,7 +55,7 @@
                             <!-- Capacity -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="capacity">Capacity</label>
+                                    <label for="capacity">kapasiti</label>
                                     <input type="text" name="room_capacity" value="{{ old('room_capacity') }}"
                                         class="form-control" id="capacity">
                                     @error('room_capacity')
@@ -73,7 +73,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="status">Room Status</label>
+                                    <label for="status">Status Bilik</label>
                                     <select name="status" id="status" class="form-control">
                                         <option value="" {{ $selectedStatus === '' ? 'selected' : '' }}>Select
                                             Status</option>
@@ -96,7 +96,7 @@
                             <!-- Picture -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="picture">Picture</label>
+                                    <label for="picture">Gambar</label>
                                     <div class="eb-uplaod-file position-relative">
                                         <input type="file" name="picture" class="form-control" id="picture">
                                         <span
@@ -112,7 +112,7 @@
                             <!-- Layout -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="layout_plan">Layout / Plan</label>
+                                    <label for="layout_plan">Layout / Pelan</label>
                                     <div class="eb-uplaod-file position-relative">
                                         <input type="file" name="layout_plan" class="form-control" id="layoutPlan">
                                         <span
@@ -140,16 +140,16 @@
                             <!-- Facilities -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="facilityInput">Facilities</label>
+                                    <label for="facilityInput">Fasiliti</label>
                                     <div class="gap-2 mb-2 d-flex">
                                         <input type="text" id="facilityInput" class="form-control"
                                             placeholder="Enter facility...">
                                     </div>
                                     <div class="eb-form-buttons">
                                         <button type="button" class="btn btn-primary eb-form-btn"
-                                            onclick="addFacility()">Add</button>
+                                            onclick="addFacility()">Tambah</button>
                                     </div>
-                                    <div id="facilitiesList" class="flex-wrap gap-2 mb-2 d-flex"
+                                    <div id="facilitiesList" class="flex-wrap gap-2 mb-2 mt-2 d-flex"
                                         style="display: flex; flex-wrap: wrap; margin-bottom: 0.5rem;"></div>
                                     <input type="hidden" name="facilities" id="facilitiesHidden"
                                         value="{{ old('facilities') }}">
@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="eb-form-btn-submit">
-                            <button type="Submit" class="btn btn-secondary eb-form-submit">Save</button>
+                            <button type="Submit" class="btn btn-secondary eb-form-submit">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -169,7 +169,7 @@
         </div>
     </main>
 
-    {{-- JS for facilities and file input --}}
+    @push('js')
     <script>
         document.getElementById('picture').addEventListener('change', function() {
             document.getElementById('pictureName').textContent = this.files[0]?.name || '';
@@ -220,4 +220,5 @@
             return true;
         }
     </script>
+    @endpush
 @endsection
