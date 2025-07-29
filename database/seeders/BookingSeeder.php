@@ -132,7 +132,7 @@ class BookingSeeder extends Seeder
 
             // Equipment options
             $equipmentOptions = ['PA System', 'Smartboard', 'Projector', 'Whiteboard', 'Sound System'];
-            $numEquipment = rand(0, min(3, count($equipmentOptions)));
+            $numEquipment = rand(2, min(3, count($equipmentOptions)));
             $equipment = $numEquipment > 0 ? json_encode(array_rand(array_flip($equipmentOptions), $numEquipment)) : null;
 
             Booking::create([

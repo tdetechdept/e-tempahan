@@ -11,7 +11,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-                <a class="nav-link " href="/">
+                <a class="nav-link " href="/super_admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Papan Pemuka</span></a>
             </li>

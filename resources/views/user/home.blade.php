@@ -180,7 +180,17 @@
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
-                                            5 => [ // Cancelled
+                                            5 => [ // Cancelled by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             6 => [ // updated by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             7 => [ // Confirmed by User
                                                 'label' => 'CANCELLED',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
@@ -263,14 +273,24 @@
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
-                                            5 => [ // Cancelled
+                                            5 => [ // Cancelled by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             6 => [ // updated by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             7 => [ // Confirmed by User
                                                 'label' => 'CANCELLED',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                         ];
                                 
-                                        $status = $statusStyles[$new->status] ?? [
+                                        $status = $statusStyles[$appv->status] ?? [
                                             'label' => 'UNKNOWN',
                                             'bg' => '#f8f9fa',
                                             'text' => '#6c757d',
@@ -347,7 +367,17 @@
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
-                                            5 => [ // Cancelled
+                                            5 => [ // Cancelled by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             6 => [ // updated by User
+                                                'label' => 'CANCELLED',
+                                                'bg' => '#e2e3e5', 
+                                                'text' => '#383d41',
+                                            ],
+                                             7 => [ // Confirmed by User
                                                 'label' => 'CANCELLED',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',

@@ -43,6 +43,19 @@
                                     'bg' => '#e2e3e5',
                                     'text' => '#383d41',
                                 ],
+
+                                6 => [ // updated by User
+                                    'label' => 'KEMASKINI',
+                                    'class' => 'eb-pending',
+                                    'bg' => '#fff3cd',
+                                    'text' => '#856404',
+                                ],
+                                    7 => [ // Confirmed by User
+                                    'label' => 'DISAHKAN',
+                                    'class' => 'eb-approved',
+                                    'bg' => '#d4edda',
+                                    'text' => '#155724',
+                                ],
                             ];
 
                             $status = $statusStyles[$booking->status] ?? [
