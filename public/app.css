@@ -332,10 +332,10 @@
 
 .btn-view {
   font-family: "Nunito", sans-serif;
-  border: solid 2px #007D7C;
+  border: solid 2px #008080;
   color: #007D7C;
-  padding: 6px 14px;
-  border-radius: 6px;
+  padding:  4px 6px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 13px;
   text-decoration: none;
@@ -356,7 +356,7 @@
 
 .page_title {
   font-family: "Nunito", sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
 }
 
@@ -398,16 +398,22 @@
   border: 1px solid transparent;
   font-size: 14px;
   font-weight: 700;
-  color: #333;
+  color: #111827;
   cursor: pointer;
   transition: border-color 0.2s;
 }
 
 .tab_button.active {
-  background-color: #007D7C;
+  background-color: #008080 !important;
+  border-radius: 6px;
   color: white;
 }
-
+.tab_button li {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  
+}
 .Flex-center {
   display: flex;
   justify-content: space-between;
@@ -494,7 +500,7 @@ input:focus {
 .Info_title {
   font-family: "Nunito", sans-serif;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: #41464B;
   width: 250px;
 }
@@ -509,7 +515,7 @@ input:focus {
   display: flex;
   color: #797E88;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* Optional: remove bottom margins on paragraphs */
@@ -524,7 +530,7 @@ input:focus {
   padding: 10px 14px;
   border-radius: 6px;
   border: none;
-  background-color: #007D7C;
+  background-color: #008080;
   color: white;
   font-weight: 600;
   font-size: 13px;
@@ -1025,6 +1031,7 @@ color: white;
 border: none;
 }
 
+
 /* 
 ===========================
 Calender Page end
@@ -1146,3 +1153,84 @@ Calender Page end
   }
 }
 
+
+
+/* New added  */
+.Usermanagement_button_align{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.Usermanagement_button_align a{
+  background-color: #008080;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+.Usermanagement_button_align a:hover{
+  background-color: #008080;
+}
+.Laporan_content_bg{
+background-color: white;
+padding: 40px;
+border-radius: 16px;
+}
+.Audit_pagination_align{
+display: flex;
+align-items: center;
+justify-content: end;
+margin-top: 30px
+}
+.Audit_pagination_align .pagination{
+align-items: center;
+gap: 0px;
+}
+.Audit_pagination_align .page-item .page-link{
+border-radius: 12px;
+border: 2px solid #EFEFEF;
+color: #6F767E;
+font-weight: 600;
+font-size: 13px;
+}
+.Audit_pagination_align .next_page_link a{
+background-color: #008080;
+color: white !important;
+}
+.Audit_pagination_align .page-item.active .page-link{
+background-color: #E6F3F3;
+border: 2px solid #008080;
+color: #008080
+}
+.Audit_pagination_align .page-item:last-child .page-link{
+border-radius: 16px;
+padding: 10px 15px;
+}
+
+.Senarai_pengguna_pagination{
+display: flex;
+align-items: center;
+width: 100%;
+justify-content: space-between;
+margin-top: 30px;
+}
+
+.coustome-btn_2_red{
+  background-color: #D41C1F;
+  border: 1px solid transparent !important;
+  padding: 8px 40px;
+  border-radius: 6px;
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.coustome-btn_2_red:hover{
+  background-color: transparent;
+  border: 1px solid #D41C1F !important;
+  color: #D41C1F;
+}

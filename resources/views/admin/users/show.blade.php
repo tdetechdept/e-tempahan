@@ -23,7 +23,6 @@
 			<div class="eb-create-room-information">
 				<h3>Semak Pendaftaran</h3>
 
-
 				<!-- <div class="eb-form-section"> -->
 				<table class="table table-borderless">
 					<hr class="my-3">
@@ -63,33 +62,46 @@
 				<hr class="my-4">
 
 				<div class="eb-form-btn-submit eb-readonly-btns">
-					@if ($user->status == 0)
-						<!-- Unsuccessful Registration -->
-						<button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn"
-							onclick="openModal('unsuccessfulModal', 'unsuccessfulForm', '{{ route('users.updateStatus', $user->id) }}')">
-							Pendaftaran Tidak Berjaya
-						</button>
+					<div class="d-flex justify-content-between align-items-center w-100">
+						
+						@if ($user->status == 0)
+							<!-- Unsuccessful Registration -->
+							<div class="Senarai_pengguna_pagination">
+								<button type="button" class="btn me-2"
+									onclick="openModal('unsuccessfulModal', 'unsuccessfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+									Pendaftaran Tidak Berjaya
+								</button>
 
-						<!-- Successful Registration -->
-						<button type="button" class="btn btn-secondary eb-form-submit"
-							onclick="openModal('successfulModal', 'successfulForm', '{{ route('users.updateStatus', $user->id) }}')">
-							Pendaftaran Berjaya
-						</button>
-					@else
-						<!-- Otherwise, show deactivate/edit user buttons -->
-						<button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn"
-							onclick="openModal('deactivateUserModal', 'deactivateUserForm', '{{ route('users.deactivate', $user->id) }}')">
-							Nyahaktif Pengguna
-						</button>
-						<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit">
-							Kemaskini Pengguna
-						</a>
-					@endif
+								<!-- Successful Registration -->
+								<button type="button" class="btn btn-secondary eb-form-submit"
+									onclick="openModal('successfulModal', 'successfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+									Pendaftaran Berjaya
+								</button>
+							</div>
+						@else
+							<!-- Otherwise, show deactivate/edit user buttons -->
+							<div class="Senarai_pengguna_pagination">
+								<button type="button" class="btn coustome-btn_2_red me-2"
+									onclick="openModal('deactivateUserModal', 'deactivateUserForm', '{{ route('users.deactivate', $user->id) }}')">
+									Nyahaktif Pengguna
+								</button>
+								<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
+									Kemaskini Pengguna
+								</a>
+							</div>
+						@endif
+						
+						<!-- Audit History Button - Links to Super Admin Audit -->
+						<!-- <a href="{{ route('audit') }}?username={{ urlencode($user->name) }}" class="btn btn-outline-info">
+							<i class="fas fa-history"></i> Lihat Audit
+						</a> -->
+					</div>
 				</div>
 			</div>
 		</div>
 	</main>
 
+	<!-- Unsuccessful Registration Modal -->
 	<div class="modal fade eb-delete-popup" id="unsuccessfulModal" tabindex="-1" role="dialog"
 		aria-labelledby="unsuccessfulModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -111,14 +123,12 @@
 		</div>
 	</div>
 
-
 	<!-- User Deactivate Modal -->
 	<div class="modal fade eb-delete-popup" id="deactivateUserModal" tabindex="-1" role="dialog"
 		aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<form id="deactivateUserForm" method="POST">
 				@csrf
-				<input type="hidden" name="status" value="5">
 				<div class="modal-content">
 					<div class="modal-body text-center">
 						<div class="eb-delete-icon mb-3"></div>
@@ -133,7 +143,6 @@
 			</form>
 		</div>
 	</div>
-
 
 	<!-- Confirm Status Update Modal -->
 	<div class="modal fade eb-delete-popup" id="successfulModal" tabindex="-1" role="dialog"
