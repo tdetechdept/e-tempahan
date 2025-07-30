@@ -71,65 +71,186 @@
           max-height: 100%;
         }
     </style>
+<style>
+    /* Calendar Grid Layout */
+    .calendar-grid {
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        overflow: hidden;
+    }
 
+    .calendar-grid .row {
+        margin: 0;
+    }
+
+    .calendar-grid .col {
+        padding: 10px
+    }
+
+    /* Day Names Header */
+    .day-names {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .day-names .col {
+        padding: 10px 5px;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .day-names .col:last-child {
+        border-right: none;
+    }
+
+    /* Day Cells */
+    .day-cell {
+        min-height: 120px;
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px;
+        position: relative;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .day-cell:last-child {
+        border-right: none;
+    }
+
+    .day-number {
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px;
+    }
+
+    /* Other Month Days */
+    .other-month-day {
+        background-color: #f8f9fa;
+        color: #6c757d;
+    }
+
+    .other-month-day .day-number {
+        color: #6c757d;
+    }
+
+    /* Current Month Days */
+    .current-month-day {
+        background-color: white;
+    }
+
+    /* Today Highlight */
+    .today-highlight {
+        background-color: #e3f2fd !important;
+        border: 2px solid #2196f3 !important;
+    }
+
+    .today-header-highlight {
+        color: #2196f3 !important;
+        font-weight: bold !important;
+    }
+
+    /* Event Styling */
+    .calendar-grid .event {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
+        transition: all 0.2s ease;
+        border: none;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .calendar-grid .event:hover {
+        transform: scale(1.02);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Event Colors - Simplified */
+    .event-temuduga {
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
+        padding: 10px 0px;
+    }
+
+    .event-mesyuarat {
+        background-color: #e8f5e8 !important;
+        color: #2e7d32 !important;
+    }
+
+    /* Status-based colors (fallback) */
+    .status-new {
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
+    }
+
+    .status-pending {
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important;
+    }
+
+    .status-approved {
+        background-color: #e8f5e8 !important;
+        color: #2e7d32 !important;
+    }
+
+    .status-rejected {
+        background-color: #ffebee !important;
+        color: #c62828 !important;
+    }
+
+    .status-default {
+        background-color: #f5f5f5 !important;
+        color: #424242 !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .day-cell {
+            min-height: 100px;
+            padding: 6px;
+        }
+        
+        .calendar-grid .event {
+            font-size: 0.7rem;
+            padding: 4px 6px;
+            margin: 3px 0;
+        }
+    }
+</style>
 @endpush
 
 @section('content')
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container">
-      <h4 class="fw-normal">Selamat Datang</h4>
-      <h1 class="display-4 fw-bold">Sistem e-Tempahan</h1>
-      <a href="{{route('login')}}" class="btn button-theme mt-3">Log Masuk</a>
-    </div>
-  </section>
 
   <!-- Introduction Section -->
   <section class="theme-color  py-5 text-center">
     {{-- PENGENALAN SISTEM E-TEMPAHAN --}}
     <div class="container">
-      <h2 class="fw-bold">PENGENALAN SISTEM E-TEMPAHAN</h2>
+      <h2 class="fw-bold">KALENDAR</h2>
+      <h2 class="fw-bold">FASILITI DAN RUANG BILIK</h2>
       <p class="mt-3">Sistem eTempahan dibangunkan bagi kemudahan warga KK membuat tempahan:</p>
 
-      <div class="row mt-5">
-        <!-- Card 1 -->
-        <div class="col-md-4 mb-4">
-          <a href="{{route('portal.facility')}}" class="text-decoration-none">
-          <div class="card h-100 shadow">
-            <img src="{{asset('img/img1.png')}}" class="card-img-top" alt="Fasiliti Bilik">
-            <div class="card-body">
-              <h5 class="card-title">Fasiliti Bilik/Ruang</h5>
-              <p class="card-text">Tempahan fasiliti bilik/ruang secara dalam talian di KK.</p>
-            </div>
-          </div>
-          </a>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow">
-            <img src="{{asset('img/img2.png')}}" class="card-img-top" alt="Lampu & Penghawa Dingin">
-            <div class="card-body">
-              <h5 class="card-title">Lampu & Penghawa Dingin</h5>
-              <p class="card-text">Permohonan penggunaan utiliti lampu dan penghawa dingin bagi yang bertugas selepas waktu pejabat dan cuti am di KK.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 shadow">
-            <img src="{{asset('img/img3.png')}}" class="card-img-top" alt="Kenderaan Rasmi">
-            <div class="card-body">
-              <h5 class="card-title">Kenderaan Rasmi</h5>
-              <p class="card-text">Permohonan tempahan kenderaan rasmi jabatan di KK.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-        {{-- GALERI --}}
+    <!-- Calendar Header -->
+    <div class="container mt-5">
+
+        <h1>CALENDER here</h1>
+
+    </div>
+
+    {{-- GALERI --}}
     <div id="" class="container mt-5 pt-3">
       <h2 class="fw-bold">GALERI</h2>
       <p class="mt-3">Fasiliti bilik / Ruang bilik yang disediakan di Kementerian Komunikasi</p>
@@ -301,4 +422,9 @@
           wrap: false,
         });
     </script>
+    <script>
+    // Pass PHP data to JavaScript
+        window.calendarEvents = [];
+    </script>
+    <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush
