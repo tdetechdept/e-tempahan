@@ -31,7 +31,7 @@ class HomeController extends Controller
             // If the user is a Super Admin, show the admin dashboard
             
             $users = User::latest()->take(5)->get(); 
-            return view('super_admin.super_admin',compact('users'));
+            return redirect()->route('dashboard',compact('users'));
         }
         
         if(auth()->user()->role === 'User') {
