@@ -33,12 +33,12 @@
                   <input type="checkbox" id="rememberMe">
                   <label for="rememberMe" class="form-check-label">Ingat Saya</label>
                 </div>
-                <a href="#" class="text-decoration-none text-info">Lupa Kata Laluan?</a>
+                <a href="#" class="text-decoration-none text-theme">Lupa Kata Laluan?</a>
               </div>
               <button type="submit" class="btn btn-primary w-100">Log Masuk</button>
             </form>
             <div class="text-center mt-3">
-              <a href="{{ route('register') }}" class="text-success fw-bold">Daftar</a>
+              <a href="{{ route('register') }}" class="text-theme fw-bold text-decoration-none">Daftar</a>
             </div>
           </div>
         </div>

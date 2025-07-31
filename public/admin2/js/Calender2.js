@@ -89,17 +89,65 @@ window.addEventListener("DOMContentLoaded", () => {
                     html += `<div class="col day-cell month-view ${dayClass}"></div>`;
                     continue;
                 } else if (dayCounter <= daysInMonth) {
-                    dayNumber = dayCounter++;
+                    dayNumber = dayCounter;
                     fullDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), dayNumber);
                     isCurrentMonthDay = true;
                     dayClass = 'current-month-day';
+                    dayCounter++;
                 } else {
                     html += `<div class="col day-cell month-view ${dayClass}"></div>`;
                     continue;
                 }
 
-                const dateString = fullDate.toISOString().split('T')[0];
-                const dayEvents = events.filter(event => event.date === dateString);
+                const dateString = fullDate.getFullYear() + '-' + 
+                    String(fullDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(fullDate.getDate()).padStart(2, '0');
+                const dayEvents = events.filter(event => {
+                    // Debug logging
+                    console.log('Checking event:', event);
+                    console.log('Current dateString:', dateString);
+                    
+                    // Prioritize start_date and end_date for date range events
+                    if (event.start_date && event.end_date) {
+                        // For holiday events, check if the date falls within the holiday range
+                        const adjustedStartDate = new Date(event.start_date);
+                        const adjustedEndDate = new Date(event.end_date);
+                        
+                        // Add one day to start date to ensure proper range
+                        adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+                        
+                        // Format dates consistently
+                        const adjustedStartString = adjustedStartDate.getFullYear() + '-' + 
+                            String(adjustedStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                            String(adjustedStartDate.getDate()).padStart(2, '0');
+                        
+                        const adjustedEndString = adjustedEndDate.getFullYear() + '-' + 
+                            String(adjustedEndDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                            String(adjustedEndDate.getDate()).padStart(2, '0');
+                        
+                        const isInRange = dateString >= adjustedStartString && dateString <= adjustedEndString;
+                        
+                        console.log('Date range check:', {
+                            start: adjustedStartString,
+                            end: adjustedEndString,
+                            current: dateString,
+                            isInRange: isInRange
+                        });
+                        
+                        return isInRange;
+                    } else if (event.date) {
+                        // Fallback for events with only date field
+                        return event.date === dateString;
+                    } else if (event.start_date) {
+                        // Fallback for events with only start_date
+                        const eventStartDate = new Date(event.start_date);
+                        const eventStartString = eventStartDate.getFullYear() + '-' + 
+                            String(eventStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                            String(eventStartDate.getDate()).padStart(2, '0');
+                        return eventStartString === dateString;
+                    }
+                    return false;
+                });
                 
                 const isToday = isCurrentMonthDay && fullDate.toDateString() === today.toDateString() ? 'today-highlight' : '';
 
@@ -107,9 +155,12 @@ window.addEventListener("DOMContentLoaded", () => {
                 html += `<div class="day-number">${dayNumber}</div>`;
                 dayEvents.forEach(event => {
                     const eventClass = getEventClass(event.title);
-                    const truncatedTitle = truncateText(event.title, 15);
-                    const tooltipText = event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${event.title} - ${event.room} - ${event.user}`;
-                    html += `<div class="event ${eventClass}" title="${tooltipText}">${event.time} ${truncatedTitle}</div>`;
+                    // For holidays, only show "CUTI KHAS", for other events use title
+                    const displayName = event.type === 'holiday' ? event.title : (event.full_title ? event.full_title : event.title);
+                    const truncatedTitle = truncateText(displayName, 15);
+                    const tooltipText = event.type === 'holiday' ? 'CUTI KHAS' : (event.full_title ? `${event.full_title}` : displayName);
+                    
+                    html += `<div class="event ${eventClass}" title="${tooltipText}">${truncatedTitle}</div>`;
                 });
                 html += `</div>`;
             }
@@ -130,8 +181,42 @@ window.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < 7; i++) {
             const day = new Date(startOfWeek);
             day.setDate(startOfWeek.getDate() + i);
-            const dateString = day.toISOString().split('T')[0];
-            const dayEvents = events.filter(event => event.date === dateString);
+            const dateString = day.getFullYear() + '-' + 
+                String(day.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(day.getDate()).padStart(2, '0');
+            const dayEvents = events.filter(event => {
+                // Prioritize start_date and end_date for date range events
+                if (event.start_date && event.end_date) {
+                    // For holiday events, check if the date falls within the holiday range
+                    const adjustedStartDate = new Date(event.start_date);
+                    const adjustedEndDate = new Date(event.end_date);
+                    
+                    // Add one day to start date to ensure proper range
+                    adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+                    
+                    // Format dates consistently
+                    const adjustedStartString = adjustedStartDate.getFullYear() + '-' + 
+                        String(adjustedStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(adjustedStartDate.getDate()).padStart(2, '0');
+                    
+                    const adjustedEndString = adjustedEndDate.getFullYear() + '-' + 
+                        String(adjustedEndDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(adjustedEndDate.getDate()).padStart(2, '0');
+                    
+                    return dateString >= adjustedStartString && dateString <= adjustedEndString;
+                } else if (event.date) {
+                    // Fallback for events with only date field
+                    return event.date === dateString;
+                } else if (event.start_date) {
+                    // Fallback for events with only start_date
+                    const eventStartDate = new Date(event.start_date);
+                    const eventStartString = eventStartDate.getFullYear() + '-' + 
+                        String(eventStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(eventStartDate.getDate()).padStart(2, '0');
+                    return eventStartString === dateString;
+                }
+                return false;
+            });
             const isToday = day.toDateString() === today.toDateString() ? 'today-highlight' : '';
             const isTodayText = day.toDateString() === today.toDateString() ? 'today-header-highlight' : '';
 
@@ -140,9 +225,14 @@ window.addEventListener("DOMContentLoaded", () => {
             html += `<div class="text-center w-100 mb-2 ${isTodayText}">${day.toLocaleDateString('en-US', { weekday: 'short' })}</div>`;
             dayEvents.forEach(event => {
                 const eventClass = getEventClass(event.title);
-                const truncatedTitle = truncateText(event.title, 15);
-                const tooltipText = event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${event.title} - ${event.room} - ${event.user}`;
-                html += `<div class="event ${eventClass}" title="${tooltipText}">${event.time} ${truncatedTitle}</div>`;
+                // For holidays, only show "CUTI KHAS", for other events use title
+                const eventTitle = event.type === 'holiday' ? event.title : (event.holiday_name || event.title);
+                const displayName = event.type === 'holiday' ? event.title : (event.full_title || eventTitle);
+                const truncatedTitle = truncateText(displayName, 15);
+                const tooltipText = event.type === 'holiday' ? 'CUTI KHAS' : (event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${eventTitle} - ${event.room} - ${event.user}`);
+                const eventTime = event.time || 'All Day';
+                
+                html += `<div class="event ${eventClass}" title="${tooltipText}">${eventTime} ${truncatedTitle}</div>`;
             });
             html += `</div>`;
         }
@@ -152,8 +242,42 @@ window.addEventListener("DOMContentLoaded", () => {
 
     function renderDayView() {
         let html = '';
-        const dateString = currentDate.toISOString().split('T')[0];
-        const dayEvents = events.filter(event => event.date === dateString);
+        const dateString = currentDate.getFullYear() + '-' + 
+            String(currentDate.getMonth() + 1).padStart(2, '0') + '-' + 
+            String(currentDate.getDate()).padStart(2, '0');
+        const dayEvents = events.filter(event => {
+            // Prioritize start_date and end_date for date range events
+            if (event.start_date && event.end_date) {
+                // For holiday events, check if the date falls within the holiday range
+                const adjustedStartDate = new Date(event.start_date);
+                const adjustedEndDate = new Date(event.end_date);
+                
+                // Add one day to start date to ensure proper range
+                adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+                
+                // Format dates consistently
+                const adjustedStartString = adjustedStartDate.getFullYear() + '-' + 
+                    String(adjustedStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(adjustedStartDate.getDate()).padStart(2, '0');
+                
+                const adjustedEndString = adjustedEndDate.getFullYear() + '-' + 
+                    String(adjustedEndDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(adjustedEndDate.getDate()).padStart(2, '0');
+                
+                return dateString >= adjustedStartString && dateString <= adjustedEndString;
+            } else if (event.date) {
+                // Fallback for events with only date field
+                return event.date === dateString;
+            } else if (event.start_date) {
+                // Fallback for events with only start_date
+                const eventStartDate = new Date(event.start_date);
+                const eventStartString = eventStartDate.getFullYear() + '-' + 
+                    String(eventStartDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(eventStartDate.getDate()).padStart(2, '0');
+                return eventStartString === dateString;
+            }
+            return false;
+        });
         const isToday = currentDate.toDateString() === today.toDateString() ? 'today-highlight' : '';
         const isTodayText = currentDate.toDateString() === today.toDateString() ? 'today-header-highlight' : '';
 
@@ -166,10 +290,18 @@ window.addEventListener("DOMContentLoaded", () => {
         if (dayEvents.length > 0) {
             dayEvents.forEach(event => {
                 const eventClass = getEventClass(event.title);
-                const truncatedTitle = truncateText(event.full_title || event.title, 30);
+                // For holidays, only show "CUTI KHAS", for other events use title
+                const eventTitle = event.type === 'holiday' ? event.title : (event.holiday_name || event.title);
+                const displayName = event.type === 'holiday' ? event.title : (event.full_title || eventTitle);
+                const truncatedTitle = truncateText(displayName, 30);
+                const eventTime = event.time || 'All Day';
+                const eventDetails = event.type === 'holiday' ? 
+                    `Holiday: ${event.description || 'No description'}` : 
+                    `Room: ${event.room} | User: ${event.user} | Participants: ${event.participants}`;
+                
                 html += `<div class="event ${eventClass} mb-2 p-2">
-                    <strong>${event.time} - ${truncatedTitle}</strong><br>
-                    <small>Room: ${event.room} | User: ${event.user} | Participants: ${event.participants}</small>
+                    <strong>${eventTime} - ${truncatedTitle}</strong><br>
+                    <small>${eventDetails}</small>
                 </div>`;
             });
         } else {
@@ -184,10 +316,21 @@ window.addEventListener("DOMContentLoaded", () => {
         const todayNormalized = new Date();
         todayNormalized.setHours(0, 0, 0, 0);
         const upcomingEvents = events.filter(event => {
-            const eventDate = new Date(event.date);
+            let eventDate;
+            if (event.date) {
+                eventDate = new Date(event.date);
+            } else if (event.start_date) {
+                eventDate = new Date(event.start_date);
+            } else {
+                return false;
+            }
             eventDate.setHours(0, 0, 0, 0);
             return eventDate >= todayNormalized;
-        }).sort((a, b) => new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`));
+        }).sort((a, b) => {
+            const dateA = a.date ? new Date(`${a.date} ${a.time}`) : new Date(a.start_date);
+            const dateB = b.date ? new Date(`${b.date} ${b.time}`) : new Date(b.start_date);
+            return dateA - dateB;
+        });
 
         html += '<div class="row no-gutters justify-content-center">';
         html += `<div class="col-12 col-md-10"><h5 class="mb-3">Upcoming Events</h5>`;
@@ -207,9 +350,16 @@ window.addEventListener("DOMContentLoaded", () => {
 
                 const statusClass = getStatusClass(event.status);
                 const eventStyle = `background-color: ${event.color}; color: white;`;
+                // For holidays, only show "CUTI KHAS", for other events use title
+                const eventTitle = event.type === 'holiday' ? event.title : (event.holiday_name || event.title);
+                const eventTime = event.time || 'All Day';
+                const eventDetails = event.type === 'holiday' ? 
+                    `Holiday: ${event.description || 'No description'}` : 
+                    `Room: ${event.room} | User: ${event.user} | Status: ${getStatusText(event.status)}`;
+                
                 html += `<div class="event ${statusClass} mb-2 p-2" style="${eventStyle}">
-                    <strong>${event.time} - ${event.title}</strong><br>
-                    <small>Room: ${event.room} | User: ${event.user} | Status: ${getStatusText(event.status)}</small>
+                    <strong>${eventTime} - ${eventTitle}</strong><br>
+                    <small>${eventDetails}</small>
                 </div>`;
             });
         } else {

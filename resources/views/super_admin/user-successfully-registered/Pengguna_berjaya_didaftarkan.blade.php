@@ -18,8 +18,18 @@
             <h4>Pengguna berjaya didaftarkan dihantar</h4>
             <p>Emel notifikasi akan dihantar kepada pengguna yang berdaftar pengguna yang berdaftar</p>
 
-            <button class="dashboard-btn">Papan Pemuka</button>
-        </div>
+            <a href="{{ url('/pengurusan-pengguna') }}" class="dashboard-btn">Papan Pemuka</a>
+            </div>
     </div>
 
 @endsection
+
+@push('css')
+<style>
+    .dashboard-btn:hover {
+        color:#FFF;
+        text-decoration: none;
+        background-color: #299d91dc;
+    }
+</style>
+@endpush 

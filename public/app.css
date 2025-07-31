@@ -20,7 +20,7 @@
 .card-intro {
   flex: 7;
   /* 70% height */
-  background-color: #007D7C;
+  background-color: #285689;
   border-radius: 15px;
   padding: 30px;
   color: white;
@@ -32,14 +32,14 @@
 
 .card-intro h2 {
   font-family: "Nunito", sans-serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 12px;
 }
 
 .card-intro p {
   font-family: "Nunito", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #e0e0e0;
 }
 
@@ -55,7 +55,7 @@
 .metric-box {
   display: flex;
   align-items: center;
-  background-color: #007D7C;
+  background-color: #285689;
   color: white;
   padding: 20px;
   border-radius: 12px;
@@ -76,13 +76,14 @@
 .metric-label {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
+  font-size: 1.1rem;
   margin: 0;
 }
 
 .metric-value {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin: 0;
 }
 .calendar1-container {
@@ -107,7 +108,7 @@
 }
 
 .calendar1-current-date {
-  color: #259B91;
+  color: #285689;
   font-size: 18px;
   font-weight: 600;
   margin: 0;
@@ -167,13 +168,54 @@
 }
 
 .calendar1-dates li.selected p {
-  background-color: #259B91;
+  background-color: #285689;
   color: #fff;
 }
 
 .calendar1-dates li.highlight p {
   background-color: #d43131;
   color: white;
+}
+
+.calendar1-dates li.holiday p {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.calendar1-dates li.holiday {
+  position: relative;
+}
+
+.calendar1-dates li.holiday p::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  background-color: #ffc107;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.calendar1-dates li.holiday .holiday-name {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.8);
+  padding: 1px 3px;
+  border-radius: 2px;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 10;
+  font-weight: 500;
 }
 
 .calendar1-events {
@@ -211,7 +253,7 @@
 
 .table_title {
   font-family: "Nunito", sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 16px;
   font-weight: 700;
 }
@@ -237,6 +279,7 @@
   margin: 0;
   font-weight: 500;
   color: #555;
+  font-size: 16px;
 }
 
 .dropdown-section select {
@@ -244,7 +287,7 @@
   border-radius: 6px;
   border: 1px solid #ccc;
   background-color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   cursor: pointer;
   transition: border-color 0.2s;
@@ -265,7 +308,7 @@
   color: #59C378;
   font-weight: 700;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 
@@ -287,7 +330,7 @@
   background-color: #EEF9F9;
   color: #5c636d;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
   border-bottom: solid 1px #ddd;
 }
@@ -298,6 +341,7 @@
   padding: 14px 18px;
   text-align: left;
   vertical-align: middle;
+  font-size: 15px;
 }
 
 .custom-table tbody tr:nth-child(even) {
@@ -332,10 +376,10 @@
 
 .btn-view {
   font-family: "Nunito", sans-serif;
-  border: solid 2px #007D7C;
-  color: #007D7C;
-  padding: 6px 14px;
-  border-radius: 6px;
+  border: solid 2px #008080;
+  color: #285689;
+  padding:  4px 6px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 13px;
   text-decoration: none;
@@ -356,7 +400,7 @@
 
 .page_title {
   font-family: "Nunito", sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
 }
 
@@ -366,7 +410,7 @@
 }
 
 .breadcrumbs span {
-  color: #007D7C;
+  color: #285689;
 }
 
 .pengurusan_pengguna_page .badge {
@@ -388,6 +432,7 @@
 
 .form-control {
   border-radius: 15px;
+  font-size: 16px;
 }
 
 .tab_button {
@@ -396,18 +441,24 @@
   border-radius: 6px;
   background-color: transparent;
   border: 1px solid transparent;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  color: #333;
+  color: #111827;
   cursor: pointer;
   transition: border-color 0.2s;
 }
 
 .tab_button.active {
-  background-color: #007D7C;
+  background-color: #008080 !important;
+  border-radius: 6px;
   color: white;
 }
-
+.tab_button li {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  
+}
 .Flex-center {
   display: flex;
   justify-content: space-between;
@@ -418,11 +469,11 @@
   font-family: "Nunito", sans-serif;
   padding: 10px 14px;
   border-radius: 6px;
-  border: 1px solid #007D7C;
-  background-color: #007D7C;
+  border: 1px solid #285689;
+  background-color: #285689;
   color: white;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -494,7 +545,7 @@ input:focus {
 .Info_title {
   font-family: "Nunito", sans-serif;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: #41464B;
   width: 250px;
 }
@@ -509,7 +560,7 @@ input:focus {
   display: flex;
   color: #797E88;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* Optional: remove bottom margins on paragraphs */
@@ -524,7 +575,7 @@ input:focus {
   padding: 10px 14px;
   border-radius: 6px;
   border: none;
-  background-color: #007D7C;
+  background-color: #008080;
   color: white;
   font-weight: 600;
   font-size: 13px;
@@ -576,7 +627,7 @@ input:focus {
   background-color: #EBF0F0;
   padding: 5px;
   border-radius: 10px;
-  color: #007D7C;
+  color: #285689;
 }
 
 .modal_desc {
@@ -591,9 +642,9 @@ input:focus {
 .custom_btn {
   padding: 5px 14px;
   border-radius: 6px;
-  border: 2px solid #007D7C;
+  border: 2px solid #285689;
   background-color: transparent;
-  color: #007D7C;
+  color: #285689;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -608,8 +659,8 @@ input:focus {
   font-family: "Nunito", sans-serif;
   padding: 5px 14px;
   border-radius: 6px;
-  border: 2px solid #007D7C;
-  background-color: #007D7C;
+  border: 2px solid #285689;
+  background-color: #285689;
   color: white;
   font-weight: 600;
   display: flex;
@@ -624,7 +675,7 @@ input:focus {
 /* On hover, slightly change background for clarity */
 .custom_btn:hover {
   background-color: rgba(0, 125, 124, 0.1);
-  color: #007D7C;
+  color: #285689;
 }
 
 /* Footer button alignment */
@@ -639,8 +690,8 @@ input:focus {
 
 .modal-footer .btn-primary {
   font-family: "Nunito", sans-serif;
-  background-color: #007D7C;
-  border: 1px solid #007D7C;
+  background-color: #285689;
+  border: 1px solid #285689;
   font-weight: 600;
 }
 
@@ -687,7 +738,7 @@ input:focus {
 }
 
 .success-message-wrapper svg {
-  background-color: #259B91;
+  background-color: #285689;
   width: 80px;
   height: 80px;
   padding: 10px;
@@ -715,7 +766,7 @@ input:focus {
 
 .dashboard-btn {
   padding: 10px 50px;
-  background-color: #259B91;
+  background-color: #285689;
   margin: 0 auto;
   color: white;
   border: none;
@@ -727,7 +778,7 @@ input:focus {
 }
 
 .dashboard-btn:hover {
-  background-color: #299d91dc;
+  background-color: #5797de;
 }
 
 /*
@@ -887,6 +938,7 @@ Calender Page
   background-color: #f8f9fa;
   border-radius: 8px;
   margin-bottom: 10px;
+  color: #000000;
 }
 
 .day-cell {
@@ -984,7 +1036,7 @@ Calender Page
 }
 
 .btn-group-toggle .btn.active {
-  background-color: #007D7C;
+  background-color: #285689;
   color: white;
   border-radius: 10px !important;
 }
@@ -995,12 +1047,12 @@ Calender Page
 }
 
 .day-cell.today-highlight .day-number {
-  color: #28a745;
+  color: #285689;
   font-weight: bold;
 }
 
 .today-header-highlight {
-  color: #28a745 !important;
+  color: #285689 !important;
   font-weight: bold !important;
 }
 
@@ -1020,10 +1072,11 @@ width: 400px;
 .nav_button_group #prevBtn,
 .nav_button_group #nextBtn{
 border-radius: 10px;
-background-color: #259B91;
+background-color: #285689;
 color: white;
 border: none;
 }
+
 
 /* 
 ===========================
@@ -1146,3 +1199,84 @@ Calender Page end
   }
 }
 
+
+
+/* New added  */
+.Usermanagement_button_align{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.Usermanagement_button_align a{
+  background-color: #008080;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+.Usermanagement_button_align a:hover{
+  background-color: #008080;
+}
+.Laporan_content_bg{
+background-color: white;
+padding: 40px;
+border-radius: 16px;
+}
+.Audit_pagination_align{
+display: flex;
+align-items: center;
+justify-content: end;
+margin-top: 30px
+}
+.Audit_pagination_align .pagination{
+align-items: center;
+gap: 0px;
+}
+.Audit_pagination_align .page-item .page-link{
+border-radius: 12px;
+border: 2px solid #EFEFEF;
+color: #6F767E;
+font-weight: 600;
+font-size: 13px;
+}
+.Audit_pagination_align .next_page_link a{
+background-color: #008080;
+color: white !important;
+}
+.Audit_pagination_align .page-item.active .page-link{
+background-color: #E6F3F3;
+border: 2px solid #008080;
+color: #008080
+}
+.Audit_pagination_align .page-item:last-child .page-link{
+border-radius: 16px;
+padding: 10px 15px;
+}
+
+.Senarai_pengguna_pagination{
+display: flex;
+align-items: center;
+width: 100%;
+justify-content: space-between;
+margin-top: 30px;
+}
+
+.coustome-btn_2_red{
+  background-color: #D41C1F;
+  border: 1px solid transparent !important;
+  padding: 8px 40px;
+  border-radius: 6px;
+  color: hsl(0, 0%, 100%);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.coustome-btn_2_red:hover{
+  background-color: transparent;
+  border: 1px solid #D41C1F !important;
+  color: #D41C1F;
+}

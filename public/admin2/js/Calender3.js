@@ -66,7 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         dayCounter++;
                     }
-                    rowHTML += `<td class="${classList.join(' ')}" data-date="${fullDate ? fullDate.toISOString().split('T')[0] : ''}">${displayDay}</td>`;
+                    // Create date string directly to avoid timezone issues
+                    const dateString = fullDate ? `${fullDate.getFullYear()}-${String(fullDate.getMonth() + 1).padStart(2, '0')}-${String(fullDate.getDate()).padStart(2, '0')}` : '';
+                    rowHTML += `<td class="${classList.join(' ')}" data-date="${dateString}"><p>${displayDay}</p></td>`;
                 }
                 rowHTML += '</tr>';
                 
@@ -87,10 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
         calendarTable.addEventListener('click', (event) => {
             const clickedCell = event.target.closest('td');
             if (clickedCell && clickedCell.dataset.date) { // Ensure it's a date cell and has a data-date
-                const selectedDate = new Date(clickedCell.dataset.date);
-                dateInput.value = selectedDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-
-                // Remove previous highlight within THIS calendar's table
+                // Use the data-date directly to avoid timezone issues
+                dateInput.value = clickedCell.dataset.date; // Format as YYYY-MM-DD                // Remove previous highlight within THIS calendar's table
                 const previouslyHighlighted = calendarTable.querySelector('.highlighted-date');
                 if (previouslyHighlighted) {
                     previouslyHighlighted.classList.remove('highlighted-date');

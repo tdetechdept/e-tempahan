@@ -13,7 +13,6 @@
         margin: 0;
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         background: white;
     }
     
@@ -101,11 +100,10 @@
                 <div class="form-group">
                     <label for="username">Name Pengguna</label>
                     <input type="text" class="form-control" id="username" name="username" value="{{ request('username') }}" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
                     <button type="submit" class="btn btn-primary">Cari</button>
                     <a href="{{ route('audit') }}" class="btn btn-secondary">Reset</a>
                 </div>
+               
             </form>
             <div class="table-container">
                 <table class="custom-table">
@@ -156,7 +154,7 @@
                 </table>
                 
                 @if($audits->hasPages())
-                    <div class="d-flex justify-content-center mt-4">
+                    <div class="Audit_pagination_align">
                         {{ $audits->links('vendor.pagination.custom') }}
                     </div>
                 @endif

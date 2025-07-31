@@ -15,8 +15,8 @@
                         <input type="text" class="form-control pl-5 rounded-1" placeholder="Carian">
                     </div>
 
-                    <button class="dashboard-btn">Papan Pemuka</button>
-                    <button class="dashboard-btn">Papan Pemuka</button>
+                    <a href="{{ route('calendar.create_special_holiday') }}" class="dashboard-btn">Cipta Cuti Khas</a>
+                    <a href="{{ route('calendar.create_manual_booking') }}" class="dashboard-btn">Tambah Tempahan Manual</a>
                 </div>
             </div>
             <div class=" calendar-container2">
@@ -46,27 +46,36 @@
                 </div>
 
                 <!-- Days of the week header -->
-                <div class="row no-gutters text-center day-names">
-                    <div class="col">Isnin</div>
-                    <div class="col">Selasa</div>
-                    <div class="col">Rabu</div>
-                    <div class="col">Khamis</div>
-                    <div class="col">Jumaat</div>
-                    <div class="col">Sabtu</div>
-                    <div class="col">Ahad</div>
-                </div>
+                <div class="calendar-grid">
+                    <div class="row no-gutters text-center day-names">
+                        <div class="col">Isnin</div>
+                        <div class="col">Selasa</div>
+                        <div class="col">Rabu</div>
+                        <div class="col">Khamis</div>
+                        <div class="col">Jumaat</div>
+                        <div class="col">Sabtu</div>
+                        <div class="col">Ahad</div>
+                    </div>
 
-                <!-- Calendar Grid -->
-                <div id="calendarGrid" class="calendar-grid">
-                    <!-- Calendar content will be generated here by JavaScript -->
+                    <!-- Calendar Grid -->
+                    <div id="calendarGrid" class="calendar-grid">
+                        <!-- Calendar content will be generated here by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
-  
     @endsection
 
 @push('css')
 <style>
+
+
+.dashboard-btn:hover{
+        background-color: #299d91dc;
+            color: #fff;
+        text-decoration: none;
+    }
+    
     /* Calendar Grid Layout */
     .calendar-grid {
         border: 1px solid #dee2e6;
@@ -79,7 +88,7 @@
     }
 
     .calendar-grid .col {
-        padding: 0;
+        padding: 10px
     }
 
     /* Day Names Header */
@@ -119,6 +128,10 @@
         font-size: 0.9rem;
         margin-bottom: 8px;
         color: #333;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px;
     }
 
     /* Other Month Days */
@@ -151,9 +164,7 @@
     .calendar-grid .event {
         font-size: 0.75rem;
         padding: 6px 8px;
-        margin: 4px 0;
         border-radius: 4px;
-        cursor: pointer;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -174,44 +185,51 @@
     .event-temuduga {
         background-color: #e3f2fd !important;
         color: #1976d2 !important;
-        border-left: 3px solid #1976d2 !important;
+        padding: 10px 0px;
     }
 
     .event-mesyuarat {
         background-color: #e8f5e8 !important;
         color: #2e7d32 !important;
-        border-left: 3px solid #2e7d32 !important;
+    }
+
+    /* API-sourced event styling */
+    .event-api {
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important;
+        border-left: 3px solid #ff9800 !important;
+    }
+
+    .api-indicator {
+        color: #007bff;
+        font-size: 0.8em;
+        font-style: italic;
     }
 
     /* Status-based colors (fallback) */
     .status-new {
         background-color: #e3f2fd !important;
         color: #1976d2 !important;
-        border-left: 3px solid #1976d2 !important;
     }
 
     .status-pending {
         background-color: #fff3e0 !important;
         color: #f57c00 !important;
-        border-left: 3px solid #f57c00 !important;
     }
 
     .status-approved {
         background-color: #e8f5e8 !important;
         color: #2e7d32 !important;
-        border-left: 3px solid #2e7d32 !important;
     }
 
     .status-rejected {
         background-color: #ffebee !important;
         color: #c62828 !important;
-        border-left: 3px solid #c62828 !important;
     }
 
     .status-default {
         background-color: #f5f5f5 !important;
         color: #424242 !important;
-        border-left: 3px solid #424242 !important;
     }
 
     /* Responsive adjustments */
@@ -233,7 +251,7 @@
 @push('js')
 <script>
     // Pass PHP data to JavaScript
-    window.calendarEvents = @json($bookings);
+    window.calendarEvents = @json($allEvents);
 </script>
 <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush

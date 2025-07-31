@@ -29,7 +29,7 @@
                 <div class="eb-tabs-tables">
                     @php
                         // Internal keys
-                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled'];
+                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled', 'deactivated'];
 
                         // Labels to show in UI (can be translated)
                         $statusLabels = [
@@ -38,6 +38,7 @@
                             'approved' => 'Diluluskan',
                             'rejected' => 'Ditolak',
                             'cancelled' => 'Dibatalkan',
+                            'deactivated' => 'Nyahaktif',
                         ];
 
                         $activeFilter = strtolower(request('filter', 'all'));
@@ -61,8 +62,8 @@
 
                         <!-- Right-aligned Button -->
                         <div id="addUserButtonWrapper" class="ms-3">
-                            <a href="#" class="btn btn-primary-custom">
-                                Daftar Pengguna
+                            <a href="{{ route('admin.users.create') }}" class="btn btn-primary-custom">
+                                <i class="fas fa-plus"></i> Daftar Pengguna
                             </a>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ProfileController;
 
@@ -12,9 +13,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
+Route::get('/fasiliti-bilik', function () {
+    return view('website.fasiliti');
+})->name('portal.facility');
 
 Auth::routes();
+Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -36,6 +40,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/booking/{id}/pdf', [BookingController::class, 'downloadPDF'])->name('booking.downloadPDF');
     Route::get('/booking/{id}/approved', [BookingController::class, 'approved'])->name('admin.booking.approved');
     Route::resource('booking', BookingController::class);
+    
+    // Admin User Management Routes
+    Route::prefix('admin')->as('admin.')->group(function () {
+        Route::resource('users', AdminUserController::class);
+        Route::post('/users/{user}/update-status', [AdminUserController::class, 'updateStatus'])->name('users.updateStatus');
+        Route::get('/users/register/success', [AdminUserController::class, 'registerSuccess'])->name('users.register.success');
+        Route::get('/users/register/unsuccess', [AdminUserController::class, 'registerUnsuccess'])->name('users.register.unsuccess');
+        Route::get('/users/update/success', [AdminUserController::class, 'updateSuccess'])->name('users.update.success');
+        Route::get('/users/deactivate/success', [AdminUserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
+
+    });
 });
 
 
@@ -82,18 +97,28 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(App\Http\Controllers\CalendarController::class)->group(function () {
         Route::get('/calendar', 'index')->name('calendar');
         Route::get('/calendar/create-special-holiday', 'createSpecialHoliday')->name('calendar.create_special_holiday');
+        Route::post('/calendar/store-special-holiday', 'storeSpecialHoliday')->name('calendar.store_special_holiday');
+        Route::get('/calendar/create-manual-booking', 'createManualBooking')->name('calendar.create_manual_booking');
+        Route::post('/calendar/store-manual-booking', 'storeManualBooking')->name('calendar.store_manual_booking');
     });
+    
+    // API Routes for Calendar
+    Route::get('/api/holidays', [App\Http\Controllers\CalendarController::class, 'getHolidays'])->name('api.holidays');
     
     // Report Routes
     Route::controller(App\Http\Controllers\ReportController::class)->group(function () {
         Route::get('/report', 'index')->name('report');
     });
     
-    // User Management Routes
-    Route::controller(App\Http\Controllers\UserManagementController::class)->group(function () {
-        Route::get('/pengurusan-pengguna', 'pengurusanPengguna')->name('pengurusan_pengguna');
-        Route::get('/maklumat-pengguna', 'maklumatPengguna')->name('maklumat_pengguna');
-        Route::get('/maklumat-pengguna-edit', 'maklumatPenggunaEdit')->name('maklumat_pengguna_edit');
-        Route::get('/user-registered-success', 'userRegisteredSuccess')->name('user_registered');
-    });
+                    // User Management Routes
+                Route::controller(App\Http\Controllers\UserManagementController::class)->group(function () {
+                    Route::get('/pengurusan-pengguna', 'pengurusanPengguna')->name('pengurusan_pengguna');
+                    Route::get('/pengurusan-pengguna/create', 'create')->name('super_admin.users.create');
+                    Route::get('/maklumat-pengguna/{id?}', 'maklumatPengguna')->name('maklumat_pengguna');
+                    Route::get('/maklumat-pengguna-edit/{id?}', 'maklumatPenggunaEdit')->name('maklumat_pengguna_edit');
+                    Route::get('/user-registered-success', 'userRegisteredSuccess')->name('user_registered');
+                    Route::post('/super_admin/users', 'store')->name('super_admin.users.store');
+                    Route::put('/super_admin/users/{user}', 'update')->name('super_admin.users.update');
+                    Route::post('/super_admin/users/{user}/update-status', 'updateStatus')->name('super_admin.users.updateStatus');
+                });
 });

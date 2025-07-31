@@ -38,9 +38,9 @@ class BookingController extends Controller
     {
         $room = Room::query()
             ->where('status', true)
+            ->where('room_capacity', '>=',  $request->participants )
             ->orWhere('id', 'like', '%' . $request->roomName . '%')
             ->orWhere('level', 'like', '%' . $request->roomLevel . '%')
-            ->orWhere('room_capacity', 'like', '%' . $request->participants . '%')
             ->get();
 
             $details = [

@@ -14,6 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=Poppins" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:100,200,300,400,500,600,700" rel="stylesheet" />
+    <link href="{{ asset('admin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -24,16 +26,37 @@
             color: #ffffff !important;
         }
         .navbar {
-            background-color: #27245C;
+            background-color: #285689;
         }
 
         footer {
-            background-color: #27245C;
+            background-color: #285689;
+            color: #ffffff;
+        }
+
+        .nav-link .active {
+            font-weight: bold !important;
             color: #ffffff;
         }
 
         .theme-color {
-             background: linear-gradient(180deg, #161535, #27245C, #7c46c3);
+             background: linear-gradient(180deg, #0B0A18, #090818, #285689);
+        }
+
+        .text-theme{
+            color: #285689;
+        }
+
+        .button-theme{
+            background-color: #285689;
+            color: #fff;
+            width: 300px;
+            height: 40px;
+        }
+
+        /* Hover state of the button */
+        .button-theme:hover {
+        background-color: #4188d8; /* Darker background on hover */
         }
 
     </style>
@@ -46,8 +69,14 @@
         <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="me-3" src="{{asset('img/logo/img-logo.png')}}" alt="" width="30" height="24">
-                   Kementerian Komunikasi
+                    <div class="d-flex flex-row bd-highlight">
+                         <div class="p-2 bd-highlight">
+                            <img class="me-3" src="{{asset('img/logo/img-logo.png')}}" alt="" width="36" height="30">
+                         </div>
+           
+                        <div class="p-2 bd-highlight">Kementerian Komunikasi</div>
+
+                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -62,20 +91,20 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ __('Pengenalan') }}</a>
+                            <a class="nav-link active" href="#">{{ __('Pengenalan') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Manual') }}</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Daftar Pengguna') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">{{ __('Bantuan') }}</a>
-                        </li>
-                        <li class="nav-item">
+                        </li> --}}
+                        <li class="nav-item ms-3 mt-1">
                             {{-- <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a> --}}
-                            <a class="btn btn-sm btn-light" href="{{ route('register') }}" role="button">{{ __('Daftar') }}</a>
+                            <a class="btn btn-sm btn-light text-theme" href="{{ route('register') }}" role="button">{{ __('Daftar') }}</a>
                         </li>
                         <!-- Authentication Links -->
                         {{-- @guest

@@ -7,14 +7,14 @@
         width: 100%;
         height: 50%;
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                    linear-gradient(180deg, rgba(17, 17, 47, 0) 43.76%, #11112F 90.98%), 
+                    linear-gradient(180deg, rgba(17, 17, 47, 0) 43.76%, #0a131d 90.98%), 
                     url('../img/background/hero-img.png');
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         filter: blur(1px);
     }
 
     .hero {
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(180deg, rgba(17, 17, 47, 0) 43.76%, #11112F 90.98%),url('../img/background/hero-img.png'); /* Replace with real image path */
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(180deg, rgba(17, 17, 47, 0) 43.76%, #0a131d 90.98%),url('../img/background/hero-img.png'); /* Replace with real image path */
       background-size: cover;
       background-position: center;
       padding: 100px 0;
@@ -80,7 +80,7 @@
     <div class="container">
       <h4 class="fw-normal">Selamat Datang</h4>
       <h1 class="display-4 fw-bold">Sistem e-Tempahan</h1>
-      <a href="{{route('login')}}" class="btn btn-primary mt-3">Log Masuk</a>
+      <a href="{{route('login')}}" class="btn button-theme mt-3">Log Masuk</a>
     </div>
   </section>
 
@@ -94,6 +94,7 @@
       <div class="row mt-5">
         <!-- Card 1 -->
         <div class="col-md-4 mb-4">
+          <a href="{{route('portal.facility')}}" class="text-decoration-none">
           <div class="card h-100 shadow">
             <img src="{{asset('img/img1.png')}}" class="card-img-top" alt="Fasiliti Bilik">
             <div class="card-body">
@@ -101,6 +102,7 @@
               <p class="card-text">Tempahan fasiliti bilik/ruang secara dalam talian di KK.</p>
             </div>
           </div>
+          </a>
         </div>
 
         <!-- Card 2 -->
@@ -220,11 +222,11 @@
         <h2 class="fw-bold mb-3 text-dark">HUBUNGI KAMI</h2>
         <p class="mb-4 text-dark">Sekiranya anda mempunyai masalah sistem atau inginkan penjelasan terperinci, sila hubungi kami di:</p>
 
-        <div class="rounded-4 p-4" style="background: linear-gradient(to right, #5a2d91, #6e3cb1, #7c46c3); color: white;">
+        <div class="rounded-4 p-4" style="background: linear-gradient(to right,#0a131d, #285689, #2a75cb); color: white;">
         <div class="row align-items-center text-start">
             
             <!-- Contact Person -->
-            <div class="col-md-4 mb-4 mb-md-0">
+            <div class="col-md-4 mb-4 mb-md-0 text-center">
             <h5 class="fw-bold">Mohd Zahar bin Zaidin</h5>
             <p class="mb-1">Aras 27, Bahagian Khidmat Pengurusan</p>
             <p class="mb-1">zahar@komunikasi.gov.my</p>
@@ -233,13 +235,15 @@
 
             <!-- Center: Logo and Text -->
             <div class="col-md-4 text-center mb-4 mb-md-0">
-            <p class="fw-bold">Masalah sistem laporkannya di:</p>
-            <img src="{{asset('img/img4.png')}}" alt="Aduan ICT Logo" style="max-height: 100px;">
+            <h5 class="fw-bold">Masalah sistem laporkannya di:</h5>
+            <div class="d-flex justify-content-center">
+              <img src="{{asset('img/img4.png')}}" alt="Aduan ICT Logo" style="max-height: 100px;">
+            </div>
             </div>
 
             <!-- Right: Email -->
-            <div class="col-md-4 text-md-end">
-            <h6 class="fw-bold">Emailkannya</h6>
+            <div class="col-md-4 text-center">
+            <h5 class="fw-bold">Emailkannya</h5>
             <p>aplikasi@komunikasi.gov.my</p>
             </div>
 

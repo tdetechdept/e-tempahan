@@ -6,34 +6,36 @@
     switch ($status) {
         case '1':
             // Code to be executed if status is '1' : new booking
-            $status = 'Baharu';
+            $_status = 'Baharu';
             break;
         case '5':
             // Code to be executed if status is '5' : cancelled by user
-            $status = 'Dibatalkan';
+            $_status = 'Dibatalkan';
             break;
         case '6':
             // Code to be executed if status is '6' : updated by user
-            $status = 'Dikemaskini';
+            $_status = 'Dikemaskini';
             break;
         case '3':
             // Code to be executed if status is '3' : approved by admin
-            $status = 'Pengesahan';
+            $_status = 'Pengesahan';
             break;
         // ... more cases
         default:
             // Code to be executed if expression does not match any case
-            $status = '';
+            $_status = '';
     }
 @endphp
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">Senarai Tempahan {{ $status }}</h1>
+        <h1 class="breadcrumb-title">Senarai Tempahan {{ $_status }}</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
-            <span>Senarai Tempahan {{ $status }}</span>
+            <a href="{{ route('user.booking.list', $status) }}" class="text-decoration-none text-primary">Senarai Tempahan {{ $_status }}</a>
+
+            {{-- <span>Senarai Tempahan {{ $status }}</span> --}}
         </div>
     </div>
 @endsection
@@ -45,7 +47,7 @@
         <div class="content-card mb-3">
             <div class="eb-create-room-information">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
-                    <h3 class="mb-2 mb-md-0">Senarai Tempahan {{ $status }}</h3>
+                    <h3 class="mb-2 mb-md-0">Senarai Tempahan {{ $_status }}</h3>
                     <div class="search-input d-flex align-items-center position-relative">
                         <span class="material-symbols-rounded position-absolute ms-2">search</span>
                         <input type="text" id="bookingSearch" class="form-control ps-5" placeholder="Carian" />

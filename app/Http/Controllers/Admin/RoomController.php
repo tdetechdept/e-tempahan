@@ -8,6 +8,7 @@ use App\Models\Room;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
+
 class RoomController extends Controller
 {
     /**
@@ -18,6 +19,7 @@ class RoomController extends Controller
         $rooms = Room::latest()->get();
         return view('admin.rooms.index', compact('rooms'));
     }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -26,12 +28,9 @@ class RoomController extends Controller
         return view('admin.rooms.create');
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
-
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -68,7 +67,7 @@ class RoomController extends Controller
             $data['layout_plan'] = $layoutName;
         }
 
-        $room  = Room::create([
+        $room = Room::create([
             'room_name'      => $data['room_name'],
             'description'    => $data['description'],
             'room_capacity'  => $data['room_capacity'],
@@ -79,14 +78,13 @@ class RoomController extends Controller
             'level'          => $data['level'],
         ]);
 
-          // Add custom audit message
-          $room->auditEvent = 'room_created';
-          $room->isCustomEvent = true;
-          $room->save();
+        // Add custom audit message
+        $room->auditEvent = 'room_created_by_admin';
+        $room->isCustomEvent = true;
+        $room->save();
 
         return view('admin.rooms.success');
     }
-
 
     /**
      * Display the specified resource.
@@ -94,7 +92,6 @@ class RoomController extends Controller
     public function show(string $id)
     {
         $room = Room::findOrFail($id);
-
         return view('admin.rooms.show', compact('room'));
     }
 
@@ -133,6 +130,7 @@ class RoomController extends Controller
         }
 
         $data = $validator->validated();
+        $originalStatus = $room->status;
 
         // Handle picture upload & delete old
         if ($request->hasFile('picture')) {
@@ -168,25 +166,14 @@ class RoomController extends Controller
             'status'          => $data['status'],
         ]);
 
-
-         // Update room with custom audit message
-         $room->update([
-            'room_name' => $data['room_name'],
-            'description' => $data['description'],
-            'room_capacity' => $data['room_capacity'],
-            'facilities' => array_map('trim', explode(',', $data['facilities'] ?? '')),
-            'picture' => $data['picture'] ?? $room->picture,
-            'layout' => $data['layout'] ?? $room->layout,
-            'level' => $data['level'],
-            'status' => $data['status'],
-        ]);
-
-        // Add custom audit message if status changed
-        if ($originalValues['status'] != $data['status']) {
-            $room->auditEvent = $data['status'] == Room::STATUS_ACTIVE ? 'room_activated' : 'room_deactivated';
-            $room->isCustomEvent = true;
-            $room->save();
+        // Add custom audit message based on what changed
+        if ($originalStatus != $data['status']) {
+            $room->auditEvent = $data['status'] == Room::STATUS_ACTIVE ? 'room_activated_by_admin' : 'room_deactivated_by_admin';
+        } else {
+            $room->auditEvent = 'room_updated_by_admin';
         }
+        $room->isCustomEvent = true;
+        $room->save();
 
         return view('admin.rooms.success-update');
     }
@@ -209,7 +196,7 @@ class RoomController extends Controller
         }
 
         // Add custom audit message before deletion
-        $room->auditEvent = 'room_deleted';
+        $room->auditEvent = 'room_deleted_by_admin';
         $room->isCustomEvent = true;
         $room->save();
         

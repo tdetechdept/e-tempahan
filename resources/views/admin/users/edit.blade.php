@@ -20,7 +20,7 @@
 @section('title', 'Update User Information')
 
 @section('content')
-<form id="updateUserForm" method="POST" action="{{ route('users.update', $user->id) }}">
+<form id="updateUserForm" method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <main class="main-content">
@@ -44,7 +44,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Kad Pengenalan *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="identity_card" value="{{ old('identity_card', $user->identification) }}">
+                                <input type="text" class="form-control" name="identity_card" value="{{ old('identity_card', $user->id_number) }}">
                                 @error('identity_card')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -108,6 +108,18 @@
                             @enderror
                             </td>
                         </tr>
+                        <tr>
+                            <th class="text-end align-middle">Gambar Profil</th>
+                            <td style="border: none;">
+                                @if($user->image)
+                                    <img src="{{ asset('uploads/users/' . $user->image) }}?v={{ time() }}" alt="User Image" width="100" class="mb-2"><br>
+                                @endif
+                                <input type="file" class="form-control" name="image" accept="image/*">
+                                @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
+                        </tr>
                     </table>
                     <div class="eb-form-btn-submit">
                         <button type="button" class="btn btn-secondary eb-form-submit" onclick="openUpdateModal()">Kemaskini Pengguna</button>
@@ -139,9 +151,27 @@
     @push('js')
     <script>
         function openUpdateModal() {
+            console.log('Opening modal...');
             const modal = new bootstrap.Modal(document.getElementById('UpdateUserModal'));
             modal.show();
-        }  
+        }
+        
+        // Handle modal form submission
+        document.getElementById('dynamicUpadateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Modal form submitted, redirecting to main form...');
+            
+            // Check if file is selected
+            const fileInput = document.querySelector('input[name="image"]');
+            if (fileInput && fileInput.files.length > 0) {
+                console.log('File selected:', fileInput.files[0].name);
+            } else {
+                console.log('No file selected');
+            }
+            
+            // Submit the main form instead of the modal form
+            document.getElementById('updateUserForm').submit();
+        });
     </script>
      @endpush
 @endsection
