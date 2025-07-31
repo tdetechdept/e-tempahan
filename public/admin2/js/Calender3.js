@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         dayCounter++;
                     }
-                    rowHTML += `<td class="${classList.join(' ')}" data-date="${fullDate ? fullDate.toISOString().split('T')[0] : ''}">${displayDay}</td>`;
+                    rowHTML += `<td class="${classList.join(' ')}" data-date="${fullDate ? fullDate.toISOString().split('T')[0] : ''}"><p>${displayDay}</p></td>`;
                 }
                 rowHTML += '</tr>';
                 

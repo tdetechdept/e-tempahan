@@ -94,6 +94,9 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(App\Http\Controllers\CalendarController::class)->group(function () {
         Route::get('/calendar', 'index')->name('calendar');
         Route::get('/calendar/create-special-holiday', 'createSpecialHoliday')->name('calendar.create_special_holiday');
+        Route::post('/calendar/store-special-holiday', 'storeSpecialHoliday')->name('calendar.store_special_holiday');
+        Route::get('/calendar/create-manual-booking', 'createManualBooking')->name('calendar.create_manual_booking');
+        Route::post('/calendar/store-manual-booking', 'storeManualBooking')->name('calendar.store_manual_booking');
     });
     
     // Report Routes
