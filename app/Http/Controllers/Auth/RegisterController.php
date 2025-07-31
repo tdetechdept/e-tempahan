@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 
 class RegisterController extends Controller
 {
@@ -85,7 +88,26 @@ class RegisterController extends Controller
 
         $user->assignRole('User'); //Assign the 'User' role to the newly created user
 
+        // return redirect()->route('register.success')->with('success', 'Pendaftaran berjaya! Sila log masuk.');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
         return redirect()->route('register.success')->with('success', 'Pendaftaran berjaya! Sila log masuk.');
+
+        // $this->guard()->login($user);
+
+        // if ($response = $this->registered($request, $user)) {
+        //     return $response;
+        // }
+
+        // return $request->wantsJson()
+        //             ? new JsonResponse([], 201)
+        //             : redirect($this->redirectPath());
     }
 
     public function showRegistrationMsg()

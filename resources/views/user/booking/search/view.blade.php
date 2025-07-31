@@ -31,7 +31,7 @@
             <span class="mx-2">/</span>
             <a href="{{ route('user.search.result') }}" class="text-decoration-none text-dark">Hasil Carian Bilik Mesyuarat</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('user.search.view', $room->id) }}" class="text-decoration-none text-success">Maklumat Bilik Mesyuarat</a>
+            <a href="{{ route('user.search.view', $room->id) }}" class="text-decoration-none text-primary">Maklumat Bilik Mesyuarat</a>
         </div>
     </div>
 @endsection

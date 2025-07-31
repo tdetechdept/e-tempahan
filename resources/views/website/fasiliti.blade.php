@@ -1,6 +1,9 @@
 @extends('layouts.public.app')
 
 @push('css')
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('app.css') }}" rel="stylesheet">
+    
     <style>
     .welcome-background {
         position: absolute;
@@ -228,6 +231,33 @@
             margin: 3px 0;
         }
     }
+
+    .room-section {
+      padding: 40px 0;
+    }
+    .room-info h5 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .room-info p {
+      margin-bottom: 15px;
+    }
+    .room-info ul {
+      padding-left: 20px;
+    }
+    .room-images img {
+      border-radius: 15px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+    .section-title {
+      color: #1f4c85;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: start;
+    }
 </style>
 @endpush
 
@@ -246,7 +276,7 @@
     <!-- Calendar Header -->
     <div class="container mt-5">
 
-        <h1>CALENDER here</h1>
+      @include('website.calender')
 
     </div>
 
@@ -383,6 +413,13 @@
 @push('js')
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
+      {{-- calendar js --}}
+    <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
+    <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
+    <script src="{{ asset('admin2/js/Calender3.js') }}"></script>
+    <script src="{{ asset('admin2/js/Dropdown.js') }}"></script>
+
+
     <script>
         var carouselWidth = $(".carousel-inner")[0].scrollWidth;
         var cardWidth = $(".carousel-item").width();
@@ -427,4 +464,12 @@
         window.calendarEvents = [];
     </script>
     <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
+@endpush
+
+@push('js')
+<script>
+    // Pass PHP data to JavaScript
+    window.calendarEvents = {[]};
+</script>
+<script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush

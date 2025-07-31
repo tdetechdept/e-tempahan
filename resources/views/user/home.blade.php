@@ -4,7 +4,7 @@
 @push('css')
     <style>
     .welcome-card {
-      background: #008080;
+      background: #285689;
       color: white;
       /* height: 200px; */
       border-radius: 25px;
@@ -23,7 +23,7 @@
       border-radius: 50%;
     }
     .stats-card {
-      background: linear-gradient(135deg, #007a75, #1aa39d);
+      background: linear-gradient(135deg, #023774, #285689);
       color: white;
       border-radius: 15px;
       padding: 20px;
