@@ -139,30 +139,44 @@ class UserManagementController extends Controller
             $data['image'] = $imageName;
         }
 
-        // Create user with default status as 'new' (0)
-        $user = User::create([
-            'name' => $data['name'],
-            'id_number' => $data['id_number'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'position' => $data['position'],
-            'grade' => $data['grade'],
-            'section' => $data['section'],
-            'department' => $data['department'],
-            'office_number' => $data['office_number'],
-            'phone_number' => $data['phone_number'],
-            'image' => $data['image'] ?? null,
-            'status' => 0, // New status
-        ]);
+        try {
+            // Create user with default status as 'new' (0)
+            $user = User::create([
+                'name' => $data['name'],
+                'id_number' => $data['id_number'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'position' => $data['position'],
+                'grade' => $data['grade'],
+                'section' => $data['section'],
+                'department' => $data['department'],
+                'office_number' => $data['office_number'],
+                'phone_number' => $data['phone_number'],
+                'image' => $data['image'] ?? null,
+                'status' => 0, // New status
+            ]);
 
-        // Assign User role
-        $user->assignRole('User');
+            // Assign User role
+            $user->assignRole('User');
 
-        // Send registration success email
-        $this->sendRegistrationEmail($user, $data['password'], true);
+            // Send registration success email with credentials
+            $emailSent = $this->sendRegistrationEmail($user, $data['password'], true);
 
-        return redirect()->route('user_registered')
-            ->with('success', 'Pengguna berjaya didaftarkan dan emel notifikasi telah dihantar.');
+            if ($emailSent) {
+                return redirect()->route('user_registered')
+                    ->with('success', 'Pengguna berjaya didaftarkan dan emel notifikasi dengan maklumat log masuk telah dihantar.');
+            } else {
+                return redirect()->route('user_registered')
+                    ->with('warning', 'Pengguna berjaya didaftarkan tetapi emel notifikasi tidak dapat dihantar. Sila hubungi pentadbir sistem.');
+            }
+
+        } catch (\Exception $e) {
+            \Log::error('User creation failed: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Ralat berlaku semasa mendaftarkan pengguna. Sila cuba lagi.')
+                ->withInput();
+        }
     }
 
     /**
@@ -180,21 +194,71 @@ class UserManagementController extends Controller
         switch ($user->status) {
             case 2: // Approved
                 $this->sendRegistrationEmail($user, null, true);
-                return redirect()->route('user_registered')
+                return redirect()->route('pengurusan_pengguna')
                     ->with('success', 'Pengguna diluluskan dan emel notifikasi telah dihantar.');
             
             case 3: // Rejected
                 $this->sendRegistrationEmail($user, null, false);
-                return redirect()->back()
+                return redirect()->route('pengurusan_pengguna')
                     ->with('error', 'Pendaftaran pengguna ditolak dan emel notifikasi telah dihantar.');
             
             case 5: // Deactivated
-                return redirect()->back()
+                return redirect()->route('pengurusan_pengguna')
                     ->with('success', 'Pengguna berjaya dinyahaktifkan.');
             
             default:
-                return redirect()->back()
+                return redirect()->route('pengurusan_pengguna')
                     ->with('success', 'Status pengguna berjaya dikemaskini.');
+        }
+    }
+
+    /**
+     * Update user details
+     */
+    public function update(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'id_number' => 'required|string|max:255|unique:users,id_number,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'position' => 'required|string|max:255',
+            'grade' => 'required|string|max:255',
+            'section' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'office_number' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $validator->validated();
+        
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/users'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        try {
+            $user->update($data);
+            
+            return redirect()->route('pengurusan_pengguna')
+                ->with('success', 'Maklumat pengguna berjaya dikemaskini.');
+
+        } catch (\Exception $e) {
+            \Log::error('User update failed: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Ralat berlaku semasa mengemaskini maklumat pengguna. Sila cuba lagi.')
+                ->withInput();
         }
     }
 
@@ -211,17 +275,26 @@ class UserManagementController extends Controller
      */
     private function sendRegistrationEmail(User $user, $password = null, $isSuccess = true)
     {
-        $subject = $isSuccess ? 'Pendaftaran Berjaya - Sistem Tempahan Bilik' : 'Pendaftaran Tidak Berjaya - Sistem Tempahan Bilik';
-        
-        $data = [
-            'user' => $user,
-            'password' => $password,
-            'isSuccess' => $isSuccess,
-        ];
+        try {
+            $subject = $isSuccess ? 'Pendaftaran Berjaya - Sistem Tempahan Bilik' : 'Pendaftaran Tidak Berjaya - Sistem Tempahan Bilik';
+            
+            $data = [
+                'user' => $user,
+                'password' => $password,
+                'isSuccess' => $isSuccess,
+            ];
 
-        Mail::send('emails.user-registration', $data, function($message) use ($user, $subject) {
-            $message->to($user->email)
-                    ->subject($subject);
-        });
+            Mail::send('emails.user-registration', $data, function($message) use ($user, $subject) {
+                $message->to($user->email)
+                        ->subject($subject);
+            });
+
+            \Log::info('Registration email sent successfully to: ' . $user->email);
+            return true;
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to send registration email to ' . $user->email . ': ' . $e->getMessage());
+            return false;
+        }
     }
 } 

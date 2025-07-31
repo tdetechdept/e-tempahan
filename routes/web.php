@@ -98,7 +98,13 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(App\Http\Controllers\CalendarController::class)->group(function () {
         Route::get('/calendar', 'index')->name('calendar');
         Route::get('/calendar/create-special-holiday', 'createSpecialHoliday')->name('calendar.create_special_holiday');
+        Route::post('/calendar/store-special-holiday', 'storeSpecialHoliday')->name('calendar.store_special_holiday');
+        Route::get('/calendar/create-manual-booking', 'createManualBooking')->name('calendar.create_manual_booking');
+        Route::post('/calendar/store-manual-booking', 'storeManualBooking')->name('calendar.store_manual_booking');
     });
+    
+    // API Routes for Calendar
+    Route::get('/api/holidays', [App\Http\Controllers\CalendarController::class, 'getHolidays'])->name('api.holidays');
     
     // Report Routes
     Route::controller(App\Http\Controllers\ReportController::class)->group(function () {
@@ -113,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/maklumat-pengguna-edit/{id?}', 'maklumatPenggunaEdit')->name('maklumat_pengguna_edit');
                     Route::get('/user-registered-success', 'userRegisteredSuccess')->name('user_registered');
                     Route::post('/super_admin/users', 'store')->name('super_admin.users.store');
+                    Route::put('/super_admin/users/{user}', 'update')->name('super_admin.users.update');
                     Route::post('/super_admin/users/{user}/update-status', 'updateStatus')->name('super_admin.users.updateStatus');
                 });
 });

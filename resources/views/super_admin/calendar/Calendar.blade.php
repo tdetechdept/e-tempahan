@@ -15,8 +15,8 @@
                         <input type="text" class="form-control pl-5 rounded-1" placeholder="Carian">
                     </div>
 
-                    <button class="dashboard-btn">Papan Pemuka</button>
-                    <button class="dashboard-btn">Papan Pemuka</button>
+                    <a href="{{ route('calendar.create_special_holiday') }}" class="dashboard-btn">Cipta Cuti Khas</a>
+                    <a href="{{ route('calendar.create_manual_booking') }}" class="dashboard-btn">Tambah Tempahan Manual</a>
                 </div>
             </div>
             <div class=" calendar-container2">
@@ -64,11 +64,18 @@
                 </div>
             </div>
         </div>
-  
     @endsection
 
 @push('css')
 <style>
+
+
+.dashboard-btn:hover{
+        background-color: #299d91dc;
+            color: #fff;
+        text-decoration: none;
+    }
+    
     /* Calendar Grid Layout */
     .calendar-grid {
         border: 1px solid #dee2e6;
@@ -186,6 +193,19 @@
         color: #2e7d32 !important;
     }
 
+    /* API-sourced event styling */
+    .event-api {
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important;
+        border-left: 3px solid #ff9800 !important;
+    }
+
+    .api-indicator {
+        color: #007bff;
+        font-size: 0.8em;
+        font-style: italic;
+    }
+
     /* Status-based colors (fallback) */
     .status-new {
         background-color: #e3f2fd !important;
@@ -231,7 +251,7 @@
 @push('js')
 <script>
     // Pass PHP data to JavaScript
-    window.calendarEvents = @json($bookings);
+    window.calendarEvents = @json($allEvents);
 </script>
 <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush

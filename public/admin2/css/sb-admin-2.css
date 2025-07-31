@@ -11761,3 +11761,8 @@ body{background-color: #F4F4F4;}
   .eb-registration-popup.eb-registration-cancelled .modal-dialog .modal-content{padding: 20px;}
 }
 /* Application Status  page css end */
+/* alamin css */
+.sidebar .nav-item .collapse .collapse-inner .collapse-item.active:hover{
+  color: #fff !important;
+}
+ 

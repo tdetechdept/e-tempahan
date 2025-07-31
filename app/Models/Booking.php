@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class Booking extends Model
+class Booking extends Model implements Auditable
 {
+    use AuditableTrait;
+
     protected $fillable = [
         'user_id',
         'meeting_name',
@@ -49,6 +53,76 @@ class Booking extends Model
         'start_time' => 'datetime:H:i:s',
         'end_time' => 'datetime:H:i:s',
     ];
+
+    // Audit configuration
+    protected $auditInclude = [
+        'user_id',
+        'meeting_name',
+        'chairman',
+        'start_date',
+        'end_date',
+        'start_time',
+        'end_time',
+        'number_of_participants',
+        'description',
+        'room_id',
+        'type',
+        'status',
+        'repetition_type',
+        'repeat_date',
+        'room_plan',
+        'secretariat_name',
+        'secretariat_office_phone',
+        'secretariat_mobile_phone',
+        'secretariat_email',
+        'food',
+        'catering_name',
+        'catering_phone',
+        'technical_services',
+        'ict_services',
+        'equipment',
+        'other_requirements',
+        'car_number',
+        'update_info',
+        'reviews'
+    ];
+
+    // Only track changed attributes
+    protected $auditOnlyDirty = true;
+
+    // Events to audit
+    protected $auditEvents = [
+        'created',
+        'updated',
+        'deleted'
+    ];
+
+    // Transform audit data
+    public function transformAudit(array $data): array
+    {
+        $data['ip_address'] = request()->ip();
+        $data['user_agent'] = request()->userAgent();
+        $data['url'] = request()->fullUrl();
+        
+        // Add user context if available
+        if (auth()->check()) {
+            $data['admin_user_id'] = auth()->id();
+            $data['admin_user_name'] = auth()->user()->name;
+        }
+        
+        return $data;
+    }
+
+    // Generate tags for audit
+    public function generateTags(): array
+    {
+        return [
+            'booking_management',
+            'status:' . $this->getStatusNameAttribute(),
+            'room_id:' . $this->room_id,
+            'user_id:' . $this->user_id
+        ];
+    }
 
     public function user()
     {

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PermissionRoleSeeder::class,
             UserSeeder::class,
             BookingSeeder::class,
+            SpecialHolidaySeeder::class,
             AuditSeeder::class,
         ]);
     }

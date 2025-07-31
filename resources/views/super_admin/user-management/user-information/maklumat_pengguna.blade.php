@@ -56,12 +56,18 @@
                 @elseif(isset($user))
                     <!-- For existing users - show deactivation and update buttons -->
                     <div class="Usermanagement_button_align">
-                    <button class="button_Pendaftaran1" onclick="openDeactivationModal()">
-                        Nyahaktif Pengguna
-                    </button>
-                    <a href="{{ route('maklumat_pengguna_edit', $user->id) }}" class="button_Pendaftaran2">
-                        Kemaskini Pengguna
-                    </a>
+                        @if($user->status == 5)
+                            <button class="button_Pendaftaran2" style="background: #28a745; color: #fff;" onclick="activateUser()">
+                                Aktifkan Pengguna
+                            </button>
+                        @else
+                            <button class="button_Pendaftaran1" onclick="openDeactivationModal()">
+                                Nyahaktif Pengguna
+                            </button>
+                        @endif
+                        <a href="{{ route('maklumat_pengguna_edit', $user->id) }}" class="button_Pendaftaran2">
+                            Kemaskini Pengguna
+                        </a>
                     </div>
                 @else
                     <!-- Default buttons for demo -->
@@ -340,6 +346,12 @@
             @else
                 alert('Pengguna dinyahaktifkan!');
                 window.location.href = '{{ route("pengurusan_pengguna") }}';
+            @endif
+        }
+
+        function activateUser() {
+            @if(isset($user))
+                updateUserStatus({{ $user->id }}, 2); // 2 = active/approved
             @endif
         }
 

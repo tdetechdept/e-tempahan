@@ -29,7 +29,7 @@
                 <div class="eb-tabs-tables">
                     @php
                         // Internal keys
-                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled'];
+                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled', 'deactivated'];
 
                         // Labels to show in UI (can be translated)
                         $statusLabels = [
@@ -38,6 +38,7 @@
                             'approved' => 'Diluluskan',
                             'rejected' => 'Ditolak',
                             'cancelled' => 'Dibatalkan',
+                            'deactivated' => 'Nyahaktif',
                         ];
 
                         $activeFilter = strtolower(request('filter', 'all'));
