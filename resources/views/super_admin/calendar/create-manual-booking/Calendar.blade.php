@@ -5,10 +5,10 @@
         <h2 class="page_title">Kalendar</h2>
         <p class="breadcrumbs">Laman Utama / Kalendar / <span>Ketetapan</span></p>
         <div class="Laporan_content">
-            <div class=" mt-5">
-                <div class="card">
-                    <div class="card-header bg-white pb-0">
-                        <h3 class="mb-0">Cipta Maklumat Tempahan</h3>
+            <div class="">
+                <div class="">
+                    <div class="mb-3">
+                        <h3 class="mb-1">Cipta Maklumat Tempahan</h3>
                         <p class="text-muted mb-0">Sila lengkapkan maklumat tempahan dibawah.</p>
                     </div>
                     <div class="card-body">
@@ -16,7 +16,7 @@
                             @csrf
                             <div class="row">
                                 <!-- Nama Program / Majlis -->
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="meeting_name">Nama Program / Majlis <span class="text-danger">*</span></label>
                                         <input type="text" 
@@ -33,7 +33,7 @@
                                 </div>
 
                                 <!-- Nama Bilik -->
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="room_id">Nama Bilik <span class="text-danger">*</span></label>
                                         <select id="room_id" 
@@ -52,15 +52,10 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <!-- Mula -->
+                                 <!-- Mula -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="start_date">Mula <span class="text-danger">*</span></label>
-                                        <div class="row">
-                                            <div class="col-md-6">
                                                 <input type="date" 
                                                        id="start_date" 
                                                        name="start_date" 
@@ -70,8 +65,11 @@
                                                 @error('start_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                            </div>
-                                            <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="start_date">Mula <span class="text-danger">*</span></label>
                                                 <input type="time" 
                                                        id="start_time" 
                                                        name="start_time" 
@@ -81,17 +79,12 @@
                                                 @error('start_time')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-
                                 <!-- Akhir -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="end_date">Akhir <span class="text-danger">*</span></label>
-                                        <div class="row">
-                                            <div class="col-md-6">
                                                 <input type="date" 
                                                        id="end_date" 
                                                        name="end_date" 
@@ -101,19 +94,20 @@
                                                 @error('end_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="time" 
-                                                       id="end_time" 
-                                                       name="end_time" 
-                                                       class="form-control @error('end_time') is-invalid @enderror" 
-                                                       value="{{ old('end_time') }}" 
-                                                       required>
-                                                @error('end_time')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="end_date">Akhir <span class="text-danger">*</span></label>
+                                                   <input type="time" 
+                                                    id="end_time" 
+                                                    name="end_time" 
+                                                    class="form-control @error('end_time') is-invalid @enderror" 
+                                                    value="{{ old('end_time') }}" 
+                                                    required>
+                                            @error('end_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +135,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group text-right mt-4">
+                            <div class="form-group text-center mt-4">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -154,15 +148,24 @@
 
 @push('css')
 <style>
+    .breadcrumbs {
+        margin-bottom: 25px;
+    }
+
     .form-group {
         margin-bottom: 1.5rem;
+    }
+
+    #agenda_attachment{
+            height: 50px;
     }
     
     .form-control {
         border-radius: 8px;
         border: 1px solid #ced4da;
-        padding: 10px 12px;
+        padding: 5px 12px;
         transition: all 0.3s ease;
+        height: 45px;
     }
     
     .form-control:focus {
@@ -174,7 +177,7 @@
         background-color: #299d91;
         border-color: #299d91;
         border-radius: 8px;
-        padding: 12px 35px;
+        padding: 12px 60px;
         font-weight: 500;
         transition: all 0.3s ease;
     }
@@ -253,7 +256,6 @@
     
     /* Select Styling */
     select.form-control {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
         background-position: right 0.5rem center;
         background-repeat: no-repeat;
         background-size: 1.5em 1.5em;

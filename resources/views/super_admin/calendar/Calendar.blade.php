@@ -3,443 +3,255 @@
 @section('content')
     <div class="pengurusan_pengguna_page ">
         <h2 class="page_title">Kalendar</h2>
-        <p class="breadcrumbs">Laman Utama / Kalendar / <span>Cipta Cuti Khas</span></p>
+        <p class="breadcrumbs">Laman Utama / <span>Kalendar</span></p>
 
-        <div class="">
-            <div class="card">
-                
-                <div class="card-body">
-                    <div class="  ">
-                        <h3 class="mb-0 table_title mb-2">Cipta Cuti Khas</h3>
-                        <p class="text-muted mb-0">Sila lengkapkan maklumat untuk cipta cuti khas dibawah</p>
+        <div class="Laporan_content">
+            <div class="search-section">
+                <h4 class="table_title">Laporan</h4>
+                <div class="Calender_input_align">
+                    <div class="position-relative search_input">
+                        <i class="fas fa-search position-absolute"
+                            style="left: 12px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
+                        <input type="text" class="form-control pl-5 rounded-1" placeholder="Carian">
                     </div>
-                    <form class="form_padding" action="{{ route('calendar.store_special_holiday') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <!-- Nama Cuti -->
-                            <div class="col-md-12 ">
-                                <div class="form-group">
-                                    <label for="holiday_name" class="holiday_name">Nama Cuti </label>
-                                    <input type="text" id="holiday_name" name="holiday_name"
-                                        class="form-control @error('holiday_name') is-invalid @enderror"
-                                        placeholder="Masukkan nama cuti khas" value="{{ old('holiday_name') }}" required>
-                                    @error('holiday_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-0 calender_title_2">
-                                    <h6 class="">Tarikh Mula</h6>
-                                </div>
-                                <div class="card calendar-card">
+                    <a href="{{ route('calendar.create_special_holiday') }}" class="dashboard-btn">Cipta Cuti Khas</a>
+                    <a href="{{ route('calendar.create_manual_booking') }}" class="dashboard-btn">Tambah Tempahan Manual</a>
+                </div>
+            </div>
+            <div class=" calendar-container2">
 
-                                    <div class="">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="text"
-                                                class="form-control datepicker @error('start_date') is-invalid @enderror"
-                                                data-calendar-id="calendar1" name="start_date" placeholder="Tarikh Mula"
-                                                value="{{ old('start_date') }}" required>
-                                            @error('start_date')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                <!-- Calendar Header -->
+                <div class="d-flex justify-content-between align-items-center calendar-header2">
+                    <div class="btn-group nav_button_group">
+                        <button id="prevBtn" class="btn btn-outline-secondary">&lt;</button>
+                        <button id="nextBtn" class="btn btn-outline-secondary ml-2">&gt;</button>
+                    </div>
+                    <button id="todayBtn" class="btn btn-outline-primary">Hari Ini</button>
+                    <h4 id="currentMonthYear" class="mb-0"></h4>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label id="monthViewBtn" class="btn  active">
+                            <input type="radio" name="options" autocomplete="off" checked> Bulan
+                        </label>
+                        <label id="weekViewBtn" class="btn ">
+                            <input type="radio" name="options" autocomplete="off"> Minggu
+                        </label>
+                        <label id="dayViewBtn" class="btn ">
+                            <input type="radio" name="options" autocomplete="off"> Hari
+                        </label>
+                        <label id="agendaViewBtn" class="btn ">
+                            <input type="radio" name="options" autocomplete="off"> Agenda
+                        </label>
+                    </div>
+                </div>
 
-                                        <div class="datepicker-inline-container" id="calendarContainer1">
-                                            <div
-                                                class="d-flex justify-content-between align-items-center mb-2 nav_and_date">
-                                                <button class="btn btn-link p-0 text-dark prev-month-btn"><i
-                                                        class="fas fa-chevron-left"></i></button>
-                                                <h5 class="mb-0 month-display"></h5>
-                                                <button class="btn btn-link p-0 text-dark next-month-btn"><i
-                                                        class="fas fa-chevron-right"></i></button>
-                                            </div>
-                                            <table class="table table-borderless text-center calendar-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-info">Su</th>
-                                                        <th class="text-info">Mo</th>
-                                                        <th class="text-info">Tu</th>
-                                                        <th class="text-info">We</th>
-                                                        <th class="text-info">Th</th>
-                                                        <th class="text-info">Fr</th>
-                                                        <th class="text-info">Sa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Days of the week header -->
+                <div class="calendar-grid">
+                    <div class="row no-gutters text-center day-names">
+                        <div class="col">Isnin</div>
+                        <div class="col">Selasa</div>
+                        <div class="col">Rabu</div>
+                        <div class="col">Khamis</div>
+                        <div class="col">Jumaat</div>
+                        <div class="col">Sabtu</div>
+                        <div class="col">Ahad</div>
+                    </div>
 
-                            <div class="col-lg-6">
-                                <div class="mb-0 calender_title_2">
-                                    <h6 class="">Tarikh Tamat</h6>
-                                </div>
-                                <div class="card calendar-card">
-
-                                    <div class="">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="text"
-                                                class="form-control datepicker @error('end_date') is-invalid @enderror"
-                                                data-calendar-id="calendar2" name="end_date" placeholder="Pilih Tarikh"
-                                                value="{{ old('end_date') }}" required>
-                                            @error('end_date')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="datepicker-inline-container" id="calendarContainer2">
-                                            <div class="d-flex justify-content-between align-items-center mb-2 nav_and_date">
-                                                <button class="btn btn-link p-0 text-dark prev-month-btn"><i
-                                                        class="fas fa-chevron-left"></i></button>
-                                                <h5 class="mb-0 month-display"></h5>
-                                                <button class="btn btn-link p-0 text-dark next-month-btn"><i
-                                                        class="fas fa-chevron-right"></i></button>
-                                            </div>
-                                            <table class="table table-borderless text-center calendar-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-info">Su</th>
-                                                        <th class="text-info">Mo</th>
-                                                        <th class="text-info">Tu</th>
-                                                        <th class="text-info">We</th>
-                                                        <th class="text-info">Th</th>
-                                                        <th class="text-info">Fr</th>
-                                                        <th class="text-info">Sa</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- Catatan -->
-                            <div class="col-md-12 mt-4">
-                                <div class="form-group"> 
-                                    <label for="notes" class="holiday_name mb-4">Catatan</label>
-                                    <textarea id="notes" name="notes" class="form-control @error('notes') is-invalid @enderror" rows="4"
-                                        placeholder="Sila nyatakan catatan / sebab cuti">{{ old('notes') }}</textarea>
-                                    @error('notes')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group text-center mt-4">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </form>
+                    <!-- Calendar Grid -->
+                    <div id="calendarGrid" class="calendar-grid">
+                        <!-- Calendar content will be generated here by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
-
-    </div>
-@endsection
+    @endsection
 
 @push('css')
-    @push('css')
-    <style>
-        /* Form Styling */
-        .form_padding{
-            padding: 10px 20px;
-            margin-top: 20px;
-        }
-        .card-header {
-            border: none;
-            border-radius: 8px s;
-        }
-        .form-group input,
-        .form-group textarea {
-            margin-bottom: 1.5rem;
-            background-color: #F5FAFA !important;
-            padding: 10px 12px;
-        }
+<style>
+
+
+.dashboard-btn:hover{
+        background-color: #299d91dc;
+            color: #fff;
+        text-decoration: none;
+    }
     
-        .form-control {
-            border-radius: 8px;
-            border: 1px solid #ced4da;
-            padding: 10px 12px;
-            transition: all 0.3s ease;
-        }
-    
-        .form-control:focus {
-            border-color: #299d91;
-            box-shadow: 0 0 0 0.2rem rgba(41, 157, 145, 0.25);
-        }
-    
-        .input-group-text,
-        .input-group input {
-            background-color: #F5FAFA !important;
-        }
-    
-        .input-group-text {
-            background-color: #f8f9fa;
-            border-color: #ced4da;
-            color: #6c757d;
-        }
-    
-        .input-group .form-control {
-            border-left: none;
-        }
-    
-        .input-group .form-control:focus {
-            border-left: none;
-        }
-    
-        textarea.form-control {
-            resize: vertical;
+    /* Calendar Grid Layout */
+    .calendar-grid {
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .calendar-grid .row {
+        margin: 0;
+    }
+
+    .calendar-grid .col {
+        padding: 10px
+    }
+
+    /* Day Names Header */
+    .day-names {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+
+    .day-names .col {
+        padding: 10px 5px;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .day-names .col:last-child {
+        border-right: none;
+    }
+
+    /* Day Cells */
+    .day-cell {
+        min-height: 120px;
+        border-right: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px;
+        position: relative;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    .day-cell:last-child {
+        border-right: none;
+    }
+
+    .day-number {
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px;
+    }
+
+    /* Other Month Days */
+    .other-month-day {
+        background-color: #f8f9fa;
+        color: #6c757d;
+    }
+
+    .other-month-day .day-number {
+        color: #6c757d;
+    }
+
+    /* Current Month Days */
+    .current-month-day {
+        background-color: white;
+    }
+
+    /* Today Highlight */
+    .today-highlight {
+        background-color: #e3f2fd !important;
+        border: 2px solid #2196f3 !important;
+    }
+
+    .today-header-highlight {
+        color: #2196f3 !important;
+        font-weight: bold !important;
+    }
+
+    /* Event Styling */
+    .calendar-grid .event {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
+        transition: all 0.2s ease;
+        border: none;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    .calendar-grid .event:hover {
+        transform: scale(1.02);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Event Colors - Simplified */
+    .event-temuduga {
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
+        padding: 10px 0px;
+    }
+
+    .event-mesyuarat {
+        background-color: #e8f5e8 !important;
+        color: #2e7d32 !important;
+    }
+
+    /* API-sourced event styling */
+    .event-api {
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important;
+        border-left: 3px solid #ff9800 !important;
+    }
+
+    .api-indicator {
+        color: #007bff;
+        font-size: 0.8em;
+        font-style: italic;
+    }
+
+    /* Status-based colors (fallback) */
+    .status-new {
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
+    }
+
+    .status-pending {
+        background-color: #fff3e0 !important;
+        color: #f57c00 !important;
+    }
+
+    .status-approved {
+        background-color: #e8f5e8 !important;
+        color: #2e7d32 !important;
+    }
+
+    .status-rejected {
+        background-color: #ffebee !important;
+        color: #c62828 !important;
+    }
+
+    .status-default {
+        background-color: #f5f5f5 !important;
+        color: #424242 !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .day-cell {
             min-height: 100px;
+            padding: 6px;
         }
-    
-        /* Buttons */
-        .btn-primary {
-            background-color: #299d91;
-            border-color: #299d91;
-            border-radius: 8px;
-            padding: 12px 35px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        
+        .calendar-grid .event {
+            font-size: 0.7rem;
+            padding: 4px 6px;
+            margin: 3px 0;
         }
-    
-        .btn-primary:hover {
-            background-color: #238a7f;
-            border-color: #238a7f;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    
-        /* Cards */
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: none;
-            transition: all 0.3s ease;
-        }
-    
-        .card:hover {
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-        }
-    
-        .calendar-card {
-            border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-    
-        /* Calendar Layout */
-        .datepicker-inline-container {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-        }
-    
-        .calendar-table {
-            margin-bottom: 0;
-            width: 100%;
-            table-layout: fixed;
-        }
-    
-        .calendar-table th {
-            border: none;
-            padding: 8px;
-            font-weight: 600;
-            color: #299d91;
-            font-size: 0.9rem;
-        }
-    
-        .calendar-table td {
-            border: none;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-    
-        .calendar-table td:hover {
-            background-color: #e3f2fd;
-            color: #1976d2;
-        }
-    
-        .calendar-table td.text-muted {
-            color: #6c757d !important;
-            opacity: 0.5;
-        }
-    
-        .calendar-table td.text-info {
-            background-color: #e3f2fd;
-            color: #1976d2;
-            font-weight: bold;
-        }
-    
-        .calendar-table td.highlighted-date {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-    
-        .calendar-table td.highlighted-date p {
-            background-color: #299d91 !important;
-            color: white !important;
-            border-radius: 100%;
-            height: 40px;
-            width: 40px;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        .table thead th {
-            background-color: transparent;
-            border-bottom: none;
-            color: #1C8C8B;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            padding: 0.75rem 1.5rem;
-        }
-    
-        .table tbody td {
-            border-bottom: none;
-            padding: 8px;
-        }
-    
-        .table tbody td p {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 40px;
-            border-radius: 100%;
-            margin: 0;
-        }
-    
-        .table tbody tr:hover,
-        .calendar-table td:hover {
-            background-color: transparent;
-        }
-    
-        .month-display,
-        .nav_and_date button i {
-            color: #1A8C8B;
-        }
-    
-        .month-display {
-            font-weight: 600;
-            margin: 0;
-        }
-    
-        .holiday_name {
-            color: #111624;
-            font-weight: 500;
-            font-size: 16px;
-        }
-    
-        .calender_title_2 h6 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1A8C8B;
-        }
-    
-        .prev-month-btn,
-        .next-month-btn {
-            color: #299d91;
-            transition: all 0.2s ease;
-        }
-    
-        .prev-month-btn:hover,
-        .next-month-btn:hover {
-            color: #238a7f;
-            transform: scale(1.1);
-        }
-    
-        /* Responsive Fixes */
-        @media (max-width: 768px) {
-            .calendar-card {
-                margin-bottom: 20px;
-            }
-            .form_padding{
-            padding: 10px ;
-            margin-top: 20px;
-        }
-            .btn-primary {
-                width: 100%;
-                margin-top: 10px;
-            }
-        }
-    
-        @media (max-width: 576px) {
-            .form-control {
-                padding: 8px 10px;
-                font-size: 0.9rem;
-            }
-    
-            .input-group-text {
-                padding: 6px 8px;
-                font-size: 0.9rem;
-            }
-    
-            .input-group-text i,
-            .input-group-prepend span i {
-                font-size: 1rem;
-            }
-    
-            .month-display {
-                font-size: 0.9rem;
-            }
-    
-           
-    
-            .calendar-table th,
-            .calendar-table td {
-                padding: 5px;
-                font-size: 0.8rem;
-            }
-    
-            .calendar-table td.highlighted-date p {
-                height: 32px;
-                width: 32px;
-                font-size: 0.85rem;
-            }
-    
-            .btn-primary {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-    
-            /* Prevent overflow on calendar */
-            .datepicker-inline-container {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-    
-            .calendar-table {
-                min-width: 550px;
-            }
-        }
-    </style>
+    }
+</style>
+@endpush
 
-
-    @endpush
-
-    @push('js')
-        <script src="{{ asset('admin2/js/Calender3.js') }}"></script>
-    @endpush
+@push('js')
+<script>
+    // Pass PHP data to JavaScript
+    window.calendarEvents = @json($allEvents);
+</script>
+<script src="{{ asset('admin2/js/Calender2.js') }}"></script>
+@endpush

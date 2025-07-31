@@ -84,9 +84,8 @@
                     </ul>
                 </div>
 
-                <div class="calendar1-events">
-                    <p><strong><span class="dot"></span> 13 July : Hari Wesak</strong></p>
-                    <p><strong><span class="dot"></span> 22 July : Cuti Khas</strong></p>
+                <div class="calendar1-events" id="calendar1-events-list">
+                    <!-- Event list will be rendered here by JS -->
                 </div>
             </div>
         </div>
@@ -194,64 +193,69 @@
 
     @push('js')
     <script>
-        $(document).ready(function() {
-            // Filter functionality for the Senarai dropdown
-            $('#status').on('change', function() {
-                var selectedStatus = $(this).val();
-                var $rows = $('.user-row');
+        // Pass holidays data from PHP to JavaScript (should contain ALL holidays for all months)
+        window.holidaysData = @json($specialHolidays ?? []);
+
+        function renderEventListForMonth(month, year) {
+            const eventListContainer = document.getElementById('calendar1-events-list');
+            if (!eventListContainer) return;
+
+            console.log('renderEventListForMonth called with month:', month, 'year:', year);
+            console.log('window.holidaysData:', window.holidaysData);
+
+            // Filter holidays for the selected month and year - include events that span across the month
+            const monthEvents = window.holidaysData.filter(event => {
+                const startDate = new Date(event.start_date);
+                const endDate = new Date(event.end_date);
+                const monthStart = new Date(year, month, 1);
+                const monthEnd = new Date(year, month + 1, 0);
                 
-                if (selectedStatus === 'semua') {
-                    // Show all rows
-                    $rows.show();
-                } else if (selectedStatus === 'aktif') {
-                    // Show only active users (status = 1)
-                    $rows.each(function() {
-                        var status = $(this).data('status');
-                        if (status == 1) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                } else if (selectedStatus === 'tidak_aktif') {
-                    // Show only inactive users (status != 1)
-                    $rows.each(function() {
-                        var status = $(this).data('status');
-                        if (status != 1) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                }
+                console.log('Checking event:', event.holiday_name, 'start:', startDate, 'end:', endDate, 'monthStart:', monthStart, 'monthEnd:', monthEnd);
                 
-                // Update row numbers after filtering
-                updateRowNumbers();
-                
-                // Show no data message if no rows are visible after filtering
-                checkNoDataAfterFilter();
+                // Check if the event overlaps with the current month
+                const overlaps = (startDate <= monthEnd && endDate >= monthStart);
+                console.log('Overlaps:', overlaps);
+                return overlaps;
             });
-            
-            function updateRowNumbers() {
-                var visibleRows = $('.user-row:visible');
-                visibleRows.each(function(index) {
-                    $(this).find('td:first').text(index + 1);
+
+            console.log('Filtered monthEvents:', monthEvents);
+
+            // Sort by date
+            monthEvents.sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
+
+            // Build HTML
+            let html = '';
+            if (monthEvents.length === 0) {
+                html = '<p><strong><span class="dot"></span> Tiada cuti khas untuk bulan ini</strong></p>';
+            } else {
+                monthEvents.forEach(event => {
+                    const startDate = new Date(event.start_date);
+                    const endDate = new Date(event.end_date);
+                    
+                    // Format date range
+                    let dateStr;
+                    if (startDate.getTime() === endDate.getTime()) {
+                        // Single day event
+                        dateStr = startDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+                    } else {
+                        // Multi-day event
+                        const startStr = startDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+                        const endStr = endDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+                        dateStr = `${startStr} - ${endStr}`;
+                    }
+                    
+                    html += `<p><strong><span class="dot"></span> ${dateStr} : ${event.holiday_name}</strong></p>`;
                 });
             }
-            
-            function checkNoDataAfterFilter() {
-                var visibleRows = $('.user-row:visible');
-                if (visibleRows.length === 0) {
-                    // If no rows are visible, show a message
-                    if ($('.no-data-after-filter').length === 0) {
-                        $('.custom-table').after('<div class="no-data-after-filter" style="text-align: center; padding: 20px; color: #6c757d; font-style: italic;">Tiada data yang sepadan dengan penapis yang dipilih.</div>');
-                    }
-                } else {
-                    // Remove the message if there are visible rows
-                    $('.no-data-after-filter').remove();
-                }
-            }
+            eventListContainer.innerHTML = html;
+        }
+
+        // Render for the current month on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            renderEventListForMonth(today.getMonth(), today.getFullYear());
         });
+        // You must call renderEventListForMonth(newMonth, newYear) whenever the calendar month changes!
     </script>
     @endpush
 @endsection

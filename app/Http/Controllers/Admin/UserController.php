@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
-
+use OwenIt\Auditing\Models\Audit;
 
 class UserController extends Controller
 {
@@ -90,34 +90,48 @@ class UserController extends Controller
             $data['image'] = $imageName;
         }
 
-        // Create user with default status as 'new' (0)
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($password),
-            'position' => $data['position'] ?? null,
-            'grade' => $data['grade'] ?? null,
-            'section' => $data['section'] ?? null,
-            'department' => $data['department'] ?? null,
-            'office_number' => $data['office_number'] ?? null,
-            'phone_number' => $data['phone_number'] ?? null,
-            'image' => $data['image'] ?? null,
-            'status' => 0, // New status
-        ]);
+        try {
+            // Create user with default status as 'new' (0)
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($password),
+                'position' => $data['position'] ?? null,
+                'grade' => $data['grade'] ?? null,
+                'section' => $data['section'] ?? null,
+                'department' => $data['department'] ?? null,
+                'office_number' => $data['office_number'] ?? null,
+                'phone_number' => $data['phone_number'] ?? null,
+                'image' => $data['image'] ?? null,
+                'status' => 0, // New status
+            ]);
 
-        // Assign User role
-        $user->assignRole('User');
+            // Assign User role
+            $user->assignRole('User');
 
-        // Add custom audit message
-        $user->auditEvent = 'user_registered_by_admin';
-        $user->isCustomEvent = true;
-        $user->save();
+            // Add custom audit message
+            $user->auditEvent = 'user_created_by_admin';
+            $user->isCustomEvent = true;
+            $user->save();
 
-        // Send registration success email
-        $this->sendRegistrationEmail($user, $password, true);
+            // Send registration success email with credentials
+            $emailSent = $this->sendRegistrationEmail($user, $password, true);
 
-        return redirect()->route('admin.users.register.success')
-            ->with('success', 'Pengguna berjaya didaftarkan dan emel notifikasi telah dihantar.');
+            if ($emailSent) {
+                return redirect()->route('admin.users.register.success')
+                    ->with('success', 'Pengguna berjaya didaftarkan dan emel notifikasi dengan maklumat log masuk telah dihantar.');
+            } else {
+                return redirect()->route('admin.users.register.success')
+                    ->with('warning', 'Pengguna berjaya didaftarkan tetapi emel notifikasi tidak dapat dihantar. Sila hubungi pentadbir sistem.');
+            }
+
+        } catch (\Exception $e) {
+            \Log::error('Admin user creation failed: ' . $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', 'Ralat berlaku semasa mendaftarkan pengguna. Sila cuba lagi.')
+                ->withInput();
+        }
     }
 
     /**
@@ -144,6 +158,11 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::role('User')->findOrFail($id);
+        
+        // Debug: Log the request data
+        \Log::info('User update request for ID: ' . $id);
+        \Log::info('Request data: ' . json_encode($request->all()));
+        \Log::info('Has file: ' . ($request->hasFile('image') ? 'Yes' : 'No'));
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -165,18 +184,26 @@ class UserController extends Controller
         }
 
         $data = $validator->validated();
+        $originalData = $user->toArray();
 
         // Handle image upload
         if ($request->hasFile('image')) {
+            \Log::info('Processing image upload...');
+            
             // Delete old image if exists
             if ($user->image && file_exists(public_path('uploads/users/' . $user->image))) {
                 unlink(public_path('uploads/users/' . $user->image));
+                \Log::info('Deleted old image: ' . $user->image);
             }
             
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('uploads/users'), $imageName);
             $data['image'] = $imageName;
+            
+            \Log::info('Image uploaded: ' . $imageName);
+        } else {
+            \Log::info('No image file in request');
         }
 
         // Update user
@@ -224,8 +251,24 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        // Add custom audit message
-        $user->auditEvent = 'user_status_updated_by_admin';
+        // Add custom audit message based on status change
+        switch ($user->status) {
+            case 1: // Pending
+                $user->auditEvent = 'user_status_changed_to_pending_by_admin';
+                break;
+            case 2: // Approved
+                $user->auditEvent = 'user_status_changed_to_approved_by_admin';
+                break;
+            case 3: // Rejected
+                $user->auditEvent = 'user_status_changed_to_rejected_by_admin';
+                break;
+            case 5: // Deactivated
+                $user->auditEvent = 'user_status_changed_to_deactivated_by_admin';
+                break;
+            default:
+                $user->auditEvent = 'user_status_updated_by_admin';
+        }
+        
         $user->isCustomEvent = true;
         $user->save();
 
@@ -288,21 +331,28 @@ class UserController extends Controller
      */
     private function sendRegistrationEmail(User $user, $password = null, $isSuccess = true)
     {
-        $subject = $isSuccess ? 'Pendaftaran Berjaya - Sistem Tempahan Bilik' : 'Pendaftaran Tidak Berjaya - Sistem Tempahan Bilik';
-        
-        $data = [
-            'user' => $user,
-            'password' => $password,
-            'isSuccess' => $isSuccess,
-        ];
+        try {
+            $subject = $isSuccess ? 'Pendaftaran Berjaya - Sistem Tempahan Bilik' : 'Pendaftaran Tidak Berjaya - Sistem Tempahan Bilik';
+            
+            $data = [
+                'user' => $user,
+                'password' => $password,
+                'isSuccess' => $isSuccess,
+            ];
 
-        // You can create email templates in resources/views/emails/
-        // For now, we'll use a simple text email
-        Mail::send('emails.user-registration', $data, function($message) use ($user, $subject) {
-            $message->to($user->email)
-                    ->subject($subject);
-        });
+            // You can create email templates in resources/views/emails/
+            // For now, we'll use a simple text email
+            Mail::send('emails.user-registration', $data, function($message) use ($user, $subject) {
+                $message->to($user->email)
+                        ->subject($subject);
+            });
+
+            \Log::info('Admin registration email sent successfully to: ' . $user->email);
+            return true;
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to send admin registration email to ' . $user->email . ': ' . $e->getMessage());
+            return false;
+        }
     }
-
-
 } 

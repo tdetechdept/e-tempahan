@@ -27,6 +27,16 @@
 				<table class="table table-borderless">
 					<hr class="my-3">
 					<tr>
+						<th>Gambar Profil</th>
+						<td style="border: none;">
+							@if($user->image)
+								                        <img src="{{ asset('uploads/users/' . $user->image) }}?v={{ time() }}" alt="User Image" width="120">
+							@else
+								Tiada gambar
+							@endif
+						</td>
+					</tr>
+					<tr>
 						<th>Nama Pegawai</th>
 						<td style="border: none;">{{ $user->name }}</td>
 					</tr>
@@ -77,6 +87,17 @@
 									onclick="openModal('successfulModal', 'successfulForm', '{{ route('users.updateStatus', $user->id) }}')">
 									Pendaftaran Berjaya
 								</button>
+							</div>
+						@elseif ($user->status == 5)
+							<!-- Deactivated user - show activate button -->
+							<div class="Senarai_pengguna_pagination">
+								<button type="button" class="btn btn-success me-2"
+									onclick="openModal('activateUserModal', 'activateUserForm', '{{ route('users.updateStatus', $user->id) }}')">
+									Aktifkan Pengguna
+								</button>
+								<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
+									Kemaskini Pengguna
+								</a>
 							</div>
 						@else
 							<!-- Otherwise, show deactivate/edit user buttons -->
@@ -156,6 +177,28 @@
 						<div class="eb-delete-icon mb-3"></div>
 						<h3>Adakah anda pasti?</h3>
 						<p>Adakah anda pasti anda ingin berjayakan pendaftaran pengguna ini?</p>
+						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+							<button type="submit" class="btn btn-primary">Ya</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Activate User Modal -->
+	<div class="modal fade eb-delete-popup" id="activateUserModal" tabindex="-1" role="dialog"
+		aria-labelledby="activateUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<form id="activateUserForm" method="POST">
+				@csrf
+				<input type="hidden" name="status" value="2">
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<div class="eb-delete-icon mb-3"></div>
+						<h3>Adakah anda pasti?</h3>
+						<p>Adakah anda pasti anda ingin mengaktifkan pengguna ini?</p>
 						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
 							<button type="submit" class="btn btn-primary">Ya</button>

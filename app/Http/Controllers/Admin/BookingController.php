@@ -9,6 +9,7 @@ use App\Models\Booking;
 use Symfony\Component\HttpFoundation\Response;
 use Mpdf\Mpdf;
 use Illuminate\Support\Facades\View;
+use OwenIt\Auditing\Models\Audit;
 
 class BookingController extends Controller
 {
@@ -85,22 +86,48 @@ class BookingController extends Controller
     {
         \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
         $booking = Booking::findOrFail($id);
+        
         $request->validate([
             'update_info' => 'nullable|string|max:5000',
             'reviews' => 'nullable|string|max:5000',
         ]);
+        
+        $oldStatus = $booking->status;
+        $oldUpdateInfo = $booking->update_info;
+        $oldReviews = $booking->reviews;
+        
         $booking->update([
             'update_info' => $request->update_info,
             'reviews' => $request->reviews,
         ]);
+        
         if ($request->action === 'reject') {
             $booking->status = 4; // Rejected
             $booking->save();
+            
+            // Add custom audit event for rejection
+            $booking->auditEvent = 'booking_rejected_by_admin';
+            $booking->isCustomEvent = true;
+            $booking->save();
+            
             return view('admin.booking.rejected', compact('booking'));
         } elseif ($request->action === 'pass') {
             $booking->status = 3; // Approved
             $booking->save();
+            
+            // Add custom audit event for approval
+            $booking->auditEvent = 'booking_approved_by_admin';
+            $booking->isCustomEvent = true;
+            $booking->save();
+            
             return view('admin.booking.approved', compact('booking'));
+        }
+        
+        // Log update if no status change
+        if ($oldUpdateInfo !== $request->update_info || $oldReviews !== $request->reviews) {
+            $booking->auditEvent = 'booking_updated_by_admin';
+            $booking->isCustomEvent = true;
+            $booking->save();
         }
     }
 
@@ -111,6 +138,7 @@ class BookingController extends Controller
     {
         //
     }
+    
     /**
      * Cancel Booking start code.
      */
@@ -159,16 +187,24 @@ class BookingController extends Controller
         $view = $request->get('view', 'admin.booking.cancel.index');
         return view($view, compact('bookings'));
     }
+    
     public function cancelShowBooking(string $id)
     {
         $booking = Booking::with('user', 'room')->findOrFail($id);
         return view('admin.booking.cancel.show', compact('booking'));
     }
+    
     public function cancel($id)
     {
         $booking = Booking::findOrFail($id);
         $booking->status = 5; // Cancelled
         $booking->save();
+        
+        // Add custom audit event for cancellation
+        $booking->auditEvent = 'booking_cancelled_by_admin';
+        $booking->isCustomEvent = true;
+        $booking->save();
+        
         return view('admin.booking.cancel.cancel', compact('booking'));
     }
 
@@ -190,6 +226,11 @@ class BookingController extends Controller
             $booking->status = 3; // Approved
         }
 
+        $booking->save();
+
+        // Add custom audit event for PDF download
+        $booking->auditEvent = 'booking_pdf_downloaded_by_admin';
+        $booking->isCustomEvent = true;
         $booking->save();
 
         // Render HTML from view
@@ -214,8 +255,6 @@ class BookingController extends Controller
         // return response($mpdf->Output($fileName, 'D'), 200)
         //     ->header('Content-Type', 'application/pdf'); 
     }
-
-    
 
     public function approved($id)
     {

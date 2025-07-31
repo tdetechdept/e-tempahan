@@ -1,9 +1,6 @@
 @php $count = 1; @endphp
 @foreach ($users as $user)
-    @php
-        $statusText = $statusLabels[$user->status] ?? 'Unknown';
-      @endphp
-    <tr data-url="{{ route('users.show', $user->id) }}" data-status="{{ strtolower($statusText) }}">
+    <tr data-url="{{ route('users.show', $user->id) }}" data-status="{{ strtolower($statusLabels[$user->status] ?? 'unknown') }}">
         <td>{{ $count++ }}</td>
         <td>{{ $user->name ?? '-' }}</td>
         <td>{{ $user->section ?? 'N/A' }}</td>

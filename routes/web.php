@@ -103,6 +103,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/calendar/store-manual-booking', 'storeManualBooking')->name('calendar.store_manual_booking');
     });
     
+    // API Routes for Calendar
+    Route::get('/api/holidays', [App\Http\Controllers\CalendarController::class, 'getHolidays'])->name('api.holidays');
+    
     // Report Routes
     Route::controller(App\Http\Controllers\ReportController::class)->group(function () {
         Route::get('/report', 'index')->name('report');
@@ -116,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/maklumat-pengguna-edit/{id?}', 'maklumatPenggunaEdit')->name('maklumat_pengguna_edit');
                     Route::get('/user-registered-success', 'userRegisteredSuccess')->name('user_registered');
                     Route::post('/super_admin/users', 'store')->name('super_admin.users.store');
+                    Route::put('/super_admin/users/{user}', 'update')->name('super_admin.users.update');
                     Route::post('/super_admin/users/{user}/update-status', 'updateStatus')->name('super_admin.users.updateStatus');
                 });
 });

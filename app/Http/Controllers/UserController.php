@@ -27,6 +27,7 @@ class UserController extends Controller
             'approved' => 2,
             'rejected' => 3,
             'cancelled' => 4,
+            'deactivated' => 5,
         ];
     
         if ($filter !== 'all' && isset($statusMap[$filter])) {
@@ -35,11 +36,21 @@ class UserController extends Controller
     
         $users = $query->get();
     
+        // Define status labels for the view
+        $statusLabels = [
+            0 => 'BAHARU',
+            1 => 'AKTIF', 
+            2 => 'DILULUSKAN',
+            3 => 'DITOLAK',
+            4 => 'DIBATALKAN',
+            5 => 'NYAHAKTIF',
+        ];
+    
         if ($request->ajax()) {
-            return view('admin.users.partials.table', compact('users'))->render(); // <tbody> only
+            return view('admin.users.partials.table', compact('users', 'statusLabels'))->render(); // <tbody> only
         }
     
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index', compact('users', 'statusLabels'));
     }
     public function create()
     {
@@ -135,7 +146,7 @@ class UserController extends Controller
     {
         
         $request->validate([
-            'status' => 'required|in:1,3,5'
+            'status' => 'required|in:1,2,3,5'
         ]);
         
 
@@ -145,8 +156,14 @@ class UserController extends Controller
         switch ($user->status) {
             case 1:
                 return view("admin.users.register-success");
+            case 2:
+                return redirect()->route('users.index')->with('success', 'Pengguna berjaya diaktifkan.');
             case 3:
                return view("admin.users.register-unsuccess");
+            case 5:
+                return redirect()->route('users.index')->with('success', 'Pengguna berjaya dinyahaktifkan.');
+            default:
+                return redirect()->route('users.index')->with('success', 'Status pengguna berjaya dikemaskini.');
         }
     }
 

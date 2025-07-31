@@ -48,7 +48,8 @@ class CalendarController extends Controller
                     'id' => 'holiday_' . $holiday->id,
                     'title' => 'CUTI KHAS',
                     'full_title' => $holiday->holiday_name,
-                    'date' => $holiday->start_date->format('Y-m-d'),
+                    'start_date' => $holiday->start_date->format('Y-m-d'),
+                    'end_date' => $holiday->end_date->format('Y-m-d'),
                     'time' => '00:00',
                     'end_time' => '23:59',
                     'type' => 'holiday',
@@ -59,7 +60,7 @@ class CalendarController extends Controller
                     'description' => $holiday->notes,
                     'chairman' => 'N/A',
                     'department' => 'General',
-                    'color' => '#dc3545' // Red color for holidays
+                    'color' => '#dc3545', // Red color for holidays
                 ];
             });
 
@@ -107,6 +108,8 @@ class CalendarController extends Controller
         }
     }
 
+
+
     /**
      * Display the create manual booking page
      */
@@ -114,6 +117,44 @@ class CalendarController extends Controller
     {
         $rooms = \App\Models\Room::where('status', true)->get();
         return view('super_admin.calendar.create-manual-booking.Calendar', compact('rooms'));
+    }
+
+    /**
+     * Get holidays for API
+     */
+    public function getHolidays(Request $request)
+    {
+        $year = $request->get('year', now()->year);
+        $month = $request->get('month', now()->month);
+
+        // Create start and end of the requested month
+        $monthStart = \Carbon\Carbon::create($year, $month, 1)->startOfMonth();
+        $monthEnd = \Carbon\Carbon::create($year, $month, 1)->endOfMonth();
+
+        $holidays = \App\Models\SpecialHoliday::where('is_active', true)
+            ->where(function($query) use ($monthStart, $monthEnd) {
+                // Events that start in this month
+                $query->whereBetween('start_date', [$monthStart, $monthEnd])
+                      // Events that end in this month
+                      ->orWhereBetween('end_date', [$monthStart, $monthEnd])
+                      // Events that span across this month (start before and end after)
+                      ->orWhere(function($q) use ($monthStart, $monthEnd) {
+                          $q->where('start_date', '<=', $monthStart)
+                            ->where('end_date', '>=', $monthEnd);
+                      });
+            })
+            ->get()
+            ->map(function ($holiday) {
+                return [
+                    'id' => $holiday->id,
+                    'holiday_name' => $holiday->holiday_name,
+                    'start_date' => $holiday->start_date->format('Y-m-d'),
+                    'end_date' => $holiday->end_date->format('Y-m-d'),
+                    'notes' => $holiday->notes
+                ];
+            });
+
+        return response()->json($holidays);
     }
 
     /**
