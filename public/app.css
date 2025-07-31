@@ -20,7 +20,7 @@
 .card-intro {
   flex: 7;
   /* 70% height */
-  background-color: #007D7C;
+  background-color: #285689;
   border-radius: 15px;
   padding: 30px;
   color: white;
@@ -55,7 +55,7 @@
 .metric-box {
   display: flex;
   align-items: center;
-  background-color: #007D7C;
+  background-color: #285689;
   color: white;
   padding: 20px;
   border-radius: 12px;
@@ -108,7 +108,7 @@
 }
 
 .calendar1-current-date {
-  color: #259B91;
+  color: #285689;
   font-size: 18px;
   font-weight: 600;
   margin: 0;
@@ -168,7 +168,7 @@
 }
 
 .calendar1-dates li.selected p {
-  background-color: #259B91;
+  background-color: #285689;
   color: #fff;
 }
 
@@ -377,7 +377,7 @@
 .btn-view {
   font-family: "Nunito", sans-serif;
   border: solid 2px #008080;
-  color: #007D7C;
+  color: #285689;
   padding:  4px 6px;
   border-radius: 8px;
   font-weight: 600;
@@ -410,7 +410,7 @@
 }
 
 .breadcrumbs span {
-  color: #007D7C;
+  color: #285689;
 }
 
 .pengurusan_pengguna_page .badge {
@@ -469,8 +469,8 @@
   font-family: "Nunito", sans-serif;
   padding: 10px 14px;
   border-radius: 6px;
-  border: 1px solid #007D7C;
-  background-color: #007D7C;
+  border: 1px solid #285689;
+  background-color: #285689;
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -627,7 +627,7 @@ input:focus {
   background-color: #EBF0F0;
   padding: 5px;
   border-radius: 10px;
-  color: #007D7C;
+  color: #285689;
 }
 
 .modal_desc {
@@ -642,9 +642,9 @@ input:focus {
 .custom_btn {
   padding: 5px 14px;
   border-radius: 6px;
-  border: 2px solid #007D7C;
+  border: 2px solid #285689;
   background-color: transparent;
-  color: #007D7C;
+  color: #285689;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -659,8 +659,8 @@ input:focus {
   font-family: "Nunito", sans-serif;
   padding: 5px 14px;
   border-radius: 6px;
-  border: 2px solid #007D7C;
-  background-color: #007D7C;
+  border: 2px solid #285689;
+  background-color: #285689;
   color: white;
   font-weight: 600;
   display: flex;
@@ -675,7 +675,7 @@ input:focus {
 /* On hover, slightly change background for clarity */
 .custom_btn:hover {
   background-color: rgba(0, 125, 124, 0.1);
-  color: #007D7C;
+  color: #285689;
 }
 
 /* Footer button alignment */
@@ -690,8 +690,8 @@ input:focus {
 
 .modal-footer .btn-primary {
   font-family: "Nunito", sans-serif;
-  background-color: #007D7C;
-  border: 1px solid #007D7C;
+  background-color: #285689;
+  border: 1px solid #285689;
   font-weight: 600;
 }
 
@@ -738,7 +738,7 @@ input:focus {
 }
 
 .success-message-wrapper svg {
-  background-color: #259B91;
+  background-color: #285689;
   width: 80px;
   height: 80px;
   padding: 10px;
@@ -766,7 +766,7 @@ input:focus {
 
 .dashboard-btn {
   padding: 10px 50px;
-  background-color: #259B91;
+  background-color: #285689;
   margin: 0 auto;
   color: white;
   border: none;
@@ -778,7 +778,7 @@ input:focus {
 }
 
 .dashboard-btn:hover {
-  background-color: #299d91dc;
+  background-color: #5797de;
 }
 
 /*
@@ -938,6 +938,7 @@ Calender Page
   background-color: #f8f9fa;
   border-radius: 8px;
   margin-bottom: 10px;
+  color: #000000;
 }
 
 .day-cell {
@@ -1035,7 +1036,7 @@ Calender Page
 }
 
 .btn-group-toggle .btn.active {
-  background-color: #007D7C;
+  background-color: #285689;
   color: white;
   border-radius: 10px !important;
 }
@@ -1046,12 +1047,12 @@ Calender Page
 }
 
 .day-cell.today-highlight .day-number {
-  color: #28a745;
+  color: #285689;
   font-weight: bold;
 }
 
 .today-header-highlight {
-  color: #28a745 !important;
+  color: #285689 !important;
   font-weight: bold !important;
 }
 
@@ -1071,7 +1072,7 @@ width: 400px;
 .nav_button_group #prevBtn,
 .nav_button_group #nextBtn{
 border-radius: 10px;
-background-color: #259B91;
+background-color: #285689;
 color: white;
 border: none;
 }

@@ -17,9 +17,8 @@ Route::get('/fasiliti-bilik', function () {
     return view('website.fasiliti');
 })->name('portal.facility');
 
-Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
-
 Auth::routes();
+Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

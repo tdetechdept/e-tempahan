@@ -6,9 +6,9 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Buat Tempahan</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <span>Cari Bilik Mesyuarat</span>
+            <a href="{{ route('rooms.create') }}" class="text-decoration-none text-primary">Cari Bilik Mesyuarat</a>
         </div>
     </div>
 @endsection

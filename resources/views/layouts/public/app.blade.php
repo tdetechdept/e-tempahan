@@ -14,6 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=Poppins" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:100,200,300,400,500,600,700" rel="stylesheet" />
+    <link href="{{ asset('admin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -38,7 +40,7 @@
         }
 
         .theme-color {
-             background: linear-gradient(180deg, #0a131d, #285689, #2a75cb);
+             background: linear-gradient(180deg, #0B0A18, #090818, #285689);
         }
 
         .text-theme{
