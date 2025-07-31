@@ -24,3 +24,5 @@ yarn-error.log
 CLAUDE.md
 /.claude
 .mcp.json
+*.sqlite*
+.env
