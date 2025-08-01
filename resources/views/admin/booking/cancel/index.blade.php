@@ -18,7 +18,14 @@
         <!-- Content Card -->
         <div class="content-card mb-3">
             <div class="eb-create-room-information">
-                <h3>Senarai Tempahan</h3>
+               
+                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+                     <h3>Senarai Tempahan</h3>
+                    <div class="search-input d-flex align-items-center position-relative">
+                        <span class="material-symbols-rounded position-absolute ms-2">search</span>
+                        <input type="text" id="bookingSearch" class="form-control ps-5" placeholder="Carian" />
+                    </div>
+                </div>
                 <div class="eb-tabs-tables">
                     @php
                         // Use internal keys for filtering logic

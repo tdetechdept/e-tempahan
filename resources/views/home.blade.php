@@ -243,7 +243,7 @@
                                                 'text' => '#0c5460',
                                             ],
                                             3 => [ // Approved
-                                                'label' => 'DILULUSKAN',
+                                                'label' => 'Lulus',
                                                 'bg' => '#d4edda',
                                                 'text' => '#155724',
                                             ],
@@ -272,7 +272,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('booking.show', $booking->id) }}"  style="text-decoration: none;">
+                                    <a href="{{ route('booking.show', $booking->id) }}" style="text-decoration: none;">
                                         <button
                                             class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                             <span class="material-symbols-rounded eb-eye-btn"></span> Lihat

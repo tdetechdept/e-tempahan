@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\ProfileController;
 
@@ -51,6 +53,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/users/deactivate/success', [AdminUserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
 
     });
+    Route::resource('reports', AdminReportController::class);
+    Route::resource('organization', OrganizationController::class);
 });
 
 

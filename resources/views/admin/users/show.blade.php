@@ -78,13 +78,13 @@
 							<!-- Unsuccessful Registration -->
 							<div class="Senarai_pengguna_pagination">
 								<button type="button" class="btn me-2"
-									onclick="openModal('unsuccessfulModal', 'unsuccessfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+									onclick="openModal('unsuccessfulModal', 'unsuccessfulForm', '{{ route('admin.users.updateStatus', $user->id) }}')">
 									Pendaftaran Tidak Berjaya
 								</button>
 
 								<!-- Successful Registration -->
 								<button type="button" class="btn btn-secondary eb-form-submit"
-									onclick="openModal('successfulModal', 'successfulForm', '{{ route('users.updateStatus', $user->id) }}')">
+									onclick="openModal('successfulModal', 'successfulForm', '{{ route('admin.users.updateStatus', $user->id) }}')">
 									Pendaftaran Berjaya
 								</button>
 							</div>
@@ -95,7 +95,7 @@
 									onclick="openModal('activateUserModal', 'activateUserForm', '{{ route('users.updateStatus', $user->id) }}')">
 									Aktifkan Pengguna
 								</button>
-								<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
+								<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
 									Kemaskini Pengguna
 								</a>
 							</div>
@@ -106,7 +106,7 @@
 									onclick="openModal('deactivateUserModal', 'deactivateUserForm', '{{ route('users.deactivate', $user->id) }}')">
 									Nyahaktif Pengguna
 								</button>
-								<a href="{{ route('users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
+								<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
 									Kemaskini Pengguna
 								</a>
 							</div>
