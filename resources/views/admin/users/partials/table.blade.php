@@ -51,6 +51,45 @@
                 {{ $status['label'] }}
             </span>
         </td>
+        <td class="text-center">
+            <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+                <!-- View Button -->
+                <a href="{{ route('admin.users.show', $user->id) }}" class="btn btn-sm rounded-circle"
+                    style="background-color: #cce5ff; color: #004085; border: 1px solid #004085;" title="Lihat">
+                    <i class="bi bi-eye"></i>
+                </a>
+
+                <!-- Edit Button -->
+                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm rounded-circle"
+                    style="background-color: #fff3cd; color: #856404; border: 1px solid #856404;" title="Kemaskini">
+                    <i class="bi bi-pencil"></i>
+                </a>
+
+                <!-- Delete Button -->
+                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-sm rounded-circle"
+                        style="background-color: #f8d7da; color: #721c24; border: 1px solid #721c24;" title="Padam"
+                        onclick="return confirm('Padam pengguna ini?')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+
+                <!-- Approve Button or Empty Space -->
+                @if ($user->status == 1 || $user->status == 2)
+                    <a href="#" class="btn btn-sm rounded-circle"
+                        style="background-color: #d4edda; color: #155724; border: 1px solid #155724;" title="Luluskan">
+                        <i class="bi bi-check2"></i>
+                    </a>
+                @else
+                    <span class="btn btn-sm rounded-circle invisible"
+                        style="background-color: #d4edda; color: #155724; border: 1px solid #155724;">
+                        <i class="bi bi-check2"></i>
+                    </span>
+                @endif
+            </div>
+        </td>
     </tr>
 @endforeach
 </tbody>

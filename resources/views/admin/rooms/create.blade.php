@@ -57,7 +57,7 @@
                                 <div class="form-group">
                                     <label for="capacity">kapasiti</label>
                                     <input type="text" name="room_capacity" value="{{ old('room_capacity') }}"
-                                        class="form-control" id="capacity">
+                                        class="form-control" id="capacity" placeholder="Contoh: 10 orang">
                                     @error('room_capacity')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -104,6 +104,39 @@
                                         <p class="form-text" id="pictureName"></p>
                                     </div>
                                     @error('picture')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Nama PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_name">Nama PIC</label>
+                                    <input type="text" name="pic_name" value="{{ old('pic_name') }}" class="form-control" id="pic_name" placeholder="contoh: En. Faizul bin Hakim">
+                                    @error('pic_name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- No. Telefon Pejabat PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_phone">No. Telefon Pejabat PIC</label>
+                                    <input type="text" name="pic_phone" value="{{ old('pic_phone') }}" class="form-control" id="pic_phone">
+                                    @error('pic_phone')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Emel PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_email">Emel PIC</label>
+                                    <input type="text" name="pic_email" value="{{ old('pic_email') }}" class="form-control" id="pic_email" placeholder="contoh: Faizul@kk.gov.my">
+                                    @error('pic_email')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>

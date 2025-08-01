@@ -113,10 +113,26 @@
             @endrole
 
             @role('Admin')
-            <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('users.index') }}">
+            <li class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengurusan Pengguna</span>
+                </a>
+            </li>
+
+            <!-- Pengurusan Organisasi -->
+            <li class="nav-item {{ request()->routeIs('organization.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('organization.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Pengurusan Organisasi</span>
+                </a>
+            </li>
+
+            <!-- Laporan -->
+            <li class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('reports.index') }}">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Laporan</span>
                 </a>
             </li>
 

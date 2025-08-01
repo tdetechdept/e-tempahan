@@ -79,6 +79,7 @@
                                                 <th>Nama Pegawai</th>
                                                 <th>Bahagian</th>
                                                 <th>Status</th>
+                                                <th>Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -95,88 +96,6 @@
 
     @push('js')
         <script>
-            // $.fn.dataTable.ext.errMode = 'none';
-            // let userTable;
-
-            // function initializeDataTable() {
-            //     userTable = $('#userMgmtTable').DataTable({
-            //         destroy: true,
-            //         pageLength: 5,
-            //         lengthMenu: [5, 10, 20, 50, -1],
-            //         ordering: true,
-            //         dom: 't<"d-flex justify-content-between align-items-center mt-3"lp>',
-            //         language: {
-            //             lengthMenu: 'Tunjuk <select class="form-select form-select-sm">' +
-            //                 '<option value="5">5</option>' +
-            //                 '<option value="10">10</option>' +
-            //                 '<option value="20">20</option>' +
-            //                 '<option value="50">50</option>' +
-            //                 '<option value="-1">All</option>' +
-            //                 '</select> pengguna',
-            //             paginate: {
-            //                 previous: '<',
-            //                 next: '>'
-            //             },
-            //         },
-            //     });
-
-            //     $('#userSearch').on('keyup', function () {
-            //         userTable.search(this.value).draw();
-            //     });
-
-
-            //     // Bind row click
-            //     $('#userMgmtTable tbody').on('click', 'tr', function () {
-            //         const url = $(this).data('url');
-            //         if (url) {
-            //             window.location.href = url;
-            //         }
-            //     });
-            // }
-
-            // function loadFilteredUsersFromHash() {
-            //     const hash = window.location.hash.replace('#', '') || 'all';
-            //     const validFilters = ['all', 'new', 'approved', 'rejected', 'cancelled'];
-            //     const filter = validFilters.includes(hash) ? hash : 'all';
-
-            //     // Update active tab
-            //     $('[data-status-filter]').removeClass('active');
-            //     $(`[data-status-filter="${filter}"]`).addClass('active');
-
-            //     $.ajax({
-            //         url: "{{ route('users.index') }}",
-            //         type: "GET",
-            //         data: { filter: filter },
-            //         success: function (data) {
-            //             if ($.fn.DataTable.isDataTable('#userMgmtTable')) {
-            //                 $('#userMgmtTable').DataTable().destroy();
-            //             }
-            //             $('#userMgmtTable tbody').replaceWith(data);
-            //             initializeDataTable();
-            //         },
-            //         error: function () {
-            //             alert('Failed to fetch filtered users.');
-            //         }
-            //     });
-            // }
-
-            // $(document).ready(function () {
-            //     initializeDataTable();
-            //     loadFilteredUsersFromHash();
-
-            //     $('[data-status-filter]').on('click', function () {
-            //         const filter = $(this).data('status-filter');
-            //         if (filter) {
-            //             window.location.hash = filter;
-            //         }
-            //     });
-
-            //     window.addEventListener('hashchange', function () {
-            //         loadFilteredUsersFromHash();
-            //     });
-            // });
-
-
             $.fn.dataTable.ext.errMode = 'none';
 
             let userTable;
@@ -244,13 +163,12 @@
                 });
             });
 
-            $('#userMgmtTable tbody').on('click', 'tr', function () {
-                   const url = $(this).data('url');
-                 if (url) {
-                        window.location.href = url;
-                    }
-               });
-             
+            // $('#userMgmtTable tbody').on('click', 'tr', function () {
+            //        const url = $(this).data('url');
+            //      if (url) {
+            //             window.location.href = url;
+            //         }
+            //    });       
         </script>
     @endpush
 @endsection
