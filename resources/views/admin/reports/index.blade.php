@@ -1,131 +1,247 @@
 @extends('layouts.main.app')
 
-@section('content')
-    <div class="pengurusan_pengguna_page ">
-        <h2 class="page_title">Laporan</h2>
-        <p class="breadcrumbs">Laman Utama / Pengurusan Pengguna / <span>Laporan</span></p>
+@section('title', 'Laporan')
 
-        <div class="Laporan_content">
-            <div class="search-section">
-                <h4 class="table_title">Laporan</h4>
-                <div class="position-relative search_input">
-                    <i class="fas fa-search position-absolute"
-                        style="left: 12px; top: 50%; transform: translateY(-50%); color: #aaa;"></i>
-                    <input type="text" class="form-control pl-5 " placeholder="Search...">
+@section('breadcrumb')
+    <div class="breadcrumb-section">
+        <h1 class="breadcrumb-title">Laporan</h1>
+        <div class="breadcrumb-nav">
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <span class="mx-2">/</span>
+            <span class="text-primary">Laporan</span>
+        </div>
+    </div>
+@endsection
+
+@section('content')
+    <main class="main-content">
+        <div class="content-card">
+            <div class="eb-create-room-information">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="mb-0">Laporan</h3>
+                    <div class="search-input d-flex align-items-center position-relative">
+                        <span class="material-symbols-rounded position-absolute ms-2">search</span>
+                        <input type="text" id="reportSearch" class="form-control ps-5" placeholder="Carian" />
+                    </div>
                 </div>
-            </div>
-            <div class="Flex-center">
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="tab_button active" id="pills-Semua-tab" data-toggle="pill" data-target="#pills-Semua"
-                            type="button" role="tab" aria-controls="pills-Semua" aria-selected="true">Semua</button>
+
+                <!-- Tabs -->
+                <ul class="nav nav-pills mb-4" id="report-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="pill" href="#harian">Harian</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="tab_button" id="pills-Baharu-tab" data-toggle="pill" data-target="#pills-Baharu"
-                            type="button" role="tab" aria-controls="pills-Baharu" aria-selected="false">Baharu</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#mingguan">Mingguan</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="tab_button" id="pills-Diluluskan-tab" data-toggle="pill"
-                            data-target="#pills-Diluluskan" type="button" role="tab" aria-controls="pills-Diluluskan"
-                            aria-selected="false">Diluluskan</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#bulanan">Bulanan</a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="tab_button" id="pills-Ditolak-tab" data-toggle="pill" data-target="#pills-Ditolak"
-                            type="button" role="tab" aria-controls="pills-Ditolak"
-                            aria-selected="false">Ditolak</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="tab_button" id="pills-Dibatalkan-tab" data-toggle="pill"
-                            data-target="#pills-Dibatalkan" type="button" role="tab" aria-controls="pills-Dibatalkan"
-                            aria-selected="false">Dibatalkan</button>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#tahunan">Tahunan</a>
                     </li>
                 </ul>
 
-            </div>
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    {{-- DAILY TAB --}}
+                    <div class="tab-pane fade show active" id="harian">
+                        <form method="GET" action="{{ route('reports.daily') }}">
+                            <div class="form-group row">
+                                <label for="section_id" class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <div class="col-sm-10">
+                                    <select name="section_id" id="section_id" class="form-control">
+                                        <option value="">-- Pilih Bahagian --</option>
+                                        @foreach($organizations as $org)
+                                            <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active px-3" id="pills-Semua" role="tabpanel"
-                    aria-labelledby="pills-Semua-tab">
-                    <div class="filter-block">
-                        <div class="filter-row">
-                            <label for="bahagian">Bahagian</label>
-                            <select name="bahagian" id="bahagian" class="bahagian">
-                                <option value="semua">Semua</option>
-                                <option value="bahagian1">Bahagian 1</option>
-                                <option value="bahagian2">Bahagian 2</option>
-                                <option value="bahagian3">Bahagian 3</option>
-                            </select>
-                        </div>
+                            <div class="form-group row">
+                                <label for="hari" class="col-sm-2 col-form-label font-weight-bold">Hari</label>
+                                <div class="col-sm-10">
+                                    <input type="date" name="hari" id="hari" class="form-control" />
+                                </div>
+                            </div>
 
-                        <div class="filter-row">
-                            <label for="tahun">Tahun</label>
-                            <input type="text" id="tahun" placeholder="Type Something ....">
-                        </div>
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-form-label font-weight-bold">Status
+                                    Permohonan</label>
+                                <div class="col-sm-10">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="1">Baru</option>
+                                        <option value="2">Belum Diproses</option>
+                                        <option value="3">Diluluskan</option>
+                                        <option value="4">Ditolak</option>
+                                        <option value="5">Dibatalkan</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                        <div class="filter-row">
-                            <label for="status">Status Permohonan</label>
-                            <select name="status" id="status">
-                                <option value="semua">Semua</option>
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak_aktif">Tidak Aktif</option>
-                            </select>
-                        </div>
-
-                        
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-medium px-5">Teruskan</button>
+                            </div>
+                        </form>
                     </div>
 
+                    {{-- WEEKLY TAB --}}
+                    <div class="tab-pane fade" id="mingguan">
+                        <form method="GET" action="">
+                            <div class="form-group row">
+                                <label for="section_id_week"
+                                    class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <div class="col-sm-10">
+                                    <select name="section_id" id="section_id_week" class="form-control">
+                                        <option value="">-- Pilih Bahagian --</option>
+                                        @foreach($organizations as $org)
+                                            <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
 
-                </div>
-                <div class="tab-pane fade px-3" id="pills-Baharu" role="tabpanel" aria-labelledby="pills-Baharu-tab">2</div>
-                <div class="tab-pane fade px-3" id="pills-Diluluskan" role="tabpanel"
-                    aria-labelledby="pills-Diluluskan-tab">3
-                </div>
-                <div class="tab-pane fade px-3" id="pills-Ditolak" role="tabpanel" aria-labelledby="pills-Ditolak-tab">
-                    <div class="filter-block">
-                        <div class="filter-row">
-                            <label for="bahagian">Bahagian</label>
-                            <select name="bahagian" id="bahagian" class="bahagian">
-                                <option value="semua">Semua</option>
-                                <option value="bahagian1">Bahagian 1</option>
-                                <option value="bahagian2">Bahagian 2</option>
-                                <option value="bahagian3">Bahagian 3</option>
-                            </select>
-                        </div>
-                        <div class="filter-row">
-                            <label for="bahagian">Bulan</label>
-                            <select name="bahagian" id="bahagian" class="bahagian">
-                                <option value="semua">Semua</option>
-                                <option value="bahagian1">Bahagian 1</option>
-                                <option value="bahagian2">Bahagian 2</option>
-                                <option value="bahagian3">Bahagian 3</option>
-                            </select>
-                        </div>
+                            <div class="form-group row">
+                                <label for="start_date_week" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Mula</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="start_date" id="start_date_week" class="form-control" />
+                                </div>
 
-                        <div class="filter-row">
-                            <label for="tahun">Tahun</label>
-                            <input type="text" id="tahun" placeholder="Type Something ....">
-                        </div>
+                                <label for="end_date_week" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Tamat</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="end_date" id="end_date_week" class="form-control" />
+                                </div>
+                            </div>
 
-                        <div class="filter-row">
-                            <label for="status">Status Permohonan</label>
-                            <select name="status" id="status">
-                                <option value="semua">Semua</option>
-                                <option value="aktif">Aktif</option>
-                                <option value="tidak_aktif">Tidak Aktif</option>
-                            </select>
-                        </div>
+                            <div class="form-group row">
+                                <label for="status_week" class="col-sm-2 col-form-label font-weight-bold">Status
+                                    Permohonan</label>
+                                <div class="col-sm-10">
+                                    <select name="status" id="status_week" class="form-control">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="1">Baru</option>
+                                        <option value="2">Belum Diproses</option>
+                                        <option value="3">Diluluskan</option>
+                                        <option value="4">Ditolak</option>
+                                        <option value="5">Dibatalkan</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                        
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-medium px-5">Teruskan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {{-- MONTHLY TAB --}}
+                    <div class="tab-pane fade" id="bulanan">
+                        <form method="GET" action="">
+                            <div class="form-group row">
+                                <label for="section_id_month"
+                                    class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <div class="col-sm-10">
+                                    <select name="section_id" id="section_id_month" class="form-control">
+                                        <option value="">-- Pilih Bahagian --</option>
+                                        @foreach($organizations as $org)
+                                            <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="start_date_month" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Mula</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="start_date" id="start_date_month" class="form-control" />
+                                </div>
+
+                                <label for="end_date_month" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Tamat</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="end_date" id="end_date_month" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="status_month" class="col-sm-2 col-form-label font-weight-bold">Status
+                                    Permohonan</label>
+                                <div class="col-sm-10">
+                                    <select name="status" id="status_month" class="form-control">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="1">Baru</option>
+                                        <option value="2">Belum Diproses</option>
+                                        <option value="3">Diluluskan</option>
+                                        <option value="4">Ditolak</option>
+                                        <option value="5">Dibatalkan</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-medium px-5">Teruskan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    {{-- YEARLY TAB --}}
+                    <div class="tab-pane fade" id="tahunan">
+                        <form method="GET" action="">
+                            <div class="form-group row">
+                                <label for="section_id_year"
+                                    class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <div class="col-sm-10">
+                                    <select name="section_id" id="section_id_year" class="form-control">
+                                        <option value="">-- Pilih Bahagian --</option>
+                                        @foreach($organizations as $org)
+                                            <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="start_date_year" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Mula</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="start_date" id="start_date_year" class="form-control" />
+                                </div>
+
+                                <label for="end_date_year" class="col-sm-2 col-form-label font-weight-bold">Tarikh
+                                    Tamat</label>
+                                <div class="col-sm-4">
+                                    <input type="date" name="end_date" id="end_date_year" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="status_year" class="col-sm-2 col-form-label font-weight-bold">Status
+                                    Permohonan</label>
+                                <div class="col-sm-10">
+                                    <select name="status" id="status_year" class="form-control">
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="1">Baru</option>
+                                        <option value="2">Belum Diproses</option>
+                                        <option value="3">Diluluskan</option>
+                                        <option value="4">Ditolak</option>
+                                        <option value="5">Dibatalkan</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-medium px-5">Teruskan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="tab-pane fade px-3" id="pills-Dibatalkan" role="tabpanel"
-                    aria-labelledby="pills-Dibatalkan-tab">
-                    5
-                </div>
-                <div class="Button_position_Laporan">
-                  <button class="dashboard-btn">Papan Pemuka</button>
-              </div>
+
 
             </div>
         </div>
-    @endsection
+    </main>
+@endsection

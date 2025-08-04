@@ -1,43 +1,94 @@
 @extends('layouts.main.app')
 
-
-@section('title', 'Pengurusan Organisasi')
+@section('title', 'Tambah ' . ucfirst($type))
 
 @section('breadcrumb')
-<div class="breadcrumb-section">
-        <h1 class="breadcrumb-title"> Pengurusan Organisasi</h1>
+    <div class="breadcrumb-section">
+        <h1 class="breadcrumb-title">{{ ucfirst($type) }}</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <a href="#" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
+            <a href="{{ route('organization.index') }}" class="text-decoration-none text-dark">Pengurusan Organisasi</a>
             <span class="mx-2">/</span>
-            <a href="#" class="text-decoration-none text-success">Tambah Nama Bahagian</a>
+            <a href="{{ route('organization.create', $type) }}" class="text-decoration-none text-success">Tambah
+                {{ ucfirst($type) }}</a>
         </div>
     </div>
 @endsection
 
 @section('content')
+    <main class="main-content">
+        <div class="content-card mb-3">
+            <div class="eb-create-room-information">
+                <h3>Cipta {{ ucfirst($type) }}</h3>
+                <p>Sila lengkapkan maklumat penciptaan di bawah.</p>
 
-<main class="main-content">
-    <div class="container mt-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="mb-4"><strong>Tambah Nama Bahagian</strong></h5>
-                <form action="#" method="POST">
-                    @csrf
-                    <div class="form-group row">
-                        <label for="nama_bahagian" class="col-sm-2 col-form-label font-weight-bold">Nama Bahagian</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="nama_bahagian" id="nama_bahagian" class="form-control form-control-lg rounded" placeholder="Masukkan Nama Bahagian">
+                <div class="eb-form-section">
+                    <form action="{{ route('organization.store', $type) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        {{-- Common name field --}}
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label font-weight-bold">Nama
+                                {{ ucfirst($type) }}</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="name" id="name"
+                                    class="form-control form-control-lg rounded @error('name') is-invalid @enderror"
+                                    placeholder="Masukkan Nama {{ ucfirst($type) }}" value="{{ old('name') }}">
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
-                    </div>
 
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg px-5">Hantar</button>
-                    </div>
-                </form>
+                        {{-- Extra fields for chairman --}}
+                        @if($type === 'chairman')
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label font-weight-bold">Jawatan</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="position"
+                                        class="form-control form-control-lg rounded @error('position') is-invalid @enderror"
+                                        placeholder="Masukkan Jawatan" value="{{ old('position') }}">
+                                    @error('position')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="division"
+                                        class="form-control form-control-lg rounded @error('division') is-invalid @enderror"
+                                        placeholder="Masukkan Bahagian" value="{{ old('division') }}">
+                                    @error('division')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label font-weight-bold">Telefon Pejabat</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="office_phone"
+                                        class="form-control form-control-lg rounded @error('office_phone') is-invalid @enderror"
+                                        placeholder="Masukkan Telefon Pejabat" value="{{ old('office_phone') }}">
+                                    @error('office_phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-medium px-5">Hantar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 @endsection

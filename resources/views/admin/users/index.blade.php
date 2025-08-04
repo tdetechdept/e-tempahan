@@ -90,6 +90,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade eb-delete-popup" id="deleteUserModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <form method="POST" id="deleteUserForm">
+                                @csrf
+                                @method('DELETE')
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <div class="eb-delete-icon mb-3"></div>
+                                        <h3>Adakah anda pasti?</h3>
+                                        <p id="delete-user-message">Adakah anda pasti mahu memadam pengguna ini?</p>
+                                        <div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tidak</button>
+                                            <button type="submit" class="btn btn-primary">Ya</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
     </main>
@@ -169,6 +191,14 @@
             //             window.location.href = url;
             //         }
             //    });       
+
+            $(document).on('click', '.btn-delete-user', function () {
+                const url = $(this).data('url');
+                const name = $(this).data('name');
+
+                $('#deleteUserForm').attr('action', url);
+                $('#delete-user-message').text(`Adakah anda pasti mahu memadam pengguna "${name.toUpperCase()}"?`);
+            });
         </script>
     @endpush
 @endsection

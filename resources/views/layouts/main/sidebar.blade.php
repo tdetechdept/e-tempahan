@@ -100,8 +100,6 @@
             </li>
             @endhasanyrole
             
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             @role('User')
             <li class="nav-item">
@@ -136,8 +134,6 @@
                 </a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
             @endrole
             
             @role('Super Admin')
