@@ -18,9 +18,9 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            @role('user')
+            @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('user.calendar.index', Auth::id())}}">
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Kalendar</span></a>
             </li>
@@ -34,13 +34,17 @@
             </div>
 
             <!-- Nav Item - Tempahan Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTempahan"
-                    aria-expanded="true" aria-controls="collapseTempahan">
+             @php
+                $userBookRoutes = ['user.search.index', 'user.booking.list', 'user.booking.adhoc'];
+                $isuserBookActive = in_array(Route::currentRouteName(), $userBookRoutes);
+            @endphp
+            <li class="nav-item {{ $isuserBookActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isuserBookActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTempahan"
+                    aria-expanded="{{ $isuserBookActive ? 'true' : 'false' }} aria-controls="collapseTempahan">
                     <i class="far fa-fw fa-calendar"></i>
                     <span>Tempahan</span>
                 </a>
-                <div id="collapseTempahan" class="collapse" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
+                <div id="collapseTempahan" class="collapse {{ $isuserBookActive ? 'show' : '' }}" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                         <a class="collapse-item" href="{{ route('user.search.index') }}">Carian Bilik</a>
@@ -100,8 +104,6 @@
             </li>
             @endhasanyrole
             
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             @role('User')
             <li class="nav-item">
@@ -113,15 +115,29 @@
             @endrole
 
             @role('Admin')
-            <li class="nav-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('users.index') }}">
+            <li class="nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.users.index') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengurusan Pengguna</span>
                 </a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+            <!-- Pengurusan Organisasi -->
+            <li class="nav-item {{ request()->routeIs('organization.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('organization.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Pengurusan Organisasi</span>
+                </a>
+            </li>
+
+            <!-- Laporan -->
+            <li class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('reports.index') }}">
+                    <i class="fas fa-fw fa-file-alt"></i>
+                    <span>Laporan</span>
+                </a>
+            </li>
+
             @endrole
             
             @role('Super Admin')
@@ -143,7 +159,7 @@
                 <div id="collapsePentadbir" class="collapse {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'show' : '' }}" 
                      aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ request()->routeIs('report') ? 'active' : '' }}" href="{{ route('report') }}">Laporan</a>
+                        <a class="collapse-item {{ request()->routeIs('reports') ? 'active' : '' }}" href="{{ route('reports.index') }}">Laporan</a>
                         <a class="collapse-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') ? 'active' : '' }}" href="{{ route('audit') }}">Log Audit</a>
                         <a class="collapse-item {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">Kalendar</a>
                         <a class="collapse-item {{ request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}" href="{{ route('pengurusan_pengguna') }}">Pengurusan Pengguna</a>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\Booking;
+use App\Models\Chairman;
 
 class BookingController extends Controller
 {
@@ -39,8 +40,8 @@ class BookingController extends Controller
         $room = Room::query()
             ->where('status', true)
             ->where('room_capacity', '>=',  $request->participants )
-            ->orWhere('id', 'like', '%' . $request->roomName . '%')
-            ->orWhere('level', 'like', '%' . $request->roomLevel . '%')
+            // ->orWhere('id', 'like', '%' . $request->roomName . '%')
+            // ->orWhere('level', 'like', '%' . $request->roomLevel . '%')
             ->get();
 
             $details = [
@@ -57,20 +58,58 @@ class BookingController extends Controller
      */
     public function searchView(string $id)
     {   
+        $bookDate = request()->date;
+        $startTime = request()->start;
+        $endTime = request()->end;
+
+        $status = true;
+
+        function isTimeBetween(string $checkTime, string $startTime, string $endTime): bool {
+            // Convert time strings to Unix timestamps.
+            // Prepending a dummy date like '2000-01-01' ensures that strtotime()
+            // correctly interprets the time without considering the actual date.
+            $checkTimestamp = strtotime('2000-01-01 ' . $checkTime);
+            $startTimestamp = strtotime('2000-01-01 ' . $startTime);
+            $endTimestamp = strtotime('2000-01-01 ' . $endTime);
+
+            // Handle cases where the time range crosses midnight (e.g., 22:00 to 06:00)
+            if ($startTimestamp > $endTimestamp) {
+                return ($checkTimestamp >= $startTimestamp || $checkTimestamp <= $endTimestamp);
+            } else {
+                return ($checkTimestamp >= $startTimestamp && $checkTimestamp <= $endTimestamp);
+            }
+        }
+
+
         // Logic to show the details of a specific room
         // This could include checking availability based on the date and time provided
+        $bookings = Booking::where('room_id', $id)->where('start_date', $bookDate)->get();
+
+        foreach($bookings as $book){
+            $start = $book->start_time->format('H:i');
+            $end = $book->end_time->format('H:i');
+
+            if(isTimeBetween($startTime, $start, $end) || isTimeBetween($endTime, $start, $end)){
+                $status = false;
+                break;
+            }
+
+        }
+
+
         $room = Room::findOrFail($id);
 
-        return view('user.booking.search.view', compact('room'));
+        return view('user.booking.search.view', compact('room', 'status'));
     }
 
     public function newBooking($user, $room)
     {   
+        $chairmans = Chairman::all();
         $allrooms = Room::where('status', true)->get();
         $room = Room::findOrFail($room);
         $user = User::findOrFail($user);
 
-        return view('user.booking.book.create', compact('room', 'user', 'allrooms'));
+        return view('user.booking.book.create', compact('room', 'user', 'allrooms','chairmans'));
     }
 
 
@@ -127,5 +166,92 @@ class BookingController extends Controller
     {
         $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
         return view('user.booking.view', compact('booking'));
+    }
+
+    public function edit(string $id)
+    {
+        $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
+        $chairmans = Chairman::all();
+        $allrooms = Room::where('status', true)->get();
+        $room = Room::findOrFail($booking->room_id);
+        $user = User::findOrFail($booking->user_id);
+        return view('user.booking.book.edit', compact('booking', 'room', 'user', 'allrooms','chairmans'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
+
+        $booking = Booking::findOrFail($id); // Automatically throws 404 if not found
+
+        $oldStatus = $booking->status;
+        $oldChairman = $booking->chairman;
+        $oldUpdatedFieldInfo = $booking->updated_field_info;
+        $oldStartTime = $booking->start_time;
+        $oldEndTime = $booking->end_time;
+
+
+        if($booking->chairman !== $request->chairman && (($booking->start_time)->format('H:i') !== $request->start_time || ($booking->end_time)->format('H:i') !== $request->end_time)){
+            $info = 'Chairman and Time change';
+        }elseif($booking->chairman !== $request->chairman){
+            $info = 'Chairman change';
+        }elseif(($booking->start_time)->format('H:i') !== $request->start_time || ($booking->end_time)->format('H:i') !== $request->end_time){
+            $info = 'Time change';
+        }else{
+            $info = 'UNKNOWN';
+        }
+        
+        $booking->update([
+            'updated_field_info' => $info,
+            'chairman' => $request->chairman,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'status' => 6,
+        ]);
+
+        // Log update if no status change
+        if ($oldChairman !== $request->chairman  || $oldUpdatedFieldInfo !== $info || $oldStartTime !== $request->start_time || $oldEndTime !== $request->end_time) {
+            $booking->auditEvent = 'booking_updated_by_user';
+            $booking->isCustomEvent = true;
+            $booking->save();
+        }
+
+        return redirect()->back()->with('msg', 'Tempahan ada telah berjaya dikemaskini');
+    }
+
+    public function cancel(Request $request, string $id)
+    {
+        \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
+        $booking = Booking::findOrFail($id);
+        
+        $request->validate([
+            'update_info' => 'nullable|string|max:5000',
+            'reviews' => 'nullable|string|max:5000',
+        ]);
+        
+        $oldStatus = $booking->status;
+        $oldUpdateInfo = $booking->update_info;
+        $oldReviews = $booking->reviews;
+        
+        
+        if ($request->action === 'reject') {
+            $booking->status = 5; // Cancel by User
+            $booking->reviews = $request->reviews;
+            $booking->save();
+            
+            // Add custom audit event for rejection
+            $booking->auditEvent = 'booking_cancel_by_user';
+            $booking->isCustomEvent = true;
+            $booking->save();
+            
+            return view('user.booking.rejected', compact('booking'));
+        } 
+        
+        // Log update if no status change
+        if ($oldUpdateInfo !== $request->update_info || $oldReviews !== $request->reviews) {
+            $booking->auditEvent = 'booking_cancel_by_user';
+            $booking->isCustomEvent = true;
+            $booking->save();
+        }
     }
 }

@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin2/css/sb-admin-2.css') }}" rel="stylesheet">
@@ -80,11 +81,9 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="{{ asset('admin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('admin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('admin2/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
     <script src="{{ asset('admin2/js/Calender2.js') }}"></script>

@@ -24,6 +24,9 @@ class Room extends Model implements Auditable
         'layout',
         'facilities',
         'status',
+        'pic_name',
+        'pic_phone',
+        'pic_email',
         'level'
     ];
 

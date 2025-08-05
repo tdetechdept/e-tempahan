@@ -8,11 +8,11 @@
         <div class="breadcrumb-nav">
             <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
+            <a href="{{ route('admin.users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
+            <a href="{{ route('admin.users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('users.edit', $user->id) }}" class="text-decoration-none text-success">Kemaskini Maklumat Pengguna</a>
+            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-decoration-none text-success">Kemaskini Maklumat Pengguna</a>
         </div>
     </div>
 @endsection
@@ -79,6 +79,21 @@
                                 @enderror
                             </td>
                             
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Peranan *</th>
+                            <td style="border: none;">
+                                <select name="role" class="form-control" required>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->name }}" {{ $user->roles->pluck('name')->contains($role->name) ? 'selected' : '' }}>
+                                            {{ ucfirst($role->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
                         </tr>
                         <tr>
                             <th class="text-end align-middle">No. Telefon Pejabat *</th>

@@ -6,7 +6,7 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Profil Pengguna</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <span>Papan Pemuka</span>
             <span class="mx-2">/</span>
             <span>Profil Pengguna</span>
         </div>
@@ -38,13 +38,13 @@
                     <label for="exampleInputEmail1" class="form-label">Gambar Profil</label>
                     <div class="row mx-2">
                         @if (auth()->user()->image)
-                            <img src="{{ asset('storage/' . auth()->user()->image) }}?v={{ time() }}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">
+                            <img src="{{ asset('/uploads/users/' . auth()->user()->image) }}?v={{ time() }}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">
                         @else
                             <img src="{{ asset('admin2/img/undraw_profile.svg') }}" class="rounded-circle" alt="..." style="width: 150px; height: 150px;">      
                         @endif
                         <div class="">
-                            <button type="button" class="ml-5 btn btn-primary">Muat Naik Gambar</button>
-                            <button type="button" class="btn btn-outline-primary">Buang Gambar</button>
+                            <button type="button" class="ml-5 btn btn-primary" data-toggle="modal" data-target="#imgModal">Muat Naik Gambar</button>
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmationModal">Buang Gambar</button>
                         </div>
                             
                     </div>
@@ -187,7 +187,14 @@
             <div class="modal-body">
                  <div class="card mt-5">
                     <div class="card-body">
-                        
+                         @php
+                            $grades = \App\Models\Grade::all();
+                            $sections = \App\Models\Section::all();
+                            $departments = \App\Models\Department::all();
+                            $agencies = \App\Models\Agency::all();
+
+                            $items = $departments->concat($agencies);
+                        @endphp
                         <div class="row bg-light mb-3">
                             <div class="col-md-6">
                                 <label for="nama" class="form-label">Nama Penuh</label>
@@ -205,17 +212,35 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="gred" class="form-label">Gred</label>
-                                <input type="text" class="form-control" id="gred" name="grade" aria-describedby="" value="{{ auth()->user()->grade }}">
+                                 <select class="form-control" id="gred" name="grade" aria-label="Default select example">
+                                    <option selected disabled>Pilih Gred</option>
+                                    @foreach ($grades as $grade)
+                                        <option value="{{$grade->grade}} ({{$grade->name}})" {{ old('grade', $grade->grade. '('.$grade->name.')' ?? '') == auth()->user()->grade ? 'selected' : '' }}>{{$grade->grade}} ({{$grade->name}})</option>   
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control" id="gred" name="grade" aria-describedby="" value="{{ auth()->user()->grade }}"> --}}
                             </div>
                         </div>
                         <div class="row bg-light mb-3">
                             <div class="col-md-6">
                                 <label for="bahagian" class="form-label">Bahagian</label>
-                                <input type="text" class="form-control" id="bahagian" name="section" aria-describedby="" value="{{ auth()->user()->section }}">
+                                <select class="form-control" id="section" name="section" aria-label="Default select example">
+                                    <option selected disabled>Pilih Bahagian</option>
+                                    @foreach ($sections as $section)
+                                        <option value="{{$section->name}}" {{ old('section', $section->name ?? '') == auth()->user()->section ? 'selected' : '' }}>{{$section->name}}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control" id="bahagian" name="section" aria-describedby="" value="{{ auth()->user()->section }}"> --}}
                             </div>
                             <div class="col-md-6">
                                 <label for="jabatan" class="form-label">Jabatan / Agensi</label>
-                                <input type="text" class="form-control" id="jabatan" name="department" aria-describedby="" value="{{ auth()->user()->department }}">
+                                <select class="form-control" id="department" name="department" aria-label="Default select example">
+                                    <option selected disabled>Pilih Jabatan / Agensi</option>
+                                    @foreach ($items as $item)
+                                        <option value="{{$item->name}}" {{ old('department', $item->name ?? '') == auth()->user()->department ? 'selected' : '' }}>{{$item->name}}</option>   
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control" id="jabatan" name="department" aria-describedby="" value="{{ auth()->user()->department }}"> --}}
                             </div>
                         </div>
                         <div class="row bg-light mb-3">
@@ -250,36 +275,92 @@
 
         <!-- Modal Password -->
         <div class="modal fade" id="passwordModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="passwordLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <form action="{{ route('user.profile.change-password') }}" method="POST">
-                @csrf
-                @method('POST')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="passwordLabel">Kemaskini Kata Laluan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row bg-light mb-3">
-                        <div class="col-md-6">
-                            <label for="password" class="form-label">Kata Laluan</label>
-                            <input type="password" class="form-control" id="password" name="password" aria-describedby="password" >
-                        </div>
-                        <div class="col-md-6">
-                            <label for="confirm_password" class="form-label">Pengesahan Kata Laluan</label>
-                            <input type="password" class="form-control" id="confirm_password" name="password_confirmation" aria-describedby="confirm_password" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <form action="{{ route('user.profile.change-password') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordLabel">Kemaskini Kata Laluan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row bg-light mb-3">
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">Kata Laluan</label>
+                                <input type="password" class="form-control" id="password" name="password" aria-describedby="password" >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="confirm_password" class="form-label">Pengesahan Kata Laluan</label>
+                                <input type="password" class="form-control" id="confirm_password" name="password_confirmation" aria-describedby="confirm_password" >
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-primary">Kemaskini</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Kemaskini</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal IMG -->
+        <div class="modal fade" id="imgModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="imgLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <form action="{{ route('user.profile.uploadImg') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imgLabel">Muat Naik Gambar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row bg-light mb-3">
+                            <div class="col-md-12">
+                                <label for="profil" class="form-label">Gambar Profil</label>
+                                <input type="file" class="form-control" id="profil" name="image" aria-describedby="Gambar Profil" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-primary">Muat Naik</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+            <!-- Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-center">
+                <form action="{{ route('user.profile.removeImg') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <!-- Icon -->
+                        <div class="mb-3">
+                        <i class="fas fa-exclamation-triangle fa-3x text-primary"></i>
+                        </div>
+                        <!-- Title -->
+                        <h5 class="mb-3 font-weight-bold">Adakah anda pasti?</h5>
+                        <!-- Text -->
+                        <p>Adakah anda pasti anda ingin memadam gambar profil?</p>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Tidak</button>
+                        <button type="submit" class="btn btn-primary" id="confirmBtn">Ya</button>
+                    </div>
+                </form>
                 </div>
             </div>
-            </form>
-        </div>
         </div>
 
 @endsection

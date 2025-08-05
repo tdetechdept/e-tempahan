@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Spatie\Permission\Models\Role;
 use OwenIt\Auditing\Models\Audit;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
     {
         $filter = strtolower($request->get('filter', 'all'));
     
-        $query = User::role('User');
+        $query = User::query();
     
         $statusMap = [
             'new' => 0,
@@ -139,7 +140,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::role('User')->findOrFail($id);
+        $user = User::findOrFail($id);
         return view('admin.users.show', compact('user'));
     }
 
@@ -148,8 +149,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::role('User')->findOrFail($id);
-        return view('admin.users.edit', compact('user'));
+        $user = User::findOrFail($id);
+        $roles = Role::all(); // Fix: fetch all roles
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -157,7 +159,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $user = User::role('User')->findOrFail($id);
+        $user = User::findOrFail($id);
         
         // Debug: Log the request data
         \Log::info('User update request for ID: ' . $id);
@@ -173,6 +175,7 @@ class UserController extends Controller
             'department' => 'nullable|string|max:255',
             'office_number' => 'nullable|string|max:255',
             'phone_number' => 'nullable|string|max:255',
+            'role' => 'required|exists:roles,name',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -207,7 +210,10 @@ class UserController extends Controller
         }
 
         // Update user
-        $user->update($data);
+        $user->update(Arr::except($data, ['role']));
+
+        // ✅ Update role using Spatie
+        $user->syncRoles($data['role']);
 
         // Add custom audit message
         $user->auditEvent = 'user_updated_by_admin';
@@ -223,7 +229,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::role('User')->findOrFail($id);
+        $user = User::findOrFail($id);
         
         // Soft delete or deactivate user
         $user->status = 5; // Deactivated

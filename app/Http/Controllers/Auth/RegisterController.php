@@ -88,6 +88,9 @@ class RegisterController extends Controller
 
         $user->assignRole('User'); //Assign the 'User' role to the newly created user
 
+        // Send registration success email with credentials
+        $emailSent = $this->sendRegistrationEmail($user, $data['password'], true);
+
         // return redirect()->route('register.success')->with('success', 'Pendaftaran berjaya! Sila log masuk.');
     }
 

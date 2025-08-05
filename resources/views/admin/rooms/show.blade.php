@@ -55,6 +55,44 @@
                                         readonly>
                                 </div>
                             </div>
+
+                            {{-- PIC Name --}}
+                            @if ($room->pic_name)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pic_name">Nama Pegawai</label>
+                                        <input type="text" class="form-control" id="pic_name" placeholder=""
+                                            value="{{ $room->pic_name }}" readonly>
+                                    </div>
+                                </div>
+                            @endif
+
+                            {{-- PIC Phone --}}
+                            @if ($room->pic_phone)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pic_phone">No Telefon Pegawai</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control" id="pic_phone" placeholder=""
+                                                value="{{ $room->pic_phone }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            {{-- PIC Email --}}
+                            @if ($room->pic_email)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="pic_email">Email Pegawai</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="text" class="form-control" id="pic_email" placeholder=""
+                                                value="{{ $room->pic_email }}" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="picture">Gambar</label>
@@ -80,10 +118,11 @@
 
                         </div>
                         <div class="eb-form-btn-submit eb-readonly-btns">
-                            <button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn"
-                                data-toggle="modal" onclick="openDeleteModal(this)"
+                            <button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn" data-toggle="modal"
+                                onclick="openDeleteModal(this)"
                                 data-url="{{ route('rooms.destroy', $room->id) }}">Padam</button>
-                            <a href="{{ route('rooms.edit', $room) }}" class="btn btn-secondary eb-form-submit"> KemasKini</a>
+                            <a href="{{ route('rooms.edit', $room) }}" class="btn btn-secondary eb-form-submit">
+                                KemasKini</a>
                         </div>
                     </form>
                 </div>

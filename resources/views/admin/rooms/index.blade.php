@@ -43,6 +43,7 @@
                             <th>Gambar</th>
                             <th>kapasiti</th>
                             <th>Fasiliti</th>
+                            <th>Maklumat PIC</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -63,6 +64,25 @@
                                 <td>{{ $room->room_capacity }} Orang</td>
                                 <td>
                                     {{ is_array($room->facilities) ? implode(', ', $room->facilities) : $room->facilities }}
+                                </td>
+                                <td>
+                                    @if ($room->pic_name || $room->pic_phone || $room->pic_email)
+                                        <div>{{ $room->pic_name }}</div>
+                                        @if ($room->pic_phone)
+                                            <div class="d-flex align-items-center gap-1">
+                                                <span class="material-symbols-rounded" style="font-size: 16px; color: #003366;">call</span>
+                                                <span>{{ $room->pic_phone }}</span>
+                                            </div>
+                                        @endif
+                                        @if ($room->pic_email)
+                                            <div class="d-flex align-items-center gap-1">
+                                                <span class="material-symbols-rounded" style="font-size: 16px; color: #003366;">mail</span>
+                                                <span>{{ $room->pic_email }}</span>
+                                            </div>
+                                        @endif
+                                    @else
+                                        <span class="text-muted">Tiada Maklumat</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('rooms.show', $room) }}"

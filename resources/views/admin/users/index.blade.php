@@ -79,6 +79,7 @@
                                                 <th>Nama Pegawai</th>
                                                 <th>Bahagian</th>
                                                 <th>Status</th>
+                                                <th>Tindakan</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -89,94 +90,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade eb-delete-popup" id="deleteUserModal" tabindex="-1" role="dialog"
+                        aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <form method="POST" id="deleteUserForm">
+                                @csrf
+                                @method('DELETE')
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <div class="eb-delete-icon mb-3"></div>
+                                        <h3>Adakah anda pasti?</h3>
+                                        <p id="delete-user-message">Adakah anda pasti mahu memadam pengguna ini?</p>
+                                        <div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tidak</button>
+                                            <button type="submit" class="btn btn-primary">Ya</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
     </main>
 
     @push('js')
         <script>
-            // $.fn.dataTable.ext.errMode = 'none';
-            // let userTable;
-
-            // function initializeDataTable() {
-            //     userTable = $('#userMgmtTable').DataTable({
-            //         destroy: true,
-            //         pageLength: 5,
-            //         lengthMenu: [5, 10, 20, 50, -1],
-            //         ordering: true,
-            //         dom: 't<"d-flex justify-content-between align-items-center mt-3"lp>',
-            //         language: {
-            //             lengthMenu: 'Tunjuk <select class="form-select form-select-sm">' +
-            //                 '<option value="5">5</option>' +
-            //                 '<option value="10">10</option>' +
-            //                 '<option value="20">20</option>' +
-            //                 '<option value="50">50</option>' +
-            //                 '<option value="-1">All</option>' +
-            //                 '</select> pengguna',
-            //             paginate: {
-            //                 previous: '<',
-            //                 next: '>'
-            //             },
-            //         },
-            //     });
-
-            //     $('#userSearch').on('keyup', function () {
-            //         userTable.search(this.value).draw();
-            //     });
-
-
-            //     // Bind row click
-            //     $('#userMgmtTable tbody').on('click', 'tr', function () {
-            //         const url = $(this).data('url');
-            //         if (url) {
-            //             window.location.href = url;
-            //         }
-            //     });
-            // }
-
-            // function loadFilteredUsersFromHash() {
-            //     const hash = window.location.hash.replace('#', '') || 'all';
-            //     const validFilters = ['all', 'new', 'approved', 'rejected', 'cancelled'];
-            //     const filter = validFilters.includes(hash) ? hash : 'all';
-
-            //     // Update active tab
-            //     $('[data-status-filter]').removeClass('active');
-            //     $(`[data-status-filter="${filter}"]`).addClass('active');
-
-            //     $.ajax({
-            //         url: "{{ route('users.index') }}",
-            //         type: "GET",
-            //         data: { filter: filter },
-            //         success: function (data) {
-            //             if ($.fn.DataTable.isDataTable('#userMgmtTable')) {
-            //                 $('#userMgmtTable').DataTable().destroy();
-            //             }
-            //             $('#userMgmtTable tbody').replaceWith(data);
-            //             initializeDataTable();
-            //         },
-            //         error: function () {
-            //             alert('Failed to fetch filtered users.');
-            //         }
-            //     });
-            // }
-
-            // $(document).ready(function () {
-            //     initializeDataTable();
-            //     loadFilteredUsersFromHash();
-
-            //     $('[data-status-filter]').on('click', function () {
-            //         const filter = $(this).data('status-filter');
-            //         if (filter) {
-            //             window.location.hash = filter;
-            //         }
-            //     });
-
-            //     window.addEventListener('hashchange', function () {
-            //         loadFilteredUsersFromHash();
-            //     });
-            // });
-
-
             $.fn.dataTable.ext.errMode = 'none';
 
             let userTable;
@@ -244,13 +185,20 @@
                 });
             });
 
-            $('#userMgmtTable tbody').on('click', 'tr', function () {
-                   const url = $(this).data('url');
-                 if (url) {
-                        window.location.href = url;
-                    }
-               });
-             
+            // $('#userMgmtTable tbody').on('click', 'tr', function () {
+            //        const url = $(this).data('url');
+            //      if (url) {
+            //             window.location.href = url;
+            //         }
+            //    });       
+
+            $(document).on('click', '.btn-delete-user', function () {
+                const url = $(this).data('url');
+                const name = $(this).data('name');
+
+                $('#deleteUserForm').attr('action', url);
+                $('#delete-user-message').text(`Adakah anda pasti mahu memadam pengguna "${name.toUpperCase()}"?`);
+            });
         </script>
     @endpush
 @endsection

@@ -74,7 +74,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="starttime">Masa Mula</label>
-                                <input type="time" class="form-control" id="starttime" name="starttime" required>
+                                <input type="time" class="form-control" id="starttime" name="starttime" step="1800" required>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
@@ -84,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+
                 <div class="float-right">
                     <button type="button" class="btn btn-outline-primary">Kembali</button>
                     <button type="submit" class="btn btn-primary">Cari Bilik</button>

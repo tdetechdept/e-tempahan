@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Illuminate\Support\Facades\Auth;
 
 class Booking extends Model implements Auditable
 {
@@ -39,7 +40,8 @@ class Booking extends Model implements Auditable
         'other_requirements',
         'car_number',
         'update_info',
-        'reviews'
+        'reviews',
+        'updated_field_info',
     ];
 
     protected $casts = [
@@ -84,7 +86,8 @@ class Booking extends Model implements Auditable
         'other_requirements',
         'car_number',
         'update_info',
-        'reviews'
+        'reviews',
+        'updated_field_info',
     ];
 
     // Only track changed attributes
@@ -106,8 +109,8 @@ class Booking extends Model implements Auditable
         
         // Add user context if available
         if (auth()->check()) {
-            $data['admin_user_id'] = auth()->id();
-            $data['admin_user_name'] = auth()->user()->name;
+            $data['admin_user_id'] = Auth::id();
+            $data['admin_user_name'] = Auth::user()->name;
         }
         
         return $data;

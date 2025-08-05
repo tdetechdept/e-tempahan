@@ -111,7 +111,7 @@
         <div class="bg-white card-header border-bottom-0 rounded-top-4">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                 <h5 class="mb-2 card-title mb-md-0 fw-semibold">Senarai Tempahan</h5>
-                <button class="btn btn-primary-custom">Buat Tempahan</button>
+                <a href="{{ route('user.search.index') }}" class="btn btn-primary-custom">Buat Tempahan</a>
             </div>
         </div>
 
@@ -161,37 +161,37 @@
                                     @php
                                         $statusStyles = [
                                             1 => [ // New
-                                                'label' => 'NEW',
+                                                'label' => 'BARU',
                                                 'bg' => '#fff3cd', 
                                                 'text' => '#856404',
                                             ],
                                             2 => [ // Pending
-                                                'label' => 'PENDING',
+                                                'label' => 'MENUNGGU PENGESAHAN',
                                                 'bg' => '#d1ecf1', 
                                                 'text' => '#0c5460',
                                             ],
                                             3 => [ // Approved
-                                                'label' => 'APPROVED',
+                                                'label' => 'DILULUSKAN',
                                                 'bg' => '#d4edda', 
                                                 'text' => '#155724',
                                             ],
                                             4 => [ // Rejected
-                                                'label' => 'REJECTED',
+                                                'label' => 'DITOLAK',
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
                                             5 => [ // Cancelled by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DIBATALKAN',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              6 => [ // updated by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'KEMASKINI',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              7 => [ // Confirmed by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DITERIMA',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
@@ -254,37 +254,37 @@
                                     @php
                                         $statusStyles = [
                                             1 => [ // New
-                                                'label' => 'NEW',
+                                                'label' => 'BARU',
                                                 'bg' => '#fff3cd', 
                                                 'text' => '#856404',
                                             ],
                                             2 => [ // Pending
-                                                'label' => 'PENDING',
+                                                'label' => 'MENUNGGU PENGESAHAN',
                                                 'bg' => '#d1ecf1', 
                                                 'text' => '#0c5460',
                                             ],
                                             3 => [ // Approved
-                                                'label' => 'APPROVED',
+                                                'label' => 'DILULUSKAN',
                                                 'bg' => '#d4edda', 
                                                 'text' => '#155724',
                                             ],
                                             4 => [ // Rejected
-                                                'label' => 'REJECTED',
+                                                'label' => 'DITOLAK',
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
                                             5 => [ // Cancelled by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DIBATALKAN',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              6 => [ // updated by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'KEMASKINI',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              7 => [ // Confirmed by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DITERIMA',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
@@ -346,39 +346,39 @@
                                 <td>{{ $wait->created_at->format('Y-m-d') }}</td>
                                 <td>
                                     @php
-                                        $statusStyles = [
+                                       $statusStyles = [
                                             1 => [ // New
-                                                'label' => 'NEW',
+                                                'label' => 'BARU',
                                                 'bg' => '#fff3cd', 
                                                 'text' => '#856404',
                                             ],
                                             2 => [ // Pending
-                                                'label' => 'PENDING',
+                                                'label' => 'MENUNGGU PENGESAHAN',
                                                 'bg' => '#d1ecf1', 
                                                 'text' => '#0c5460',
                                             ],
                                             3 => [ // Approved
-                                                'label' => 'APPROVED',
+                                                'label' => 'DILULUSKAN',
                                                 'bg' => '#d4edda', 
                                                 'text' => '#155724',
                                             ],
                                             4 => [ // Rejected
-                                                'label' => 'REJECTED',
+                                                'label' => 'DITOLAK',
                                                 'bg' => '#f8d7da', 
                                                 'text' => '#721c24',
                                             ],
                                             5 => [ // Cancelled by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DIBATALKAN',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              6 => [ // updated by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'KEMASKINI',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
                                              7 => [ // Confirmed by User
-                                                'label' => 'CANCELLED',
+                                                'label' => 'DITERIMA',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],

@@ -3,7 +3,14 @@
 @section('content')
     <main class="main-content">
         <div class="container p-5"> 
+                @php
+                    $grades = \App\Models\Grade::all();
+                    $sections = \App\Models\Section::all();
+                    $departments = \App\Models\Department::all();
+                    $agencies = \App\Models\Agency::all();
 
+                    $items = $departments->concat($agencies);
+                @endphp
             <div class="card">
                 <div class="card-body">
                     <div class="card-title fw-bold">{{ __('Pendaftaran Pengguna') }}</div>
@@ -57,10 +64,10 @@
                                  <div class="mb-3">
                                     <label for="grade" class="form-label">Gred <span class="text-danger">*</span></label>
                                     <select class="form-select" id="grade" name="grade" aria-label="Default select example">
-                                        <option selected>Pilih Gred</option>
-                                        <option value="FA31">FA31</option>
-                                        <option value="FA32">FA32</option>
-                                        <option value="FA33">FA33</option>
+                                        <option selected disabled>Pilih Gred</option>
+                                        @foreach ($grades as $grade)
+                                            <option value="{{$grade->grade}} ({{$grade->name}})">{{$grade->grade}} ({{$grade->name}})</option>   
+                                        @endforeach
                                     </select>
                                      @error('grade')
                                         <span class="invalid-feedback" role="alert">
@@ -76,10 +83,10 @@
                                  <div class="mb-3">
                                     <label for="section" class="form-label">Bahagian<span class="text-danger">*</span></label>
                                     <select class="form-select" id="section" name="section" aria-label="Default select example">
-                                        <option selected>Pilih Bahagian</option>
-                                        <option value="Bahagian A">Bahagian A</option>
-                                        <option value="Bahagian B">Bahagian B</option>
-                                        <option value="Bahagian C">Bahagian C</option>
+                                        <option selected disabled>Pilih Bahagian</option>
+                                        @foreach ($sections as $section)
+                                            <option value="{{$section->name}}">{{$section->name}}</option>
+                                        @endforeach
                                     </select>
                                      @error('section')
                                         <span class="invalid-feedback" role="alert">
@@ -92,10 +99,10 @@
                                  <div class="mb-3">
                                     <label for="department" class="form-label">Jabatan / Agensi <span class="text-danger">*</span></label>
                                     <select class="form-select" id="department" name="department" aria-label="Default select example">
-                                        <option selected>Pilih Jabatan / Agensi</option>
-                                        <option value="Jabatan A">Jabatan A</option>
-                                        <option value="Jabatan B">Jabatan B</option>
-                                        <option value="Jabatan C">Jabatan C</option>
+                                        <option selected disabled>Pilih Jabatan / Agensi</option>
+                                        @foreach ($items as $item)
+                                            <option value="{{$item->name}}">{{$item->name}}</option>   
+                                        @endforeach
                                     </select>
                                      @error('department')
                                         <span class="invalid-feedback" role="alert">

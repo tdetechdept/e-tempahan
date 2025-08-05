@@ -26,15 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        if(auth()->user()->role === 'SuperAdmin') {
+        $user = auth()->user();
+        if($user->role === 'SuperAdmin') {
             // If the user is a Super Admin, show the admin dashboard
             
             $users = User::latest()->take(5)->get(); 
             return redirect()->route('dashboard',compact('users'));
         }
         
-        if(auth()->user()->role === 'User') {
+        if($user->role === 'User') {
             // If the user is a regular user, redirect to the user home view
 
                 $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 1)->get();
@@ -49,12 +49,22 @@ class HomeController extends Controller
             return view('user.home', compact('newBookings', 'approvedBookings', 'waitBookings', 'allBook', 'updateBook', 'cancelBook'));
         }
 
-        $totalUsers = User::count();
-        $totalRooms = Room::count();
-        $totalBookings = Booking::count();
-        $rooms = Room::latest()->take(5)->get(); 
-        $users = User::latest()->take(5)->get(); 
-        $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
-        return view('home',compact('totalUsers','totalRooms','totalBookings','rooms','users','bookings'));
+      
+        if ($user->role === 'Admin') {
+            // Admin-specific dashboard or summary
+            $totalUsers = User::count();
+            $totalRooms = Room::count();
+            $totalBookings = Booking::count();
+            $rooms = Room::latest()->take(5)->get(); 
+            $users = User::latest()->take(5)->get(); 
+            $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
+            $bookings = Booking::with('user', 'room')
+                ->whereIn('status', [1, 2, 3])
+                ->latest()
+                ->take(5)
+                ->get();
+            return view('home', compact('totalUsers', 'totalRooms', 'totalBookings', 'rooms', 'users', 'bookings'));
+        }
+
     }
 }

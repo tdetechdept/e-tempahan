@@ -141,6 +141,43 @@
                                 </div>
                             </div>
 
+                            <!-- Nama PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_name">Nama PIC</label>
+                                    <input type="text" name="pic_name" id="pic_name" class="form-control"
+                                        value="{{ old('pic_name', $room->pic_name ?? '') }}">
+                                    @error('pic_name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- No. Telefon Pejabat PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_phone">No. Telefon Pejabat PIC</label>
+                                    <input type="text" name="pic_phone" id="pic_phone" class="form-control"
+                                        value="{{ old('pic_phone', $room->pic_phone ?? '') }}">
+                                    @error('pic_phone')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Emel PIC -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pic_email">Emel PIC</label>
+                                    <input type="email" name="pic_email" id="pic_email" class="form-control"
+                                        value="{{ old('pic_email', $room->pic_email ?? '') }}">
+                                    @error('pic_email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                             <!-- Level -->
                             <div class="col-md-6">
                                 <div class="form-group">

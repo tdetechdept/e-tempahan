@@ -32,7 +32,7 @@ class ProfileController extends Controller
 
         auth()->user()->update($data);
 
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully.');
+        return redirect()->route('home')->with('success', 'Profile updated successfully.');
     }
     public function changePassword(Request $request)
     {
@@ -48,6 +48,35 @@ class ProfileController extends Controller
 
         auth()->user()->update(['password' =>  Hash::make($data['password'])]);
 
-        return redirect()->route('profile.index')->with('success', 'Password changed successfully.');
+        return redirect()->route('user.profile.index')->with('success', 'Password changed successfully.');
+    }
+
+    public function uploadImg (Request $request)
+    {
+        $data = $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+                // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/users'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        auth()->user()->update(['image' =>  $imageName]);
+
+        return redirect()->route('user.profile.index')->with('success', 'Gambar profil berjaya dimuat naik.');
+
+    }
+
+    public function removeImg (Request $request)
+    {
+
+        auth()->user()->update(['image' =>  NULL]);
+
+        return redirect()->route('user.profile.index')->with('success', 'Gambar profil berjaya dibuang.');
+
     }
 }
