@@ -20,7 +20,7 @@
             <hr class="sidebar-divider">
             @role('User')
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('user.calendar.index', Auth::id())}}">
                     <i class="fas fa-fw fa-calendar-alt"></i>
                     <span>Kalendar</span></a>
             </li>

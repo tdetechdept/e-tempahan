@@ -469,7 +469,7 @@
 @push('js')
 <script>
     // Pass PHP data to JavaScript
-    window.calendarEvents = {[]};
+    window.calendarEvents = @json($bookings);
 </script>
 <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush
