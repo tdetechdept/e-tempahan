@@ -35,6 +35,7 @@
                                     <th scope="col" class="text-muted fw-normal small">Gambar</th>
                                     <th scope="col" class="text-muted fw-normal small">Kapasiti</th>
                                     <th scope="col" class="text-muted fw-normal small">Fasiliti</th>
+                                    <th scope="col" class="text-muted fw-normal small">Maklumat PIC</th>
                                     <th scope="col" class="text-muted fw-normal small">Tindakan</th>
                                 </tr>
                             </thead>
@@ -50,10 +51,18 @@
                                                 <div class="eb-uplaod-file eb-readonly-box">
                                                     <img src="{{ asset('images/rooms/' . $new->picture) }}" class="img-fluid" />
                                                 </div>
+                                            @else
+                                                <div class="eb-uplaod-file eb-readonly-box">
+                                                    <img src="{{ asset('img/no_img.png') }}" class="img-fluid" />
+                                                </div>
                                             @endif
                                         </td>
                                         <td>{{ $new->room_capacity ?? 'N/A' }}</td>
                                         <td>{{ is_array($new->facilities) ? implode(', ', $new->facilities) : $new->facilities }}</td>
+                                        <td>
+                                            <p>{{$new->pic_name ?? 'N/A'}}</p> <br>
+                                            <p> <i class="bi bi-telephone-fill text-primary mr-1"></i> {{$new->pic_phone ?? 'N/A'}}</p>
+                                        </td>
                                         <td>
                                             @php
                                                 $details = [

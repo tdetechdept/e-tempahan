@@ -18,7 +18,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            @role('user')
+            @role('User')
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-calendar-alt"></i>
@@ -34,13 +34,17 @@
             </div>
 
             <!-- Nav Item - Tempahan Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTempahan"
-                    aria-expanded="true" aria-controls="collapseTempahan">
+             @php
+                $userBookRoutes = ['user.search.index', 'user.booking.list', 'user.booking.adhoc'];
+                $isuserBookActive = in_array(Route::currentRouteName(), $userBookRoutes);
+            @endphp
+            <li class="nav-item {{ $isuserBookActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isuserBookActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTempahan"
+                    aria-expanded="{{ $isuserBookActive ? 'true' : 'false' }} aria-controls="collapseTempahan">
                     <i class="far fa-fw fa-calendar"></i>
                     <span>Tempahan</span>
                 </a>
-                <div id="collapseTempahan" class="collapse" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
+                <div id="collapseTempahan" class="collapse {{ $isuserBookActive ? 'show' : '' }}" aria-labelledby="headingTempahan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {{-- <h6 class="collapse-header">Custom Components:</h6> --}}
                         <a class="collapse-item" href="{{ route('user.search.index') }}">Carian Bilik</a>
