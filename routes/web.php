@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/fasiliti-bilik', function () {
-    return view('website.fasiliti');
-})->name('portal.facility');
+Route::get('/fasiliti-bilik', [App\Http\Controllers\WebsiteController::class, 'fasiliti'])->name('portal.facility');
+
+// Route::get('/fasiliti-bilik', function () {
+//     return view('website.fasiliti');
+// })->name('portal.facility');
 
 Auth::routes();
 Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
@@ -103,6 +105,9 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::put('/booking/{id}', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
     Route::delete('/booking/new/{id}', [App\Http\Controllers\User\BookingController::class, 'destroy'])->name('booking.destroy');
     Route::get('/booking/new/{id}/pdf', [App\Http\Controllers\User\BookingController::class, 'downloadPDF'])->name('booking.downloadPDF');
+
+    Route::get('/calendar/{user_id}', [App\Http\Controllers\User\CalendarController::class, 'index'])->name('calendar.index');
+    
 }); 
 
 //For Super Admin will for my design theing

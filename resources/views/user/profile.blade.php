@@ -6,7 +6,7 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Profil Pengguna</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <span>Papan Pemuka</span>
             <span class="mx-2">/</span>
             <span>Profil Pengguna</span>
         </div>
