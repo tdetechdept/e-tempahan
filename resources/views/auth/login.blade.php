@@ -33,7 +33,12 @@
                   <input type="checkbox" id="rememberMe">
                   <label for="rememberMe" class="form-check-label">Ingat Saya</label>
                 </div>
-                <a href="#" class="text-decoration-none text-theme">Lupa Kata Laluan?</a>
+                 @if (Route::has('password.request'))
+                    <a class="text-decoration-none text-theme" href="{{ route('password.request') }}">
+                        {{ __('Lupa Kata Laluan?') }}
+                    </a>
+                 @endif
+                {{-- <a href="#" class="text-decoration-none text-theme">Lupa Kata Laluan?</a> --}}
               </div>
               <button type="submit" class="btn btn-primary w-100">Log Masuk</button>
             </form>

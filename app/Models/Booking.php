@@ -106,7 +106,7 @@ class Booking extends Model implements Auditable
         
         // Add user context if available
         if (auth()->check()) {
-            $data['admin_user_id'] = auth()->id();
+            $data['admin_user_id'] = auth()->id;
             $data['admin_user_name'] = auth()->user()->name;
         }
         

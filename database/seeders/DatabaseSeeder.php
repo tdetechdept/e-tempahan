@@ -21,6 +21,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BookingSeeder::class,
             SpecialHolidaySeeder::class,
+            AgencySeeder::class,
+            ChairmanSeeder::class,
+            DepartmentSeeder::class,
+            SectionSeeder::class,
             AuditSeeder::class,
         ]);
     }

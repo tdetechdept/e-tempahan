@@ -27,14 +27,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        if(auth()->user()->role === 'SuperAdmin') {
+        if($user->role === 'SuperAdmin') {
             // If the user is a Super Admin, show the admin dashboard
             
             $users = User::latest()->take(5)->get(); 
             return redirect()->route('dashboard',compact('users'));
         }
         
-        if(auth()->user()->role === 'User') {
+        if($user->role === 'User') {
             // If the user is a regular user, redirect to the user home view
 
                 $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 1)->get();

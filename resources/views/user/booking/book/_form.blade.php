@@ -11,13 +11,13 @@
                 <a class="nav-link active" id="pills-booking-info-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="pills-booking-info" aria-selected="true">Maklumat Tempahan Bilik</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="pills-applicant-info" aria-selected="false">Maklumat Sekretariat</a>
+                <a class="nav-link" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="pills-applicant-info" aria-selected="false">Maklumat Pemohon</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="pills-secretariat-info-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="pills-secretariat-info" aria-selected="false">Maklumat Urusetia</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="pills-other-info" aria-selected="false">Tempahan Lain</a>
+                <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="pills-other-info" aria-selected="false">Maklumat Tempahan Lain</a>
             </li>
         </ul>
         <div class="tab-content eb-tabs-booking-info" id="pills-tabContent">
@@ -194,7 +194,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Layout/Pelan </label>
+                                <label>Pelan Bilik </label>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="room_plan" id="inlineRadio1" value="Bilik Darjah">
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="inlineRadio1">Bilik Darjah</label>
@@ -207,6 +207,35 @@
                                     <input class="form-check-input" type="radio" name="room_plan" id="inlineRadio3" value="Bilik Seminar">
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="inlineRadio3">Bilik Seminar</label>
                                 </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="room_plan" id="inlineRadio4" value="Lain - lain">
+                                    <label class="form-check-label ml-2 mt-2 pt-1" for="inlineRadio4">Lain - lain</label>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <div class="" style="display: none" id="layoutImg">
+                                        @if ($room->picture)
+                                            <img src="{{ asset('images/rooms/' . $room->picture) }}" alt="Bilik Mesyuarat" class="room-img" width="100">
+                                            @else
+                                            <img src="{{ asset('img/no_img.png') }}" alt="Bilik Mesyuarat" class="room-img" width="100">
+                                        @endif
+                                    </div>
+                                   
+                                    <div class="col-md-12" style="display: none" id="layoutUpload">
+                                        <!-- Picture -->
+                                            <div class="form-group">
+                                                <div class="eb-uplaod-file position-relative">
+                                                    <input type="file" name="picture" class="form-control" id="picture">
+                                                    <span class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
+                                                    <p class="form-text" id="pictureName">Sila muat naik fail anda (pdf/jpg)</p>
+                                                </div>
+                                                <small class="text-muted">Saiz maksimum fail untuk layout / pelan ialah 5MB</small>
+                                                @error('picture')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -400,7 +429,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-6 col-md-12" style="display: none" id="foodForm">
                             <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
@@ -535,11 +564,53 @@
             });
         });
 
+        //Pelan Bilik
+        document.addEventListener('DOMContentLoaded', function () {
+            const radioButtons = document.querySelectorAll('input[name="room_plan"]');
+            const layoutImg = document.getElementById('layoutImg');
+            const layoutUpload = document.getElementById('layoutUpload');
+
+
+            radioButtons.forEach(radioButton => {
+                radioButton.addEventListener('change', function() {
+                    if(radioButton.value === 'Lain - lain'){
+                        layoutUpload.style.display = 'block';
+                        layoutImg.style.display = 'none';
+                    }else{
+                        layoutUpload.style.display = 'none';
+                        layoutImg.style.display = 'block';
+                    }
+                });
+            });
+
+        });
+
+        //Makanan
+         document.addEventListener('DOMContentLoaded', function () {
+            const foodButtons = document.querySelectorAll('input[name="food"]');
+            const foodForm = document.getElementById('foodForm');
+
+
+            foodButtons.forEach(foodButton => {
+                foodButton.addEventListener('change', function() {
+                    if(foodButton.value === '1'){
+                        foodForm.style.display = 'block';
+                    }else{
+                        foodForm.style.display = 'none';
+                    }
+                });
+            });
+
+        });
+
 </script>
 <script>
     function openConfirmationModal() {
         const modal = new bootstrap.Modal(document.getElementById('ConfirmationModal'));
         modal.show();
     }  
+</script>
+<script>
+    
 </script>
 @endpush

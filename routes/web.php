@@ -92,6 +92,8 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::get('/booking/new/{user}/{room}', [App\Http\Controllers\User\BookingController::class, 'newBooking'])->name('booking.new');
     Route::post('/booking/new', [App\Http\Controllers\User\BookingController::class, 'store'])->name('booking.store');
     Route::get('/booking/{id}/show', [App\Http\Controllers\User\BookingController::class, 'show'])->name('booking.show');
+    Route::put('/booking/{id}/update', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
+
     
 
     Route::get('/booking/new/{id}/edit', [App\Http\Controllers\User\BookingController::class, 'edit'])->name('booking.edit');
