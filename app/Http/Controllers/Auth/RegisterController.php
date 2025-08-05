@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
@@ -116,5 +118,33 @@ class RegisterController extends Controller
     public function showRegistrationMsg()
     {
         return view('auth.register_msg');
+    }
+
+        /**
+     * Send registration email to user
+     */
+    private function sendRegistrationEmail(User $user, $password = null, $isSuccess = true)
+    {
+        try {
+            $subject = $isSuccess ? 'Pendaftaran Berjaya - Sistem E-Tempahan' : 'Pendaftaran Tidak Berjaya - Sistem E-Tempahan';
+            
+            $data = [
+                'user' => $user,
+                'password' => $password,
+                'isSuccess' => $isSuccess,
+            ];
+
+            Mail::send('emails.user-registration', $data, function($message) use ($user, $subject) {
+                $message->to($user->email)
+                        ->subject($subject);
+            });
+
+            \Log::info('Registration email sent successfully to: ' . $user->email);
+            return true;
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to send registration email to ' . $user->email . ': ' . $e->getMessage());
+            return false;
+        }
     }
 }
