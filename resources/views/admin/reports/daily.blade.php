@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-6">
                     <p><strong>Jumlah Tempahan:</strong> {{ $totalBookings }}</p>
-                    <p><strong>Jumlah Masa Digunakan:</strong> {{ $totalHours }} jam</p>
+                    <p><strong>Jumlah Masa Digunakan:</strong> {{ number_format($totalHours, 1) }} jam</p>
                 </div>
             </div>
 
@@ -100,15 +100,15 @@
                     <div class="dropdown-menu dropdown-menu-right shadow p-2" aria-labelledby="exportDropdown"
                         style="min-width: 180px; border-radius: 12px;">
                         <a class="dropdown-item d-flex align-items-center" href="#" onclick="exportToPDF()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" width="18" class="mr-2" />
+                            <img src="{{ asset('img/pdf.png') }}" width="18" class="mr-2" />
                             Eksport PDF
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#" onclick="exportToWord()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" width="18" class="mr-2" />
+                            <img src="{{ asset('img/word.png') }}" width="18" class="mr-2" />
                             Eksport Word
                         </a>
                         <a class="dropdown-item d-flex align-items-center" href="#" onclick="exportToExcel()">
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png" width="18" class="mr-2" />
+                            <img src="{{ asset('img/excel.png') }}" width="18" class="mr-2" />
                             Eksport Excel
                         </a>
                     </div>
