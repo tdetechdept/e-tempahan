@@ -1,5 +1,24 @@
 @extends('layouts.main.app')
 
+@push('css')
+<style>
+    .status {
+      color: #198754;
+    }
+    .status i {
+      /* font-size: 1.2rem; */
+      color: #198754;
+    }
+
+    .status-batal {
+      color: #dc3545;
+    }
+    .status-batal i {
+      /* font-size: 1.2rem; */
+      color: #dc3545;
+    }
+</style>
+@endpush
 @section('title', 'Lihat Tempahan')
 @section('breadcrumb')
     <div class="breadcrumb-section">
@@ -35,6 +54,54 @@
                 </li>
             </ul>
             <div class="tab-content eb-tabs-booking-info" id="pills-tabContent">
+                @if($booking->status === 3)
+                {{-- STATUS & DOWNLOAND DIV --}}
+                <div class="mb-3">
+                    <div class="col-md-12 mb-3">
+                        <div class="float-right">
+                            <a class="btn btn-sm mr-3 text-dark" id="printPDF"> <i class="fas fa-print text-primary"></i> Cetak Borang</a>
+                            <a class="btn btn-sm text-dark" id="downloadPDF"> <i class="fas fa-download text-primary"></i>  Muat Turun Borang</a>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-between mt-3">
+                        <div class="">
+                            <h6 class="font-weight-bold text-primary">Status Permohonan</h6>
+                        </div>
+                        <div class="">
+                            <div class="status">
+                                <i class="fas fa-check-circle mr-4"></i> Diluluskan Oleh Admin
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @elseif($booking->status === 5)
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mt-3">
+                            <div class="">
+                                <h6 class="font-weight-bold text-primary">Status Permohonan</h6>
+                            </div>
+                            <div class="">
+                                <div class="status-batal">
+                                    <i class="fas fa-check-circle mr-4"></i> Dibatalkan Oleh Pemohon
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($booking->status === 4)
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mt-3">
+                            <div class="">
+                                <h6 class="font-weight-bold text-primary">Status Permohonan</h6>
+                            </div>
+                            <div class="">
+                                <div class="status-batal">
+                                    <i class="fas fa-check-circle mr-4"></i> Ditolak Oleh Admin
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="pills-booking-info-tab">
                     <div class="eb-booking-info-tab">
                         <div class="row">
@@ -265,7 +332,7 @@
                             </div>
                         </div>
 
-                        <form method="POST" action="{{ route('user.booking.update', $booking->id) }}" id="rejectForm">
+                        <form method="POST" action="{{ route('user.booking.cancel', $booking->id) }}" id="rejectForm">
                             @csrf
                             @method('PUT')
 
@@ -282,14 +349,20 @@
                             <div class="mr-auto p-2 bd-highlight">
                                 <a href="javascript:history.back()" class="btn btn-secondary eb-form-submit eb-delete-btn ">Kembali</a>
                             </div>
+                            {{-- @if($booking->status === 1 || $booking->status === 2 || $booking->status === 3 ) --}}
                             <div class="p-2 bd-highlight">
                                 <button type="button" class="btn btn-danger" id="rejectBtn">Batalkan Tempahan</button>
                                 <input type="hidden" name="action" id="actionInput" value="">
                                 <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                             </div>
+                            {{-- @endif --}}
+                            {{-- @if($booking->status === 1 || $booking->status === 2 || $booking->status === 3 || $booking->status === 4) --}}
+                            @if($booking->status !== 6)
                             <div class="p-2 bd-highlight">
-                                <a href="" class="btn btn-primary" >Kemaskini Tempahan</a>
+                                <a href="{{route('user.booking.edit', $booking->id)}}" class="btn btn-primary" >Kemaskini Tempahan</a>
                             </div>
+                            @endif
+                            {{-- @endif --}}
                         </div>
                         </form>
 
@@ -384,6 +457,89 @@
                 rejectForm.submit();
             });
 
+        });
+
+                // pdf download
+        document.getElementById('downloadPDF').addEventListener('click', function () {
+            const bookingId = document.querySelector('input[name="booking_id"]').value;
+            const reviews = document.querySelector('textarea[name="reviews"]').value;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Optional, if CSRF needed
+            const baseURL = "{{ url('') }}";
+            // const url = "{{ url('/booking') }}/" + bookingId + "/pdf";
+            const url = "{{ route("booking.downloadPDF", $booking->id) }}";
+            // const url = `/booking/${bookingId}/pdf`;
+
+                // Send fetch request with reviews & action=pass
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken // if CSRF is enabled
+                    },
+                    body: JSON.stringify({
+                        action: 'pass',
+                        reviews: reviews
+                    })
+                })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        const link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = `Application_${bookingId}_Approved.pdf`;
+                        document.body.appendChild(link);
+                        link.click(); // ✅ Only click once
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(link.href);
+
+                    // ✅ Delay a bit before redirecting to ensure download triggers
+                    setTimeout(() => {
+                        window.location.href = `${baseURL}/user/booking/${bookingId}/show`;
+                    }, 1000);
+                })
+                .catch(error => {
+                    alert('Error generating PDF');
+                    console.error(error);
+                });
+        });
+
+        // print pdf
+        document.getElementById('printPDF').addEventListener('click', function () {
+            const bookingId = document.querySelector('input[name="booking_id"]').value;
+            const reviews = document.querySelector('textarea[name="reviews"]').value;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const baseURL = "{{ url('') }}";
+            const url = "{{ url('/booking') }}/" + bookingId + "/pdf";
+            // const url = `/booking/${bookingId}/pdf`;
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({
+                    action: 'pass',
+                    reviews: reviews,
+                    print: true // pass print flag in body
+                })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const blobURL = URL.createObjectURL(blob);
+                const printWindow = window.open(blobURL, '_blank');
+                if (!printWindow) {
+                    alert('Please enable popups to print the PDF.');
+                }
+
+                        // Delay the redirect slightly to ensure popup is opened before navigating away
+                    setTimeout(() => {
+                        window.location.href = `${baseURL}/user/booking/${bookingId}/show`;
+                    }, 1500);
+                })
+                .catch(error => {
+                    alert('Error opening PDF for print');
+                    console.error(error);
+                });
         });
 
 

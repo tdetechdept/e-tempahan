@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ChairmanSeeder::class,
             DepartmentSeeder::class,
             SectionSeeder::class,
+            GradeSeeder::class,
             AuditSeeder::class,
         ]);
     }

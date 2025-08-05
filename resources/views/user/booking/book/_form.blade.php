@@ -3,7 +3,20 @@
         @csrf
         @if ($button == 'update')
             @method('PUT')
+            
         @endif
+        @php
+            if($button == 'update'){
+                $class = 'form-control-plaintext';  
+                $readonly ='readonly';
+                $disable = 'disabled';
+            }else{
+                $class = 'form-control';  
+                $readonly ='';
+                $disable = '';
+            }
+            
+        @endphp
     <!-- Content Card -->
     <div class="eb-boking-info-tabs mb-3 container-fluid">
         <ul class="nav nav-tabs mt-4" id="pills-tab" role="tablist">
@@ -27,8 +40,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Nama Mesyuarat</label>
-                                <input type="text" name="meeting_name" value="{{ old('meeting_name') }}"
-                                        class="form-control" id="roomName">
+                                <input type="text" name="meeting_name" value="{{ old('meeting_name', $booking->meeting_name ?? null) }}"
+                                        class="{{$class}}" {{$readonly}} id="meetingName">
                                     @error('meeting_name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -38,11 +51,10 @@
                             <div class="form-group mb-4">
                                 <label>Pengerusi</label>
                                 <select class="form-control" name="chairman" id="exampleFormControlSelect1">
-                                    <option>Sila Pilih Pengerusi</option>
-                                    <option value="2" {{ old('chairman') == 2 ? 'selected' : '' }}>Dato’ Ahmad Faizal bin Ismail</option>
-                                    <option value="3" {{ old('chairman') == 3 ? 'selected' : '' }}>Puan Noraini binti Abdul Rahman</option>
-                                    <option value="4" {{ old('chairman') == 4 ? 'selected' : '' }}>Encik Mohd Firdaus bin Zulkifli</option>
-                                    <option value="5" {{ old('chairman') == 5 ? 'selected' : '' }}>Tuan Haji Azman bin Abdullah</option>
+                                    <option selected disabled>Sila Pilih Pengerusi</option>
+                                    @foreach($chairmans as $chairman)
+                                    <option value="{{$chairman->name}}" {{ old('chairman', $chairman->name) == $booking->chairman ? 'selected' : '' }}>{{$chairman->name}}</option>
+                                    @endforeach
                                 </select>
                                     @error('chairman')
                                         <small class="text-danger">{{ $message }}</small>
@@ -55,8 +67,8 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Tarikh Mula</label>
-                                    <input type="date" name="start_date" value="{{ old('start_date') ?? request()->get('date') }}"
-                                            class="form-control" id="meetingStartDate" readonly>
+                                    <input type="date" name="start_date" value="{{ old('start_date', ($booking->start_date)->format('Y-m-d')) ?? request()->get('date') }}"
+                                            class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
                                         @error('start_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -65,8 +77,8 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Tarikh Tamat</label>
-                                    <input type="date" name="end_date" value="{{ old('end_date') ?? request()->get('date') }}"
-                                            class="form-control" id="meetingEndDate" readonly>
+                                    <input type="date" name="end_date" value="{{ old('end_date', ($booking->end_date)->format('Y-m-d')) ?? request()->get('date') }}"
+                                            class="{{$class}}" {{$readonly}} id="meetingEndDate" @if($button == 'create') readonly @endif>
                                         @error('end_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -80,8 +92,8 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Masa Mula</label>
-                                    <input type="time" name="start_time" value="{{ old('start_time') ?? request()->get('start') }}"
-                                            class="form-control" id="meetingStartTime" readonly>
+                                    <input type="time" name="start_time" value="{{ old('start_time', ($booking->start_time)->format('H:i')) ?? request()->get('start') }}"
+                                            class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
                                         @error('start_time')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -90,8 +102,8 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Masa Tamat</label>
-                                    <input type="time" name="end_time" value="{{ old('end_time') ?? request()->get('end') }}"
-                                            class="form-control" id="meetingEndTime" readonly>
+                                    <input type="time" name="end_time" value="{{ old('end_time', ($booking->end_time)->format('H:i')) ?? request()->get('end') }}"
+                                            class="form-control" id="meetingEndTime" @if($button == 'create') readonly @endif>
                                         @error('end_time')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -102,8 +114,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Bilangan Peserta</label>
-                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants') }}"
-                                        class="form-control" id="participantsCount">
+                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants) }}"
+                                        class="{{$class}}" {{$readonly}} id="participantsCount">
                                     @error('number_of_participants')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -112,7 +124,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Penerangan</label>
-                                <textarea class="form-control" id="validationTextarea" name="description" placeholder="Penerangan" required>{{ old('description') }}</textarea>
+                                <textarea class="{{$class}}" {{$readonly}} id="validationTextarea" name="description" placeholder="Penerangan" required>{{ old('description', $booking->description) }}</textarea>
                                     @error('description')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -138,28 +150,23 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Jenis</label>
-                                <select class="form-control" name="type" id="typeSelect">
+                                <select class="form-control" name="type" id="typeSelect" {{$disable}}>
                                     <option value="">Pilih Jenis</option>
-                                    <option value="dalaman">Dalaman</option>
-                                    <option value="luaran">Luaran</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="Interior" {{ old('type', $booking->type) == 'Interior' ? 'selected' : '' }}>Dalaman</option>
+                                    <option value="External" {{ old('type', $booking->type) == 'External' ? 'selected' : '' }}>Luaran</option>
                                 </select>
-                                    @error('type')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                @error('type')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Status </label>
-                                <select class="form-control" name="status" id="statusSelect">
+                                <select class="form-control" name="status" id="statusSelect" {{$disable}}>
                                     <option value="">Pilih Status</option>
-                                    <option value="1">Permohonan Baru</option>
-                                    <option value="3">Pemohon Lulus</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="1" {{ old('type', $booking->status) == 1  ? 'selected' : '' }}>Permohonan Baru</option>
+                                    <option value="3" {{ old('type', $booking->status) == 3 ? 'selected' : '' }}>Pemohon Lulus</option>
                                 </select>
                                     @error('status')
                                         <small class="text-danger">{{ $message }}</small>
@@ -169,13 +176,13 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Jenis Ulangan </label>
-                                <select class="form-control" name="repetition_type" id="repetitionTypeSelect">
+                                <select class="form-control" name="repetition_type" id="repetitionTypeSelect" {{$disable}}>
                                     <option value="">Pilih Jenis Ulangan</option>
-                                    <option value="tiada">Tiada</option>
-                                    <option value="harian">Harian</option>
-                                    <option value="mingguan">Mingguan</option>
-                                    <option value="bulanan">Bulanan</option>
-                                    <option value="tahunan">Tahunan</option>
+                                    <option value="tiada" {{ old('type', $booking->repetition_type) == 'tiada' ?? null  ? 'selected' : '' }}>Tiada</option>
+                                    <option value="Daily" {{ old('type', $booking->repetition_type) == 'Daily'  ? 'selected' : '' }}>Harian</option>
+                                    <option value="Weekly" {{ old('type', $booking->repetition_type) == 'Weekly'  ? 'selected' : '' }}>Mingguan</option>
+                                    <option value="Monthly" {{ old('type', $booking->repetition_type) == 'Monthly'  ? 'selected' : '' }}>Bulanan</option>
+                                    <option value="Yearly" {{ old('type', $booking->repetition_type) == 'Yearly'  ? 'selected' : '' }}>Tahunan</option>
                                 </select>
                                     @error('repetition_type')
                                         <small class="text-danger">{{ $message }}</small>
@@ -185,14 +192,21 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Tarikh Ulangan </label>
-                                <input type="date" name="repeat_date" value="{{ old('repeat_date') }}"
-                                        class="form-control" id="repeatDate">
+                                <input type="date" name="repeat_date" value="{{ old('repeat_date', $booking->repeat_date) }}"
+                                        class="{{$class}}" {{$readonly}} id="repeatDate">
                                     @error('repeat_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
+                            @if($button === 'update')
+                            <div class="form-group mb-4">
+                                <label>Pelan Bilik </label>
+                                <input type="text" name="room_plan" value="{{ old('room_plan', $booking->room_plan) }}"
+                                        class="{{$class}}" {{$readonly}} id="room_plan">
+                            </div>
+                            @else
                             <div class="form-group mb-4">
                                 <label>Pelan Bilik </label>
                                 <div class="form-check form-check-inline">
@@ -237,6 +251,7 @@
                                 </div>
 
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="eb-booking-info-btns">
@@ -252,15 +267,15 @@
                             <div class="form-group mb-4">
                                 <label>Nama Pemohon</label>
                                 <input type="text" name="" value="{{ Auth::user()->name }}"
-                                        class="form-control" id="name" readonly>
+                                        class="{{$class}}" {{$readonly}} id="name" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Nama Kementrian / Bahagian / Jabatan</label>
                                 <input type="text" name="" value="{{ Auth::user()->department ?? '' }}"
-                                        class="form-control" id="jabatan" readonly>
-                                 {{-- <select class="form-control" name="section" id="secretariatTypeSelect">
+                                        class="{{$class}}" {{$readonly}} id="jabatan" readonly>
+                                 {{-- <select class="{{$class}}" {{$readonly}} name="section" id="secretariatTypeSelect">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -276,8 +291,8 @@
                             <div class="form-group mb-4">
                                 <label>Jawatan </label>
                                 <input type="text" name="" value="{{ Auth::user()->position ?? '' }}"
-                                        class="form-control" id="position" readonly>
-                                 {{-- <select class="form-control" name="position" id="positionSelect">
+                                        class="{{$class}}" {{$readonly}} id="position" readonly>
+                                 {{-- <select class="{{$class}}" {{$readonly}} name="position" id="positionSelect">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -293,8 +308,8 @@
                             <div class="form-group mb-4">
                                 <label>Gred </label>
                                 <input type="text" name="" value="{{ Auth::user()->grade ?? '' }}"
-                                        class="form-control" id="gred" readonly>
-                                 {{-- <select class="form-control" name="grade" id="gradeSelect">
+                                        class="{{$class}}" {{$readonly}} id="gred" readonly>
+                                 {{-- <select class="{{$class}}" {{$readonly}} name="grade" id="gradeSelect">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -310,9 +325,9 @@
                             <div class="form-group mb-4">
                                 <label>No. Telefon Pejabat </label>
                                 <input type="text" name="" value="{{ Auth::user()->office_number ?? '' }}"
-                                        class="form-control" id="officePhone" readonly>
+                                        class="{{$class}}" {{$readonly}} id="officePhone" readonly>
                                 {{-- <input type="text" name="office_phone" value="{{ old('office_phone') }}"
-                                        class="form-control" id="officePhone"> --}}
+                                        class="{{$class}}" {{$readonly}} id="officePhone"> --}}
                                     @error('office_phone')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -323,9 +338,9 @@
                             <div class="form-group mb-4">
                                 <label>No. Telefon Bimbit </label>
                                 <input type="text" name="" value="{{ Auth::user()->phone_number ?? '' }}"
-                                        class="form-control" id="phone" readonly>
+                                        class="{{$class}}" {{$readonly}} id="phone" readonly>
                                 {{-- <input type="text" name="mobile_phone" value="{{ old('mobile_phone') }}"
-                                        class="form-control" id="mobilePhone"> --}}
+                                        class="{{$class}}" {{$readonly}} id="mobilePhone"> --}}
                                     @error('mobile_phone')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -335,9 +350,9 @@
                             <div class="form-group mb-4">
                                 <label>Emel</label>
                                 <input type="text" name="" value="{{ Auth::user()->email ?? '' }}"
-                                        class="form-control" id="email" readonly>
+                                        class="{{$class}}" {{$readonly}} id="email" readonly>
                                 {{-- <input type="email" name="email" value="{{ old('email') }}"
-                                        class="form-control" id="email"> --}}
+                                        class="{{$class}}" {{$readonly}} id="email"> --}}
                                     @error('email')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -358,8 +373,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Nama Urusetia</label>
-                                <input type="text" name="secretariat_name" value="{{ old('secretariat_name') }}"
-                                        class="form-control" id="secretariatName">
+                                <input type="text" name="secretariat_name" value="{{ old('secretariat_name', $booking->secretariat_name) }}"
+                                        class="{{$class}}" {{$readonly}} id="secretariatName">
                                     @error('secretariat_name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -368,8 +383,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Pejabat</label>
-                                <input type="text" name="secretariat_office_phone" value="{{ old('secretariat_office_phone') }}"
-                                        class="form-control" id="secretariatOfficePhone">
+                                <input type="text" name="secretariat_office_phone" value="{{ old('secretariat_office_phone', $booking->secretariat_office_phone) }}"
+                                        class="{{$class}}" {{$readonly}} id="secretariatOfficePhone">
                                     @error('secretariat_office_phone')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -378,8 +393,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Bimbit </label>
-                                <input type="text" name="secretariat_mobile_phone" value="{{ old('secretariat_mobile_phone') }}"
-                                        class="form-control" id="secretariatMobilePhone">
+                                <input type="text" name="secretariat_mobile_phone" value="{{ old('secretariat_mobile_phone', $booking->secretariat_mobile_phone) }}"
+                                        class="{{$class}}" {{$readonly}} id="secretariatMobilePhone">
                                     @error('secretariat_mobile_phone')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -388,8 +403,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Emel </label>
-                                <input type="text" name="secretariat_email" value="{{ old('secretariat_email') }}"
-                                        class="form-control" id="secretariatEmail">
+                                <input type="text" name="secretariat_email" value="{{ old('secretariat_email', $booking->secretariat_email) }}"
+                                        class="{{$class}}" {{$readonly}} id="secretariatEmail">
                                     @error('secretariat_email')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -404,6 +419,78 @@
             </div>
             <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="pills-other-info-tab">
                 <div class="eb-booking-info-tab">
+                    @if($button === 'update')
+                                        <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group mb-4">
+                                <label>Makanan</label>
+                                <p>
+                                    @if($booking->food === 1)
+                                    Ya
+                                    @else
+                                    Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group mb-4">
+                                <label>Peralatan</label>
+                                <p>{{ is_array($booking->equipment) ? implode(', ', $booking->equipment) : implode(', ', json_decode($booking->equipment, true)) }}</p>
+                            </div>
+                        </div>
+                        @if($booking->food === 1)
+                        <div class="col-lg-6 col-md-12">
+                            <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label>Nama Katering</label>
+                                    <input type="text" name="catering_name" value="{{ old('catering_name') }}"
+                                        class="{{$class}}" {{$readonly}} id="cateringName">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label>No. Telefon</label>
+                                    <input type="text" name="catering_phone" value="{{ old('catering_phone') }}"
+                                        class="{{$class}}" {{$readonly}} id="cateringPhone">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-lg-6 col-md-12">
+                            {{-- <div class="form-group mb-4">
+                                <label>Keperluan Lain (Kereta) </label>
+                                <p>{{ $booking->car_number ?? '-' }}</p>
+                            </div> --}}
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group mb-4">
+                                <label>Perkhidmatan Teknikal</label>
+                                <p>
+                                    @if($booking->technical_services === 1)
+                                    Ya
+                                    @else
+                                    Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group mb-4">
+                                <label>Perkhidmatan ICT</label>
+                                <p>
+                                    @if($booking->ict_services === 1)
+                                    Ya
+                                    @else
+                                    Tidak
+                                    @endif
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @else
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
@@ -487,10 +574,14 @@
                             </div>
                         </div>
                     </div>
-
+                    @endif
                     <div class="eb-booking-info-btns">
                         <button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn btn-back tab-nav" data-tab-step="-1">Kembali</button>
+                        @if($button === 'update')
+                        <button type="submit" class="btn btn-primary eb-form-submit">Kemaskini Permohonan</button>
+                        @else
                         <button type="button" class="btn btn-primary eb-form-submit" onclick="openConfirmationModal()">Hantar Permohonan</button>
+                        @endif
                     </div>
 
                 </div> 

@@ -78,6 +78,10 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::put('/profile/upload-img', [ProfileController::class, 'uploadImg'])->name('profile.uploadImg');
+    Route::put('/profile/remove-img', [ProfileController::class, 'removeImg'])->name('profile.removeImg');
+
+
 
     // BookingList
     Route::get('/booking/{status}/list', [App\Http\Controllers\User\BookingController::class, 'index'])->name('booking.list');
@@ -92,12 +96,11 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::get('/booking/new/{user}/{room}', [App\Http\Controllers\User\BookingController::class, 'newBooking'])->name('booking.new');
     Route::post('/booking/new', [App\Http\Controllers\User\BookingController::class, 'store'])->name('booking.store');
     Route::get('/booking/{id}/show', [App\Http\Controllers\User\BookingController::class, 'show'])->name('booking.show');
-    Route::put('/booking/{id}/update', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
+    Route::put('/booking/{id}/cancel', [App\Http\Controllers\User\BookingController::class, 'cancel'])->name('booking.cancel');
 
-    
 
-    Route::get('/booking/new/{id}/edit', [App\Http\Controllers\User\BookingController::class, 'edit'])->name('booking.edit');
-    Route::put('/booking/new/{id}', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
+    Route::get('/booking/{id}/edit', [App\Http\Controllers\User\BookingController::class, 'edit'])->name('booking.edit');
+    Route::put('/booking/{id}', [App\Http\Controllers\User\BookingController::class, 'update'])->name('booking.update');
     Route::delete('/booking/new/{id}', [App\Http\Controllers\User\BookingController::class, 'destroy'])->name('booking.destroy');
     Route::get('/booking/new/{id}/pdf', [App\Http\Controllers\User\BookingController::class, 'downloadPDF'])->name('booking.downloadPDF');
 }); 

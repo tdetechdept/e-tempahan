@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\Booking;
+use App\Models\Chairman;
 
 class BookingController extends Controller
 {
@@ -103,11 +104,12 @@ class BookingController extends Controller
 
     public function newBooking($user, $room)
     {   
+        $chairmans = Chairman::all();
         $allrooms = Room::where('status', true)->get();
         $room = Room::findOrFail($room);
         $user = User::findOrFail($user);
 
-        return view('user.booking.book.create', compact('room', 'user', 'allrooms'));
+        return view('user.booking.book.create', compact('room', 'user', 'allrooms','chairmans'));
     }
 
 
@@ -166,7 +168,58 @@ class BookingController extends Controller
         return view('user.booking.view', compact('booking'));
     }
 
+    public function edit(string $id)
+    {
+        $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
+        $chairmans = Chairman::all();
+        $allrooms = Room::where('status', true)->get();
+        $room = Room::findOrFail($booking->room_id);
+        $user = User::findOrFail($booking->user_id);
+        return view('user.booking.book.edit', compact('booking', 'room', 'user', 'allrooms','chairmans'));
+    }
+
     public function update(Request $request, string $id)
+    {
+        \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
+
+        $booking = Booking::findOrFail($id); // Automatically throws 404 if not found
+
+        $oldStatus = $booking->status;
+        $oldChairman = $booking->chairman;
+        $oldUpdatedFieldInfo = $booking->updated_field_info;
+        $oldStartTime = $booking->start_time;
+        $oldEndTime = $booking->end_time;
+
+
+        if($booking->chairman !== $request->chairman && (($booking->start_time)->format('H:i') !== $request->start_time || ($booking->end_time)->format('H:i') !== $request->end_time)){
+            $info = 'Chairman and Time change';
+        }elseif($booking->chairman !== $request->chairman){
+            $info = 'Chairman change';
+        }elseif(($booking->start_time)->format('H:i') !== $request->start_time || ($booking->end_time)->format('H:i') !== $request->end_time){
+            $info = 'Time change';
+        }else{
+            $info = 'UNKNOWN';
+        }
+        
+        $booking->update([
+            'updated_field_info' => $info,
+            'chairman' => $request->chairman,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'status' => 6,
+        ]);
+
+        // Log update if no status change
+        if ($oldChairman !== $request->chairman  || $oldUpdatedFieldInfo !== $info || $oldStartTime !== $request->start_time || $oldEndTime !== $request->end_time) {
+            $booking->auditEvent = 'booking_updated_by_user';
+            $booking->isCustomEvent = true;
+            $booking->save();
+        }
+
+        return redirect()->back()->with('msg', 'Tempahan ada telah berjaya dikemaskini');
+    }
+
+    public function cancel(Request $request, string $id)
     {
         \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
         $booking = Booking::findOrFail($id);
