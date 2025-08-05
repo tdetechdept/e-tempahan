@@ -12,7 +12,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $organizations = Department::all(); 
+        $organizations = Department::all();
         $reports = [];
         return view('admin.reports.index', compact('organizations', 'reports'));
     }
@@ -28,9 +28,11 @@ class ReportController extends Controller
             ->get();
 
         $totalBookings = $bookings->count();
-        $totalHours = $bookings->sum(function ($booking) {
-            return Carbon::parse($booking->end_time)->diffInHours(Carbon::parse($booking->start_time));
+        $totalMinutes = $bookings->sum(function ($booking) {
+            return Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
         });
+
+        $totalHours = $totalMinutes / 60;
 
         $statusLabels = [
             1 => 'Baru',
@@ -53,35 +55,21 @@ class ReportController extends Controller
 
     public function weeklyReport(Request $request)
     {
-        return $this->rangeBasedReport($request, 'weekly');
-    }
-
-    public function monthlyReport(Request $request)
-    {
-        return $this->rangeBasedReport($request, 'monthly');
-    }
-
-    public function yearlyReport(Request $request)
-    {
-        return $this->rangeBasedReport($request, 'yearly');
-    }
-
-    private function rangeBasedReport(Request $request, $type)
-    {
         $status = $request->status;
-        $startDate = $request->start_date;
-        $endDate = $request->end_date;
+        $start = $request->start_date;
+        $end = $request->end_date;
 
-        $bookings = Booking::whereDate('start_date', '>=', $startDate)
-            ->whereDate('start_date', '<=', $endDate)
+        $bookings = Booking::whereBetween('start_date', [$start, $end])
             ->when($status, fn($q) => $q->where('status', $status))
             ->with('room')
             ->get();
 
         $totalBookings = $bookings->count();
-        $totalHours = $bookings->sum(function ($booking) {
-            return Carbon::parse($booking->end_time)->diffInHours(Carbon::parse($booking->start_time));
+        $totalMinutes = $bookings->sum(function ($booking) {
+            return Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
         });
+
+        $totalHours = $totalMinutes / 60;
 
         $statusLabels = [
             1 => 'Baru',
@@ -92,10 +80,10 @@ class ReportController extends Controller
         ];
         $statusText = $statusLabels[$status] ?? 'Semua Status';
 
-        return view("admin.reports.$type", compact(
+        return view('admin.reports.weekly', compact(
             'bookings',
-            'startDate',
-            'endDate',
+            'start',
+            'end',
             'status',
             'statusText',
             'totalBookings',
@@ -103,9 +91,81 @@ class ReportController extends Controller
         ));
     }
 
-    public function exportDailyPdf(Request $request)
+    public function monthlyReport(Request $request)
     {
-        $data = $this->getDailyReportData($request);
-        return view('admin.reports.daily-pdf', $data);
+        $status = $request->status;
+        $month = $request->month; // Format: YYYY-MM
+
+
+        if (!$month) {
+            return back()->with('error', 'Sila pilih bulan terlebih dahulu.');
+        }
+
+        $startOfMonth = Carbon::parse($month)->startOfMonth();
+        $endOfMonth = Carbon::parse($month)->endOfMonth();
+
+        $bookings = Booking::whereBetween('start_date', [$startOfMonth, $endOfMonth])
+            ->when($status, fn($q) => $q->where('status', $status))
+            ->with('room')
+            ->get();
+
+        $totalBookings = $bookings->count();
+        $totalMinutes = $bookings->sum(function ($booking) {
+            return Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
+        });
+
+        $totalHours = $totalMinutes / 60;
+        $statusLabels = [
+            1 => 'Baru',
+            2 => 'Belum Diproses',
+            3 => 'Diluluskan',
+            4 => 'Ditolak',
+            5 => 'Dibatalkan',
+        ];
+        $statusText = $statusLabels[$status] ?? 'Semua Status';
+
+        return view('admin.reports.monthly', compact(
+            'bookings',
+            'month',
+            'status',
+            'statusText',
+            'totalBookings',
+            'totalHours'
+        ));
     }
+
+    public function yearlyReport(Request $request)
+    {
+        $status = $request->status;
+        $year = $request->year ?? now()->year;
+
+        $bookings = Booking::whereYear('start_date', $year)
+            ->when($status, fn($q) => $q->where('status', $status))
+            ->with('room')
+            ->get();
+
+        $totalBookings = $bookings->count();
+        $totalMinutes = $bookings->sum(function ($booking) {
+            return Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
+        });
+
+        $totalHours = $totalMinutes / 60;
+        $statusLabels = [
+            1 => 'Baru',
+            2 => 'Belum Diproses',
+            3 => 'Diluluskan',
+            4 => 'Ditolak',
+            5 => 'Dibatalkan',
+        ];
+        $statusText = $statusLabels[$status] ?? 'Semua Status';
+
+        return view('admin.reports.yearly', compact(
+            'bookings',
+            'year',
+            'statusText',
+            'totalBookings',
+            'totalHours'
+        ));
+    }
+
 }

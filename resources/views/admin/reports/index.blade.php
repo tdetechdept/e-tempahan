@@ -88,7 +88,7 @@
 
                     {{-- WEEKLY TAB --}}
                     <div class="tab-pane fade" id="mingguan">
-                        <form method="GET" action="">
+                        <form method="GET" action="{{ route('reports.weekly') }}">
                             <div class="form-group row">
                                 <label for="section_id_week"
                                     class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
@@ -139,7 +139,7 @@
 
                     {{-- MONTHLY TAB --}}
                     <div class="tab-pane fade" id="bulanan">
-                        <form method="GET" action="">
+                        <form method="GET" action="{{ route('reports.monthly') }}">
                             <div class="form-group row">
                                 <label for="section_id_month"
                                     class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
@@ -147,37 +147,32 @@
                                     <select name="section_id" id="section_id_month" class="form-control">
                                         <option value="">-- Pilih Bahagian --</option>
                                         @foreach($organizations as $org)
-                                            <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                            <option value="{{ $org->id }}" {{ request('section_id') == $org->id ? 'selected' : '' }}>
+                                                {{ $org->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="start_date_month" class="col-sm-2 col-form-label font-weight-bold">Tarikh
-                                    Mula</label>
+                                <label for="month" class="col-sm-2 col-form-label font-weight-bold">Bulan</label>
                                 <div class="col-sm-4">
-                                    <input type="date" name="start_date" id="start_date_month" class="form-control" />
+                                    <input type="month" name="month" id="month" class="form-control"
+                                        value="{{ request('month') }}" required />
                                 </div>
 
-                                <label for="end_date_month" class="col-sm-2 col-form-label font-weight-bold">Tarikh
-                                    Tamat</label>
-                                <div class="col-sm-4">
-                                    <input type="date" name="end_date" id="end_date_month" class="form-control" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <label for="status_month" class="col-sm-2 col-form-label font-weight-bold">Status
                                     Permohonan</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-4">
                                     <select name="status" id="status_month" class="form-control">
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="1">Baru</option>
-                                        <option value="2">Belum Diproses</option>
-                                        <option value="3">Diluluskan</option>
-                                        <option value="4">Ditolak</option>
-                                        <option value="5">Dibatalkan</option>
+                                        <option value="">-- Semua Status --</option>
+                                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Baru</option>
+                                        <option value="2" {{ request('status') == '2' ? 'selected' : '' }}>Belum Diproses
+                                        </option>
+                                        <option value="3" {{ request('status') == '3' ? 'selected' : '' }}>Diluluskan</option>
+                                        <option value="4" {{ request('status') == '4' ? 'selected' : '' }}>Ditolak</option>
+                                        <option value="5" {{ request('status') == '5' ? 'selected' : '' }}>Dibatalkan</option>
                                     </select>
                                 </div>
                             </div>
@@ -190,10 +185,10 @@
 
                     {{-- YEARLY TAB --}}
                     <div class="tab-pane fade" id="tahunan">
-                        <form method="GET" action="">
+                        <form method="GET" action="{{ route('reports.yearly') }}">
+                            <!-- Section -->
                             <div class="form-group row">
-                                <label for="section_id_year"
-                                    class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
+                                <label for="section_id_year" class="col-sm-2 col-form-label font-weight-bold">Bahagian</label>
                                 <div class="col-sm-10">
                                     <select name="section_id" id="section_id_year" class="form-control">
                                         <option value="">-- Pilih Bahagian --</option>
@@ -204,23 +199,17 @@
                                 </div>
                             </div>
 
+                            <!-- Year Selection -->
                             <div class="form-group row">
-                                <label for="start_date_year" class="col-sm-2 col-form-label font-weight-bold">Tarikh
-                                    Mula</label>
-                                <div class="col-sm-4">
-                                    <input type="date" name="start_date" id="start_date_year" class="form-control" />
-                                </div>
-
-                                <label for="end_date_year" class="col-sm-2 col-form-label font-weight-bold">Tarikh
-                                    Tamat</label>
-                                <div class="col-sm-4">
-                                    <input type="date" name="end_date" id="end_date_year" class="form-control" />
+                                <label for="year" class="col-sm-2 col-form-label font-weight-bold">Tahun</label>
+                                <div class="col-sm-10">
+                                    <input type="number" name="year" id="year" class="form-control" value="{{ now()->year }}" min="2000" max="2100" />
                                 </div>
                             </div>
 
+                            <!-- Status -->
                             <div class="form-group row">
-                                <label for="status_year" class="col-sm-2 col-form-label font-weight-bold">Status
-                                    Permohonan</label>
+                                <label for="status_year" class="col-sm-2 col-form-label font-weight-bold">Status Permohonan</label>
                                 <div class="col-sm-10">
                                     <select name="status" id="status_year" class="form-control">
                                         <option value="">-- Pilih Status --</option>
@@ -233,15 +222,39 @@
                                 </div>
                             </div>
 
+                            <!-- Submit Button -->
                             <div class="text-center mt-4">
                                 <button type="submit" class="btn btn-primary btn-medium px-5">Teruskan</button>
                             </div>
                         </form>
-                    </div>
                 </div>
-
 
             </div>
         </div>
+        </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startDateInput = document.getElementById('start_date_week');
+            const endDateInput = document.getElementById('end_date_week');
+
+            startDateInput.addEventListener('change', function () {
+                if (this.value) {
+                    const startDate = new Date(this.value);
+                    const endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + 6);
+                    const formattedEndDate = endDate.toISOString().split('T')[0];
+
+                    endDateInput.value = formattedEndDate;
+                    endDateInput.min = formattedEndDate;
+                    endDateInput.readOnly = true;
+                } else {
+                    endDateInput.value = '';
+                    endDateInput.readOnly = false;
+                }
+            });
+        });
+
+    </script>
 @endsection
