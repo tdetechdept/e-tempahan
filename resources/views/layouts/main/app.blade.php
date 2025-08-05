@@ -81,11 +81,9 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="{{ asset('admin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('admin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('admin2/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
     <script src="{{ asset('admin2/js/Calender2.js') }}"></script>

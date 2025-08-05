@@ -53,9 +53,24 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/users/deactivate/success', [AdminUserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
 
     });
-    Route::resource('reports', AdminReportController::class);
-    Route::resource('organization', OrganizationController::class);
-});
+
+    
+    Route::prefix('reports')->name('reports.')->group(function () {
+        Route::get('/', [AdminReportController::class, 'index'])->name('index');
+        Route::get('/daily', [AdminReportController::class, 'dailyReport'])->name('daily');
+        Route::get('/weekly', [AdminReportController::class, 'weeklyReport'])->name('weekly');
+        Route::get('/monthly', [AdminReportController::class, 'monthlyReport'])->name('monthly');
+        Route::get('/yearly', [AdminReportController::class, 'yearlyReport'])->name('yearly');
+    });
+    
+    Route::get('/organization', [OrganizationController::class, 'index'])->name('organization.index');
+        Route::get('/organization/create/{type}', [OrganizationController::class, 'create'])->name('organization.create');
+        Route::post('/organization/store/{type}', [OrganizationController::class, 'store'])->name('organization.store');
+        Route::get('admin/organization/tab/{type}', [OrganizationController::class, 'tab'])->name('organization.tab');
+        Route::get('/organization/edit/{type}/{id}', [OrganizationController::class, 'edit'])->name('organization.edit');
+        Route::put('/organization/update/{type}/{id}', [OrganizationController::class, 'update'])->name('organization.update');
+        Route::post('/organization/delete/{type}/{id}', [OrganizationController::class, 'destroy'])->name('organization.destroy');
+    });
 
 
 Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {

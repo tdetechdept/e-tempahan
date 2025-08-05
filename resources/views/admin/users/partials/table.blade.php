@@ -1,6 +1,7 @@
 @php $count = 1; @endphp
 @foreach ($users as $user)
-    <tr data-url="{{ route('users.show', $user->id) }}" data-status="{{ strtolower($statusLabels[$user->status] ?? 'unknown') }}">
+    <tr data-url="{{ route('users.show', $user->id) }}"
+        data-status="{{ strtolower($statusLabels[$user->status] ?? 'unknown') }}">
         <td>{{ $count++ }}</td>
         <td>{{ $user->name ?? '-' }}</td>
         <td>{{ $user->section ?? 'N/A' }}</td>
@@ -69,9 +70,10 @@
                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-sm rounded-circle"
-                        style="background-color: #f8d7da; color: #721c24; border: 1px solid #721c24;" title="Padam"
-                        onclick="return confirm('Padam pengguna ini?')">
+                    <button type="button" class="btn btn-sm rounded-circle btn-delete-user" data-toggle="modal"
+                        data-target="#deleteUserModal" data-url="{{ route('admin.users.destroy', $user->id) }}"
+                        data-name="{{ $user->name }}" title="Padam"
+                        style="background-color: #f8d7da; color: #721c24; border: 1px solid #721c24;">
                         <i class="bi bi-trash"></i>
                     </button>
                 </form>
