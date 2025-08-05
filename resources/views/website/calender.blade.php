@@ -61,6 +61,7 @@
 
                 <div id="myCollapsibleDiv" class="collapse">
                     {{-- <p>This content will be shown/hidden.</p> --}}
+                    @if($roomDetail)
                     <div class="container room-section">
                         <div class="row">
 
@@ -153,6 +154,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
