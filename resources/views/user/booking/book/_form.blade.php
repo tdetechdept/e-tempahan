@@ -53,7 +53,7 @@
                                 <select class="form-control" name="chairman" id="exampleFormControlSelect1">
                                     <option selected disabled>Sila Pilih Pengerusi</option>
                                     @foreach($chairmans as $chairman)
-                                    <option value="{{$chairman->name}}" {{ old('chairman', $chairman->name) == $booking->chairman ? 'selected' : '' }}>{{$chairman->name}}</option>
+                                    <option value="{{$chairman->name}}" {{ old('chairman', $chairman->name) == @$booking->chairman ? 'selected' : '' }}>{{$chairman->name}}</option>
                                     @endforeach
                                 </select>
                                     @error('chairman')
@@ -67,8 +67,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Tarikh Mula</label>
-                                    <input type="date" name="start_date" value="{{ old('start_date', ($booking->start_date)->format('Y-m-d')) ?? request()->get('date') }}"
-                                            class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
+                                    @if($button == 'create')
+                                    <input type="date" name="start_date" value="{{ old('start_date') ?? request()->get('date') }}"
+                                        class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
+                                    @else
+                                    <input type="date" name="start_date" value="{{ old('start_date', ($booking->start_date)->format('Y-m-d') ?? '') ?? request()->get('date') }}"
+                                        class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
+                                    @endif
                                         @error('start_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -77,8 +82,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Tarikh Tamat</label>
-                                    <input type="date" name="end_date" value="{{ old('end_date', ($booking->end_date)->format('Y-m-d')) ?? request()->get('date') }}"
-                                            class="{{$class}}" {{$readonly}} id="meetingEndDate" @if($button == 'create') readonly @endif>
+                                    @if($button == 'create')
+                                    <input type="date" name="end_date" value="{{ old('end_date') ?? request()->get('date') }}"
+                                        class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
+                                    @else
+                                    <input type="date" name="end_date" value="{{ old('end_date', ($booking->end_date)->format('Y-m-d') ?? '') ?? request()->get('date') }}"
+                                        class="{{$class}}" {{$readonly}} id="meetingStartDate" @if($button == 'create') readonly @endif>
+                                    @endif
                                         @error('end_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -92,8 +102,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Masa Mula</label>
-                                    <input type="time" name="start_time" value="{{ old('start_time', ($booking->start_time)->format('H:i')) ?? request()->get('start') }}"
+                                     @if($button == 'create')
+                                        <input type="time" name="start_time" value="{{ old('start_time', request()->get('start') )}}"
                                             class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                    @else
+                                        <input type="time" name="start_time" value="{{ old('start_time',($booking->start_time)->format('H:i')) ?? request()->get('start') }}"
+                                            class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                    @endif
                                         @error('start_time')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -102,8 +117,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group mb-4">
                                     <label>Masa Tamat</label>
-                                    <input type="time" name="end_time" value="{{ old('end_time', ($booking->end_time)->format('H:i')) ?? request()->get('end') }}"
-                                            class="form-control" id="meetingEndTime" @if($button == 'create') readonly @endif>
+                                     @if($button == 'create')
+                                        <input type="time" name="end_time" value="{{ old('end_time', request()->get('end') )}}"
+                                            class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                    @else
+                                        <input type="time" name="end_time" value="{{ old('end_time',($booking->end_time)->format('H:i')) ?? request()->get('end') }}"
+                                            class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                    @endif
                                         @error('end_time')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -114,7 +134,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Bilangan Peserta</label>
-                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants) }}"
+                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="participantsCount">
                                     @error('number_of_participants')
                                         <small class="text-danger">{{ $message }}</small>
@@ -124,7 +144,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Penerangan</label>
-                                <textarea class="{{$class}}" {{$readonly}} id="validationTextarea" name="description" placeholder="Penerangan" required>{{ old('description', $booking->description) }}</textarea>
+                                <textarea class="{{$class}}" {{$readonly}} id="validationTextarea" name="description" placeholder="Penerangan" required>{{ old('description', $booking->description ?? '') }}</textarea>
                                     @error('description')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -152,8 +172,8 @@
                                 <label>Jenis</label>
                                 <select class="form-control" name="type" id="typeSelect" {{$disable}}>
                                     <option value="">Pilih Jenis</option>
-                                    <option value="Interior" {{ old('type', $booking->type) == 'Interior' ? 'selected' : '' }}>Dalaman</option>
-                                    <option value="External" {{ old('type', $booking->type) == 'External' ? 'selected' : '' }}>Luaran</option>
+                                    <option value="Interior" {{ old('type', $booking->type ?? '') == 'Interior' ? 'selected' : '' }}>Dalaman</option>
+                                    <option value="External" {{ old('type', $booking->type ?? '') == 'External' ? 'selected' : '' }}>Luaran</option>
                                 </select>
                                 @error('type')
                                     <small class="text-danger">{{ $message }}</small>
@@ -165,8 +185,8 @@
                                 <label>Status </label>
                                 <select class="form-control" name="status" id="statusSelect" {{$disable}}>
                                     <option value="">Pilih Status</option>
-                                    <option value="1" {{ old('type', $booking->status) == 1  ? 'selected' : '' }}>Permohonan Baru</option>
-                                    <option value="3" {{ old('type', $booking->status) == 3 ? 'selected' : '' }}>Pemohon Lulus</option>
+                                    <option value="1" {{ old('type', $booking->status ?? '') == 1  ? 'selected' : '' }}>Permohonan Baru</option>
+                                    <option value="3" {{ old('type', $booking->status ?? '') == 3 ? 'selected' : '' }}>Pemohon Lulus</option>
                                 </select>
                                     @error('status')
                                         <small class="text-danger">{{ $message }}</small>
@@ -178,11 +198,11 @@
                                 <label>Jenis Ulangan </label>
                                 <select class="form-control" name="repetition_type" id="repetitionTypeSelect" {{$disable}}>
                                     <option value="">Pilih Jenis Ulangan</option>
-                                    <option value="tiada" {{ old('type', $booking->repetition_type) == 'tiada' ?? null  ? 'selected' : '' }}>Tiada</option>
-                                    <option value="Daily" {{ old('type', $booking->repetition_type) == 'Daily'  ? 'selected' : '' }}>Harian</option>
-                                    <option value="Weekly" {{ old('type', $booking->repetition_type) == 'Weekly'  ? 'selected' : '' }}>Mingguan</option>
-                                    <option value="Monthly" {{ old('type', $booking->repetition_type) == 'Monthly'  ? 'selected' : '' }}>Bulanan</option>
-                                    <option value="Yearly" {{ old('type', $booking->repetition_type) == 'Yearly'  ? 'selected' : '' }}>Tahunan</option>
+                                    <option value="tiada" {{ old('type', $booking->repetition_type ?? '') == 'tiada' ?? null  ? 'selected' : '' }}>Tiada</option>
+                                    <option value="Daily" {{ old('type', $booking->repetition_type ?? '') == 'Daily'  ? 'selected' : '' }}>Harian</option>
+                                    <option value="Weekly" {{ old('type', $booking->repetition_type ?? '') == 'Weekly'  ? 'selected' : '' }}>Mingguan</option>
+                                    <option value="Monthly" {{ old('type', $booking->repetition_type ?? '') == 'Monthly'  ? 'selected' : '' }}>Bulanan</option>
+                                    <option value="Yearly" {{ old('type', $booking->repetition_type ?? '') == 'Yearly'  ? 'selected' : '' }}>Tahunan</option>
                                 </select>
                                     @error('repetition_type')
                                         <small class="text-danger">{{ $message }}</small>
@@ -192,7 +212,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Tarikh Ulangan </label>
-                                <input type="date" name="repeat_date" value="{{ old('repeat_date', $booking->repeat_date) }}"
+                                <input type="date" name="repeat_date" value="{{ old('repeat_date', $booking->repeat_date ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="repeatDate">
                                     @error('repeat_date')
                                         <small class="text-danger">{{ $message }}</small>
@@ -203,7 +223,7 @@
                             @if($button === 'update')
                             <div class="form-group mb-4">
                                 <label>Pelan Bilik </label>
-                                <input type="text" name="room_plan" value="{{ old('room_plan', $booking->room_plan) }}"
+                                <input type="text" name="room_plan" value="{{ old('room_plan', $booking->room_plan ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="room_plan">
                             </div>
                             @else
@@ -235,15 +255,15 @@
                                     </div>
                                    
                                     <div class="col-md-12" style="display: none" id="layoutUpload">
-                                        <!-- Picture -->
+                                        <!-- Layout Picture -->
                                             <div class="form-group">
                                                 <div class="eb-uplaod-file position-relative">
-                                                    <input type="file" name="picture" class="form-control" id="picture">
+                                                    <input type="file" name="other_layout_plan" class="form-control" id="picture">
                                                     <span class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
                                                     <p class="form-text" id="pictureName">Sila muat naik fail anda (pdf/jpg)</p>
                                                 </div>
                                                 <small class="text-muted">Saiz maksimum fail untuk layout / pelan ialah 5MB</small>
-                                                @error('picture')
+                                                @error('other_layout_plan')
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
@@ -373,7 +393,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Nama Urusetia</label>
-                                <input type="text" name="secretariat_name" value="{{ old('secretariat_name', $booking->secretariat_name) }}"
+                                <input type="text" name="secretariat_name" value="{{ old('secretariat_name', $booking->secretariat_name ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatName">
                                     @error('secretariat_name')
                                         <small class="text-danger">{{ $message }}</small>
@@ -383,7 +403,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Pejabat</label>
-                                <input type="text" name="secretariat_office_phone" value="{{ old('secretariat_office_phone', $booking->secretariat_office_phone) }}"
+                                <input type="text" name="secretariat_office_phone" value="{{ old('secretariat_office_phone', $booking->secretariat_office_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatOfficePhone">
                                     @error('secretariat_office_phone')
                                         <small class="text-danger">{{ $message }}</small>
@@ -393,7 +413,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Bimbit </label>
-                                <input type="text" name="secretariat_mobile_phone" value="{{ old('secretariat_mobile_phone', $booking->secretariat_mobile_phone) }}"
+                                <input type="text" name="secretariat_mobile_phone" value="{{ old('secretariat_mobile_phone', $booking->secretariat_mobile_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatMobilePhone">
                                     @error('secretariat_mobile_phone')
                                         <small class="text-danger">{{ $message }}</small>
@@ -403,7 +423,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Emel </label>
-                                <input type="text" name="secretariat_email" value="{{ old('secretariat_email', $booking->secretariat_email) }}"
+                                <input type="text" name="secretariat_email" value="{{ old('secretariat_email', $booking->secretariat_email ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatEmail">
                                     @error('secretariat_email')
                                         <small class="text-danger">{{ $message }}</small>

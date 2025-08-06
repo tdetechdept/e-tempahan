@@ -121,6 +121,14 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
+
+        // Handle image upload
+        if ($request->hasFile('other_layout_plan')) {
+            $image = $request->file('other_layout_plan');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/bookings/layout'), $imageName);
+            $data['other_layout_plan'] = $imageName;
+        }
         // dd($request->equipment);
         // Logic to store a new booking
         $booking = new Booking();
@@ -141,6 +149,7 @@ class BookingController extends Controller
         $booking->repetition_type = $request->repetition_type;
         $booking->repeat_date = $request->repeat_date;
         $booking->room_plan = $request->room_plan;
+        $booking->other_layout_plan = $imageName ?? NULL;
 
         $booking->secretariat_name = $request->secretariat_name;
         $booking->secretariat_office_phone = $request->secretariat_office_phone;
@@ -249,6 +258,31 @@ class BookingController extends Controller
         
         // Log update if no status change
         if ($oldUpdateInfo !== $request->update_info || $oldReviews !== $request->reviews) {
+            $booking->auditEvent = 'booking_cancel_by_user';
+            $booking->isCustomEvent = true;
+            $booking->save();
+        }
+    }
+
+    public function confirm(Request $request, string $id)
+    {
+        \Log::info('Update called', ['id' => $id, 'input' => $request->all()]);
+        $booking = Booking::findOrFail($id);
+        
+        $oldStatus = $booking->status;
+        
+        $booking->status = 7; // Confirm by User
+        $booking->save();
+        
+        // Add custom audit event for rejection
+        $booking->auditEvent = 'booking_confirm_by_user';
+        $booking->isCustomEvent = true;
+        $booking->save();
+        
+        return view('user.booking.confirm', compact('booking'));
+        
+        // Log update if no status change
+        if ($oldStatus !== $request->status) {
             $booking->auditEvent = 'booking_cancel_by_user';
             $booking->isCustomEvent = true;
             $booking->save();

@@ -42,6 +42,7 @@ class Booking extends Model implements Auditable
         'update_info',
         'reviews',
         'updated_field_info',
+        'other_layout_plan',
     ];
 
     protected $casts = [
@@ -88,6 +89,7 @@ class Booking extends Model implements Auditable
         'update_info',
         'reviews',
         'updated_field_info',
+        'other_layout_plan',
     ];
 
     // Only track changed attributes
@@ -109,8 +111,8 @@ class Booking extends Model implements Auditable
         
         // Add user context if available
         if (auth()->check()) {
-            $data['admin_user_id'] = Auth::id();
-            $data['admin_user_name'] = Auth::user()->name;
+            $data['user_id'] = Auth::id();
+            // $data['user_name'] = Auth::user()->name;
         }
         
         return $data;

@@ -332,6 +332,11 @@
                             </div>
                         </div>
 
+                        <form id="confirm_form" action="{{route('user.booking.confirm', $booking->id)}}" method="post">
+                            @csrf
+                            @method('PUT')
+                        </form>
+
                         <form method="POST" action="{{ route('user.booking.cancel', $booking->id) }}" id="rejectForm">
                             @csrf
                             @method('PUT')
@@ -347,22 +352,31 @@
 
                         <div class="d-flex bd-highlight mb-3">
                             <div class="mr-auto p-2 bd-highlight">
-                                <a href="javascript:history.back()" class="btn btn-secondary eb-form-submit eb-delete-btn ">Kembali</a>
+                            @if($booking->status === 3)
+                                <p>Sila sahkan permohonan tempahan anda sebelum tarikh Mesyuarat.</p>
+                            @else
+                                <a href="javascript:history.back()" class="btn btn-outline-secondary eb-delete-btn ">Kembali</a>
+                            @endif
                             </div>
-                            {{-- @if($booking->status === 1 || $booking->status === 2 || $booking->status === 3 ) --}}
+                            @if($booking->status === 3)
+                            <div class="p-2 bd-highlight">
+                                <a href="javascript:history.back()" class="btn btn-outline-secondary eb-delete-btn ">Kembali</a>
+                                <button type="submit" form="confirm_form" class="btn btn-primary">Sahkan Tempahan</button>
+                                {{-- <a href="{{route('user.booking.edit', $booking->id)}}" class="btn btn-primary" >Sahkan Tempahan</a> --}}
+                            </div>
+                            @endif
+                            @if($booking->status === 1 || $booking->status === 2)
                             <div class="p-2 bd-highlight">
                                 <button type="button" class="btn btn-danger" id="rejectBtn">Batalkan Tempahan</button>
                                 <input type="hidden" name="action" id="actionInput" value="">
                                 <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                             </div>
-                            {{-- @endif --}}
-                            {{-- @if($booking->status === 1 || $booking->status === 2 || $booking->status === 3 || $booking->status === 4) --}}
-                            @if($booking->status !== 6)
+                            @endif
+                             @if($booking->status === 1 || $booking->status === 2 || $booking->status === 2)
                             <div class="p-2 bd-highlight">
                                 <a href="{{route('user.booking.edit', $booking->id)}}" class="btn btn-primary" >Kemaskini Tempahan</a>
                             </div>
                             @endif
-                            {{-- @endif --}}
                         </div>
                         </form>
 

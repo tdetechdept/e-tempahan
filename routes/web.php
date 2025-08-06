@@ -99,6 +99,7 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::post('/booking/new', [App\Http\Controllers\User\BookingController::class, 'store'])->name('booking.store');
     Route::get('/booking/{id}/show', [App\Http\Controllers\User\BookingController::class, 'show'])->name('booking.show');
     Route::put('/booking/{id}/cancel', [App\Http\Controllers\User\BookingController::class, 'cancel'])->name('booking.cancel');
+    Route::put('/booking/{id}/confirm', [App\Http\Controllers\User\BookingController::class, 'confirm'])->name('booking.confirm');
 
 
     Route::get('/booking/{id}/edit', [App\Http\Controllers\User\BookingController::class, 'edit'])->name('booking.edit');
