@@ -111,7 +111,11 @@
         <div class="bg-white card-header border-bottom-0 rounded-top-4">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                 <h5 class="mb-2 card-title mb-md-0 fw-semibold">Senarai Tempahan</h5>
+                @if($newBookings)
+                    <button type="button" class="btn btn-primary-custom" data-toggle="modal" data-target="#confirmationModal"> Buat Tempahan</button>
+                @else
                 <a href="{{ route('user.search.index') }}" class="btn btn-primary-custom">Buat Tempahan</a>
+                @endif
             </div>
         </div>
 
@@ -411,6 +415,28 @@
             </div>
         </div>
     </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-center">
+                <div class="modal-body">
+                    <!-- Icon -->
+                    <div class="mb-3">
+                    <i class="fas fa-exclamation-triangle fa-3x text-primary"></i>
+                    </div>
+                    <!-- Title -->
+                    <h5 class="mb-3 font-weight-bold">Adakah anda pasti?</h5>
+                    <!-- Text -->
+                    <p>Adakah anda pasti anda ingin meneruskan? Anda telah membuat tempahan sebelum ini.</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Tidak</button>
+                    <a href="{{ route('user.search.index') }}" class="btn btn-primary">Ya</a>
+                </div>
+                </div>
+            </div>
+        </div>
 @endsection
 
 @push('js')
