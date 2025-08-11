@@ -89,7 +89,7 @@ class BookingController extends Controller
             $start = $book->start_time->format('H:i');
             $end = $book->end_time->format('H:i');
 
-            if(isTimeBetween($startTime, $start, $end) || isTimeBetween($endTime, $start, $end)){
+            if(isTimeBetween($startTime, $start, $end) || isTimeBetween($endTime, $start, $end) || isTimeBetween($start, $startTime, $endTime) ||  isTimeBetween($end, $startTime, $endTime)){
                 $status = false;
                 break;
             }
@@ -97,9 +97,84 @@ class BookingController extends Controller
         }
 
 
+        $pagi = [];
+        $ptg = [];
+
+        $masaPagi = [
+            '07.30',
+            '08.00',
+            '08.30',
+            '09.00',
+            '09.30',
+            '10.00',
+            '10.30',
+            '11.00',
+            '11.30',
+            '12.00',
+        ];
+
+        $masaPtg = [
+            '13.00',
+            '13.30',
+            '14.00',
+            '14.30',
+            '15.00',
+            '15.30',
+            '16.00',
+            '16.30',
+            '17.00',
+            '17.30',
+            '18.00',
+            '18.30',
+
+        ];
+
+        foreach($masaPagi as $masaP)
+        {
+            $bookings = Booking::where('room_id', $id)->where('start_date', $bookDate)->get();
+
+            $start = $book->start_time->format('H:i');
+            $end = $book->end_time->format('H:i');
+
+            if(isTimeBetween($masaP, $start, $end)){
+                $pagi[] = [
+                    "time" => $masaP,
+                    "available" => false
+                ];
+            }else{
+                $pagi[] = [
+                    "time" => $masaP,
+                    "available" => true
+                ];
+            }
+        }
+
+        foreach($masaPtg as $evening)
+        {
+            $bookings = Booking::where('room_id', $id)->where('start_date', $bookDate)->get();
+
+            $start = $book->start_time->format('H:i');
+            $end = $book->end_time->format('H:i');
+
+            if(isTimeBetween($evening, $start, $end)){
+                $ptg[] = [
+                    "time" => $evening,
+                    "available" => false
+                ];
+            }else{
+                $ptg[] = [
+                    "time" => $evening,
+                    "available" => true
+                ];
+            }
+        }
+
+        // dd($ptg);
+
+
         $room = Room::findOrFail($id);
 
-        return view('user.booking.search.view', compact('room', 'status'));
+        return view('user.booking.search.view', compact('room', 'status', 'pagi','ptg'));
     }
 
     public function newBooking($user, $room)
@@ -167,8 +242,10 @@ class BookingController extends Controller
         $booking->equipment = json_encode($request->equipment);
         $booking->save();
 
-        return redirect()->route('user.booking.list', ['status' => 0])
-            ->with('success', 'Booking created successfully.');
+        return view('user.booking.new');
+
+        // return redirect()->route('user.booking.list', ['status' => 0])
+        //     ->with('success', 'Booking created successfully.');
     }
 
     public function show(string $id)
@@ -225,7 +302,9 @@ class BookingController extends Controller
             $booking->save();
         }
 
-        return redirect()->back()->with('msg', 'Tempahan ada telah berjaya dikemaskini');
+        // return redirect()->back()->with('msg', 'Tempahan ada telah berjaya dikemaskini');
+        return view('user.booking.update');
+
     }
 
     public function cancel(Request $request, string $id)

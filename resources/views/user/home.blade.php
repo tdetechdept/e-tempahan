@@ -44,6 +44,10 @@
       margin: 0;
       font-weight: bold;
     }
+     .none {
+        text-decoration: none !important;
+    }
+
     </style>
 @endpush
 @section('content')
@@ -56,53 +60,59 @@
 
   <!-- Stats Cards -->
   <div class="row text-center">
+        <div class="col-md-4 mb-3">
+        <a href="{{route('user.booking.list', 0)}}" class="none">
+            <div class="stats-card">
+                <div class="row">
+                <div class="col-3 d-flex justify-content-center align-items-center">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="col-9">
+                    <h5>Jumlah Tempahan</h5>
+                    <p>{{$allBook}}</p>
+                </div>
+                </div>
+            </div>
+        </a>
+        </div>
     <div class="col-md-4 mb-3">
-      <div class="stats-card">
-        <div class="row">
-        <div class="col-3 d-flex justify-content-center align-items-center">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-        <div class="col-9">
-            <h5>Jumlah Tempahan</h5>
-            <p>{{$allBook}}</p>
-        </div>
-        </div>
-      </div>
+        <a href="{{route('user.booking.list', 6)}}" class="none">
+            <div class="stats-card">
+                <div class="row">
+                <div class="col-3 d-flex justify-content-center align-items-center">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="col-9">
+                    <h5>Kemaskini Tempahan</h5>
+                    <p>{{$updateBook}}</p>
+                </div>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="col-md-4 mb-3">
-      <div class="stats-card">
-        <div class="row">
-        <div class="col-3 d-flex justify-content-center align-items-center">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-        <div class="col-9">
-            <h5>Kemaskini Tempahan</h5>
-            <p>{{$updateBook}}</p>
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="stats-card">
-        <div class="row">
-        <div class="col-3 d-flex justify-content-center align-items-center">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-        <div class="col-9">
-            <h5>Batal Tempahan</h5>
-            <p>{{$cancelBook}}</p>
-        </div>
-        </div>
-      </div>
+        <a href="{{route('user.booking.list', 5)}}" class="none">
+            <div class="stats-card">
+                <div class="row">
+                <div class="col-3 d-flex justify-content-center align-items-center">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 16.0417H35M28.3333 4.375V11.0417M11.6667 4.375V11.0417M28.3333 7.70833H11.6667C9.89856 7.70833 8.20286 8.41071 6.95262 9.66095C5.70238 10.9112 5 12.6069 5 14.375V28.9583C5 30.7264 5.70238 32.4221 6.95262 33.6724C8.20286 34.9226 9.89856 35.625 11.6667 35.625H28.3333C30.1014 35.625 31.7971 34.9226 33.0474 33.6724C34.2976 32.4221 35 30.7264 35 28.9583V14.375C35 12.6069 34.2976 10.9112 33.0474 9.66095C31.7971 8.41071 30.1014 7.70833 28.3333 7.70833Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 24.5207L17.815 27.3357C17.9141 27.4355 18.032 27.5147 18.1619 27.5687C18.2917 27.6228 18.431 27.6506 18.5717 27.6506C18.7123 27.6506 18.8516 27.6228 18.9814 27.5687C19.1113 27.5147 19.2292 27.4355 19.3283 27.3357L25 21.6641" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="col-9">
+                    <h5>Batal Tempahan</h5>
+                    <p>{{$cancelBook}}</p>
+                </div>
+                </div>
+            </div>
+        </a>
     </div>
   </div>
 </div>
@@ -186,8 +196,8 @@
                                             ],
                                             5 => [ // Cancelled by User
                                                 'label' => 'DIBATALKAN',
-                                                'bg' => '#e2e3e5', 
-                                                'text' => '#383d41',
+                                                'bg' => '#f8d7da', 
+                                                'text' => '#721c24',
                                             ],
                                              6 => [ // updated by User
                                                 'label' => 'KEMASKINI',

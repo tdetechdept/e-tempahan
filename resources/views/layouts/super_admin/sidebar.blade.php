@@ -119,6 +119,15 @@
             @endrole
             
             @role('Super Admin')
+            <!-- Pengurusan Organisasi -->
+            <li class="nav-item {{ request()->routeIs('organization.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('organization.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Pengurusan Organisasi</span>
+                </a>
+            </li>
+            
+            <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">

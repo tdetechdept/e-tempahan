@@ -23,6 +23,7 @@ Route::get('/fasiliti-bilik', [App\Http\Controllers\WebsiteController::class, 'f
 
 Auth::routes();
 Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
+Route::get('/reset-password-success', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetPasswordMsg'])->name('reset-password.success');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -83,15 +84,12 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
     Route::put('/profile/upload-img', [ProfileController::class, 'uploadImg'])->name('profile.uploadImg');
     Route::put('/profile/remove-img', [ProfileController::class, 'removeImg'])->name('profile.removeImg');
 
-
-
     // BookingList
     Route::get('/booking/{status}/list', [App\Http\Controllers\User\BookingController::class, 'index'])->name('booking.list');
     // Search
     Route::get('/search', [App\Http\Controllers\User\BookingController::class, 'search'])->name('search.index');
     Route::get('/search/result', [App\Http\Controllers\User\BookingController::class, 'searchResult'])->name('search.result');
     Route::get('/search/view/{id}', [App\Http\Controllers\User\BookingController::class, 'searchView'])->name('search.view');
-
 
     // Boooking
     Route::get('/booking/adhoc', [App\Http\Controllers\User\BookingController::class, 'adHoc'])->name('booking.adhoc');

@@ -92,6 +92,258 @@
     </div>
 
     <div class="table-section">
+        <div class="p-1 py-2 mb-3 card rounded-4">
+        <div class="bg-white card-header border-bottom-0 rounded-top-4">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                <h5 id="dashboardCardTitle" class="mb-2 card-title mb-md-0 fw-semibold">Senarai Bilik</h5>
+                <div id="addRoomButtonWrapper">
+                    <a href="{{ route('rooms.create') }}" class="btn btn-primary-custom">Tambah Bilik</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Table Controls -->
+            <div class="mb-3 row align-items-center">
+                <!-- Left: Dropdown & Label -->
+                <div class="col-md-6 d-flex align-items-center gap-2 flex-wrap">
+                    <span class="font-medium small eb-custom-color">Senarai</span>
+                    <select class="form-select form-select-sm eb-select-room-list" style="width: auto;">
+                        <option value="room">Bilik</option>
+                        <option value="user">Pengguna</option>
+                        <option value="rezervation">Tempahan</option>
+                    </select>
+                </div>
+
+                <!-- Right: Link aligned to end -->
+                <div class="col-md-6 d-flex justify-content-end">
+                    <a id="seeAllLink" href="{{ route('rooms.index') }}" class="small text-decoration-underline"
+                        style="color: #299d91; white-space: nowrap;">
+                        Lihat Semua
+                    </a>
+                </div>
+            </div>
+
+            <!-- Room Table -->
+            <div id="roomTableWrapper" class="table-responsive eb-table-wrapper">
+                <table id="roomTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-muted fw-normal small">Bil.</th>
+                            <th scope="col" class="text-muted fw-normal small">Name Bilik</th>
+                            <th scope="col" class="text-muted fw-normal small">Aras</th>
+                            <th scope="col" class="text-muted fw-normal small">kapasiti</th>
+                            <th scope="col" class="text-muted fw-normal small">Fasiliti</th>
+                            <th scope="col" class="text-muted fw-normal small">Status Bilik</th>
+                            <th scope="col" class="text-muted fw-normal small">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($rooms as $index => $room)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td class="fw-semibold">{{ $room->room_name }}</td>
+                                <td>{{ $room->level }}</td>
+                                <td>{{ $room->room_capacity }} Orang</td>
+                                <td>{{ is_array($room->facilities) ? implode(', ', $room->facilities) : $room->facilities }}
+                                </td>
+                                <td>
+                                    @if ($room->status == 1)
+                                        <span class="block py-2 text-center badge text-bg-success w-100 rounded-4">AKTIF</span>
+                                    @else
+                                        <span class="badge d-block py-2 text-center w-100 rounded-4"
+                                            style="background-color: #fdecea; color: #cc0000;">
+                                            TIDAK AKTIF
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('rooms.show', $room->id) }}" style="text-decoration: none;">
+                                        <button
+                                            class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                            <span class="material-symbols-rounded eb-eye-btn"></span> Lihat
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <!-- User Table -->
+            <div id="userTableWrapper" class="table-responsive eb-table-wrapper" style="display: none;">
+                <table id="userTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-muted fw-normal small">Bil.</th>
+                            <th scope="col" class="text-muted fw-normal small">Nama</th>
+                            <th scope="col" class="text-muted fw-normal small">E-mel</th>
+                            <th scope="col" class="text-muted fw-normal small">Tarikh/Masa</th>
+                            <th scope="col" class="text-muted fw-normal small">Tarikh Mohon</th>
+                            <th scope="col" class="text-muted fw-normal small">Status</th>
+                            <th scope="col" class="text-muted fw-normal small">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $index => $user)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td class="fw-semibold">{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->created_at->format('d M Y, h:i A') }}</td>
+                                <td>{{ $user->created_at->format('d M Y') }}</td>
+                                <td>
+                                    @php
+                                        $statusStyles = [
+                                            0 => [
+                                                'label' => 'BAHARU',
+                                                'bg' => '#fff3cd',
+                                                'text' => '#856404',
+                                            ],
+                                            1 => [
+                                                'label' => 'AkTIF',
+                                                'bg' => '#d4edda',
+                                                'text' => '#155724',
+                                            ],
+                                            2 => [
+                                                'label' => 'DILULUSKAN',
+                                                'bg' => '#cce5ff',
+                                                'text' => '#004085',
+                                            ],
+                                            3 => [
+                                                'label' => 'DITOLAK',
+                                                'bg' => '#f8d7da',
+                                                'text' => '#721c24',
+                                            ],
+                                            4 => [
+                                                'label' => 'DIBATALKAN',
+                                                'bg' => '#e2e3e5',
+                                                'text' => '#383d41',
+                                            ],
+                                            5 => [
+                                                'label' => 'NYAHAKTIF',
+                                                'bg' => '#fefefe',
+                                                'text' => '#6c757d',
+                                            ],
+                                        ];
+
+                                        $status = $statusStyles[$user->status] ?? [
+                                            'label' => 'TIDAK DIKETAHUI',
+                                            'bg' => '#f8f9fa',
+                                            'text' => '#6c757d',
+                                        ];
+                                    @endphp
+
+                                    <span class="badge d-block text-center w-100 py-2 rounded-4"
+                                        style="background-color: {{ $status['bg'] }}; color: {{ $status['text'] }};">
+                                        {{ $status['label'] }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('users.show', $user->id) }}" style="text-decoration: none;">
+                                        <button
+                                            class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                            <span class="material-symbols-rounded eb-eye-btn"></span> Lihat
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Rezervation Table -->
+            <div id="rezervationTableWrapper" class="table-responsive eb-table-wrapper" style="display: none;">
+                <table id="rezervationTable" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-muted fw-normal small">Bil.</th>
+                            <th scope="col" class="text-muted fw-normal small">Nama/Kementerian/Bahagian</th>
+                            <th scope="col" class="text-muted fw-normal small">Name Bilik</th>
+                            <th scope="col" class="text-muted fw-normal small">Tarikh/Masa</th>
+                            <th scope="col" class="text-muted fw-normal small">Tarikh Mohon</th>
+                            <th scope="col" class="text-muted fw-normal small">Status</th>
+                            <th scope="col" class="text-muted fw-normal small">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @forelse ($bookings as $index => $booking)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td class="fw-semibold">{{ $booking->meeting_name }}</td>
+                                <td>{{ $booking->room->room_name ?? 'N/A' }}</td>
+                                <td>{{ $booking->start_date }}
+                                    {{ \Carbon\Carbon::parse($booking->start_time)->format('H:i') }}
+                                    -
+                                    {{ \Carbon\Carbon::parse($booking->end_time)->format('H:i') }}
+                                </td>
+                                <td>{{ $booking->created_at->format('Y-m-d') }}</td>
+                                <td>
+                                    @php
+                                        $statusStyles = [
+                                            1 => [ // New
+                                                'label' => 'BARU',
+                                                'bg' => '#fff3cd',
+                                                'text' => '#856404',
+                                            ],
+                                            2 => [ // Pending
+                                                'label' => 'MENUNGGU',
+                                                'bg' => '#d1ecf1',
+                                                'text' => '#0c5460',
+                                            ],
+                                            3 => [ // Approved
+                                                'label' => 'Lulus',
+                                                'bg' => '#d4edda',
+                                                'text' => '#155724',
+                                            ],
+                                            4 => [ // Rejected
+                                                'label' => 'DITOLAK',
+                                                'bg' => '#f8d7da',
+                                                'text' => '#721c24',
+                                            ],
+                                            5 => [ // Cancelled
+                                                'label' => 'DIBATALKAN',
+                                                'bg' => '#e2e3e5',
+                                                'text' => '#383d41',
+                                            ],
+                                        ];
+
+                                        $status = $statusStyles[$booking->status] ?? [
+                                            'label' => 'UNKNOWN',
+                                            'bg' => '#f8f9fa',
+                                            'text' => '#6c757d',
+                                        ];
+                                    @endphp
+
+                                    <span class="badge d-block text-center w-100 py-2 rounded-4"
+                                        style="background-color: {{ $status['bg'] }}; color: {{ $status['text'] }};">
+                                        {{ $status['label'] }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="{{ route('booking.show', $booking->id) }}" style="text-decoration: none;">
+                                        <button
+                                            class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                            <span class="material-symbols-rounded eb-eye-btn"></span> Lihat
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Tiada tempahan ditemui.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="table-section">
         <h4>Senarai Pengguna</h4>
         <div class="dropdown-section">
             <div>
@@ -102,7 +354,7 @@
                     <option value="tidak_aktif">Tidak Aktif</option>
                 </select>
             </div>
-            <a href="{{ route('users.index') }}">Lihat Semua</a>
+            <a href="{{ route('pengurusan_pengguna') }}">Lihat Semua</a>
         </div>
         <div class="table-container">
             @if(isset($users) && $users->count() > 0)
@@ -189,7 +441,7 @@
                 </div>
             @endif
         </div>
-    </div>
+    </div> --}}
 
     @push('js')
     <script>
@@ -257,5 +509,39 @@
         });
         // You must call renderEventListForMonth(newMonth, newYear) whenever the calendar month changes!
     </script>
+
+      <script>
+            $(document).ready(function () {
+                const seeAllLink = $('#seeAllLink');
+                const dashboardTitle = $('#dashboardCardTitle');
+
+                $('.eb-select-room-list').on('change', function () {
+                    const selected = $(this).val();
+
+                    $('#roomTableWrapper').toggle(selected === 'room');
+                    $('#userTableWrapper').toggle(selected === 'user');
+                    $('#rezervationTableWrapper').toggle(selected === 'rezervation');
+
+                    $('#addRoomButtonWrapper').toggle(selected === 'room');
+
+                    switch (selected) {
+                        case 'room':
+                            seeAllLink.attr('href', '{{ route('rooms.index') }}');
+                            dashboardTitle.text('Senarai Bilik');
+                            break;
+                        case 'user':
+                            seeAllLink.attr('href', '{{ route('users.index') }}');
+                            dashboardTitle.text('Senarai Pengguna');
+                            break;
+                        case 'rezervation':
+                            seeAllLink.attr('href', '{{ route('booking.index') }}');
+                            dashboardTitle.text('Senarai Permohonan Tempahan');
+                            break;
+                    }
+                });
+
+                $('.eb-select-room-list').trigger('change');
+            });
+        </script>
     @endpush
 @endsection
