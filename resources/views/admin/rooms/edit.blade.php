@@ -138,6 +138,11 @@
                                     @error('layout_plan')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                                    @if(session('layout_changed'))
+                                        <p class="form-text" style="color: red;">
+                                            Anda telah mengubah Layout/Pelan.
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
 
@@ -176,7 +181,6 @@
                                     @enderror
                                 </div>
                             </div>
-
 
                             <!-- Level -->
                             <div class="col-md-6">
@@ -224,23 +228,23 @@
 
     @push('js')
     <script>
-    document.getElementById('picture').addEventListener('change', function () {
-        const message = document.getElementById('pictureChangedMessage');
-        if (this.files.length > 0) {
-            message.style.display = 'block';
-        } else {
-            message.style.display = 'none';
-        }
-    });
+    // document.getElementById('picture').addEventListener('change', function () {
+    //     const message = document.getElementById('pictureChangedMessage');
+    //     if (this.files.length > 0) {
+    //         message.style.display = 'block';
+    //     } else {
+    //         message.style.display = 'none';
+    //     }
+    // });
 
-    document.getElementById('layoutPlan').addEventListener('change', function () {
-        const message = document.getElementById('layoutChangedMessage');
-        if (this.files.length > 0) {
-            message.style.display = 'block';
-        } else {
-            message.style.display = 'none';
-        }
-    });
+    // document.getElementById('layoutPlan').addEventListener('change', function () {
+    //     const message = document.getElementById('layoutChangedMessage');
+    //     if (this.files.length > 0) {
+    //         message.style.display = 'block';
+    //     } else {
+    //         message.style.display = 'none';
+    //     }
+    // });
 
         const facilities = @json(old('facilities') ? explode(',', old('facilities')) : $room->facilities ?? []);
 

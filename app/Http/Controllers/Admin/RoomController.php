@@ -150,9 +150,12 @@ class RoomController extends Controller
             $pictureName = time() . '_' . $picture->getClientOriginalName();
             $picture->move(public_path(Room::IMAGE_PATH), $pictureName);
             $data['picture'] = $pictureName;
+        } else {
+            $data['picture'] = $room->picture;
         }
 
-        // Handle layout plan upload & delete old
+        // Handle layout plan upload (store in DB even if changed)
+        $layoutChanged = false;
         if ($request->hasFile('layout_plan')) {
             if ($room->layout && file_exists(public_path(Room::PLAN_PATH . '/' . $room->layout))) {
                 unlink(public_path(Room::PLAN_PATH . '/' . $room->layout));
@@ -161,6 +164,12 @@ class RoomController extends Controller
             $layoutName = time() . '_' . $layout->getClientOriginalName();
             $layout->move(public_path(Room::PLAN_PATH), $layoutName);
             $data['layout'] = $layoutName;
+
+            if ($room->layout !== $layoutName) {
+                $layoutChanged = true;
+            }
+        } else {
+            $data['layout'] = $room->layout;
         }
 
         // Update room
@@ -169,8 +178,8 @@ class RoomController extends Controller
             'description'     => $data['description'],
             'room_capacity'   => $data['room_capacity'],
             'facilities'      => array_map('trim', explode(',', $data['facilities'] ?? '')),
-            'picture'         => $data['picture'] ?? $room->picture,
-            'layout'          => $data['layout'] ?? $room->layout,
+            'picture'         => $data['picture'],
+            'layout'          => $data['layout'],
             'level'           => $data['level'],
             'pic_name'        => $request->input('pic_name'),
             'pic_phone'       => $request->input('pic_phone'),
@@ -186,6 +195,14 @@ class RoomController extends Controller
         }
         $room->isCustomEvent = true;
         $room->save();
+
+        // If layout changed, go back to edit page with message
+        if ($layoutChanged) {
+            return redirect()
+                ->route('rooms.edit', $room->id)
+                ->with('layout_changed', true)
+                ->with('success', 'Layout updated, please review changes.');
+        }
 
         return view('admin.rooms.success-update');
     }
