@@ -24,7 +24,7 @@
                         <option value="tidak_aktif" {{ ($statusFilter ?? '') == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
                 </div>
-                <a href="{{ route('pengurusan_pengguna') }}" class="view-all-link">Lihat Semua</a>
+                {{-- <a href="{{ route('pengurusan_pengguna') }}" class="view-all-link">Lihat Semua</a> --}}
             </div>
             
             <div class="Flex-center">

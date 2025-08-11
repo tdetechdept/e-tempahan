@@ -2,11 +2,11 @@
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">Tambah Tempahan</h1>
+        <h1 class="breadcrumb-title">Buat Tempahan</h1>
         <div class="breadcrumb-nav">
             <span>Dashboard</span>
             <span class="mx-2">/</span>
-            <span>Tambah Tempahan</span>
+            <span>Buat Tempahan</span>
         </div>
     </div>
 @endsection

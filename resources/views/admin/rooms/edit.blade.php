@@ -202,7 +202,7 @@
                                         <input type="text" id="facilityInput" class="form-control"
                                             placeholder="Enter facility...">
                                     </div>
-                                    <div class="eb-form-buttons">
+                                    <div class="eb-form-buttons mb-2">
                                         <button type="button" class="btn btn-primary eb-form-btn"
                                             onclick="addFacility()">Tambah</button>
                                     </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\Booking;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -29,15 +30,20 @@ class HomeController extends Controller
         $user = auth()->user();
         if($user->role === 'SuperAdmin') {
             // If the user is a Super Admin, show the admin dashboard
-            
+
+            $rooms = Room::latest()->take(5)->get(); 
             $users = User::latest()->take(5)->get(); 
-            return redirect()->route('dashboard',compact('users'));
+            $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
+            
+            // $users = User::latest()->take(5)->get(); 
+
+            return redirect()->route('dashboard', compact('users', 'rooms', 'bookings'));
         }
         
         if($user->role === 'User') {
             // If the user is a regular user, redirect to the user home view
 
-                $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 1)->get();
+                $newBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->whereIn('status', [1,3,5])->where('updated_at', '>=', Carbon::now()->subDay())->get();
                 $approvedBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 3)->get();
                 $waitBookings = Booking::with('user', 'room')->where('user_id', auth()->id())->where('status', 2)->get();
 
