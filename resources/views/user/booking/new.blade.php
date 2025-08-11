@@ -1,6 +1,7 @@
+
 @extends('layouts.main.app')
 
-@section('title', 'Tempahan telah dibatalkan')
+@section('title', 'Permohonan Berjaya Dihantar')
 
 @section('content')
      <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
@@ -14,8 +15,8 @@
                             <path d="M66.668 40.0859L45.8346 60.9193L35.418 50.5026" stroke="white" stroke-width="5.20833" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <h3 class="card-title">Tempahan anda telah disahkan</h3>
-                    <p class="card-text">Permohonan tempahan anda telah disahkan. <br>
+                    <h3 class="card-title">Permohonan Berjaya Dihantar</h3>
+                    <p class="card-text">Permohonan anda sedang di dalam proses. <br>
                          Mohon lihat emel anda untuk ke peringkat seterusnya.</p>
                 </div>
                 <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>

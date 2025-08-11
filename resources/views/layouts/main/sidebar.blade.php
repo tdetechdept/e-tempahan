@@ -3,7 +3,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">eTempahan</div>
+                <img class="ml-3" src="{{asset('img/logo/img-logo.png')}}" alt="" width="36" height="30">
+                <div class="sidebar-brand-text mx-2">eTempahan</div>
             </a>
 
             <!-- Divider -->
@@ -79,7 +80,7 @@
                         {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
                         <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
                         <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
-                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Batal</a>
+                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Padam</a>
                     </div>
                 </div>
             </li>
@@ -141,6 +142,16 @@
             @endrole
             
             @role('Super Admin')
+
+            <!-- Pengurusan Organisasi -->
+            <li class="nav-item {{ request()->routeIs('organization.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('organization.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Pengurusan Organisasi</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">

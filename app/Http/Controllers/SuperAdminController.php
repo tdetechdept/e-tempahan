@@ -17,6 +17,9 @@ class SuperAdminController extends Controller
     {
         try {
             // Fetch real data from database
+            $rooms = Room::latest()->take(5)->get(); 
+            $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
+
             $totalUsers = User::count();
             $totalRooms = Room::count();
             $totalBookings = Booking::count();
@@ -34,7 +37,7 @@ class SuperAdminController extends Controller
                 'special_holidays_count' => $specialHolidays->count()
             ]);
             
-            return view('super_admin.super_admin', compact('totalUsers', 'totalRooms', 'totalBookings', 'users', 'specialHolidays'));
+            return view('super_admin.super_admin', compact('totalUsers', 'totalRooms', 'totalBookings', 'users', 'specialHolidays', 'rooms', 'bookings'));
         } catch (\Exception $e) {
             \Log::error('SuperAdmin Controller Error: ' . $e->getMessage());
             throw $e;

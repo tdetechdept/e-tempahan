@@ -198,11 +198,11 @@
                         <div class="row bg-light mb-3">
                             <div class="col-md-6">
                                 <label for="nama" class="form-label">Nama Penuh</label>
-                                <input type="text" class="form-control" id="nama" name="name" aria-describedby="" value="{{ auth()->user()->name }}">
+                                <input type="text" class="form-control" id="nama" name="name" aria-describedby="" value="{{ auth()->user()->name }}" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label for="nombor_kad_pengenalan" class="form-label">Nombor Kad Pengenalan</label>
-                                <input type="text" class="form-control" id="nombor_kad_pengenalan" name="id_number" aria-describedby="" value="{{ auth()->user()->id_number }}">
+                                <input type="text" class="form-control" id="nombor_kad_pengenalan" name="id_number" aria-describedby="" value="{{ auth()->user()->id_number }}" readonly>
                             </div>
                         </div>
                         <div class="row bg-light mb-3">
@@ -256,7 +256,7 @@
                         <div class="row bg-light mb-3">
                             <div class="col-md-6">
                                 <label for="exampleInputEmail1" class="form-label">Emel</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="" name="email" value="{{ auth()->user()->email }}">
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="" name="email" value="{{ auth()->user()->email }}" readonly>
                                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                             </div>
                         </div>

@@ -2,6 +2,10 @@
 
 @section('title', 'Buat Tempahan')
 
+@push('css')
+  <!-- Tempus Dominus Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" />
+@endpush
 @section('breadcrumb')
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Buat Tempahan</h1>
@@ -70,7 +74,7 @@
                     </div>
                         <label for=""> Masa Mesyuarat</label>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="starttime">Masa Mula</label>
@@ -83,7 +87,35 @@
                                 <input type="time" class="form-control" id="endtime" name="endtime" required>
                             </div>
                         </div>
+                    </div> --}}
+
+                    <div class="row">
+                    <!-- Masa Mula -->
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Masa Mula</label>
+                        <div class="input-group date" id="timepickerStart" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" name="starttime" data-target="#timepickerStart"/>
+                        <div class="input-group-append" data-target="#timepickerStart" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                        </div>
+                        </div>
                     </div>
+                    </div>
+
+                    <!-- Masa Tamat -->
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Masa Tamat</label>
+                        <div class="input-group date" id="timepickerEnd" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" name="endtime" data-target="#timepickerEnd"/>
+                        <div class="input-group-append" data-target="#timepickerEnd" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
 
                 <div class="float-right">
                     <button type="button" class="btn btn-outline-primary">Kembali</button>
@@ -96,3 +128,30 @@
 
     </main>
 @endsection
+
+@push('js')
+<!-- jQuery, Popper.js, Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Tempus Dominus JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Font Awesome for clock icon -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<script>
+$(function () {
+    $('#timepickerStart').datetimepicker({
+        format: 'hh:mm A' // 12-hour format with AM/PM
+    });
+    $('#timepickerEnd').datetimepicker({
+        format: 'hh:mm A'
+    });
+});
+</script>
+@endpush

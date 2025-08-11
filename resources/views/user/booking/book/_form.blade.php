@@ -34,6 +34,13 @@
             </li>
         </ul>
         <div class="tab-content eb-tabs-booking-info" id="pills-tabContent">
+            @if ($button == 'update')
+                <div class="alert alert-light border-warning warning-message" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Anda hanya boleh mengemaskini Masa Mula, Masa Tamat dan Pengerusi sahaja
+                </div>
+            @endif
+
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="pills-booking-info-tab">
                 <div class="eb-booking-info-tab">
                     <div class="row">
@@ -50,12 +57,18 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Pengerusi</label>
-                                <select class="form-control" name="chairman" id="exampleFormControlSelect1">
+                                <select class="form-control" name="chairman" id="chairman">
                                     <option selected disabled>Sila Pilih Pengerusi</option>
                                     @foreach($chairmans as $chairman)
                                     <option value="{{$chairman->name}}" {{ old('chairman', $chairman->name) == @$booking->chairman ? 'selected' : '' }}>{{$chairman->name}}</option>
                                     @endforeach
                                 </select>
+
+                                <div id="chairmanText" class="align-items-center text-danger p-2" style="display: none;">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>
+                                    <span>Anda telah mengubah Pengerusi</span>
+                                </div>
+
                                     @error('chairman')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -106,8 +119,12 @@
                                         <input type="time" name="start_time" value="{{ old('start_time', request()->get('start') )}}"
                                             class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
                                     @else
-                                        <input type="time" name="start_time" value="{{ old('start_time',($booking->start_time)->format('H:i')) ?? request()->get('start') }}"
+                                        <input type="time" name="start_time" id="masaMula" value="{{ old('start_time',($booking->start_time)->format('H:i')) ?? request()->get('start') }}"
                                             class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                        <div id="masaMulaText" class="align-items-center text-danger p-2" style="display: none;">
+                                            <i class="fas fa-exclamation-circle mr-2"></i>
+                                            <span>Anda telah mengubah masa tempahan</span>
+                                        </div>
                                     @endif
                                         @error('start_time')
                                             <small class="text-danger">{{ $message }}</small>
@@ -121,8 +138,12 @@
                                         <input type="time" name="end_time" value="{{ old('end_time', request()->get('end') )}}"
                                             class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
                                     @else
-                                        <input type="time" name="end_time" value="{{ old('end_time',($booking->end_time)->format('H:i')) ?? request()->get('end') }}"
+                                        <input type="time" name="end_time" id="masaTamat" value="{{ old('end_time',($booking->end_time)->format('H:i')) ?? request()->get('end') }}"
                                             class="form-control" id="meetingStartTime" @if($button == 'create') readonly @endif>
+                                        <div id="masaTamatText" class="align-items-center text-danger p-2" style="display: none;">
+                                        <i class="fas fa-exclamation-circle mr-2"></i>
+                                        <span>Anda telah mengubah masa tempahan</span>
+                                    </div>
                                     @endif
                                         @error('end_time')
                                             <small class="text-danger">{{ $message }}</small>
@@ -530,7 +551,7 @@
                                 <label>Peralatan</label>
                                 @foreach ($room->facilities as $equipment)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="equipment[]" id="equipment{{ $equipment }}" value="{{ $equipment }}">
+                                        <input class="form-check-input" type="checkbox" name="equipment[]" id="equipment{{ $equipment }}" value="{{ $equipment }}" checked>
                                         <label class="form-check-label ml-2 mt-2 pt-1" for="equipment{{ $equipment }}">{{ $equipment }}</label>
                                     </div>
                                 @endforeach
@@ -598,7 +619,7 @@
                     <div class="eb-booking-info-btns">
                         <button type="button" class="btn btn-secondary eb-form-submit eb-delete-btn btn-back tab-nav" data-tab-step="-1">Kembali</button>
                         @if($button === 'update')
-                        <button type="submit" class="btn btn-primary eb-form-submit">Kemaskini Permohonan</button>
+                        <button type="button" class="btn btn-primary eb-form-submit" data-toggle="modal" data-target="#maklumanModal">Kemaskini Permohonan</button>
                         @else
                         <button type="button" class="btn btn-primary eb-form-submit" onclick="openConfirmationModal()">Hantar Permohonan</button>
                         @endif
@@ -646,6 +667,31 @@
 			</form>
 		</div>
 	</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="maklumanModal" tabindex="-1" role="dialog" aria-labelledby="maklumanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <!-- Icon -->
+        <div class="modal-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        
+        <!-- Title -->
+        <h6 class="modal-title" id="maklumanModalLabel">Makluman</h6>
+        
+        <!-- Body -->
+        <p class="modal-body-text">Adakah anda pasti anda ingin kemaskini tempahan ini ?</p>
+        
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary mr-2" data-dismiss="modal">Tidak</button>
+            <button type="submit" form="confirmationForm" class="btn btn-primary">Ya</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
 
 </form>
 
@@ -720,8 +766,5 @@
         const modal = new bootstrap.Modal(document.getElementById('ConfirmationModal'));
         modal.show();
     }  
-</script>
-<script>
-    
 </script>
 @endpush

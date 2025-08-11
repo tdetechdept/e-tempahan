@@ -413,13 +413,6 @@
 @push('js')
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-      {{-- calendar js --}}
-    <script src="{{ asset('admin2/js/Calender1.js') }}"></script>
-    <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
-    <script src="{{ asset('admin2/js/Calender3.js') }}"></script>
-    <script src="{{ asset('admin2/js/Dropdown.js') }}"></script>
-
-
     <script>
         var carouselWidth = $(".carousel-inner")[0].scrollWidth;
         var cardWidth = $(".carousel-item").width();
@@ -459,11 +452,6 @@
           wrap: false,
         });
     </script>
-    <script>
-    // Pass PHP data to JavaScript
-        window.calendarEvents = [];
-    </script>
-    <script src="{{ asset('admin2/js/Calender2.js') }}"></script>
 @endpush
 
 @push('js')

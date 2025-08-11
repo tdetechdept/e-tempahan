@@ -20,7 +20,7 @@
                                     'text' => '#856404',
                                 ],
                                 2 => [
-                                    'label' => 'TERTANGGUH',
+                                    'label' => 'MENUNGGU PENGESAHAN',
                                     'class' => 'eb-pending',
                                     'bg' => '#d1ecf1',
                                     'text' => '#0c5460',
@@ -39,9 +39,9 @@
                                 ],
                                 5 => [
                                     'label' => 'DIBATALKAN',
-                                    'class' => 'eb-cancelled',
-                                    'bg' => '#e2e3e5',
-                                    'text' => '#383d41',
+                                    'class' => 'eb-rejected',
+                                    'bg' => '#f8d7da',
+                                    'text' => '#721c24',
                                 ],
 
                                 6 => [ // updated by User

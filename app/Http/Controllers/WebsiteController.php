@@ -21,11 +21,13 @@ class WebsiteController extends Controller
                 ->map(function ($booking) {
                     // Determine event type based on meeting name
                     $eventType = $this->getEventType($booking->meeting_name);
+
+                    $firstWord = strtok($booking->meeting_name, " ");
                     
                     return [
                         'id' => $booking->id,
                         'title' => $eventType, // Use simplified title
-                        'full_title' => $booking->meeting_name, // Keep full title for tooltip
+                        'full_title' => $booking->start_time->format('H:i').' '.$firstWord, // Keep full title for tooltip
                         'date' => $booking->start_date->format('Y-m-d'), // Format as YYYY-MM-DD
                         'time' => $booking->start_time->format('H:i'), // Format as HH:MM
                         'end_time' => $booking->end_time->format('H:i'), // Format as HH:MM
