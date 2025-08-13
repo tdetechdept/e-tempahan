@@ -16,6 +16,13 @@ class SuperAdminController extends Controller
     public function index()
     {
         try {
+            $user = auth()->user();
+
+            if($user->role === 'User' || $user->role === 'Admin') {
+                 return redirect()->route('home');
+            }
+
+        
             // Fetch real data from database
             $rooms = Room::latest()->take(5)->get(); 
             $bookings = Booking::with('user', 'room')->latest()->take(5)->get();
