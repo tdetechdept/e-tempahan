@@ -56,32 +56,56 @@
                     <thead class="thead-light">
                         <tr>
                             <th>Bil</th>
-                            <th>Tarikh Tempahan</th>
-                            <th>Nama Mesyuarat</th>
-                            <th>Bilik</th>
-                            <th>Masa Mesyuarat</th>
-                            <th>Status</th>
+                                <th>Nama Mesyuarat</th>
+                                <th>Bahagian/Jabatan</th>
+                                <th>Bilik</th>
+                                <th>Masa Mula</th>
+                                <th>Masa Tamat</th>
+                                <th>Jangka Masa</th>
+                                <th>Penerangan Penuh</th>
+                                <th>Jenis</th>
+                                <th>Nama Pemohon</th>
+                                <th>Status</th>
+                                <th>Kemaskini Pada</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($bookings as $index => $booking)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ \Carbon\Carbon::parse($booking->start_date)->format('d F Y') }}</td>
-                                <td>{{ $booking->meeting_name }}</td>
-                                <td>{{ $booking->room->room_name ?? '-' }}</td>
-                                <td>
-                                    {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }} -
-                                    {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
-                                </td>
-                                <td>
-                                    @if ($booking->status == 3)
-                                        <span class="badge badge-success">Diluluskan</span>
-                                    @else
-                                        <span class="badge badge-secondary">{{ $booking->getStatusNameAttribute() }}</span>
-                                    @endif
-                                </td>
-                            </tr>
+                            @php
+                                    $totalMinutes = \Carbon\Carbon::parse($booking->start_time)->diffInMinutes(\Carbon\Carbon::parse($booking->end_time));
+                                    $totalHours = number_format($totalMinutes / 60,2);
+                                @endphp
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    {{-- <td>{{ \Carbon\Carbon::parse($booking->start_date)->format('d F Y') }}</td> --}}
+                                    <td>{{ $booking->meeting_name }}</td>
+                                    <td>{{ $booking->user->section ?? $booking->user->department }}</td>
+                                    <td>{{ $booking->room->room_name ?? '-' }}</td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
+                                    </td>
+                                    <td>{{ $totalHours }} Jam</td>
+                                    <td>{{ $booking->description }}</td>
+                                    <td>
+                                        @if($booking->type === 'Interior')
+                                            Dalaman
+                                        @else
+                                            Luaran
+                                        @endif
+                                    </td>
+                                    <td>{{ $booking->user->name }}</td>
+                                    <td>
+                                        @if ($booking->status == 3)
+                                            <span class="badge badge-success">Diluluskan</span>
+                                        @else
+                                            <span class="badge badge-secondary">{{ $booking->getStatusNameAttribute() }}</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($booking->updated_at)->format('h:i A - d F Y') }}</td>
+                                </tr>
                         @empty
                             <tr>
                                 <td colspan="6" class="text-center text-muted">Tiada tempahan dijumpai</td>
@@ -128,7 +152,7 @@
 <script>
     function exportToPDF() {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const doc = new jsPDF('l');
 
         doc.text("Laporan Tempahan Mingguan", 14, 15);
         doc.autoTable({
