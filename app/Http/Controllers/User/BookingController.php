@@ -133,19 +133,22 @@ class BookingController extends Controller
         {
             $bookings = Booking::where('room_id', $id)->where('start_date', $bookDate)->get();
 
-            $start = $book->start_time->format('H:i');
-            $end = $book->end_time->format('H:i');
+            foreach($bookings as $book){
 
-            if(isTimeBetween($masaP, $start, $end)){
-                $pagi[] = [
-                    "time" => $masaP,
-                    "available" => false
-                ];
-            }else{
-                $pagi[] = [
-                    "time" => $masaP,
-                    "available" => true
-                ];
+                $start = $book->start_time->format('H:i');
+                $end = $book->end_time->format('H:i');
+
+                if(isTimeBetween($masaP, $start, $end)){
+                    $pagi[] = [
+                        "time" => $masaP,
+                        "available" => false
+                    ];
+                }else{
+                    $pagi[] = [
+                        "time" => $masaP,
+                        "available" => true
+                    ];
+                }
             }
         }
 
@@ -153,19 +156,22 @@ class BookingController extends Controller
         {
             $bookings = Booking::where('room_id', $id)->where('start_date', $bookDate)->get();
 
-            $start = $book->start_time->format('H:i');
-            $end = $book->end_time->format('H:i');
+            foreach($bookings as $book){
+            
+                $start = $book->start_time->format('H:i');
+                $end = $book->end_time->format('H:i');
 
-            if(isTimeBetween($evening, $start, $end)){
-                $ptg[] = [
-                    "time" => $evening,
-                    "available" => false
-                ];
-            }else{
-                $ptg[] = [
-                    "time" => $evening,
-                    "available" => true
-                ];
+                if(isTimeBetween($evening, $start, $end)){
+                    $ptg[] = [
+                        "time" => $evening,
+                        "available" => false
+                    ];
+                }else{
+                    $ptg[] = [
+                        "time" => $evening,
+                        "available" => true
+                    ];
+                }
             }
         }
 
