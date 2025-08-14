@@ -91,7 +91,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">Tiada tempahan dijumpai</td>
+                                    <td colspan="12" class="text-center text-muted">Tiada tempahan dijumpai</td>
                                 </tr>
                             @endforelse
                         </tbody>
