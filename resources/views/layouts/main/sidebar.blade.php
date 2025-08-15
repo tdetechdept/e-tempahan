@@ -2,7 +2,7 @@
         <ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <img class="ml-3" src="{{asset('img/logo/img-logo.png')}}" alt="" width="36" height="30">
                 <div class="sidebar-brand-text mx-2">eTempahan</div>
             </a>
