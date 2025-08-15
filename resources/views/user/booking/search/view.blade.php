@@ -135,6 +135,8 @@
                                                 <i class="far fa-clock"></i>
                                                 <span class="selected-time">Pilih masa</span>
                                             </div>
+                                                <input type="time" id="newStartTime" class="form-control" name="newStartTime">
+
                                             <div class="time-picker-nav">
                                                 <button type="button" class="btn btn-link p-0" onclick="changeSession('mula', -1)"><i class="fas fa-chevron-left"></i></button>
                                                 <strong id="mula-session-label">Pagi / Tengah Hari</strong>
@@ -150,6 +152,8 @@
                                                 <i class="far fa-clock"></i>
                                                 <span class="selected-time">Pilih masa</span>
                                             </div>
+                                                <input type="time" id="newEndTime" class="form-control" name="newEndTime">
+
                                             <div class="time-picker-nav">
                                                 <button type="button" class="btn btn-link p-0" onclick="changeSession('tamat', -1)"><i class="fas fa-chevron-left"></i></button>
                                                 <strong id="tamat-session-label">Petang</strong>
@@ -227,9 +231,9 @@
                         <div class="eb-booking-info-btns mt-3">
                             <button type="button" class="btn btn-outline-primary">Kembali</button>
                             @if($status === true)
-                            <a href="{{ route('user.booking.new', ['user' => Auth::user()->id, 'room' => $room->id, 'date' => request()->get('date'), 'start' => request()->get('start'), 'end' => request()->get('end')]) }}" class="btn btn-primary">Tempah Bilik</a>
+                            <a href="{{ route('user.booking.new', ['user' => Auth::user()->id, 'room' => $room->id, 'date' => request()->get('date'), 'participants' => request()->get('participants'), 'start' => request()->get('start'), 'end' => request()->get('end')]) }}" class="btn btn-primary">Tempah Bilik</a>
                             @else
-                            <button type="button" class="btn btn-secondary" disabled>Tempah Bilik</button>
+                            <button type="button" id="tidakSedia" class="btn btn-primary" onclick="redirectToPageWithParam()" disabled >Tempah Bilik</button>
                             @endif
                         </div>
                     </form>
@@ -271,8 +275,8 @@
   //     {time: "06.30", available: false},
   //   ]
   // };
-  var pagi = @json($pagi);
-  var ptg = @json($ptg);
+  var pagi = @json($morning);
+  var ptg = @json($evening);
 
    const timeData = {
     "Pagi / Tengah Hari": pagi,
@@ -285,6 +289,9 @@
   function renderTimeGrid(type) {
     const sessionName = sessions[currentSession[type]];
     document.getElementById(`${type}-session-label`).innerText = sessionName;
+    const newStartTime = document.getElementById('newStartTime');
+    const newEndTime = document.getElementById('newEndTime');
+    const tidakSedia = document.getElementById('tidakSedia');
     const grid = document.getElementById(`${type}-time-grid`);
     grid.innerHTML = '';
     timeData[sessionName].forEach(slot => {
@@ -295,6 +302,13 @@
       if (slot.available) {
         btn.onclick = () => {
           document.querySelector(`#masa${type.charAt(0).toUpperCase() + type.slice(1)}Input .selected-time`).innerText = slot.time;
+          if(type === 'mula'){
+          newStartTime.value = slot.time;
+
+          }else{
+          newEndTime.value = slot.time;
+          tidakSedia.removeAttribute('disabled');
+          }
         };
       }
       grid.appendChild(btn);
@@ -309,5 +323,23 @@
   // Initial render
   renderTimeGrid('mula');
   renderTimeGrid('tamat');
+
+  function redirectToPageWithParam() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+
+    const user = {{auth()->user()->id}};
+    const room = {{$room->id}};
+    const date = urlParams.get('date');
+    const participants = urlParams.get('participants');
+
+    const inputValue1 = document.getElementById("newStartTime").value;
+    const inputValue2 = document.getElementById("newEndTime").value;
+
+    const targetUrl = "/user/booking/new/"+ user +"/" + room + "/?date=" + date + "&participants=" + participants + "&start=" + inputValue1 + "&end=" +  inputValue2;
+    window.location.href = targetUrl;
+  }
+
 </script>
 @endpush

@@ -18,7 +18,11 @@
 @endsection
 
 @section('content')
-
+    @if (session('msg'))
+        <div class="alert alert-warning">
+            {{ session('msg') }}
+        </div>
+    @endif
     <main class="main-content">
         <div class="my-5">
             <div class="card shadow-sm custom-card">
@@ -40,7 +44,7 @@
                                 <select class="form-control" name="roomName" id="roomNameSelect">
                                     <option>Pilih Nama Bilik Mesyuarat</option>
                                     @foreach ($rooms as $room)
-                                        <option value="{{ $room->id }}">{{ $room->room_name }}</option>
+                                        <option value="{{ $room->id }}" {{ old('roomName') == $room->id ? 'selected' : '' }}>{{ $room->room_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -52,7 +56,7 @@
                                 <select class="form-control" name="roomLevel" id="roomLevelSelect">
                                     <option>Pilih Aras Bilik Mesyuarat</option>
                                    @foreach ($rooms as $room)
-                                        <option value="{{ $room->level }}">Aras {{ $room->level }}</option>
+                                        <option value="{{ $room->level }}" {{ old('roomLevel') == $room->level ? 'selected' : '' }}>Aras {{ $room->level }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -62,13 +66,13 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="participants">Jumlah Peserta</label>
-                                <input type="text" class="form-control" id="participants" name="participants" required>
+                                <input type="text" class="form-control" id="participants" name="participants" value="{{ old('participants') }}" required>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="date">Tarikh Tempahan</label>
-                                <input type="date" class="form-control" id="date" name="date" required>
+                                <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
                             </div>
                         </div>
                     </div>
@@ -78,13 +82,13 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="starttime">Masa Mula</label>
-                                <input type="time" class="form-control" id="starttime" name="starttime" step="1800" required>
+                                <input type="time" class="form-control" id="starttime" name="starttime" value="{{ old('starttime') }}" step="1800" required>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group">
                                 <label for="endtime">Masa Tamat</label>
-                                <input type="time" class="form-control" id="endtime" name="endtime" required>
+                                <input type="time" class="form-control" id="endtime" name="endtime" value="{{ old('endtime') }}" required>
                             </div>
                         </div>
                     </div>

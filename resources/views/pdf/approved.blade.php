@@ -300,7 +300,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->user->department}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->ministry}}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -318,7 +318,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->user->position}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->position}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
                                         <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Gred</p>
@@ -330,7 +330,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->user->grade}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->gred}}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -348,7 +348,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->user->office_number}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->office}}</span>
                                     </td>
                                     <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
                                         <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Telefon Bimbit</p>
@@ -360,7 +360,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->user->phone_number}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->phone}}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -378,7 +378,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->user->email}}</span>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{$booking->email}}</span>
                                     </td>
                                     <td></td>
                                     <!-- <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
@@ -530,7 +530,19 @@
                                 </tr>
                                 <tr>
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
-                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Keperluan Lain (Kereta)</p>
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Keperluan Lain</p>
+                                        <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td height="5"></td>
+                                                    <td height="5"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{ $booking->other_requirements ? 'Yes' : 'No' }}</span>
+                                    </td>
+                                    <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
+                                        <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">No. Kereta</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
                                                 <tr>
@@ -541,7 +553,7 @@
                                         </table>
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;"> {{ $booking->car_number ?? '-' }}</span>
                                     </td>
-                                    <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
+                                    {{-- <td width="50%" style="display: none; font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;">
                                         <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Perkhidmatan Teknikal</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
@@ -552,14 +564,14 @@
                                             </tbody>
                                         </table>
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->technical_services ? 'Yes' : 'No'}} </span>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 <tr>
                                     <td height="10"></td>
                                     <td height="10"></td>
                                 </tr>
-                                <tr>
-                                    <td width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;vertical-align: text-top;">
+                                <tr >
+                                    {{-- <td width="50%" style="display: none; font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif;vertical-align: text-top;">
                                         <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Perkhidmatan ICT</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
                                             <tbody>
@@ -570,7 +582,7 @@
                                             </tbody>
                                         </table>
                                         <span style="font-weight: normal;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #6B7280;">{{$booking->ict_services ? 'Yes' : 'No'}} </span>
-                                    </td>
+                                    </td> --}}
                                     <td  width="50%" style="font-size: 12px;line-height: 1;color: #111827;font-weight: normal;font-family: Helvetica, sans-serif; vertical-align: text-top;">
                                         <p style="font-weight: bold;font-family: Helvetica, sans-serif;font-size: 12px;line-height: 1;color: #111827; margin-bottom:8px;">Kemas Kini Maklumat</p>
                                         <table cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">

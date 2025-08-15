@@ -39,7 +39,7 @@ class BookingController extends Controller
     {
         $room = Room::query()
             ->where('status', true)
-            ->where('room_capacity', '>=',  $request->participants )
+            ->where('room_capacity', '=',  $request->participants )
             // ->orWhere('id', 'like', '%' . $request->roomName . '%')
             // ->orWhere('level', 'like', '%' . $request->roomLevel . '%')
             ->get();
@@ -48,9 +48,15 @@ class BookingController extends Controller
                 'date' => $request->date,
                 'start' => $request->starttime,
                 'end' => $request->endtime,
+                'participants' => $request->participants,
             ];
 
-        return view('user.booking.search.roomlist', compact('room', 'details'));
+
+        if(count($room) === 0){
+            return redirect()->back()->with(['msg' => 'Tiada bilik dengan kapasisti yang ditetapkan'])->withInput();
+        }else{
+            return view('user.booking.search.roomlist', compact('room', 'details'));
+        }
     }
 
     /**
@@ -61,6 +67,7 @@ class BookingController extends Controller
         $bookDate = request()->date;
         $startTime = request()->start;
         $endTime = request()->end;
+        $participants = request()->participants;
 
         $status = true;
 
@@ -101,31 +108,31 @@ class BookingController extends Controller
         $ptg = [];
 
         $masaPagi = [
-            '07.30',
-            '08.00',
-            '08.30',
-            '09.00',
-            '09.30',
-            '10.00',
-            '10.30',
-            '11.00',
-            '11.30',
-            '12.00',
+            '07:30',
+            '08:00',
+            '08:30',
+            '09:00',
+            '09:30',
+            '10:00',
+            '10:30',
+            '11:00',
+            '11:30',
+            '12:00',
         ];
 
         $masaPtg = [
-            '13.00',
-            '13.30',
-            '14.00',
-            '14.30',
-            '15.00',
-            '15.30',
-            '16.00',
-            '16.30',
-            '17.00',
-            '17.30',
-            '18.00',
-            '18.30',
+            '13:00',
+            '13:30',
+            '14:00',
+            '14:30',
+            '15:00',
+            '15:30',
+            '16:00',
+            '16:30',
+            '17:00',
+            '17:30',
+            '18:00',
+            '18:30',
 
         ];
 
@@ -175,17 +182,107 @@ class BookingController extends Controller
             }
         }
 
-        // dd($ptg);
+
+        $morning = $this->morningTime($pagi);
+        $evening = $this->eveningTime($ptg);
 
 
         $room = Room::findOrFail($id);
 
-        return view('user.booking.search.view', compact('room', 'status', 'pagi','ptg'));
+        return view('user.booking.search.view', compact('room', 'status', 'morning','evening'));
     }
 
-    public function newBooking($user, $room)
+    public function morningTime($time = [])
+    {
+        $data = [];
+
+        $unavailableTimes = collect($time)
+            ->where('available', false)
+            ->pluck('time')
+            ->unique()
+            ->values()->toArray();
+
+        $mornings = [
+            ["time" => "07:00", "available" => false],
+            ["time" => "07:30", "available" => false],
+            ["time" => "08:00", "available" => false],
+            ["time" => "08:30", "available" => false],
+            ["time" => "09:00", "available" => false],
+            ["time" => "09:30", "available" => false],
+            ["time" => "10:00", "available" => false],
+            ["time" => "10:30", "available" => false],
+            ["time" => "11:00", "available" => false],
+            ["time" => "11:30", "available" => false],
+            ["time" => "12:00", "available" => false],
+            ["time" => "12:30", "available" => false],
+        ];
+
+        foreach ($mornings as $morning) {
+            if (in_array($morning["time"], $unavailableTimes)) {
+                 $data[] = [
+                        "time" => $morning["time"],
+                        "available" => false
+                    ];
+            } else {
+                $data[] = [
+                        "time" => $morning["time"],
+                        "available" => true
+                    ];
+            }
+
+        }
+
+        return $data;
+
+    }
+
+    public function eveningTime($time = [])
+    {
+        $data = [];
+
+        $unavailableTimes = collect($time)
+            ->where('available', false)
+            ->pluck('time')
+            ->unique()
+            ->values()->toArray();
+
+        $evenings = [
+            ["time" => "13:00", "available" => false],
+            ["time" => "13:30", "available" => false],
+            ["time" => "14:00", "available" => false],
+            ["time" => "14:30", "available" => false],
+            ["time" => "15:00", "available" => false],
+            ["time" => "15:30", "available" => false],
+            ["time" => "16:00", "available" => false],
+            ["time" => "16:30", "available" => false],
+            ["time" => "17:00", "available" => false],
+            ["time" => "17:30", "available" => false],
+            ["time" => "18:00", "available" => false],
+            ["time" => "18:30", "available" => false],
+        ];
+
+        foreach ($evenings as $evening) {
+            if (in_array($evening["time"], $unavailableTimes)) {
+                 $data[] = [
+                        "time" => $evening["time"],
+                        "available" => false
+                    ];
+            } else {
+                $data[] = [
+                        "time" => $evening["time"],
+                        "available" => true
+                    ];
+            }
+
+        }
+
+        return $data;
+
+    }
+
+    public function newBooking(Request $request, $user, $room)
     {   
-        $chairmans = Chairman::all();
+        $chairmans = Chairman::all();  
         $allrooms = Room::where('status', true)->get();
         $room = Room::findOrFail($room);
         $user = User::findOrFail($user);
@@ -203,6 +300,7 @@ class BookingController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request->all());
         // Handle image upload
         if ($request->hasFile('other_layout_plan')) {
             $image = $request->file('other_layout_plan');
@@ -232,6 +330,14 @@ class BookingController extends Controller
         $booking->room_plan = $request->room_plan;
         $booking->other_layout_plan = $imageName ?? NULL;
 
+        $booking->ministry = $request->ministry;
+        $booking->position = $request->position;
+        $booking->gred = $request->gred;
+        $booking->office = $request->office;
+        $booking->phone = $request->phone;
+        $booking->email = $request->email;
+
+
         $booking->secretariat_name = $request->secretariat_name;
         $booking->secretariat_office_phone = $request->secretariat_office_phone;
         $booking->secretariat_mobile_phone = $request->secretariat_mobile_phone;
@@ -240,6 +346,8 @@ class BookingController extends Controller
         $booking->food = $request->food ? 1 : 0;
         $booking->catering_name = $request->catering_name ?? 'N/A';
         $booking->catering_phone = $request->catering_phone ?? 'N/A';
+
+        $booking->other_requirements = $request->other_requirements ? 1 : 0;
         $booking->car_number = $request->car_number ?? 'N/A';
 
         $booking->technical_services = $request->technical_services ? 1 : 0;

@@ -66,7 +66,7 @@
                                     <select class="form-select" id="grade" name="grade" aria-label="Default select example">
                                         <option selected disabled>Pilih Gred</option>
                                         @foreach ($grades as $grade)
-                                            <option value="{{$grade->grade}} ({{$grade->name}})">{{$grade->grade}} ({{$grade->name}})</option>   
+                                            <option value="{{$grade->grade}}">{{$grade->grade}}</option>   
                                         @endforeach
                                     </select>
                                      @error('grade')
