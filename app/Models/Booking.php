@@ -43,6 +43,12 @@ class Booking extends Model implements Auditable
         'reviews',
         'updated_field_info',
         'other_layout_plan',
+        'ministry',
+        'position',
+        'gred',
+        'office',
+        'phone',
+        'email',
     ];
 
     protected $casts = [
@@ -90,6 +96,12 @@ class Booking extends Model implements Auditable
         'reviews',
         'updated_field_info',
         'other_layout_plan',
+        'ministry',
+        'position',
+        'gred',
+        'office',
+        'phone',
+        'email',
     ];
 
     // Only track changed attributes

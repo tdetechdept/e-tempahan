@@ -6,6 +6,11 @@ use Illuminate\Database\Seeder;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\Room;
+use App\Models\Grade;
+use App\Models\Agency;
+use App\Models\Department;
+use App\Models\Section;
+
 use Carbon\Carbon;
 
 class BookingSeeder extends Seeder
@@ -18,6 +23,14 @@ class BookingSeeder extends Seeder
         // Get existing users and rooms
         $users = User::all();
         $rooms = Room::all();
+
+        $grades = Grade::all();
+        $sections = Section::all();
+        $departments = Department::all();
+        $agencies = Agency::all();
+
+        $items = $departments->concat($agencies);
+        $alls = $items->concat($sections);
 
         // If no users or rooms exist, create some basic ones
         if ($users->isEmpty()) {
@@ -104,6 +117,10 @@ class BookingSeeder extends Seeder
         for ($i = 0; $i < 30; $i++) {
             $user = $users->random();
             $room = $rooms->random();
+            $all = $alls->random();
+            $position = $grades->random();
+            $grade = $grades->random();
+
             
             // Generate random dates (within next 30 days)
             $startDate = Carbon::now()->addDays(rand(1, 30));
@@ -151,6 +168,14 @@ class BookingSeeder extends Seeder
                 'repetition_type' => rand(0, 1) ? null : ['Daily', 'Weekly'][array_rand(['Daily', 'Weekly'])],
                 'repeat_date' => rand(0, 1) ? null : Carbon::now()->addDays(rand(1, 7))->format('Y-m-d'),
                 'room_plan' => ['Great Hall', 'Seminar Room', 'Conference Hall'][array_rand(['Great Hall', 'Seminar Room', 'Conference Hall'])],
+
+                // Requester Information
+                'ministry' => $all->name,
+                'position' => $position->name,
+                'gred' => $grade->grade,
+                'office' => '03-' . rand(1000, 9999) . ' ' . rand(1000, 9999),
+                'phone' => '01' . rand(10000000, 99999999),
+                'email' => 'secretariat' . rand(1, 100) . '@example.com',
                 
                 // Secretariat Information
                 'secretariat_name' => $secretariats[array_rand($secretariats)],

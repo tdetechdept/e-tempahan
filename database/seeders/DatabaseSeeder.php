@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             PermissionRoleSeeder::class,
             UserSeeder::class,
-            BookingSeeder::class,
             SpecialHolidaySeeder::class,
             AgencySeeder::class,
             ChairmanSeeder::class,
@@ -27,6 +26,8 @@ class DatabaseSeeder extends Seeder
             SectionSeeder::class,
             GradeSeeder::class,
             AuditSeeder::class,
+            BookingSeeder::class,
+
         ]);
     }
 }

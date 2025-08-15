@@ -15,6 +15,14 @@
                 $readonly ='';
                 $disable = '';
             }
+
+            $grades = \App\Models\Grade::all();
+            $sections = \App\Models\Section::all();
+            $departments = \App\Models\Department::all();
+            $agencies = \App\Models\Agency::all();
+
+            $items = $departments->concat($agencies);
+            $alls = $items->concat($sections);
             
         @endphp
     <!-- Content Card -->
@@ -155,7 +163,7 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Bilangan Peserta</label>
-                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants ?? '') }}"
+                                <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants ?? request()->get('participants')) }}"
                                         class="{{$class}}" {{$readonly}} id="participantsCount">
                                     @error('number_of_participants')
                                         <small class="text-danger">{{ $message }}</small>
@@ -279,9 +287,9 @@
                                         <!-- Layout Picture -->
                                             <div class="form-group">
                                                 <div class="eb-uplaod-file position-relative">
-                                                    <input type="file" name="other_layout_plan" class="form-control" id="picture">
+                                                    <input type="file" name="other_layout_plan" class="form-control" id="layoutPlan">
                                                     <span class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
-                                                    <p class="form-text" id="pictureName">Sila muat naik fail anda (pdf/jpg)</p>
+                                                    <p class="form-text" id="layoutName">Sila muat naik fail anda (pdf/jpg)</p>
                                                 </div>
                                                 <small class="text-muted">Saiz maksimum fail untuk layout / pelan ialah 5MB</small>
                                                 @error('other_layout_plan')
@@ -314,15 +322,12 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Nama Kementrian / Bahagian / Jabatan</label>
-                                <input type="text" name="" value="{{ Auth::user()->department ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="jabatan" readonly>
-                                 {{-- <select class="{{$class}}" {{$readonly}} name="section" id="secretariatTypeSelect">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select> --}}
+                                <select class="form-control" id="ministry" name="ministry" aria-label="Default select example">
+                                        <option selected disabled>Pilih Jabatan / Agensi</option>
+                                        @foreach ($alls as $item)
+                                            <option value="{{$item->name}}">{{$item->name}}</option>   
+                                        @endforeach
+                                    </select>
                                     @error('section')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -331,15 +336,12 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Jawatan </label>
-                                <input type="text" name="" value="{{ Auth::user()->position ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="position" readonly>
-                                 {{-- <select class="{{$class}}" {{$readonly}} name="position" id="positionSelect">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select> --}}
+                                <select class="form-control" id="position" name="position" aria-label="Default select example">
+                                        <option selected disabled>Pilih Jawatan</option>
+                                        @foreach ($grades->unique('name') as $grade)
+                                            <option value="{{$grade->name}}">{{$grade->name}}</option>   
+                                        @endforeach
+                                    </select>
                                     @error('position')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -348,16 +350,13 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Gred </label>
-                                <input type="text" name="" value="{{ Auth::user()->grade ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="gred" readonly>
-                                 {{-- <select class="{{$class}}" {{$readonly}} name="grade" id="gradeSelect">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select> --}}
-                                    @error('grade')
+                                <select class="form-control" id="gred" name="gred" aria-label="Default select example">
+                                        <option selected disabled>Pilih Gred</option>
+                                        @foreach ($grades as $grade)
+                                            <option value="{{$grade->grade}}">{{$grade->grade}}</option>   
+                                        @endforeach
+                                    </select>
+                                    @error('gred')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                             </div>
@@ -365,8 +364,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Pejabat </label>
-                                <input type="text" name="" value="{{ Auth::user()->office_number ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="officePhone" readonly>
+                                <input type="text" name="office" value="{{ Auth::user()->office_number ?? '' }}"
+                                        class="{{$class}}" {{$readonly}} id="officePhone" >
                                 {{-- <input type="text" name="office_phone" value="{{ old('office_phone') }}"
                                         class="{{$class}}" {{$readonly}} id="officePhone"> --}}
                                     @error('office_phone')
@@ -378,8 +377,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>No. Telefon Bimbit </label>
-                                <input type="text" name="" value="{{ Auth::user()->phone_number ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="phone" readonly>
+                                <input type="text" name="phone" value="{{ Auth::user()->phone_number ?? '' }}"
+                                        class="{{$class}}" {{$readonly}} id="phone">
                                 {{-- <input type="text" name="mobile_phone" value="{{ old('mobile_phone') }}"
                                         class="{{$class}}" {{$readonly}} id="mobilePhone"> --}}
                                     @error('mobile_phone')
@@ -390,8 +389,8 @@
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Emel</label>
-                                <input type="text" name="" value="{{ Auth::user()->email ?? '' }}"
-                                        class="{{$class}}" {{$readonly}} id="email" readonly>
+                                <input type="text" name="email" value="{{ Auth::user()->email ?? '' }}"
+                                        class="{{$class}}" {{$readonly}} id="email">
                                 {{-- <input type="email" name="email" value="{{ old('email') }}"
                                         class="{{$class}}" {{$readonly}} id="email"> --}}
                                     @error('email')
@@ -461,16 +460,12 @@
             <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="pills-other-info-tab">
                 <div class="eb-booking-info-tab">
                     @if($button === 'update')
-                                        <div class="row">
+                    <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
                                 <label>Makanan</label>
                                 <p>
-                                    @if($booking->food === 1)
-                                    Ya
-                                    @else
-                                    Tidak
-                                    @endif
+                                    {{ $booking->food ? 'Ya' : 'Tidak' }}
                                 </p>
                             </div>
                         </div>
@@ -480,20 +475,20 @@
                                 <p>{{ is_array($booking->equipment) ? implode(', ', $booking->equipment) : implode(', ', json_decode($booking->equipment, true)) }}</p>
                             </div>
                         </div>
-                        @if($booking->food === 1)
+                        @if($booking->food)
                         <div class="col-lg-6 col-md-12">
                             <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Nama Katering</label>
-                                    <input type="text" name="catering_name" value="{{ old('catering_name') }}"
+                                    <input type="text" name="catering_name" value="{{ old('catering_name', $booking->catering_name ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="cateringName">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>No. Telefon</label>
-                                    <input type="text" name="catering_phone" value="{{ old('catering_phone') }}"
+                                    <input type="text" name="catering_phone" value="{{ old('catering_phone', $booking->catering_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="cateringPhone">
                                 </div>
                             </div>
@@ -501,12 +496,23 @@
                         </div>
                         @endif
                         <div class="col-lg-6 col-md-12">
-                            {{-- <div class="form-group mb-4">
-                                <label>Keperluan Lain (Kereta) </label>
-                                <p>{{ $booking->car_number ?? '-' }}</p>
-                            </div> --}}
+                            <div class="form-group mb-4">
+                                <label>Keperluan Lain</label>
+                                <p>
+                                    {{ $booking->other_requirements ? 'Ya' : 'Tidak' }}
+                                </p>
+                            </div>
                         </div>
+                        @if($booking->other_requirements)
                         <div class="col-lg-6 col-md-12">
+                            <div class="form-group mb-4">
+                                <label>No Kereta</label>
+                                <input type="text" name="car_number" value="{{ old('car_number', $booking->car_number ?? '') }}"
+                                    class="{{$class}}" {{$readonly}} id="car_number">
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-lg-6 col-md-12" hidden>
                             <div class="form-group mb-4">
                                 <label>Perkhidmatan Teknikal</label>
                                 <p>
@@ -518,7 +524,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-6 col-md-12" hidden>
                             <div class="form-group mb-4">
                                 <label>Perkhidmatan ICT</label>
                                 <p>
@@ -568,6 +574,10 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                 <small class="text-danger">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>
+                                    <span>Tempahan katering adalah di bawah tanggungjawab pemohon.</span>
+                                </small>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
@@ -583,12 +593,44 @@
                         </div>
                     
                         <div class="col-lg-6 col-md-12">
-                            {{-- <div class="form-group mb-4">
-                                <label>Keperluan Lain (Kereta) </label>
-                                <p>{{ $booking->car_number ?? '-' }}</p>
-                            </div> --}}
+                            <div class="form-group mb-4">
+                                <label>Keperluan Lain</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="other_requirements" id="other_requirements1" value="1">
+                                    <label class="form-check-label ml-2 mt-2 pt-1" for="other_requirements1">Ya</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="other_requirements" id="other_requirements2" value="0">
+                                    <label class="form-check-label ml-2 mt-2 pt-1" for="other_requirements2">Tidak</label>
+                                </div>
+                            </div>
+                                <small class="text-danger" style="display: none" id="other_text">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>
+                                    <span>Sila nyatakan nombor kenderaan. Penyediaan tempat letak kereta adalah tertakluk kepada kekosongan.</span>
+                                </small>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-6 col-md-12" style="display: none" id="other_form">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group mb-4">
+                                        <label>No. Kereta</label>
+                                        <input type="text" name="car_number" value="{{ old('car_number') }}"
+                                            class="form-control" id="carNumber">
+                                        @error('car_number')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                        <small class="text-danger">
+                                               <i class="fas fa-exclamation-circle mr-2"></i>
+                                                <span>Sekiranya ada keperluan parking, sila maklumkan kepada unit keselamatan.
+                                                    <br>
+                                                    Nama PIC : En. Haizul Bin Rahman, No. Telefon Pejabat: 03 - 4351 8000.
+                                                </span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12" hidden>
                             <div class="form-group mb-4">
                                 <label>Perkhidmatan Teknikal</label>
                                 <div class="form-check form-check-inline">
@@ -596,12 +638,12 @@
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="technical1">Ya</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="technical_services" id="technical2" value="0">
+                                    <input class="form-check-input" type="radio" name="technical_services" id="technical2" value="0" checked>
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="technical2">Tidak</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-6 col-md-12" hidden>
                             <div class="form-group mb-4">
                                 <label>Perkhidmatan ICT</label>
                                 <div class="form-check form-check-inline">
@@ -609,7 +651,7 @@
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="ict1">Ya</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="ict_services" id="ict2" value="0">
+                                    <input class="form-check-input" type="radio" name="ict_services" id="ict2" value="0" checked>
                                     <label class="form-check-label ml-2 mt-2 pt-1" for="ict2">Tidak</label>
                                 </div>
                             </div>
@@ -760,11 +802,38 @@
 
         });
 
+        //Others
+         document.addEventListener('DOMContentLoaded', function () {
+            const otherButtons = document.querySelectorAll('input[name="other_requirements"]');
+            const otherForm = document.getElementById('other_form');
+            const otherText = document.getElementById('other_text');
+
+
+            otherButtons.forEach(otherButton => {
+                otherButton.addEventListener('change', function() {
+                    if(otherButton.value === '1'){
+                        otherForm.style.display = 'block';
+                        otherText.style.display = 'block';
+
+                    }else{
+                        otherForm.style.display = 'none';
+                        otherText.style.display = 'none';
+
+                    }
+                });
+            });
+
+        });
+
 </script>
 <script>
     function openConfirmationModal() {
         const modal = new bootstrap.Modal(document.getElementById('ConfirmationModal'));
         modal.show();
     }  
+
+            document.getElementById('layoutPlan').addEventListener('change', function() {
+            document.getElementById('layoutName').textContent = this.files[0]?.name || '';
+        });
 </script>
 @endpush

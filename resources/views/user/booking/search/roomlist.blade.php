@@ -69,9 +69,10 @@
                                                     'date' => request()->get('date'),
                                                     'start' => request()->get('starttime'),
                                                     'end' => request()->get('endtime'),
+                                                    'participants' => request()->get('participants'),
                                                 ];
                                             @endphp
-                                            <a href="{{ route('user.search.view', ['id' => $new->id, 'date' => $details['date'], 'start' => $details['start'], 'end' => $details['end']]) }}">
+                                            <a href="{{ route('user.search.view', ['id' => $new->id, 'date' => $details['date'],'participants' => $details['participants'], 'start' => $details['start'], 'end' => $details['end']]) }}">
                                                 <button 
                                                     class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
                                                     <span class="material-symbols-rounded eb-eye-btn"></span> See

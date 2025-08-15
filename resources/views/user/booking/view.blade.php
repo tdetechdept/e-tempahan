@@ -198,37 +198,37 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Nama Kementrian / Bahagian / Jabatan</label>
-                                    <p>{{$booking->user->department}}</p>
+                                    <p>{{$booking->ministry}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Jawatan </label>
-                                    <p> {{$booking->user->position}}</p>
+                                    <p> {{$booking->position}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Gred </label>
-                                    <p> {{$booking->user->grade}}</p>
+                                    <p> {{$booking->gred}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>No. Telefon Pejabat </label>
-                                    <p> {{$booking->user->office_number}}</p>
+                                    <p> {{$booking->office}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>No. Telefon Bimbit </label>
-                                    <p> {{$booking->user->phone_number}}</p>
+                                    <p> {{$booking->phone}}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Emel</label>
-                                    <p>{{$booking->user->email}}</p>
+                                    <p>{{$booking->email}}</p>
                                 </div>
                             </div>
                             <!-- <div class="col-lg-6 col-md-12">
@@ -295,6 +295,7 @@
                                     <p>{{ is_array($booking->equipment) ? implode(', ', $booking->equipment) : implode(', ', json_decode($booking->equipment, true)) }}</p>
                                 </div>
                             </div>
+                            @if($booking->food)
                             <div class="col-lg-6 col-md-12">
                                 <div class="row">
                                 <div class="col-lg-6 col-md-12">
@@ -311,20 +312,28 @@
                                 </div>
                                 </div>
                             </div>
-                        
+                            @endif
+                             <div class="col-lg-6 col-md-12">
+                                <div class="form-group mb-4">
+                                    <label>Keperluan Lain</label>
+                                    <p>{{$booking->other_requirements ? 'Yes' : 'No'}}</p>
+                                </div>
+                            </div>
+                            @if($booking->other_requirements)
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Keperluan Lain (Kereta) </label>
+                                    <label>No. Kereta </label>
                                     <p>{{ $booking->car_number ?? '-' }}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
+                            @endif
+                            <div class="col-lg-6 col-md-12" hidden>
                                 <div class="form-group mb-4">
                                     <label>Perkhidmatan Teknikal</label>
                                     <p>{{$booking->technical_services ? 'Yes' : 'No'}}</p>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
+                            <div class="col-lg-6 col-md-12" hidden>
                                 <div class="form-group mb-4">
                                     <label>Perkhidmatan ICT</label>
                                     <p>{{$booking->ict_services ? 'Yes' : 'No'}}</p>
@@ -362,6 +371,7 @@
                             <div class="p-2 bd-highlight">
                                 <a href="javascript:history.back()" class="btn btn-outline-secondary eb-delete-btn ">Kembali</a>
                                 <button type="submit" form="confirm_form" class="btn btn-primary">Sahkan Tempahan</button>
+                                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
                                 {{-- <a href="{{route('user.booking.edit', $booking->id)}}" class="btn btn-primary" >Sahkan Tempahan</a> --}}
                             </div>
                             @endif
