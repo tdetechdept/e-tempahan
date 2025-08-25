@@ -33,19 +33,19 @@
                     <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#pills-other-info" role="tab" aria-controls="pills-other-info" aria-selected="false">Other Booking Information</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-booking-info-tab" data-toggle="tab" href="#tab1" role="tab"
+                    <a class="nav-link active text-primary" id="pills-booking-info-tab" data-toggle="tab" href="#tab1" role="tab"
                         aria-controls="pills-booking-info" aria-selected="true">Maklumat Tempahan Bilik</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab"
+                    <a class="nav-link text-primary" id="pills-applicant-info-tab" data-toggle="tab" href="#tab2" role="tab"
                         aria-controls="pills-applicant-info" aria-selected="false">Maklumat Sekretariat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-secretariat-info-tab" data-toggle="tab" href="#tab3" role="tab"
+                    <a class="nav-link text-primary" id="pills-secretariat-info-tab" data-toggle="tab" href="#tab3" role="tab"
                         aria-controls="pills-secretariat-info" aria-selected="false">Maklumat Urusetia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab"
+                    <a class="nav-link text-primary" id="pills-other-info-tab" data-toggle="tab" href="#tab4" role="tab"
                         aria-controls="pills-other-info" aria-selected="false">Tempahan Lain</a>
                 </li>
             </ul>

@@ -36,7 +36,8 @@ class CalendarController extends Controller
                     'description' => $booking->description,
                     'chairman' => $booking->chairman,
                     'department' => $booking->department ?? 'General',
-                    'color' => $this->getEventColor($booking->status)
+                    'color' => $this->getEventColor($booking->status),
+                    'url' => route('booking.show', $booking->id)
                 ];
             });
 

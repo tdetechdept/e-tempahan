@@ -2,8 +2,20 @@
 
 @section('content')
     <div class="pengurusan_pengguna_page ">
-        <h2 class="page_title">Kalendar</h2>
-        <p class="breadcrumbs">Laman Utama / Kalendar / <span>Ketetapan</span></p>
+        {{-- <h2 class="page_title">Kalendar</h2>
+        <p class="breadcrumbs">Laman Utama / Kalendar / <span>Ketetapan</span></p> --}}
+
+        <div class="breadcrumb-section mb-3">
+            <h1 class="breadcrumb-title">Kalendar</h1>
+            <div class="breadcrumb-nav">
+                <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+                <span class="mx-2">/</span>
+                <a href="{{ route('calendar') }}" class="text-decoration-none text-dark">Kalendar</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="text-decoration-none text-primary">Cipta Tempahan</a>
+            </div>
+        </div>
+
         <div class="Laporan_content">
             <div class="">
                 <div class="">
@@ -169,13 +181,13 @@
     }
     
     .form-control:focus {
-        border-color: #299d91;
+        border-color: #285689;
         box-shadow: 0 0 0 0.2rem rgba(41, 157, 145, 0.25);
     }
     
     .btn-primary {
-        background-color: #299d91;
-        border-color: #299d91;
+        background-color: #285689;
+        border-color: #285689;
         border-radius: 8px;
         padding: 12px 60px;
         font-weight: 500;
@@ -183,8 +195,8 @@
     }
     
     .btn-primary:hover {
-        background-color: #238a7f;
-        border-color: #238a7f;
+        background-color: #3c80cf;
+        border-color: #3c80cf;
         transform: translateY(-1px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
@@ -227,7 +239,7 @@
     }
     
     .form-control[type="file"]::-webkit-file-upload-button {
-        background-color: #299d91;
+        background-color: #285689;
         color: white;
         border: none;
         border-radius: 4px;
@@ -250,7 +262,7 @@
     }
     
     input[type="date"]:focus, input[type="time"]:focus {
-        border-color: #299d91;
+        border-color: #285689;
         box-shadow: 0 0 0 0.2rem rgba(41, 157, 145, 0.25);
     }
     
