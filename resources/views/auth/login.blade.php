@@ -15,6 +15,16 @@
           <div class="col-md-7 p-4">
             <h5 class="fw-bold">Masuk</h5>
             <p class="text-muted">Sila isi maklumat anda di bawah</p>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
             <form method="POST" action="{{ route('login') }}">
             @csrf
               <div class="mb-3">

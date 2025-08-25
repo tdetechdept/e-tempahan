@@ -25,9 +25,9 @@ Auth::routes();
 Route::get('/register-success', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationMsg'])->name('register.success');
 Route::get('/reset-password-success', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetPasswordMsg'])->name('reset-password.success');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(['auth','activeUser']);
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','activeUser']], function() {
     // Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::post('users/{id}/deactivate', [ UserController::class , 'deactivate'])->name('users.deactivate');
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
 
-Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
+Route::middleware(['auth','activeUser']) ->prefix('user')->as('user.')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
@@ -110,7 +110,7 @@ Route::middleware(['auth']) ->prefix('user')->as('user.')->group(function () {
 }); 
 
 //For Super Admin will for my design theing
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','activeUser'])->group(function () {
  
     // Dashboard
     Route::get('/super_admin', [App\Http\Controllers\SuperAdminController::class, 'index'])->name('dashboard');
