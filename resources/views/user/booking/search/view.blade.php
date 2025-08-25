@@ -229,7 +229,7 @@
                                 </div>
                         </div>
                         <div class="eb-booking-info-btns mt-3">
-                            <button type="button" class="btn btn-outline-primary">Kembali</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-primary">Kembali</a>
                             @if($status === true)
                             <a href="{{ route('user.booking.new', ['user' => Auth::user()->id, 'room' => $room->id, 'date' => request()->get('date'), 'participants' => request()->get('participants'), 'start' => request()->get('start'), 'end' => request()->get('end')]) }}" class="btn btn-primary">Tempah Bilik</a>
                             @else

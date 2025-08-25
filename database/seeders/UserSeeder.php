@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'department'     => $faker->randomElement(['Account Devision', 'Human Resources', 'Client Relations', 'Sales Devision', 'Marketing Devision', 'Technical Support']),
                 'office_number'   => $faker->phoneNumber,
                 'phone_number'   => $faker->e164PhoneNumber,
-                'status'         => $faker->randomElement(['0', '1', '2', '3', '4']),
+                'status'         => $faker->randomElement(['0', '1', '2']),
                 'password'       => '123456',
             ]);
 
