@@ -80,7 +80,7 @@
 
 
 .dashboard-btn:hover{
-        background-color: #299d91dc;
+        background-color: #3c80cf;
             color: #fff;
         text-decoration: none;
     }
