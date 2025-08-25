@@ -483,7 +483,38 @@
 
         });
 
-                // pdf download
+
+        // next click 
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.tab-nav');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const direction = parseInt(this.getAttribute('data-tab-step'));
+                    const activeTab = document.querySelector('.nav-tabs .nav-link.active');
+
+                    if (!activeTab) return;
+
+                    const tabs = Array.from(document.querySelectorAll('.nav-tabs .nav-link'));
+                    const currentIndex = tabs.indexOf(activeTab);
+                    const nextIndex = currentIndex + direction;
+
+                    if (nextIndex >= 0 && nextIndex < tabs.length) {
+                        const nextTab = tabs[nextIndex];
+                        const bsTab = new bootstrap.Tab(nextTab);
+                        bsTab.show();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+@if($booking->status === 3)
+
+<script>
+            
+        // pdf download
         document.getElementById('downloadPDF').addEventListener('click', function () {
             const bookingId = document.querySelector('input[name="booking_id"]').value;
             const reviews = document.querySelector('textarea[name="reviews"]').value;
@@ -565,32 +596,6 @@
                     console.error(error);
                 });
         });
-
-
-
-        // next click 
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabButtons = document.querySelectorAll('.tab-nav');
-
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const direction = parseInt(this.getAttribute('data-tab-step'));
-                    const activeTab = document.querySelector('.nav-tabs .nav-link.active');
-
-                    if (!activeTab) return;
-
-                    const tabs = Array.from(document.querySelectorAll('.nav-tabs .nav-link'));
-                    const currentIndex = tabs.indexOf(activeTab);
-                    const nextIndex = currentIndex + direction;
-
-                    if (nextIndex >= 0 && nextIndex < tabs.length) {
-                        const nextTab = tabs[nextIndex];
-                        const bsTab = new bootstrap.Tab(nextTab);
-                        bsTab.show();
-                    }
-                });
-            });
-        });
-    </script>
-
+</script>
+@endif
 @endpush

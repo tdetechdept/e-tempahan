@@ -2,8 +2,19 @@
 
 @section('content')
     <div class="pengurusan_pengguna_page ">
-        <h2 class="page_title">Kalendar</h2>
-        <p class="breadcrumbs">Laman Utama / Kalendar / <span>Cipta Cuti Khas</span></p>
+        {{-- <h2 class="page_title">Kalendar</h2>
+        <p class="breadcrumbs">Laman Utama / Kalendar / <span>Cipta Cuti Khas</span></p> --}}
+
+        <div class="breadcrumb-section mb-3">
+            <h1 class="breadcrumb-title">Kalendar</h1>
+            <div class="breadcrumb-nav">
+                <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+                <span class="mx-2">/</span>
+                <a href="{{ route('calendar') }}" class="text-decoration-none text-dark">Kalendar</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="text-decoration-none text-primary">Cipta Cuti Khas</a>
+            </div>
+        </div>
 
         <div class="">
             <div class="card">
@@ -63,13 +74,13 @@
                                             <table class="table table-borderless text-center calendar-table">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-info">Su</th>
-                                                        <th class="text-info">Mo</th>
-                                                        <th class="text-info">Tu</th>
-                                                        <th class="text-info">We</th>
-                                                        <th class="text-info">Th</th>
-                                                        <th class="text-info">Fr</th>
-                                                        <th class="text-info">Sa</th>
+                                                        <th class="text-primary">Su</th>
+                                                        <th class="text-primary">Mo</th>
+                                                        <th class="text-primary">Tu</th>
+                                                        <th class="text-primary">We</th>
+                                                        <th class="text-primary">Th</th>
+                                                        <th class="text-primary">Fr</th>
+                                                        <th class="text-primary">Sa</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -111,13 +122,13 @@
                                             <table class="table table-borderless text-center calendar-table">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-info">Su</th>
-                                                        <th class="text-info">Mo</th>
-                                                        <th class="text-info">Tu</th>
-                                                        <th class="text-info">We</th>
-                                                        <th class="text-info">Th</th>
-                                                        <th class="text-info">Fr</th>
-                                                        <th class="text-info">Sa</th>
+                                                        <th class="text-primary">Su</th>
+                                                        <th class="text-primary">Mo</th>
+                                                        <th class="text-primary">Tu</th>
+                                                        <th class="text-primary">We</th>
+                                                        <th class="text-primary">Th</th>
+                                                        <th class="text-primary">Fr</th>
+                                                        <th class="text-primary">Sa</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -181,8 +192,8 @@
         }
     
         .form-control:focus {
-            border-color: #299d91;
-            box-shadow: 0 0 0 0.2rem rgba(41, 157, 145, 0.25);
+            border-color: #285689;
+            box-shadow: 0 0 0 0.2rem rgba(40, 86, 137, 0.25);
         }
     
         .input-group-text,
@@ -211,8 +222,8 @@
     
         /* Buttons */
         .btn-primary {
-            background-color: #299d91;
-            border-color: #299d91;
+            background-color: #285689;
+            border-color: #285689;
             border-radius: 8px;
             padding: 12px 35px;
             font-weight: 500;
@@ -220,8 +231,8 @@
         }
     
         .btn-primary:hover {
-            background-color: #238a7f;
-            border-color: #238a7f;
+            background-color: #285689;
+            border-color: #285689;
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -260,7 +271,7 @@
             border: none;
             padding: 8px;
             font-weight: 600;
-            color: #299d91;
+            color: #285689;
             font-size: 0.9rem;
         }
     
@@ -275,7 +286,7 @@
     
         .calendar-table td:hover {
             background-color: #e3f2fd;
-            color: #1976d2;
+            color: #285689;
         }
     
         .calendar-table td.text-muted {
@@ -285,7 +296,7 @@
     
         .calendar-table td.text-info {
             background-color: #e3f2fd;
-            color: #1976d2;
+            color: #285689 !important;
             font-weight: bold;
         }
     
@@ -297,7 +308,7 @@
         }
     
         .calendar-table td.highlighted-date p {
-            background-color: #299d91 !important;
+            background-color: #285689 !important;
             color: white !important;
             border-radius: 100%;
             height: 40px;
@@ -311,7 +322,7 @@
         .table thead th {
             background-color: transparent;
             border-bottom: none;
-            color: #1C8C8B;
+            color: #285689;
             font-size: 1rem;
             font-weight: 600;
             letter-spacing: 0.05em;
@@ -339,7 +350,7 @@
     
         .month-display,
         .nav_and_date button i {
-            color: #1A8C8B;
+            color: #285689;
         }
     
         .month-display {
@@ -356,18 +367,18 @@
         .calender_title_2 h6 {
             font-size: 1rem;
             font-weight: 600;
-            color: #1A8C8B;
+            color: #285689;
         }
     
         .prev-month-btn,
         .next-month-btn {
-            color: #299d91;
+            color: #285689;
             transition: all 0.2s ease;
         }
     
         .prev-month-btn:hover,
         .next-month-btn:hover {
-            color: #238a7f;
+            color: #285689;
             transform: scale(1.1);
         }
     

@@ -17,6 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Use dynamic events from server or fallback to empty array
     const events = window.calendarEvents || [];
 
+
     function renderCalendar() {
         if (!calendarGrid || !currentMonthYear) return;
         calendarGrid.innerHTML = '';
@@ -76,6 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         let dayCounter = 1;
         let html = '';
+
 
         for (let i = 0; i < 6; i++) {
             html += '<div class="row no-gutters">';
@@ -159,8 +161,8 @@ window.addEventListener("DOMContentLoaded", () => {
                     const displayName = event.type === 'holiday' ? event.title : (event.full_title ? event.full_title : event.title);
                     const truncatedTitle = truncateText(displayName, 15);
                     const tooltipText = event.type === 'holiday' ? 'CUTI KHAS' : (event.full_title ? `${event.full_title}` : displayName);
-                    
-                    html += `<div class="event ${eventClass}" title="${tooltipText}">${truncatedTitle}</div>`;
+
+                    html += `<a href="${event.url}" class="event ${eventClass}" title="${tooltipText}">${truncatedTitle}</a>`;
                 });
                 html += `</div>`;
             }
@@ -231,8 +233,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 const truncatedTitle = truncateText(displayName, 15);
                 const tooltipText = event.type === 'holiday' ? 'CUTI KHAS' : (event.full_title ? `${event.full_title} - ${event.room} - ${event.user}` : `${eventTitle} - ${event.room} - ${event.user}`);
                 const eventTime = event.time || 'All Day';
-                
-                html += `<div class="event ${eventClass}" title="${tooltipText}">${eventTime} ${truncatedTitle}</div>`;
+
+                html += `<a href="${event.url}" class="event ${eventClass}" title="${tooltipText}">${eventTime} ${truncatedTitle}</a>`;
             });
             html += `</div>`;
         }
@@ -298,11 +300,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 const eventDetails = event.type === 'holiday' ? 
                     `Holiday: ${event.description || 'No description'}` : 
                     `Room: ${event.room} | User: ${event.user} | Participants: ${event.participants}`;
-                
-                html += `<div class="event ${eventClass} mb-2 p-2">
+
+                html += `<a href="${event.url}" class="event ${eventClass} mb-2 p-2">
                     <strong>${eventTime} - ${truncatedTitle}</strong><br>
                     <small>${eventDetails}</small>
-                </div>`;
+                </a>`;
             });
         } else {
             html += `<p class="text-muted text-center mt-3">No events for this day.</p>`;
@@ -356,11 +358,11 @@ window.addEventListener("DOMContentLoaded", () => {
                 const eventDetails = event.type === 'holiday' ? 
                     `Holiday: ${event.description || 'No description'}` : 
                     `Room: ${event.room} | User: ${event.user} | Status: ${getStatusText(event.status)}`;
-                
-                html += `<div class="event ${statusClass} mb-2 p-2" style="${eventStyle}">
+
+                html += `<a href="${event.url}" class="event ${statusClass} mb-2 p-2" style="${eventStyle}">
                     <strong>${eventTime} - ${eventTitle}</strong><br>
                     <small>${eventDetails}</small>
-                </div>`;
+                </a>`;
             });
         } else {
             html += `<p class="text-muted text-center mt-3">No upcoming events.</p>`;

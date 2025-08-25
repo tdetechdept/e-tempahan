@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Nama Mesyuarat</label>
+                                <label>Nama Mesyuarat <span class="text-danger">*</span></label>
                                 <input type="text" name="meeting_name" value="{{ old('meeting_name', $booking->meeting_name ?? null) }}"
                                         class="{{$class}}" {{$readonly}} id="meetingName">
                                     @error('meeting_name')
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Pengerusi</label>
+                                <label>Pengerusi <span class="text-danger">*</span></label>
                                 <select class="form-control" name="chairman" id="chairman">
                                     <option selected disabled>Sila Pilih Pengerusi</option>
                                     @foreach($chairmans as $chairman)
@@ -162,7 +162,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Bilangan Peserta</label>
+                                <label>Bilangan Peserta <span class="text-danger">*</span></label>
                                 <input type="text" name="number_of_participants" value="{{ old('number_of_participants', $booking->number_of_participants ?? request()->get('participants')) }}"
                                         class="{{$class}}" {{$readonly}} id="participantsCount">
                                     @error('number_of_participants')
@@ -172,7 +172,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Penerangan</label>
+                                <label>Penerangan <span class="text-danger">*</span></label>
                                 <textarea class="{{$class}}" {{$readonly}} id="validationTextarea" name="description" placeholder="Penerangan" required>{{ old('description', $booking->description ?? '') }}</textarea>
                                     @error('description')
                                         <small class="text-danger">{{ $message }}</small>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Status </label>
+                                <label>Status <span class="text-danger">*</span></label>
                                 <select class="form-control" name="status" id="statusSelect" {{$disable}}>
                                     <option value="">Pilih Status</option>
                                     <option value="1" {{ old('type', $booking->status ?? '') == 1  ? 'selected' : '' }}>Permohonan Baru</option>
@@ -321,7 +321,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Nama Kementrian / Bahagian / Jabatan</label>
+                                <label>Nama Kementrian / Bahagian / Jabatan <span class="text-danger">*</span></label>
                                 <select class="form-control" id="ministry" name="ministry" aria-label="Default select example">
                                         <option selected disabled>Pilih Jabatan / Agensi</option>
                                         @foreach ($alls as $item)
@@ -335,7 +335,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Jawatan </label>
+                                <label>Jawatan <span class="text-danger">*</span></label>
                                 <select class="form-control" id="position" name="position" aria-label="Default select example">
                                         <option selected disabled>Pilih Jawatan</option>
                                         @foreach ($grades->unique('name') as $grade)
@@ -349,7 +349,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Gred </label>
+                                <label>Gred <span class="text-danger">*</span></label>
                                 <select class="form-control" id="gred" name="gred" aria-label="Default select example">
                                         <option selected disabled>Pilih Gred</option>
                                         @foreach ($grades as $grade)
@@ -363,7 +363,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>No. Telefon Pejabat </label>
+                                <label>No. Telefon Pejabat <span class="text-danger">*</span></label>
                                 <input type="text" name="office" value="{{ Auth::user()->office_number ?? '' }}"
                                         class="{{$class}}" {{$readonly}} id="officePhone" >
                                 {{-- <input type="text" name="office_phone" value="{{ old('office_phone') }}"
@@ -376,7 +376,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>No. Telefon Bimbit </label>
+                                <label>No. Telefon Bimbit <span class="text-danger">*</span></label>
                                 <input type="text" name="phone" value="{{ Auth::user()->phone_number ?? '' }}"
                                         class="{{$class}}" {{$readonly}} id="phone">
                                 {{-- <input type="text" name="mobile_phone" value="{{ old('mobile_phone') }}"
@@ -388,7 +388,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Emel</label>
+                                <label>Emel <span class="text-danger">*</span></label>
                                 <input type="text" name="email" value="{{ Auth::user()->email ?? '' }}"
                                         class="{{$class}}" {{$readonly}} id="email">
                                 {{-- <input type="email" name="email" value="{{ old('email') }}"
@@ -412,7 +412,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Nama Urusetia</label>
+                                <label>Nama Urusetia <span class="text-danger">*</span></label>
                                 <input type="text" name="secretariat_name" value="{{ old('secretariat_name', $booking->secretariat_name ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatName">
                                     @error('secretariat_name')
@@ -422,7 +422,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>No. Telefon Pejabat</label>
+                                <label>No. Telefon Pejabat <span class="text-danger">*</span></label>
                                 <input type="text" name="secretariat_office_phone" value="{{ old('secretariat_office_phone', $booking->secretariat_office_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatOfficePhone">
                                     @error('secretariat_office_phone')
@@ -432,7 +432,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>No. Telefon Bimbit </label>
+                                <label>No. Telefon Bimbit <span class="text-danger">*</span></label>
                                 <input type="text" name="secretariat_mobile_phone" value="{{ old('secretariat_mobile_phone', $booking->secretariat_mobile_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatMobilePhone">
                                     @error('secretariat_mobile_phone')
@@ -442,7 +442,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="form-group mb-4">
-                                <label>Emel </label>
+                                <label>Emel <span class="text-danger">*</span></label>
                                 <input type="text" name="secretariat_email" value="{{ old('secretariat_email', $booking->secretariat_email ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="secretariatEmail">
                                     @error('secretariat_email')
@@ -480,14 +480,14 @@
                             <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>Nama Katering</label>
+                                    <label>Nama Katering <span class="text-danger">*</span></label>
                                     <input type="text" name="catering_name" value="{{ old('catering_name', $booking->catering_name ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="cateringName">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
-                                    <label>No. Telefon</label>
+                                    <label>No. Telefon <span class="text-danger">*</span></label>
                                     <input type="text" name="catering_phone" value="{{ old('catering_phone', $booking->catering_phone ?? '') }}"
                                         class="{{$class}}" {{$readonly}} id="cateringPhone">
                                 </div>
