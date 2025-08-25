@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Super Admin',
             'role' => 'SuperAdmin',
             'email' => 'superadmin@gmail.com',
+            'status' => 1,
             'password' => Hash::make('password')
         ]);
 
@@ -27,6 +28,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin',
             'role' => 'Admin',
             'email' => 'admin@gmail.com',
+            'status' => 1,
             'password' => Hash::make('password')
         ]);
 
@@ -35,6 +37,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Pengguna',
             'role' => 'User',
             'email' => 'pengguna@gmail.com',
+            'status' => 1,
             'password' => Hash::make('password')
         ]);
     }

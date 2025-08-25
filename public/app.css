@@ -299,13 +299,13 @@
 }
 
 .dropdown-section select option:hover {
-  background-color: #59C378;
+  background-color: #285689;
   color: white;
 }
 
 .dropdown-section a {
   font-family: "Nunito", sans-serif;
-  color: #59C378;
+  color: #285689;
   font-weight: 700;
   text-decoration: none;
   font-size: 16px;
@@ -376,7 +376,7 @@
 
 .btn-view {
   font-family: "Nunito", sans-serif;
-  border: solid 2px #008080;
+  border: solid 2px #285689;
   color: #285689;
   padding:  4px 6px;
   border-radius: 8px;
@@ -449,7 +449,7 @@
 }
 
 .tab_button.active {
-  background-color: #008080 !important;
+  background-color: #285689 !important;
   border-radius: 6px;
   color: white;
 }
@@ -575,7 +575,7 @@ input:focus {
   padding: 10px 14px;
   border-radius: 6px;
   border: none;
-  background-color: #008080;
+  background-color: #285689;
   color: white;
   font-weight: 600;
   font-size: 13px;
@@ -697,8 +697,8 @@ input:focus {
 
 /* Confirm hover */
 .modal-footer .btn-primary:hover {
-  background-color: #299D91 !important;
-  border-color: #299D91 !important;
+  background-color: #285689 !important;
+  border-color: #285689 !important;
 }
 
 .pagination {
@@ -1208,7 +1208,7 @@ Calender Page end
   width: 100%;
 }
 .Usermanagement_button_align a{
-  background-color: #008080;
+  background-color: #285689;
   border-radius: 6px;
   color: white;
   text-decoration: none;
@@ -1216,7 +1216,7 @@ Calender Page end
   font-size: 13px;
 }
 .Usermanagement_button_align a:hover{
-  background-color: #008080;
+  background-color: #285689;
 }
 .Laporan_content_bg{
 background-color: white;
@@ -1241,13 +1241,13 @@ font-weight: 600;
 font-size: 13px;
 }
 .Audit_pagination_align .next_page_link a{
-background-color: #008080;
+background-color: #285689;
 color: white !important;
 }
 .Audit_pagination_align .page-item.active .page-link{
 background-color: #E6F3F3;
-border: 2px solid #008080;
-color: #008080
+border: 2px solid #285689;
+color: #285689
 }
 .Audit_pagination_align .page-item:last-child .page-link{
 border-radius: 16px;
