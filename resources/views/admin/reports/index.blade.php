@@ -6,7 +6,7 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Laporan</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
             <span class="mx-2">/</span>
             <span class="text-primary">Laporan</span>
         </div>

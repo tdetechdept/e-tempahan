@@ -6,13 +6,13 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Bilik</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">papan pemuka</a>
             <span class="mx-2">/</span>
             <a href="{{ route('rooms.index') }}" class="text-decoration-none text-dark">Senarai Bilik</a>
             <span class="mx-2">/</span>
             <a href="{{ route('rooms.show', $room->id) }}" class="text-decoration-none text-dark">Maklumat</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('rooms.edit', $room->id) }}" class="text-decoration-none text-success">Kemaskini Bilik</a>
+            <a href="{{ route('rooms.edit', $room->id) }}" class="text-decoration-none breadcrumb-active">Kemaskini Bilik</a>
         </div>
     </div>
 @endsection
@@ -33,7 +33,7 @@
                             <!-- Name Bilik -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="roomName">Name Bilik</label>
+                                    <label for="roomName">Profile Bilik</label>
                                     <input type="text" name="room_name" value="{{ old('room_name', $room->room_name) }}"
                                         class="form-control" id="roomName">
                                     @error('room_name')

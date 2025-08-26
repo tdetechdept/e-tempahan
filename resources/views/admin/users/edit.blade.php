@@ -6,13 +6,13 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Pengurusan Pengguna</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
             <span class="mx-2">/</span>
             <a href="{{ route('admin.users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
             <a href="{{ route('admin.users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-decoration-none text-success">Kemaskini Maklumat Pengguna</a>
+            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-decoration-none breadcrumb-active">Kemaskini Maklumat Pengguna</a>
         </div>
     </div>
 @endsection
