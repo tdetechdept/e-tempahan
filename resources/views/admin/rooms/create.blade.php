@@ -71,7 +71,7 @@
                                 $selectedStatus = old('status', '');
                             @endphp
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="status">Status Bilik</label>
                                     <select name="status" id="status" class="form-control">
@@ -90,7 +90,7 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <!-- Picture -->
@@ -159,7 +159,7 @@
                             </div>
 
                             <!-- Level -->
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="level">Level</label>
                                     <input type="text" name="level" id="level" class="form-control" min="1"
@@ -168,7 +168,7 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Facilities -->
                             <div class="col-md-6">

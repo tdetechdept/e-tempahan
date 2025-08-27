@@ -1,22 +1,19 @@
 @extends('layouts.main.app')
 
-@section('title', 'Pengguna Dikemas Kini')
+@section('title', 'Berjaya Didaftarkan')
 
 @section('content')
-
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="text-center border-0 shadow-sm card p-4">
             <div class="card-body">
                 <div class="mb-3">
-                    <div class="mx-auto mb-2">
+                     <div class="mx-auto mb-2">
                         <img src="{{ asset('img/download.svg') }}" class="download-icon" alt="Download Icon">
                     </div>
-
-                    <h3 class="card-title">Kemaskini pengguna berjaya</h3>
-                    <p class="card-text">Maklumat pengguna telah berjaya dikemaskini</p>
+                    <h3 class="card-title">{{ $message }}</h3>
                 </div>
                 <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
-</div>
+    </div>
 @endsection

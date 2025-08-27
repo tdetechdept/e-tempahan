@@ -1,6 +1,6 @@
 @extends('layouts.main.app')
 
-@section('title', content: 'Pengurusan Pengguna')
+@section('title', content: 'Maklumat Pengguna')
 
 @section('breadcrumb')
 	<div class="breadcrumb-section">
@@ -26,7 +26,7 @@
 				<!-- <div class="eb-form-section"> -->
 				<table class="table table-borderless">
 					<hr class="my-3">
-					<tr>
+					{{-- <tr>
 						<th>Gambar Profil</th>
 						<td style="border: none;">
 							@if($user->image)
@@ -35,7 +35,7 @@
 								Tiada gambar
 							@endif
 						</td>
-					</tr>
+					</tr> --}}
 					<tr>
 						<th>Nama Pegawai</th>
 						<td style="border: none;">{{ $user->name }}</td>
@@ -104,7 +104,7 @@
 							<div class="Senarai_pengguna_pagination">
 								<button type="button" class="btn coustome-btn_2_red me-2"
 									onclick="openModal('deactivateUserModal', 'deactivateUserForm', '{{ route('users.deactivate', $user->id) }}')">
-									Nyahaktif Pengguna
+									Tidak Aktif Pengguna
 								</button>
 								<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-secondary eb-form-submit me-2">
 									Kemaskini Pengguna

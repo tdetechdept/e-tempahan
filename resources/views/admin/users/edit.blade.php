@@ -8,11 +8,11 @@
         <div class="breadcrumb-nav">
             <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
+            <a href="{{ route('users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
+            <a href="{{ route('users.show', $user->id) }}" class="text-decoration-none text-dark">Maklumat Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.edit', $user->id) }}" class="text-decoration-none breadcrumb-active">Kemaskini Maklumat Pengguna</a>
+            <a href="{{ route('users.edit', $user->id) }}" class="text-decoration-none breadcrumb-active">Kemaskini Maklumat Pengguna</a>
         </div>
     </div>
 @endsection
@@ -121,18 +121,6 @@
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="text-end align-middle">Gambar Profil</th>
-                            <td style="border: none;">
-                                @if($user->image)
-                                    <img src="{{ asset('uploads/users/' . $user->image) }}?v={{ time() }}" alt="User Image" width="100" class="mb-2"><br>
-                                @endif
-                                <input type="file" class="form-control" name="image" accept="image/*">
-                                @error('image')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
                             </td>
                         </tr>
                     </table>

@@ -7,7 +7,10 @@
         <div class="text-center border-0 shadow-sm card p-4">
             <div class="card-body">
                 <div class="mb-3">
-                    <div class="mx-auto mb-2 eb-registration-icon"></div>
+                    <div class="mx-auto mb-2">
+                        <img src="{{ asset('img/download.svg') }}" class="download-icon" alt="Download Icon">
+                    </div>
+
                     <h3 class="card-title"> Pengguna telah dinyahaktifkan.</h3>
                     <p class="card-text">Akses ke sistem tidak lagi dibenarkan sehingga diaktifkan semula.</p>
                 </div>

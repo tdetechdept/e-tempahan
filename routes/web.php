@@ -71,6 +71,7 @@ Route::group(['middleware' => ['auth','activeUser']], function() {
         Route::post('/organization/store/{type}', [OrganizationController::class, 'store'])->name('organization.store');
         Route::get('admin/organization/tab/{type}', [OrganizationController::class, 'tab'])->name('organization.tab');
         Route::get('/organization/edit/{type}/{id}', [OrganizationController::class, 'edit'])->name('organization.edit');
+        Route::get('/organization/success/{type}', [OrganizationController::class, 'success'])->name('organization.success');
         Route::put('/organization/update/{type}/{id}', [OrganizationController::class, 'update'])->name('organization.update');
         Route::post('/organization/delete/{type}/{id}', [OrganizationController::class, 'destroy'])->name('organization.destroy');
     });

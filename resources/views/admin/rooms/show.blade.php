@@ -60,7 +60,7 @@
                             @if ($room->pic_name)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="pic_name">Nama Pegawai</label>
+                                        <label for="pic_name">Nama PIC</label>
                                         <input type="text" class="form-control" id="pic_name" placeholder=""
                                             value="{{ $room->pic_name }}" readonly>
                                     </div>
@@ -71,7 +71,7 @@
                             @if ($room->pic_phone)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="pic_phone">No Telefon Pegawai</label>
+                                        <label for="pic_phone">No Telefon PIC</label>
                                         <div class="d-flex align-items-center gap-2">
                                             <input type="text" class="form-control" id="pic_phone" placeholder=""
                                                 value="{{ $room->pic_phone }}" readonly>
@@ -84,7 +84,7 @@
                             @if ($room->pic_email)
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="pic_email">Email Pegawai</label>
+                                        <label for="pic_email">Email PIC</label>
                                         <div class="d-flex align-items-center gap-2">
                                             <input type="text" class="form-control" id="pic_email" placeholder=""
                                                 value="{{ $room->pic_email }}" readonly>

@@ -2,18 +2,20 @@
 
 @section('title', 'Semakan Tempahan')
 
+@section('breadcrumb')
+    <div class="breadcrumb-section">
+        <h1 class="breadcrumb-title">Semakan Tempahan</h1>
+        <div class="breadcrumb-nav">
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('booking.index') }}" class="text-decoration-none breadcrumb-active">Senarai Tempahan</a>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 <!-- Booking Review page start -->
     <main class="main-content" >
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-section">
-            <h1 class="breadcrumb-title">Semakan Tempahan</h1>
-            <div class="breadcrumb-nav">
-                <span>Papan Pemuka</span>
-                <span class="mx-2">/</span>
-                <span class="breadcrumb-active">Senarai Tempahan</span>
-            </div>
-        </div>
 
         <!-- Content Card -->
         <div class="content-card mb-3">
