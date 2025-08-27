@@ -11,7 +11,7 @@
                     <h3 class="card-title">Bilik telah berjaya dipadam..</h3>
                     <p class="card-text">Bilik telah berjaya dipadam daripada sistem.</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Laman Utama</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
     </div>

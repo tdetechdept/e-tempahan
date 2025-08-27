@@ -20,7 +20,7 @@
         <div class="breadcrumb-section mb-4">
             <h1 class="breadcrumb-title">Laporan</h1>
             <div class="breadcrumb-nav">
-                <span>Laman Utama</span>
+                <span>Papan Pemuka</span>
                 <span class="mx-2">/</span>
                 <span class="breadcrumb-active">Laporan Tempahan Harian</span>
             </div>

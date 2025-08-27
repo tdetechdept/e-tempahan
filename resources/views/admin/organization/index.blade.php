@@ -6,9 +6,9 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Pengurusan Organisasi</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
             <span class="mx-2">/</span>
-            <a href="{{ route('organization.index') }}" class="text-decoration-none text-success">Pengurusan Organisasi</a>
+            <a href="{{ route('organization.index') }}" class="text-decoration-none breadcrumb-active">Pengurusan Organisasi</a>
         </div>
     </div>
 @endsection

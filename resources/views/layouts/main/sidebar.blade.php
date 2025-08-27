@@ -67,39 +67,40 @@
                         $isBilikActive = in_array(Route::currentRouteName(), $bilikRoutes);
                     @endphp
             <li class="nav-item {{ $isBilikActive ? 'active' : '' }}">
-                <a class="nav-link {{ $isBilikActive ? '' : 'collapsed' }}" href="#" data-toggle="collapse"
-                    data-target="#collapseBilik" aria-expanded="{{ $isBilikActive ? 'true' : 'false' }}"
-                    aria-controls="collapseBilik">
+                <a class="nav-link {{ $isBilikActive ? 'active' : '' }}" href="{{ route('rooms.index') }}">
                     <i class="fas fa-fw fa-map-marked-alt"></i>
                     <span>Bilik</span>
                 </a>
 
                 <div id="collapseBilik" class="collapse {{ $isBilikActive ? 'show' : '' }}"
                         aria-labelledby="headingBilik" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Bilik:</h6> --}}
-                        <a class="collapse-item" href="{{ route('rooms.create') }}">Tambah</a>
-                        <a class="collapse-item" href="{{ route('rooms.index') }}">Kemaskini</a>
-                        <a class="collapse-item" href="{{ route('rooms.cancelled') }}">Padam</a>
+                    <div class="collapse {{ $isBilikActive ? 'show' : '' }}" id="collapseBilik"
+                        aria-labelledby="headingBilik" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item {{ Route::currentRouteName() == 'rooms.create' ? 'active' : '' }}" href="{{ route('rooms.create') }}">Tambah</a>
+                            <a class="collapse-item {{ Route::currentRouteName() == 'rooms.index' ? 'active' : '' }}" href="{{ route('rooms.index') }}">Kemaskini</a>
+                            <a class="collapse-item {{ Route::currentRouteName() == 'rooms.cancelled' ? 'active' : '' }}" href="{{ route('rooms.cancelled') }}">Padam</a>
+                        </div>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Semakan Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSemakan"
-                    aria-expanded="true" aria-controls="collapseSemakan">
+            @php
+                $semakanRoutes = ['booking.index', 'booking.cancel.index', 'booking.create', 'booking.adhoc']; // all routes for Semakan Tempahan
+                $isSemakanActive = in_array(Route::currentRouteName(), $semakanRoutes);
+            @endphp
+            <li class="nav-item {{ $isSemakanActive ? 'active' : '' }}">
+                <a class="nav-link {{ $isSemakanActive ? 'active' : '' }}" href="{{ route('booking.index') }}">
                     <i class="fas fa-fw fa-search-location"></i>
                     <span>Semakan Tempahan</span>
                 </a>
-                <div id="collapseSemakan" class="collapse" aria-labelledby="headingSemakan"
-                    data-parent="#accordionSidebar">
+                <div id="collapseSemakan" class="collapse {{ $isSemakanActive ? 'show' : '' }}"
+                    aria-labelledby="headingSemakan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {{-- <h6 class="collapse-header">Custom Semakan:</h6> --}}
-                        <a class="collapse-item" href="#">Baharu</a>
-                        <a class="collapse-item" href="{{ route('booking.index') }}">Kemaskini</a>
-                        <a class="collapse-item" href="{{ route('booking.cancel.index') }}">Batal</a>
-                        <a class="collapse-item" href="#">Ad-hoc</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.create' ? 'active' : '' }}" href="{{ route('booking.create') }}">Baharu</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.index' ? 'active' : '' }}" href="{{ route('booking.index') }}">Kemaskini</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.cancel.index' ? 'active' : '' }}" href="{{ route('booking.cancel.index') }}">Batal</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.adhoc' ? 'active' : '' }}" href="#">Ad-hoc</a>
                     </div>
                 </div>
             </li>

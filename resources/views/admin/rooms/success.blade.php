@@ -11,7 +11,7 @@
                     <h3 class="card-title">Pendaftaran bilik baharu berjaya</h3>
                     <p class="card-text"> Bilik ini kini boleh dipilih oleh pengguna untuk membuat tempahan</p>
                 </div>
-                <a href="{{ route('home') }}" class="btn btn-primary">Laman Utama</a>
+                <a href="{{ route('home') }}" class="btn btn-primary">Papan Pemuka</a>
             </div>
         </div>
     </div>
