@@ -7,11 +7,11 @@
 		<h1 class="breadcrumb-title">Pengurusan Pengguna</h1>
 		<div class="breadcrumb-nav">
 			<!-- <span>Home</span> -->
-			<a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+			<a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
 			<span class="mx-2">/</span>
 			<a href="{{ route('users.index') }}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
 			<span class="mx-2">/</span>
-			<a href="{{ route('users.show', $user->id) }}" class="text-decoration-none text-success">Maklumat Pengguna</a>
+			<a href="{{ route('users.show', $user->id) }}" class="text-decoration-none breadcrumb-active">Maklumat Pengguna</a>
 		</div>
 	</div>
 @endsection
@@ -21,7 +21,7 @@
 		<!-- Content Card -->
 		<div class="content-card mb-3">
 			<div class="eb-create-room-information">
-				<h3>Semak Pendaftaran</h3>
+				<h3>Maklumat Pengguna</h3>
 
 				<!-- <div class="eb-form-section"> -->
 				<table class="table table-borderless">

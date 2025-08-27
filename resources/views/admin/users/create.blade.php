@@ -6,11 +6,11 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Daftar Pengguna Baharu</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
             <a href="{{ route('admin.users.index') }}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.create') }}" class="text-decoration-none text-success">Daftar Pengguna Baharu</a>
+            <a href="{{ route('admin.users.create') }}" class="text-decoration-none breadcrumb-active">Daftar Pengguna Baharu</a>
         </div>
     </div>
 @endsection

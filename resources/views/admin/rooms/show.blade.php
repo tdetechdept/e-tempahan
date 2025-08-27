@@ -6,11 +6,11 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Bilik</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
             <a href="{{ route('rooms.index') }}" class="text-decoration-none text-dark">Senarai Bilik</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('rooms.show', $room->id) }}" class="text-decoration-none text-success">Maklumat</a>
+            <a href="{{ route('rooms.show', $room->id) }}" class="text-decoration-none breadcrumb-active">Maklumat</a>
         </div>
     </div>
 @endsection
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="roomName">Name Bilik</label>
+                                    <label for="roomName">Profil Bilik</label>
                                     <input type="text" class="form-control" id="roomName" placeholder=""
                                         value="{{ $room->room_name }}" readonly>
                                 </div>
