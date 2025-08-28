@@ -6,9 +6,9 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Bilik</h1>
         <div class="breadcrumb-nav">
-            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
             <span class="mx-2">/</span>
-            <a href="{{ route('rooms.index') }}" class="text-decoration-none text-success">Senarai Bilik Dibatalkan</a>
+            <a href="{{ route('rooms.index') }}" class="text-decoration-none breadcrumb-active">Senarai Bilik Dibatalkan</a>
         </div>
     </div>
 @endsection
@@ -38,7 +38,7 @@
                         <thead>
                             <tr>
                                 <th>Bil.</th>
-                                <th>Name Bilik</th>
+                                <th>Profil Bilik</th>
                                 <th>Gambar</th>
                                 <th>kapasiti</th>
                                 <th>Fasiliti</th>
@@ -83,10 +83,15 @@
                                         @endif
                                    </td>
                                     <td>
-                                        <a href="{{ route('rooms.show', $room) }}" class="gap-2 btn btn-sm btn-outline-custom d-flex align-items-center eye-btn">
+                                        {{-- <a href="{{ route('rooms.show', $room) }}" class="gap-2 btn btn-sm btn-outline-custom d-flex align-items-center eye-btn">
                                             <span class="material-symbols-rounded">visibility</span>
                                             Lihat
-                                        </a>
+                                        </a> --}}
+                                        <a href="{{ route('rooms.show', $room) }}"
+                                        class="gap-2 btn btn-medium btn-outline-custom d-flex align-items-center">
+                                        <span class="material-symbols-rounded eb-eye-btn"></span>
+                                        Lihat
+                                    </a>
                                     </td>
                                 </tr>
                             @endforeach

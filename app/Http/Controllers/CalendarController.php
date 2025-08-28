@@ -183,7 +183,7 @@ class CalendarController extends Controller
             $booking->start_time = $request->start_time;
             $booking->end_time = $request->end_time;
             $booking->status = 3; // Approved status for manual bookings
-            $booking->type = 'manual';
+            $booking->type = 'Manual';
             $booking->description = 'Manual booking created by admin';
             
             // Set required fields that might be null

@@ -2,8 +2,19 @@
 
 @section('content')
     <div class="pengurusan_pengguna_page">
-        <h2 class="page_title">Audit</h2>
-        <p class="breadcrumbs">Laman Utama / <a href="{{ route('audit') }}">Rekod Aktiviti Pengguna</a> / <span>Maklumat Butiran Log</span></p>
+        {{-- <h2 class="page_title">Audit</h2>
+        <p class="breadcrumbs">Laman Utama / <a href="{{ route('audit') }}">Rekod Aktiviti Pengguna</a> / <span>Maklumat Butiran Log</span></p> --}}
+
+         <div class="breadcrumb-section mb-3">
+            <h1 class="breadcrumb-title">Audit</h1>
+            <div class="breadcrumb-nav">
+                <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+                <span class="mx-2">/</span>
+                 <a href="{{ route('audit') }}" class="text-decoration-none text-dark">Rekod Aktiviti Pengguna</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="text-decoration-none text-primary">Maklumat Butiran Log</a>
+            </div>
+        </div>
 
         <div class="maklumat_pengguna">
             <h2 class="section_title">Maklumat Butiran Log</h2>
@@ -89,7 +100,9 @@
             @endif
 
             <div class="Log_Details_Information mt-5">
-                <a href="{{ route('audit') }}" class="dashboard-btn btn btn-primary">Kembali ke Audit</a>
+                <a href="{{ route('audit.print_pdf', $audit->id) }}" class="dashboard-btn btn btn-primary mr-2">Cetak Butiran</a>
+                <a href="{{ route('audit.pdf', $audit->id) }}" class="dashboard-btn btn btn-primary mr-2">Eksport Butiran</a>
+                {{-- <a href="{{ route('audit') }}" class="dashboard-btn btn btn-primary">Kembali ke Audit</a> --}}
             </div>
         </div>
     </div>

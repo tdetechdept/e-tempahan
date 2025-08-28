@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
+    public function create()
+    {
+        $roles = Role::all(); // fetch all roles
+        return view('admin.users.create', compact('roles'));
+    }
     // public function index()
     // {
     //     $users = User::role('User')->get();
@@ -52,14 +59,58 @@ class UserController extends Controller
     
         return view('admin.users.index', compact('users', 'statusLabels'));
     }
-    public function create()
-    {
-        //
-    }
+   
 
     public function store(Request $request)
     {
-        //
+        // Validate required fields
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed', 
+            'role' => 'required|string|exists:roles,name',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'position' => 'required|string|max:255',
+            'grade' => 'required|string|max:255',
+            'section' => 'required|string|max:255',
+            'department' => 'required|string|max:255',
+            'phone_office' => 'nullable|string|max:20',
+            'phone_mobile' => 'nullable|string|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = $validator->validated();
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/users'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        // Create user
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'position' => $data['position'] ?? null,
+            'grade' => $data['grade'] ?? null,
+            'section' => $data['section'] ?? null,
+            'department' => $data['department'] ?? null,
+            'phone_number' => $data['phone_mobile'] ?? null,
+            'office_number' => $data['phone_office'] ?? null,
+            'image' => $data['image'] ?? null,
+            'status' => 0, // New status
+        ]);
+
+        // Assign role
+        $user->assignRole($data['role']);
+
+        return view("admin.users.register-success");
     }
 
     public function show(string $id)

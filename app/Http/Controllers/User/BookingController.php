@@ -324,6 +324,7 @@ class BookingController extends Controller
         $booking->type = $request->type;
 
         $booking->status = 1; // New status
+        $booking->notification_admin = 0;
 
         $booking->repetition_type = $request->repetition_type;
         $booking->repeat_date = $request->repeat_date;
@@ -365,6 +366,13 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
+
+        if(request()->read)
+        {
+            $booking->notification_user = 1;
+            $booking->save(); 
+        }
+
         return view('user.booking.view', compact('booking'));
     }
 
@@ -407,6 +415,8 @@ class BookingController extends Controller
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
             'status' => 6,
+            'notification_admin' => 0,
+
         ]);
 
         // Log update if no status change
@@ -438,6 +448,7 @@ class BookingController extends Controller
         
         if ($request->action === 'reject') {
             $booking->status = 5; // Cancel by User
+            $booking->notification_admin = 0;
             $booking->reviews = $request->reviews;
             $booking->save();
             
@@ -463,8 +474,9 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         
         $oldStatus = $booking->status;
-        
         $booking->status = 7; // Confirm by User
+        $booking->notification_admin = 0;
+
         $booking->save();
         
         // Add custom audit event for rejection

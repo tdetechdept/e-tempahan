@@ -40,8 +40,6 @@ class RoomController extends Controller
             'facilities'    => 'nullable|string',
             'picture'       => 'required|image|mimes:jpg,jpeg,png,webp,bmp|max:2048',
             'layout_plan'   => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp,bmp|max:2048',
-            'level'         => 'nullable|string|max:255',
-            'status' => ['required', Rule::in([Room::STATUS_ACTIVE, Room::STATUS_INACTIVE])],
             'pic_name'      => 'required|string|max:255',
             'pic_phone'     => 'required|string|max:20',
             'pic_email'     => 'required|email|max:255',
@@ -77,11 +75,10 @@ class RoomController extends Controller
             'picture'        => $data['picture'] ?? null,
             'layout'         => $data['layout_plan'] ?? null,
             'facilities'     => array_map('trim', explode(',', $data['facilities'] ?? '')),
-            'status'         => $data['status'],
+           
             'pic_name'       => $data['pic_name'],
             'pic_phone'      => $data['pic_phone'],
             'pic_email'      => $data['pic_email'],
-            'level'          => $data['level'],
         ]);
 
         // Add custom audit message
@@ -122,13 +119,11 @@ class RoomController extends Controller
             'description'   => 'required|string',
             'room_capacity' => 'required|integer|min:1',
             'facilities'    => 'nullable|string',
-            'level'         => 'nullable|string',
             'picture'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'layout_plan'   => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
             'pic_name'     => 'nullable|string|max:255',
             'pic_phone'    => 'nullable|string|max:50',
             'pic_email'    => 'nullable|email|max:255',
-            'status'        => ['required', Rule::in([Room::STATUS_ACTIVE, Room::STATUS_INACTIVE])],
         ]);
 
         if ($validator->fails()) {
@@ -180,19 +175,12 @@ class RoomController extends Controller
             'facilities'      => array_map('trim', explode(',', $data['facilities'] ?? '')),
             'picture'         => $data['picture'],
             'layout'          => $data['layout'],
-            'level'           => $data['level'],
             'pic_name'        => $request->input('pic_name'),
             'pic_phone'       => $request->input('pic_phone'),
             'pic_email'       => $request->input('pic_email'),
-            'status'          => $data['status'],
         ]);
 
         // Add custom audit message based on what changed
-        if ($originalStatus != $data['status']) {
-            $room->auditEvent = $data['status'] == Room::STATUS_ACTIVE ? 'room_activated_by_admin' : 'room_deactivated_by_admin';
-        } else {
-            $room->auditEvent = 'room_updated_by_admin';
-        }
         $room->isCustomEvent = true;
         $room->save();
 

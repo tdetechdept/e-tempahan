@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use PDF; 
+
 
 class AuditController extends Controller
 {
@@ -40,5 +42,20 @@ class AuditController extends Controller
     {
         $audit = Audit::with('user')->findOrFail($id);
         return view('super_admin.audit.record-user-activity.Log_Details_Information', compact('audit'));
+    }
+
+     public function downloadPDF(Request $request, int $id)
+    {
+        $audit = Audit::with('user')->findOrFail($id);
+        $pdf = \PDF::loadView('pdf.audit', compact('audit'));
+        return $pdf->download('Log_Details_Information.pdf');
+    }
+
+    public function printPDF(Request $request, int $id)
+    {
+        $audit = Audit::with('user')->findOrFail($id);
+        $pdf = \PDF::loadView('pdf.audit', compact('audit'));
+        return $pdf->stream('Log_Details_Information.pdf');
+
     }
 } 

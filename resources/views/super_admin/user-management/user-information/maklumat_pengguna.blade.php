@@ -6,7 +6,7 @@
         <p class="breadcrumbs">Laman Utama / Pengurusan Pengguna / <span>Maklumat Pengguna</span></p>
 
         <div class="maklumat_pengguna">
-            <h2 class="section_title">Semak Pendaftaran</h2>
+            <h2 class="section_title">Maklumat Pengguna</h2>
 
             <div class="Info_content">
                 <div class="Info_title">
