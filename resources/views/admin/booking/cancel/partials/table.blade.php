@@ -56,8 +56,11 @@
                             {{ $status['label'] }}
                         </span>
                     </td>
-                    <td><a href="{{ route('booking.cancelled.show', $booking) }}" class="eb-view-eye-btn">Lihat</a></td>
+                    <td><a href="{{ route('booking.cancelled.show', $booking) }}" 
+                        class="gap-2 btn btn-medium btn-outline-custom d-flex align-items-center">
+                            <span class="material-symbols-rounded eb-eye-btn"></span>
+                            Lihat</a>
+                    </td>
                 </tr>
-         
             @endforeach
        

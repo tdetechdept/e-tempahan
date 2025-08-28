@@ -2,21 +2,22 @@
 
 @section('title', 'Semakan Tempahan')
 
+@section('breadcrumb')
+    <div class="breadcrumb-section">
+        <h1 class="breadcrumb-title">Semakan Tempahan</h1>
+        <div class="breadcrumb-nav">
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('booking.index') }}" class="text-decoration-none text-dark">Senarai Permohonan Tempahan</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('booking.show', $booking->id) }}" class="text-decoration-none breadcrumb-active">Semakan Tempahan</a>
+        </div>
+    </div>
+@endsection
+
 @section('content')
 <!-- Room Information  Review page start -->
     <main class="main-content" >
-        <!-- Breadcrumb -->
-        <div class="breadcrumb-section">
-            <h1 class="breadcrumb-title">Semakan Tempahan</h1>
-            <div class="breadcrumb-nav">
-                <span>Papan Pemuka</span>
-                <span class="mx-2">/</span>
-                <span>Senarai Permohonan Tempahan</span>
-                <span class="mx-2">/</span>
-                <span class="breadcrumb-active"> Semakan Tempahan</span>
-            </div>
-        </div>
-
         <!-- Content Card -->
         <div class="eb-boking-info-tabs mb-3">
             <ul class="nav nav-tabs mt-4" id="pills-tab" role="tablist">

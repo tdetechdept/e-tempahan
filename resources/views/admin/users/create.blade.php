@@ -4,218 +4,184 @@
 
 @section('breadcrumb')
     <div class="breadcrumb-section">
-        <h1 class="breadcrumb-title">Daftar Pengguna Baharu</h1>
+        <h1 class="breadcrumb-title">Pengurusan Pengguna</h1>
         <div class="breadcrumb-nav">
             <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.index') }}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
+            <a href="{{ route('users.index')}}" class="text-decoration-none text-dark">Pengurusan Pengguna</a>
             <span class="mx-2">/</span>
-            <a href="{{ route('admin.users.create') }}" class="text-decoration-none breadcrumb-active">Daftar Pengguna Baharu</a>
+            <a href="{{ route('users.create') }}" class="text-decoration-none breadcrumb-active">Daftar Pengguna Baharu</a>
         </div>
     </div>
 @endsection
 
 @section('content')
+<form id="createUserForm" method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+    @csrf
     <main class="main-content">
         <div class="content-card">
-            <div class="card-header">
-                <h3 class="card-title">Maklumat Pengguna Baharu</h3>
-                <p class="card-subtitle">Sila isi maklumat pengguna yang akan didaftarkan</p>
-            </div>
-
-            <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-                @csrf
-                
-                <div class="row">
-                    <!-- Personal Information -->
-                    <div class="col-md-6">
-                        <div class="form-section">
-                            <h4 class="section-title">Maklumat Peribadi</h4>
-                            
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama Penuh <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                                       id="name" name="name" value="{{ old('name') }}" required>
+            <div class="eb-create-room-information">
+                <h3>Daftar Pengguna Baharu</h3>
+                <p>Sila isi maklumat pengguna baharu di bawah</p>
+                    
+                <div class="eb-form-section">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th class="text-end align-middle">Nama Pegawai *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                                 @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                   <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Alamat Emel <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                                       id="email" name="email" value="{{ old('email') }}" required>
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">No. Kad Pengenalan *</th>
+                            {{-- <td style="border: none;">
+                                <input type="text" class="form-control" name="identity_card" value="{{ old('identity_card') }}">
+                                @error('identity_card')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="phone_number" class="form-label">Nombor Telefon</label>
-                                <input type="text" class="form-control @error('phone_number') is-invalid @enderror" 
-                                       id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
-                                @error('phone_number')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                            </td> --}}
+                            <td>
+                                <input type="text" class="form-control" name="id_number" value="{{ old('id_number') }}">
+                                @error('id_number')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Gambar Profil</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                                       id="image" name="image" accept="image/*">
-                                <div class="form-text">Format yang diterima: JPG, JPEG, PNG, WEBP. Saiz maksimum: 2MB</div>
-                                @error('image')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Work Information -->
-                    <div class="col-md-6">
-                        <div class="form-section">
-                            <h4 class="section-title">Maklumat Kerja</h4>
-                            
-                            <div class="mb-3">
-                                <label for="position" class="form-label">Jawatan</label>
-                                <input type="text" class="form-control @error('position') is-invalid @enderror" 
-                                       id="position" name="position" value="{{ old('position') }}">
+                                </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Jawatan *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="position" value="{{ old('position') }}">
                                 @error('position')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="grade" class="form-label">Gred</label>
-                                <input type="text" class="form-control @error('grade') is-invalid @enderror" 
-                                       id="grade" name="grade" value="{{ old('grade') }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Gred *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="grade" value="{{ old('grade') }}">
                                 @error('grade')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                   <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="section" class="form-label">Seksyen</label>
-                                <input type="text" class="form-control @error('section') is-invalid @enderror" 
-                                       id="section" name="section" value="{{ old('section') }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Bahagian *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="section" value="{{ old('section') }}">
                                 @error('section')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="department" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control @error('department') is-invalid @enderror" 
-                                       id="department" name="department" value="{{ old('department') }}">
-                                @error('department')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Peranan *</th>
+                            <td style="border: none;">
+                                <select name="role" class="form-control">
+                                    <option value="">-- Pilih Peranan --</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->name }}" {{ old('role') == $role->name ? 'selected' : '' }}>
+                                            {{ ucfirst($role->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="office_number" class="form-label">Nombor Pejabat</label>
-                                <input type="text" class="form-control @error('office_number') is-invalid @enderror" 
-                                       id="office_number" name="office_number" value="{{ old('office_number') }}">
-                                @error('office_number')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">No. Telefon Pejabat *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="phone_office" value="{{ old('phone_office') }}">
+                                @error('phone_office')
+                                   <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-                        </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">No. Telefon Bimbit *</th>
+                            <td style="border: none;">
+                                <input type="text" class="form-control" name="phone_mobile" value="{{ old('phone_mobile') }}">
+                                @error('phone_mobile')
+                                   <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Emel *</th>
+                            <td style="border: none;">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Kata Laluan *</th>
+                            <td style="border: none;">
+                                <input type="password" class="form-control" name="password">
+                                @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-end align-middle">Sahkan Kata Laluan *</th>
+                            <td style="border: none;">
+                                <input type="password" class="form-control" name="password_confirmation">
+                                @error('password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="eb-form-btn-submit">
+                        <button type="button" class="btn btn-primary eb-form-submit" onclick="openCreateModal()">Daftar Pengguna</button>
                     </div>
                 </div>
-
-                <!-- Information Notice -->
-                <div class="alert alert-info mt-4">
-                    <h5 class="alert-heading">📋 Maklumat Penting</h5>
-                    <ul class="mb-0">
-                        <li>Kata laluan akan dijana secara automatik dan dihantar melalui emel</li>
-                        <li>Pengguna akan menerima notifikasi pendaftaran melalui emel</li>
-                        <li>Status pengguna akan ditetapkan sebagai "Baharu" secara lalai</li>
-                        <li>Pengguna perlu diluluskan sebelum boleh mengakses sistem</li>
-                    </ul>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="form-actions mt-4">
-                    <div class="d-flex justify-content-between">
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Kembali
-                        </a>
-                        <div>
-                            <button type="reset" class="btn btn-outline-secondary me-2">
-                                <i class="fas fa-undo"></i> Reset
-                            </button>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Daftar Pengguna
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
+
+        <!-- Modal Confirmation -->
+        <div class="modal fade eb-delete-popup" id="CreateUserModal" tabindex="-1" role="dialog"
+		aria-labelledby="createUserModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<form id="dynamicCreateForm" method="POST">
+				@csrf
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<div class="eb-delete-icon mb-3"></div>
+						<h3>Adakah anda pasti?</h3>
+						<p>Adakah anda pasti ingin mendaftarkan pengguna baharu ini?</p>
+						<div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+							<button type="submit" class="btn btn-primary">Ya</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
     </main>
+</form>    
 
-    @push('css')
-    <style>
-        .form-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .section-title {
-            color: #495057;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #dee2e6;
-        }
-        
-        .form-actions {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-top: 1px solid #dee2e6;
-        }
-        
-        .alert-info {
-            border-left: 4px solid #17a2b8;
-        }
-    </style>
-    @endpush
-
-    @push('js')
-    <script>
-        // Form validation
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-
-        // Image preview
-        document.getElementById('image').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // You can add image preview functionality here
-                    console.log('Image selected:', file.name);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-    @endpush
-@endsection 
+@push('js')
+<script>
+    function openCreateModal() {
+        console.log('Opening modal...');
+        const modal = new bootstrap.Modal(document.getElementById('CreateUserModal'));
+        modal.show();
+    }
+    
+    document.getElementById('dynamicCreateForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        console.log('Modal confirmed, submitting main form...');
+        document.getElementById('createUserForm').submit();
+    });
+</script>
+@endpush
+@endsection
