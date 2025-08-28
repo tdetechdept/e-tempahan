@@ -2,29 +2,22 @@
 
 @section('title', 'Laporan Tempahan Tahunan')
 
+@section('breadcrumb')
+<div class="breadcrumb-section">
+    <h1 class="breadcrumb-title">Laporan</h1>
+    <div class="breadcrumb-nav">
+        <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka </a>
+        <span class="mx-2">/</span>
+        <a href="{{ route('reports.index') }}" class="text-decoration-none text-dark">Laporan</a>
+        <span class="mx-2">/</span>
+        <a href="{{ route('reports.yearly') }}" class="text-decoration-none breadcrumb-active">Laporan Tempahan Tahunan</a>
+    </div>
+</div>
+@endsection
+
 @section('content')
 <main class="main-content">
-    @section('breadcrumb')
-        <div class="breadcrumb-section">
-            <h1 class="breadcrumb-title">Laporan</h1>
-            <div class="breadcrumb-nav">
-                <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
-                <span class="mx-2">/</span>
-                <a href="{{ route('reports.index') }}" class="text-decoration-none text-dark">Laporan</a>
-                <span class="mx-2">/</span>
-                <a href="#" class="text-decoration-none breadcrumb-active">Laporan Tempahan Tahunan</a>
-            </div>
-        </div>
-    @endsection
-    {{-- <div class="breadcrumb-section mb-4">
-        <h1 class="breadcrumb-title">Laporan</h1>
-        <div class="breadcrumb-nav">
-            <span>Papan Pemuka</span>
-            <span class="mx-2">/</span>
-            <span class="breadcrumb-active">Laporan Tempahan Tahunan</span>
-        </div>
-    </div> --}}
-
+   
     @isset($bookings)
     <div class="card shadow-sm border-0 p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -34,7 +27,7 @@
         <!-- Summary -->
         <div class="row mb-4">
              <div class="col-md-12">
-                    <p><strong>Bahagian:</strong> {{ $organization->name }}</p>
+                <p><strong>Bahagian:</strong> {{ $organization->name ?? 'N/A' }}</p>
                 </div>
             <div class="col-md-6">
                 <p><strong>Tahun:</strong> {{ $year }}</p>
@@ -49,51 +42,31 @@
         <!-- Table -->
         <div class="table-responsive">
             <h5 class="mb-3 font-weight-bold">Senarai Tempahan</h5>
-            <table id="booking-table" class="table mb-0 table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Bil</th>
-                                <th>Nama Mesyuarat</th>
-                                {{-- <th>Bahagian/Jabatan</th> --}}
-                                <th>Bilik</th>
-                                <th>Masa Mesyuarat</th>
-                                {{-- <th>Masa Tamat</th> --}}
-                                {{-- <th>Jangka Masa</th> --}}
-                                {{-- <th>Penerangan Penuh</th> --}}
-                                {{-- <th>Jenis</th> --}}
-                                {{-- <th>Nama Pemohon</th> --}}
-                                <th>Status</th>
-                                {{-- <th>Kemaskini Pada</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($bookings as $index => $booking)
-                                @php
+            <table id="booking-table" class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Bil</th>
+                        <th>Tarikh Tempahana</th>
+                        <th>Nama Mesyuarat</th>
+                        <th>Bilik</th>
+                        <th>Masa Mesyuarat</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($bookings as $index => $booking)
+                    @php
                                     $totalMinutes = \Carbon\Carbon::parse($booking->start_time)->diffInMinutes(\Carbon\Carbon::parse($booking->end_time));
                                     $totalHours = number_format($totalMinutes / 60,2);
                                 @endphp
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    {{-- <td>{{ \Carbon\Carbon::parse($booking->start_date)->format('d F Y') }}</td> --}}
+                                    <td>{{ \Carbon\Carbon::parse($booking->start_date)->format('d F Y') }}</td>
                                     <td>{{ $booking->meeting_name }}</td>
-                                    {{-- <td>{{ $booking->user->section ?? $booking->user->department }}</td> --}}
                                     <td>{{ $booking->room->room_name ?? '-' }}</td>
                                     <td>
-                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
+                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}
                                     </td>
-                                    {{-- <td>
-                                        {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
-                                    </td> --}}
-                                    {{-- <td>{{ $totalHours }} Jam</td> --}}
-                                    {{-- <td>{{ $booking->description }}</td> --}}
-                                    {{-- <td>
-                                        @if($booking->type === 'Interior')
-                                            Dalaman
-                                        @else
-                                            Luaran
-                                        @endif
-                                    </td> --}}
-                                    {{-- <td>{{ $booking->user->name }}</td> --}}
                                     <td>
                                         @if ($booking->status == 3)
                                             <span class="badge badge-success">Diluluskan</span>
@@ -101,15 +74,14 @@
                                             <span class="badge badge-secondary">{{ $booking->getStatusNameAttribute() }}</span>
                                         @endif
                                     </td>
-                                    {{-- <td>{{ \Carbon\Carbon::parse($booking->updated_at)->format('h:i A - d F Y') }}</td> --}}
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="12" class="text-center text-muted">Tiada tempahan dijumpai</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    @empty
+                    <tr>
+                        <td colspan="12" class="text-center text-muted">Tiada tempahan dijumpai</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
 
         <!-- Export Buttons -->

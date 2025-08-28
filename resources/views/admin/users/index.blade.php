@@ -29,14 +29,11 @@
                 <!-- Left: Status Tabs -->
                 <div class="eb-tabs-tables">
                     @php
-                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled', 'deactivated'];
+                        $statuses = ['all', 'new', 'active'];
                         $statusLabels = [
                             'all' => 'Semua',
                             'new' => 'Baharu',
-                            'approved' => 'Diluluskan',
-                            'rejected' => 'Ditolak',
-                            'cancelled' => 'Dibatalkan',
-                            'deactivated' => 'Nyahaktif',
+                            'active' => 'Aktif',
                         ];
                         $activeFilter = strtolower(request('filter', 'all'));
                     @endphp
@@ -105,6 +102,26 @@
                     </div>
                 </div>
 
+              <!-- Register Modal -->
+            <div class="modal fade eb-register-popup" id="registerModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <form id="dynamicRegisterForm" method="POST">
+                        @csrf
+                        @method('PATCH') <!-- or POST depending on your backend -->
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <div class="eb-delete-icon mb-3"></div> <!-- same icon style as delete -->
+                                <h3>Adakah anda pasti?</h3>
+                                <p id="register-user-message">Adakah anda pasti anda ingin berjayakan pendaftaran pengguna ini?</p>
+                                <div class="eb-popup-btns d-flex justify-content-center gap-2 mt-4">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                                    <button type="submit" class="btn btn-primary">Ya</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             </div>
         </div>
 </main>
@@ -187,6 +204,38 @@ $(document).ready(function(){
         $('#delete-user-message').text(`Adakah anda pasti mahu memadam pengguna "${name.toUpperCase()}"?`);
         $('#deleteUserModal').modal('show');
     });
+    
+    $(document).on('click', '.btn-approve-user', function () {
+        const url = $(this).data('url');
+        $('#dynamicRegisterForm').attr('action', url);
+        $('#registerModal').modal('show');
+    });
+
+    // Submit approve form via AJAX
+    $('#dynamicRegisterForm').on('submit', function (e) {
+        e.preventDefault();
+        const url = $(this).attr('action');
+
+        $.ajax({
+            url: url,
+            type: 'PATCH',
+            data: { _token: '{{ csrf_token() }}' },
+            success: function () {
+                $('#registerModal').modal('hide');
+
+                // Update row visually
+                const $row = $(`button[data-url="${url}"]`).closest('tr');
+                const badge = $row.find('td:nth-child(4) span');
+                badge.text('AKTIF').css({ backgroundColor: '#d4edda', color: '#155724' });
+                $row.find('.btn-approve-user').remove();
+                location.reload();
+            },
+            error: function () {
+                alert('Gagal meluluskan pengguna.');
+            }
+        });
+    });
+
 });
 </script>
 @endpush

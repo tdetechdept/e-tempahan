@@ -21,29 +21,43 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $filter = strtolower($request->get('filter', 'all'));
-    
-        $query = User::query();
-    
+
+        // Base query: only statuses 0 and 1
+        $query = User::role('User')->whereIn('status', [0, 1]);
+
         $statusMap = [
             'new' => 0,
-            'pending' => 1,
-            'approved' => 2,
-            'rejected' => 3,
-            'cancelled' => 4,
-            'deactivated' => 5,
+            'active' => 1,
         ];
-    
-        if ($filter !== 'all' && isset($statusMap[$filter])) {
+
+        // Apply filter only if specific (new/active)
+        if (isset($statusMap[$filter])) {
             $query->where('status', $statusMap[$filter]);
         }
-    
-        $users = $query->latest()->get();
-    
+
+        $users = $query->get();
+
+        // Labels for statuses
+        $statusLabels = [
+            0 => 'BAHARU',
+            1 => 'AKTIF',
+        ];
+
         if ($request->ajax()) {
-            return view('admin.users.partials.table', compact('users'))->render();
+            return view('admin.users.partials.table', compact('users', 'statusLabels'))->render();
         }
-    
-        return view('admin.users.index', compact('users'));
+
+        return view('admin.users.index', compact('users', 'statusLabels'));
+    }
+
+     public function approve(User $user)
+    {
+        // Only approve if status is 0
+        if ($user->status == 0) {
+            $user->update(['status' => 1]);
+        }
+
+        return response()->json(['success' => true]);
     }
 
     /**
