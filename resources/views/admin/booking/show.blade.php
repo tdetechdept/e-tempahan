@@ -248,8 +248,12 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="form-group mb-4">
                                     <label>Peralatan</label>
+                                    @if ($booking->equipment)
                                     <p>{{ is_array($booking->equipment) ? implode(', ', $booking->equipment) : implode(', ', json_decode($booking->equipment, true)) }}
                                     </p>
+                                    @else
+                                    <p>-</p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-12">

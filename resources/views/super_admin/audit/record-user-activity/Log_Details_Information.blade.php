@@ -100,7 +100,9 @@
             @endif
 
             <div class="Log_Details_Information mt-5">
-                <a href="{{ route('audit') }}" class="dashboard-btn btn btn-primary">Kembali ke Audit</a>
+                <a href="{{ route('audit.print_pdf', $audit->id) }}" class="dashboard-btn btn btn-primary mr-2">Cetak Butiran</a>
+                <a href="{{ route('audit.pdf', $audit->id) }}" class="dashboard-btn btn btn-primary mr-2">Eksport Butiran</a>
+                {{-- <a href="{{ route('audit') }}" class="dashboard-btn btn btn-primary">Kembali ke Audit</a> --}}
             </div>
         </div>
     </div>

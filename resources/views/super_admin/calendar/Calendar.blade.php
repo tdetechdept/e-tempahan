@@ -14,6 +14,20 @@
             </div>
         </div>
 
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        {{-- You can also check for other types of messages, e.g., 'error' or 'info' --}}
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
         <div class="Laporan_content">
             <div class="search-section">
                 <h4 class="table_title">Laporan</h4>

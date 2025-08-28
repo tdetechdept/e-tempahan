@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use PDF; 
 
 class AuditController extends Controller
 {
@@ -111,5 +112,13 @@ class AuditController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function downloadPDF()
+    {
+        $pdf = \PDF::loadView('pdf.audit');
+        return $pdf;
+
+        // return $pdf->download('Log_Details_Information.pdf');
     }
 }
