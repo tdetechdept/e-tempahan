@@ -70,27 +70,7 @@
 
                             @php
                                 use App\Models\Room;
-                            @endphp
-                            <!-- Status -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="status">Status Bilik</label>
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="">Select Status</option>
-                                        <option value="{{ Room::STATUS_ACTIVE }}"
-                                            {{ (int) old('status', $room->status) === Room::STATUS_ACTIVE ? 'selected' : '' }}>
-                                            Aktif
-                                        </option>
-                                        <option value="{{ Room::STATUS_INACTIVE }}"
-                                            {{ (int) old('status', $room->status) === Room::STATUS_INACTIVE ? 'selected' : '' }}>
-                                            Tidak Pelan
-                                        </option>
-                                    </select>
-                                    @error('status')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
+                            @endphp 
 
                             <!-- Picture -->
                             <div class="col-md-6">
@@ -114,35 +94,6 @@
                                     @error('picture')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
-                            </div>
-
-                            <!-- Layout -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="layoutPlan">Layout / Pelan</label>
-                                    @if ($room->layout)
-                                        <div class="mb-2">
-                                            <img src="{{ asset(Room::PLAN_PATH . '/' . $room->layout) }}"
-                                                alt="{{ $room->room_name }}" class="rounded img-thumbnail"
-                                                style="width: 120px; height: 90px; object-fit: cover;" />
-                                        </div>
-                                    @endif
-                                    <div class="eb-uplaod-file position-relative">
-                                        <input type="file" name="layout_plan" class="form-control" id="layoutPlan">
-                                        <span
-                                            class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
-                                        <p class="form-text" id="layoutName"></p>
-                                    </div>
-                                    <p class="form-text" id="layoutChangedMessage" style="display: none; color: red;">Anda telah mengubah Tata Layout/Pelan.</p>
-                                    @error('layout_plan')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                    @if(session('layout_changed'))
-                                        <p class="form-text" style="color: red;">
-                                            Anda telah mengubah Layout/Pelan.
-                                        </p>
-                                    @endif
                                 </div>
                             </div>
 
@@ -182,15 +133,32 @@
                                 </div>
                             </div>
 
-                            <!-- Level -->
+                            <!-- Layout -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="level">Level</label>
-                                    <input type="text" name="level" id="level" class="form-control" min="1"
-                                        value="{{ old('level', $room->level ?? '') }}">
-                                    @error('level')
+                                    <label for="layoutPlan">Layout / Pelan</label>
+                                    @if ($room->layout)
+                                        <div class="mb-2">
+                                            <img src="{{ asset(Room::PLAN_PATH . '/' . $room->layout) }}"
+                                                alt="{{ $room->room_name }}" class="rounded img-thumbnail"
+                                                style="width: 120px; height: 90px; object-fit: cover;" />
+                                        </div>
+                                    @endif
+                                    <div class="eb-uplaod-file position-relative">
+                                        <input type="file" name="layout_plan" class="form-control" id="layoutPlan">
+                                        <span
+                                            class="material-symbols-rounded position-absolute top-50 end-0 translate-middle-y pe-3">upload</span>
+                                        <p class="form-text" id="layoutName"></p>
+                                    </div>
+                                    <p class="form-text" id="layoutChangedMessage" style="display: none; color: red;">Anda telah mengubah Tata Layout/Pelan.</p>
+                                    @error('layout_plan')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
+                                    @if(session('layout_changed'))
+                                        <p class="form-text" style="color: red;">
+                                            Anda telah mengubah Layout/Pelan.
+                                        </p>
+                                    @endif
                                 </div>
                             </div>
 

@@ -63,7 +63,7 @@
             @hasanyrole('Admin|Super Admin')
             <!-- Nav Item - Bilik Collapse Menu -->
                     @php
-                        $bilikRoutes = ['rooms.index', 'rooms.create', 'rooms.cancelled'];
+                        $bilikRoutes = ['rooms.index', 'rooms.create', 'rooms.show', 'rooms.edit', 'rooms.cancelled'];
                         $isBilikActive = in_array(Route::currentRouteName(), $bilikRoutes);
                     @endphp
             <li class="nav-item {{ $isBilikActive ? 'active' : '' }}">
@@ -78,7 +78,7 @@
                         aria-labelledby="headingBilik" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item {{ Route::currentRouteName() == 'rooms.create' ? 'active' : '' }}" href="{{ route('rooms.create') }}">Tambah</a>
-                            <a class="collapse-item {{ Route::currentRouteName() == 'rooms.index' ? 'active' : '' }}" href="{{ route('rooms.index') }}">Kemaskini</a>
+                            <a class="collapse-item {{ in_array(Route::currentRouteName(), ['rooms.show', 'rooms.edit']) ? 'active' : '' }}" href="{{ route('rooms.index') }}"> Kemaskini</a>
                             <a class="collapse-item {{ Route::currentRouteName() == 'rooms.cancelled' ? 'active' : '' }}" href="{{ route('rooms.cancelled') }}">Padam</a>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
             </li>
 
             @php
-                $semakanRoutes = ['booking.index', 'booking.cancel.index', 'booking.create', 'booking.adhoc']; // all routes for Semakan Tempahan
+                $semakanRoutes = ['booking.index', 'booking.show','booking.cancel.index', 'booking.cancelled.show', 'booking.create', 'booking.adhoc']; // all routes for Semakan Tempahan
                 $isSemakanActive = in_array(Route::currentRouteName(), $semakanRoutes);
             @endphp
             <li class="nav-item {{ $isSemakanActive ? 'active' : '' }}">
@@ -97,9 +97,10 @@
                 <div id="collapseSemakan" class="collapse {{ $isSemakanActive ? 'show' : '' }}"
                     aria-labelledby="headingSemakan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.create' ? 'active' : '' }}" href="{{ route('booking.create') }}">Baharu</a>
-                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.index' ? 'active' : '' }}" href="{{ route('booking.index') }}">Kemaskini</a>
-                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.cancel.index' ? 'active' : '' }}" href="{{ route('booking.cancel.index') }}">Batal</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.index' ? 'active' : '' }}" href="{{ route('booking.index') }}">Baharu</a>
+                        <a class="collapse-item {{ Route::currentRouteName() == 'booking.show' ? 'active' : '' }}" href="{{ route('booking.index') }}">Kemaskini</a>
+                        <a class="collapse-item {{ in_array(Route::currentRouteName(), ['booking.cancel.index', 'booking.cancelled.show']) ? 'active' : '' }}" href="{{ route('booking.cancel.index') }}">Batal</a>
+
                         <a class="collapse-item {{ Route::currentRouteName() == 'booking.adhoc' ? 'active' : '' }}" href="#">Ad-hoc</a>
                     </div>
                 </div>

@@ -25,30 +25,41 @@
                 </div>
             </div>
 
-            <div class="eb-tabs-tables">
-                @php
-                    $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled', 'deactivated'];
-                    $statusLabels = [
-                        'all' => 'Semua',
-                        'new' => 'Baharu',
-                        'approved' => 'Diluluskan',
-                        'rejected' => 'Ditolak',
-                        'cancelled' => 'Dibatalkan',
-                        'deactivated' => 'Nyahaktif',
-                    ];
-                    $activeFilter = strtolower(request('filter', 'all'));
-                @endphp
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Left: Status Tabs -->
+                <div class="eb-tabs-tables">
+                    @php
+                        $statuses = ['all', 'new', 'approved', 'rejected', 'cancelled', 'deactivated'];
+                        $statusLabels = [
+                            'all' => 'Semua',
+                            'new' => 'Baharu',
+                            'approved' => 'Diluluskan',
+                            'rejected' => 'Ditolak',
+                            'cancelled' => 'Dibatalkan',
+                            'deactivated' => 'Nyahaktif',
+                        ];
+                        $activeFilter = strtolower(request('filter', 'all'));
+                    @endphp
 
-                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    @foreach ($statuses as $key)
-                        @php $isActive = $activeFilter === $key; @endphp
-                        <li class="nav-item">
-                            <a class="nav-link {{ $isActive ? 'active' : '' }}" href="?filter={{ $key }}" data-filter="{{ $key }}">
-                                {{ $statusLabels[$key] }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        @foreach ($statuses as $key)
+                            @php $isActive = $activeFilter === $key; @endphp
+                            <li class="nav-item">
+                                <a class="nav-link {{ $isActive ? 'active' : '' }}" href="?filter={{ $key }}" data-filter="{{ $key }}">
+                                    {{ $statusLabels[$key] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Right: Add User Button -->
+                <div>
+                    <a href="{{ route('users.create') }}" class="btn btn-primary-custom">
+                        Daftar Pengguna
+                    </a>
+                </div>
+            </div>
 
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-all" role="tabpanel">
