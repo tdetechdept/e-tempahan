@@ -120,6 +120,9 @@ Route::middleware(['auth','activeUser'])->group(function () {
     Route::controller(App\Http\Controllers\AuditController::class)->group(function () {
         Route::get('/audit', 'index')->name('audit');
         Route::get('/audit/record-user-activity/{id}', 'recordUserActivity')->name('record_user_activity');
+        Route::get('/audit/pdf/{id}', 'downloadPDF')->name('audit.pdf');
+        Route::get('/audit/print-pdf/{id}', 'printPDF')->name('audit.print_pdf');
+
     });
     
     // Calendar Routes

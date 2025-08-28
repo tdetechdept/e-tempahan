@@ -147,7 +147,7 @@
                                 <td>{{ $audit->ip_address ?? 'N/A' }}</td>
                                 <td>
                                     <a href="{{ route('record_user_activity', $audit->id) }}"
-                                        class="gap-3 btn btn-outline-primary-custom btn-sm d-flex align-items-center w-100">
+                                        class="btn btn-outline-primary btn-sm d-flex align-items-center w-100">
                                         <span class="material-symbols-rounded">visibility</span>
                                         Lihat
                                     </a>

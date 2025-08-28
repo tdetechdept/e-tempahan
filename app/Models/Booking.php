@@ -49,6 +49,9 @@ class Booking extends Model implements Auditable
         'office',
         'phone',
         'email',
+        'notification_user',
+        'notification_admin',
+        'agenda_attachment',
     ];
 
     protected $casts = [
@@ -102,6 +105,9 @@ class Booking extends Model implements Auditable
         'office',
         'phone',
         'email',
+        'notification_user',
+        'notification_admin',
+        'agenda_attachment',
     ];
 
     // Only track changed attributes

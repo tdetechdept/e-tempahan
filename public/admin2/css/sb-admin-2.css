@@ -11352,7 +11352,7 @@ body{background-color: #F4F4F4;}
   background-color: #285689; 
 }
 .btn-primary-custom:hover {
-  background-color: var(--white-color) !important;
+  background-color: var(--white-color);
   color: var(--primary-color);
 }
 .btn-outline-custom:hover {

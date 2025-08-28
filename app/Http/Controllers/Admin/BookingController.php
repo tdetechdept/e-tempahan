@@ -68,6 +68,13 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
+
+        if(request()->read)
+        {
+            $booking->notification_admin = 1;
+            $booking->save(); 
+        }
+
         return view('admin.booking.show', compact('booking'));
     }
 
@@ -103,6 +110,7 @@ class BookingController extends Controller
         
         if ($request->action === 'reject') {
             $booking->status = 4; // Rejected
+            $booking->notification_user = 0;
             $booking->save();
             
             // Add custom audit event for rejection
@@ -113,6 +121,7 @@ class BookingController extends Controller
             return view('admin.booking.rejected', compact('booking'));
         } elseif ($request->action === 'pass') {
             $booking->status = 3; // Approved
+            $booking->notification_user = 0;
             $booking->save();
             
             // Add custom audit event for approval
@@ -191,6 +200,13 @@ class BookingController extends Controller
     public function cancelShowBooking(string $id)
     {
         $booking = Booking::with('user', 'room')->findOrFail($id);
+        
+         if(request()->read)
+        {
+            $booking->notification_admin = 1;
+            $booking->save(); 
+        }
+
         return view('admin.booking.cancel.show', compact('booking'));
     }
     
