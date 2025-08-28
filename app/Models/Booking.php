@@ -159,12 +159,14 @@ class Booking extends Model implements Auditable
     public function getStatusNameAttribute()
     {
         return match ($this->status) {
-            1 => 'New',
-            2 => 'Pending',
-            3 => 'Approved',
-            4 => 'Rejected',
-            5 => 'Cancelled',
-            default => 'Unknown',
+            1 => 'Baharu',
+            2 => 'Menunggu Pengesahan',
+            3 => 'Diluluskan',
+            4 => 'Ditolak',
+            5 => 'Dibatalkan',
+            6 => 'Dikemaskini',
+            7 => 'Disahkan',
+            default => 'Tidak Diketahui',
         };
     }
 }
