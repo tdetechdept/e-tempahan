@@ -3,6 +3,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/super_admin">
+                <img class="ml-3" src="{{asset('img/logo/img-logo.png')}}" alt="" width="36" height="30">
                 <div class="sidebar-brand-text mx-3">eTempahan</div>
             </a>
 

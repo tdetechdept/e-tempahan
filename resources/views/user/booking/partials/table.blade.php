@@ -2,7 +2,7 @@
             @foreach ($bookings as $index => $booking)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $booking->user->name ?? '-' }}</td>
+                    <td>{{ $booking->meeting_name ?? '-' }}</td>
                     <td>{{ $booking->room->room_name ?? 'N/A' }}</td>
                     <td>
                         <p>{{ \Carbon\Carbon::parse($booking->start_date)->format('d/m/Y') }}</p>

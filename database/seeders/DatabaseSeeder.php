@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             SectionSeeder::class,
             GradeSeeder::class,
+            RoomSeeder::class,
             AuditSeeder::class,
             BookingSeeder::class,
 

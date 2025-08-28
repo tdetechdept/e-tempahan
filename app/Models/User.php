@@ -163,4 +163,21 @@ class User extends Authenticatable implements Auditable
     {
         return $this->status == 5;
     }
+
+    public static function userUnreadNotifications($id)
+    {
+        $user = User::find($id);
+
+        if($user->hasRole(['Admin', 'Super Admin'])) {
+            $notify = Booking::where('notification_admin', 0)
+                ->get();
+            return $notify;
+        }
+
+        $notify = Booking::where('user_id', $id)
+            ->where('notification_user', 0)
+            ->get();
+
+        return $notify;
+    }
 }
