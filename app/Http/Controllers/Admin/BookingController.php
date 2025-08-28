@@ -103,12 +103,14 @@ class BookingController extends Controller
         $oldUpdateInfo = $booking->update_info;
         $oldReviews = $booking->reviews;
         
-        $booking->update([
-            'update_info' => $request->update_info,
-            'reviews' => $request->reviews,
-        ]);
+        // $booking->update([
+        //     'update_info' => $request->update_info,
+        //     'reviews' => $request->reviews,
+        // ]);
         
         if ($request->action === 'reject') {
+            $booking->update_info = $request->update_info;
+            $booking->reviews = $request->reviews; 
             $booking->status = 4; // Rejected
             $booking->notification_user = 0;
             $booking->save();
@@ -119,7 +121,10 @@ class BookingController extends Controller
             $booking->save();
             
             return view('admin.booking.rejected', compact('booking'));
+            
         } elseif ($request->action === 'pass') {
+            $booking->update_info = $request->update_info;
+            $booking->reviews = $request->reviews; 
             $booking->status = 3; // Approved
             $booking->notification_user = 0;
             $booking->save();

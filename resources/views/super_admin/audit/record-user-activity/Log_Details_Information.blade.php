@@ -86,8 +86,31 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ ucfirst(str_replace('_', ' ', $field)) }}</td>
+                                    @if($field === 'status')
+                                        <td>
+                                            @php
+                                                $oldStatus = $oldValues[$field] ?? null;
+                                                $newStatus = $newValues[$field] ?? null;
+
+                                                $statusMapping = [
+                                                    1 => 'Baharu',
+                                                    2 => 'Menunggu Pengesahan',
+                                                    3 => 'Diluluskan',
+                                                    4 => 'Ditolak',
+                                                    5 => 'Dibatalkan',
+                                                    6 => 'Dikemaskini',
+                                                    7 => 'Disahkan',
+                                                ];
+                                            @endphp
+                                            {{ $oldStatus !== null ? ($statusMapping[$oldStatus] ?? 'N/A') : 'N/A' }}
+                                        </td>
+                                        <td>
+                                            {{ $newStatus !== null ? ($statusMapping[$newStatus] ?? 'N/A') : 'N/A' }}
+                                        </td>
+                                    @else
                                     <td>{{ $oldValues[$field] ?? 'N/A' }}</td>
                                     <td>{{ $newValues[$field] ?? 'N/A' }}</td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>
