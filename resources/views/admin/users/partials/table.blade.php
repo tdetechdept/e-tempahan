@@ -18,26 +18,6 @@
                         'bg' => '#d4edda',
                         'text' => '#155724',
                     ],
-                    2 => [
-                        'label' => 'DILULUSKAN',
-                        'bg' => '#cce5ff',
-                        'text' => '#004085',
-                    ],
-                    3 => [
-                        'label' => 'DITOLAK',
-                        'bg' => '#f8d7da',
-                        'text' => '#721c24',
-                    ],
-                    4 => [
-                        'label' => 'DIBATALKAN',
-                        'bg' => '#e2e3e5',
-                        'text' => '#383d41',
-                    ],
-                    5 => [
-                        'label' => 'NYAHAKTIF',
-                        'bg' => '#fefefe',
-                        'text' => '#6c757d',
-                    ],
                 ];
 
                 $status = $statusStyles[$user->status] ?? [
@@ -79,7 +59,7 @@
                 </form>
 
                 <!-- Approve Button or Empty Space -->
-                @if ($user->status == 1 || $user->status == 2)
+                {{-- @if ($user->status == 0)
                     <a href="#" class="btn btn-sm rounded-circle"
                         style="background-color: #d4edda; color: #155724; border: 1px solid #155724;" title="Luluskan">
                         <i class="bi bi-check2"></i>
@@ -89,7 +69,23 @@
                         style="background-color: #d4edda; color: #155724; border: 1px solid #155724;">
                         <i class="bi bi-check2"></i>
                     </span>
+                @endif --}}
+
+                @if ($user->status == 0)
+                    <button type="button" 
+                        class="btn btn-sm rounded-circle btn-approve-user"
+                        data-url="{{ route('admin.users.approve', $user->id) }}"
+                        style="background-color: #d4edda; color: #155724; border: 1px solid #155724;" 
+                        title="Luluskan">
+                        <i class="bi bi-check2"></i>
+                    </button>
+                @else
+                    <span class="btn btn-sm rounded-circle invisible"
+                        style="background-color: #d4edda; color: #155724; border: 1px solid #155724;">
+                        <i class="bi bi-check2"></i>
+                    </span>
                 @endif
+
             </div>
         </td>
     </tr>
