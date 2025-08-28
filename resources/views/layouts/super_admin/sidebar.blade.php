@@ -144,21 +144,23 @@
             </div>
 
             <!-- Nav Item - Pentadbir Collapse Menu -->
-            <li class="nav-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}">
-                <a class="nav-link {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? '' : 'collapsed' }}" 
+            <li class="nav-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('admin*') ? 'active' : '' }}">
+                <a class="nav-link {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('admin*') ? '' : 'collapsed' }}" 
                    href="#" data-toggle="collapse" data-target="#collapsePentadbir"
-                   aria-expanded="{{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'true' : 'false' }}" 
+                   aria-expanded="{{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('admin*') ? 'true' : 'false' }}" 
                    aria-controls="collapsePentadbir">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Pentadbir</span>
                 </a>
-                <div id="collapsePentadbir" class="collapse {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('pengurusan_pengguna*') ? 'show' : '' }}" 
+                <div id="collapsePentadbir" class="collapse {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') || request()->routeIs('calendar*') || request()->routeIs('report') || request()->routeIs('admin*') ? 'show' : '' }}" 
                      aria-labelledby="headingPentadbir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ request()->routeIs('reports') ? 'active' : '' }}" href="{{ route('reports.index') }}">Laporan</a>
                         <a class="collapse-item {{ request()->routeIs('audit*') || request()->routeIs('record_user_activity*') ? 'active' : '' }}" href="{{ route('audit') }}">Log Audit</a>
                         <a class="collapse-item {{ request()->routeIs('calendar*') ? 'active' : '' }}" href="{{ route('calendar') }}">Kalendar</a>
-                        <a class="collapse-item {{ request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}" href="{{ route('pengurusan_pengguna') }}">Pengurusan Pengguna</a>
+                        {{-- <a class="collapse-item {{ request()->routeIs('pengurusan_pengguna*') ? 'active' : '' }}" href="{{ route('pengurusan_pengguna') }}">Pengurusan Pengguna</a> --}}
+                        <a class="collapse-item {{ request()->routeIs('admin*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">Pengurusan Pengguna</a>
+
                     </div>
                 </div>
             </li>

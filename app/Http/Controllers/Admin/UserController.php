@@ -264,7 +264,7 @@ class UserController extends Controller
     public function updateStatus(Request $request, User $user)
     {
         $request->validate([
-            'status' => 'required|in:1,2,3,5'
+            'status' => 'required|in:0,1,'
         ]);
 
         $oldStatus = $user->status;
@@ -273,17 +273,11 @@ class UserController extends Controller
 
         // Add custom audit message based on status change
         switch ($user->status) {
-            case 1: // Pending
+            case 0: // Pending
                 $user->auditEvent = 'user_status_changed_to_pending_by_admin';
                 break;
-            case 2: // Approved
+            case 1: // Approved
                 $user->auditEvent = 'user_status_changed_to_approved_by_admin';
-                break;
-            case 3: // Rejected
-                $user->auditEvent = 'user_status_changed_to_rejected_by_admin';
-                break;
-            case 5: // Deactivated
-                $user->auditEvent = 'user_status_changed_to_deactivated_by_admin';
                 break;
             default:
                 $user->auditEvent = 'user_status_updated_by_admin';
@@ -294,19 +288,19 @@ class UserController extends Controller
 
         // Send appropriate email based on status
         switch ($user->status) {
-            case 2: // Approved
+            case 1: // Approved
                 $this->sendRegistrationEmail($user, null, true);
                 return redirect()->route('admin.users.register.success')
                     ->with('success', 'Pengguna diluluskan dan emel notifikasi telah dihantar.');
             
-            case 3: // Rejected
-                $this->sendRegistrationEmail($user, null, false);
-                return redirect()->route('admin.users.register.unsuccess')
-                    ->with('error', 'Pendaftaran pengguna ditolak dan emel notifikasi telah dihantar.');
+            // case 3: // Rejected
+            //     $this->sendRegistrationEmail($user, null, false);
+            //     return redirect()->route('admin.users.register.unsuccess')
+            //         ->with('error', 'Pendaftaran pengguna ditolak dan emel notifikasi telah dihantar.');
             
-            case 5: // Deactivated
-                return redirect()->route('admin.users.deactivate.success')
-                    ->with('success', 'Pengguna berjaya dinyahaktifkan.');
+            // case 5: // Deactivated
+            //     return redirect()->route('admin.users.deactivate.success')
+            //         ->with('success', 'Pengguna berjaya dinyahaktifkan.');
             
             default:
                 return redirect()->back()
