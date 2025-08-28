@@ -161,7 +161,7 @@
 
             <div class="card-footer text-muted">
                 <div class="float-right">
-                    <a href="/" type="button" class="btn btn-outline-primary">Kembali</a>
+                    <a href="{{route('home')}}" type="button" class="btn btn-outline-primary">Kembali</a>
                     {{-- <button type="button" class="btn btn-primary">Hantar Permohonan</button> --}}
                 </div>
            

@@ -88,9 +88,13 @@
                                     <label for="facility" class="col-sm-4 col-form-label fw-bold">Fasiliti</label>
                                     <div class="col-sm-8">
                                         <ol class="list-group list-group-numbered" style="text-align: start;">
-                                            @foreach($roomDetail->facilities as $facility)
-                                                <li class="list-group-item">{{$facility}}</li>
-                                            @endforeach
+                                            @if($roomDetail->facilities && count($roomDetail->facilities) > 0)
+                                                @foreach($roomDetail->facilities as $facility)
+                                                    <li class="list-group-item">{{$facility}}</li>
+                                                @endforeach
+                                            @else
+                                                <li class="list-group-item">Tiada Fasiliti Ditemui</li>
+                                            @endif
                                         </ol>
                                     </div>
                                 </div>

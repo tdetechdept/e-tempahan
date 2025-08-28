@@ -11300,6 +11300,7 @@ body.sidebar-toggled footer.sticky-footer {
 :root{
     --gray-200: #F9FAFB;
     --white-color:#FFFFFF;
+    --blue-color:#285689;
     --primary-color: #285689;
     --Poppins-font: "Poppins", sans-serif;
     --bs-success-rgb: 222, 247, 236;
@@ -11351,7 +11352,7 @@ body{background-color: #F4F4F4;}
   background-color: #285689; 
 }
 .btn-primary-custom:hover {
-  background-color: var(--white-color);
+  background-color: var(--white-color) !important;
   color: var(--primary-color);
 }
 .btn-outline-custom:hover {

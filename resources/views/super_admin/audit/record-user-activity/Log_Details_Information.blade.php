@@ -2,8 +2,19 @@
 
 @section('content')
     <div class="pengurusan_pengguna_page">
-        <h2 class="page_title">Audit</h2>
-        <p class="breadcrumbs">Laman Utama / <a href="{{ route('audit') }}">Rekod Aktiviti Pengguna</a> / <span>Maklumat Butiran Log</span></p>
+        {{-- <h2 class="page_title">Audit</h2>
+        <p class="breadcrumbs">Laman Utama / <a href="{{ route('audit') }}">Rekod Aktiviti Pengguna</a> / <span>Maklumat Butiran Log</span></p> --}}
+
+         <div class="breadcrumb-section mb-3">
+            <h1 class="breadcrumb-title">Audit</h1>
+            <div class="breadcrumb-nav">
+                <a href="{{ route('home') }}" class="text-decoration-none text-dark">Laman Utama</a>
+                <span class="mx-2">/</span>
+                 <a href="{{ route('audit') }}" class="text-decoration-none text-dark">Rekod Aktiviti Pengguna</a>
+                <span class="mx-2">/</span>
+                <a href="#" class="text-decoration-none text-primary">Maklumat Butiran Log</a>
+            </div>
+        </div>
 
         <div class="maklumat_pengguna">
             <h2 class="section_title">Maklumat Butiran Log</h2>

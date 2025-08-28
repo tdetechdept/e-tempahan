@@ -365,6 +365,13 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $booking = Booking::with('user', 'room')->findOrFail($id); // Automatically throws 404 if not found
+
+        if(request()->read)
+        {
+            $booking->notification_user = 1;
+            $booking->save(); 
+        }
+
         return view('user.booking.view', compact('booking'));
     }
 

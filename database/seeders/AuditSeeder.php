@@ -27,8 +27,8 @@ class AuditSeeder extends Seeder
         $departments = ['Bahagian Akaun(BA)', 'Bahagian IT(BIT)', 'Bahagian Pentadbiran(BP)', 'Bahagian Kewangan(BK)'];
         $sections = ['Seksyen 1', 'Seksyen 2', 'Seksyen 3', 'Seksyen 4'];
 
-        // Create 50 audit records
-        for ($i = 0; $i < 50; $i++) {
+        // Create 10 audit records
+        for ($i = 0; $i < 10; $i++) {
             $user = $users->random();
             $event = $auditEvents[array_rand($auditEvents)];
             $auditableType = $auditableTypes[array_rand($auditableTypes)];

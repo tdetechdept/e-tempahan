@@ -10,6 +10,7 @@ use App\Models\Grade;
 use App\Models\Agency;
 use App\Models\Department;
 use App\Models\Section;
+use App\Models\Chairman;
 
 use Carbon\Carbon;
 
@@ -28,6 +29,7 @@ class BookingSeeder extends Seeder
         $sections = Section::all();
         $departments = Department::all();
         $agencies = Agency::all();
+        $chairmens = Chairman::all();
 
         $items = $departments->concat($agencies);
         $alls = $items->concat($sections);
@@ -44,23 +46,9 @@ class BookingSeeder extends Seeder
                     'room_name' => 'Bilik Mesyuarat A',
                     'level' => 'Tingkat 1',
                     'room_capacity' => 20,
-                    'facilities' => ['Projector', 'Whiteboard', 'Air Conditioning'],
+                    'facilities' => ['Item1', 'Item2', 'Item3'],
                     'status' => 1
                 ]),
-                Room::create([
-                    'room_name' => 'Bilik Mesyuarat B',
-                    'level' => 'Tingkat 2',
-                    'room_capacity' => 15,
-                    'facilities' => ['TV Screen', 'Whiteboard'],
-                    'status' => 1
-                ]),
-                Room::create([
-                    'room_name' => 'Bilik Seminar',
-                    'level' => 'Tingkat 3',
-                    'room_capacity' => 50,
-                    'facilities' => ['Projector', 'Sound System', 'Air Conditioning'],
-                    'status' => 1
-                ])
             ]);
         }
 
@@ -92,16 +80,16 @@ class BookingSeeder extends Seeder
         ];
 
         // Chairman names
-        $chairmen = [
-            'Encik Ahmad bin Abdullah',
-            'Puan Siti binti Mohamed',
-            'Encik Mohd Ali bin Hassan',
-            'Puan Fatimah binti Omar',
-            'Encik Zulkifli bin Ibrahim',
-            'Puan Aminah binti Yusof',
-            'Encik Kamal bin Ismail',
-            'Puan Noraini binti Ahmad'
-        ];
+        // $chairmen = [
+        //     'Encik Ahmad bin Abdullah',
+        //     'Puan Siti binti Mohamed',
+        //     'Encik Mohd Ali bin Hassan',
+        //     'Puan Fatimah binti Omar',
+        //     'Encik Zulkifli bin Ibrahim',
+        //     'Puan Aminah binti Yusof',
+        //     'Encik Kamal bin Ismail',
+        //     'Puan Noraini binti Ahmad'
+        // ];
 
         // Secretariat names
         $secretariats = [
@@ -113,13 +101,14 @@ class BookingSeeder extends Seeder
             'Puan Zainab binti Omar'
         ];
 
-        // Create 30 bookings
-        for ($i = 0; $i < 30; $i++) {
+        // Create 10 bookings
+        for ($i = 0; $i < 10; $i++) {
             $user = $users->random();
             $room = $rooms->random();
             $all = $alls->random();
             $position = $grades->random();
             $grade = $grades->random();
+            $chairmen = $chairmens->random();
 
             
             // Generate random dates (within next 30 days)
@@ -155,7 +144,7 @@ class BookingSeeder extends Seeder
             Booking::create([
                 'user_id' => $user->id,
                 'meeting_name' => $meetingNames[array_rand($meetingNames)],
-                'chairman' => $chairmen[array_rand($chairmen)],
+                'chairman' => $chairmen->name,
                 'start_date' => $startDate->format('Y-m-d'),
                 'end_date' => $endDate->format('Y-m-d'),
                 'start_time' => $startTime->format('H:i:s'),
