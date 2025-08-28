@@ -19,6 +19,7 @@ class ReportController extends Controller
 
     public function dailyReport(Request $request)
     {
+        $organization = Department::find($request->section_id);
         $status = $request->status;
         $date = $request->hari ?? now()->toDateString();
 
@@ -49,12 +50,14 @@ class ReportController extends Controller
             'status',
             'statusText',
             'totalBookings',
-            'totalHours'
+            'totalHours',
+            'organization'
         ));
     }
 
     public function weeklyReport(Request $request)
     {
+        $organization = Department::find($request->section_id);
         $status = $request->status;
         $start = $request->start_date;
         $end = $request->end_date;
@@ -87,12 +90,14 @@ class ReportController extends Controller
             'status',
             'statusText',
             'totalBookings',
-            'totalHours'
+            'totalHours',
+            'organization'
         ));
     }
 
     public function monthlyReport(Request $request)
     {
+        $organization = Department::find($request->section_id);
         $status = $request->status;
         $month = $request->month; // Format: YYYY-MM
 
@@ -130,12 +135,14 @@ class ReportController extends Controller
             'status',
             'statusText',
             'totalBookings',
-            'totalHours'
+            'totalHours',
+            'organization'
         ));
     }
 
     public function yearlyReport(Request $request)
     {
+        $organization = Department::find($request->section_id);
         $status = $request->status;
         $year = $request->year ?? now()->year;
 
@@ -164,7 +171,8 @@ class ReportController extends Controller
             'year',
             'statusText',
             'totalBookings',
-            'totalHours'
+            'totalHours',
+            'organization'
         ));
     }
 
