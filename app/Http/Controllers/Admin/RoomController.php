@@ -224,7 +224,7 @@ class RoomController extends Controller
 
     public function cancelled()
     {
-        $rooms = Room::where('status', '0')->get();
+        $rooms = Room::where('status', '0')->orderBy('id', 'desc')->get();
         return view('admin.rooms.cancelled', compact('rooms'));
     }
 }
