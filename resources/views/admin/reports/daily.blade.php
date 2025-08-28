@@ -4,6 +4,19 @@
 
 @section('content')
 
+@section('breadcrumb')
+    <div class="breadcrumb-section">
+        <h1 class="breadcrumb-title">Laporan</h1>
+        <div class="breadcrumb-nav">
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
+            <span class="mx-2">/</span>
+            <a href="{{ route('reports.index') }}" class="text-decoration-none text-dark">Laporan</a>
+            <span class="mx-2">/</span>
+            <a href="#" class="text-decoration-none breadcrumb-active">Laporan Tempahan Harian</a>
+        </div>
+    </div>
+@endsection
+
 <style>
     .dropdown-menu::before {
     content: "";
@@ -17,14 +30,14 @@
 </style>
     <main class="main-content">
         <!-- Breadcrumb -->
-        <div class="breadcrumb-section mb-4">
+        {{-- <div class="breadcrumb-section mb-4">
             <h1 class="breadcrumb-title">Laporan</h1>
             <div class="breadcrumb-nav">
                 <span>Papan Pemuka</span>
                 <span class="mx-2">/</span>
                 <span class="breadcrumb-active">Laporan Tempahan Harian</span>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Main Report Card -->
         <div class="card shadow-sm border-0 p-4">
@@ -34,6 +47,9 @@
 
             <!-- Summary -->
             <div class="row mb-4">
+                <div class="col-md-12">
+                    <p><strong>Bahagian:</strong> {{ $organization->name }}</p>
+                </div>
                 <div class="col-md-6">
                     <p><strong>Tarikh:</strong> {{ \Carbon\Carbon::parse($date)->format('d F Y') }}</p>
                     <p><strong>Status Permohonan:</strong> {{ $statusText }}</p>
@@ -53,16 +69,16 @@
                             <tr>
                                 <th>Bil</th>
                                 <th>Nama Mesyuarat</th>
-                                <th>Bahagian/Jabatan</th>
+                                {{-- <th>Bahagian/Jabatan</th> --}}
                                 <th>Bilik</th>
-                                <th>Masa Mula</th>
-                                <th>Masa Tamat</th>
-                                <th>Jangka Masa</th>
-                                <th>Penerangan Penuh</th>
-                                <th>Jenis</th>
-                                <th>Nama Pemohon</th>
+                                <th>Masa Mesyuarat</th>
+                                {{-- <th>Masa Tamat</th> --}}
+                                {{-- <th>Jangka Masa</th> --}}
+                                {{-- <th>Penerangan Penuh</th> --}}
+                                {{-- <th>Jenis</th> --}}
+                                {{-- <th>Nama Pemohon</th> --}}
                                 <th>Status</th>
-                                <th>Kemaskini Pada</th>
+                                {{-- <th>Kemaskini Pada</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -75,24 +91,24 @@
                                     <td>{{ $index + 1 }}</td>
                                     {{-- <td>{{ \Carbon\Carbon::parse($booking->start_date)->format('d F Y') }}</td> --}}
                                     <td>{{ $booking->meeting_name }}</td>
-                                    <td>{{ $booking->user->section ?? $booking->user->department }}</td>
+                                    {{-- <td>{{ $booking->user->section ?? $booking->user->department }}</td> --}}
                                     <td>{{ $booking->room->room_name ?? '-' }}</td>
                                     <td>
-                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }}
+                                        {{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }} - {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}
-                                    </td>
-                                    <td>{{ $totalHours }} Jam</td>
-                                    <td>{{ $booking->description }}</td>
-                                    <td>
+                                    </td> --}}
+                                    {{-- <td>{{ $totalHours }} Jam</td> --}}
+                                    {{-- <td>{{ $booking->description }}</td> --}}
+                                    {{-- <td>
                                         @if($booking->type === 'Interior')
                                             Dalaman
                                         @else
                                             Luaran
                                         @endif
-                                    </td>
-                                    <td>{{ $booking->user->name }}</td>
+                                    </td> --}}
+                                    {{-- <td>{{ $booking->user->name }}</td> --}}
                                     <td>
                                         @if ($booking->status == 3)
                                             <span class="badge badge-success">Diluluskan</span>
@@ -100,7 +116,7 @@
                                             <span class="badge badge-secondary">{{ $booking->getStatusNameAttribute() }}</span>
                                         @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($booking->updated_at)->format('h:i A - d F Y') }}</td>
+                                    {{-- <td>{{ \Carbon\Carbon::parse($booking->updated_at)->format('h:i A - d F Y') }}</td> --}}
                                 </tr>
                             @empty
                                 <tr>
