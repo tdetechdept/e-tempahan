@@ -181,7 +181,7 @@
     }
     
     .form-control:focus {
-        border-color: #285689;
+        border-color: #285689 !important;
         box-shadow: 0 0 0 0.2rem rgba(41, 157, 145, 0.25);
     }
     
@@ -250,7 +250,7 @@
     }
     
     .form-control[type="file"]::-webkit-file-upload-button:hover {
-        background-color: #238a7f;
+        background-color: #3c80cf;
     }
     
     /* Date and Time Input Styling */
