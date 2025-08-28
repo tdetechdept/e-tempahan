@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth','activeUser']], function() {
         Route::get('/users/register/unsuccess', [AdminUserController::class, 'registerUnsuccess'])->name('users.register.unsuccess');
         Route::get('/users/update/success', [AdminUserController::class, 'updateSuccess'])->name('users.update.success');
         Route::get('/users/deactivate/success', [AdminUserController::class, 'deactivateSuccess'])->name('users.deactivate.success');
+        Route::patch('/users/{user}/approve', [AdminUserController::class, 'approve'])->name('users.approve');
 
     });
 
