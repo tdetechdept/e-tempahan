@@ -17,19 +17,19 @@
       text-decoration: none;
     }
     .btn-outline-primary {
-      border-color: #008080;
-      color: #008080;
+      border-color: #285689;
+      color: #285689;
       font-weight: 600;
       padding: 8px 25px;
       border-radius: 6px;
     }
     .btn-outline-primary:hover {
-      background-color: #008080;
+      background-color: #285689;
       color: #fff;
     }
     .icon-email {
       font-size: 1.4rem;
-      color: #008080;
+      color: #285689;
       margin-right: 8px;
     }
   </style>
@@ -39,9 +39,9 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Tempahan Ad-hoc</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
-            <span>Tempahan Ad-hoc</span>
+            <span class="text-decoration-none text-primary">Tempahan Ad-hoc</span>
         </div>
     </div>
 @endsection

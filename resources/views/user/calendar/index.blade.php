@@ -6,9 +6,9 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Kalendar</h1>
         <div class="breadcrumb-nav">
-            <span>Papan Pemuka</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
-            <span>Kalendar</span>
+            <span class="text-decoration-none text-primary">Kalendar</span>
         </div>
     </div>
 @endsection
@@ -18,7 +18,7 @@
 
 
 .dashboard-btn:hover{
-        background-color: #299d91dc;
+        background-color: #285689;
             color: #fff;
         text-decoration: none;
     }
