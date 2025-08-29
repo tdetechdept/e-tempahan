@@ -24,11 +24,11 @@
     <div class="breadcrumb-section">
         <h1 class="breadcrumb-title">Lihat Tempahan</h1>
         <div class="breadcrumb-nav">
-            <span>Dashboard</span>
+            <a href="{{ route('home') }}" class="text-decoration-none text-dark">Papan Pemuka</a>
             <span class="mx-2">/</span>
             <span>Senarai Tempahan</span>
             <span class="mx-2">/</span>
-            <span>Lihat Tempahan</span>
+            <span class="text-decoration-none text-primary">Lihat Tempahan</span>
         </div>
     </div>
 @endsection
