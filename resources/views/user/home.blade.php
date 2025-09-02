@@ -298,7 +298,7 @@
                                                 'text' => '#383d41',
                                             ],
                                              7 => [ // Confirmed by User
-                                                'label' => 'DITERIMA',
+                                                'label' => 'LULUS',
                                                 'bg' => '#e2e3e5', 
                                                 'text' => '#383d41',
                                             ],
