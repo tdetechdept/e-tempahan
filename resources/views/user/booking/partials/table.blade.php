@@ -51,7 +51,7 @@
                                     'text' => '#856404',
                                 ],
                                     7 => [ // Confirmed by User
-                                    'label' => 'DISAHKAN',
+                                    'label' => 'LULUS',
                                     'class' => 'eb-approved',
                                     'bg' => '#d4edda',
                                     'text' => '#155724',
