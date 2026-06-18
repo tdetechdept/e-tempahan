@@ -94,6 +94,30 @@
     <script src="{{ asset('admin2/js/demo/chart-pie-demo.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script>
+            $(".formattedInputICWithoutDash").on("input", function () {
+                var value = $(this).val().replace(/\D/g, ""); // Remove non-digits
+
+                if (value.length > 12) {
+                    value = value.substring(0, 12);
+                }
+
+                $(this).val(value);
+            });
+
+            $(".formattedInputPhoneNumber").on("input", function () {
+                var value = $(this).val().replace(/\D/g, ""); // Remove non-digits
+
+                if (value.length > 11) {
+                    value = value.substring(0, 11);
+                }
+
+                $(this).val(value);
+            });
+        </script>
+
     @stack('js')
 </body>
 </html>

@@ -117,7 +117,7 @@
                             <div class="col-md-6">
                                  <div class="mb-3">
                                     <label for="office_number" class="form-label">No. Telefon Pejabat <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="office_number" placeholder="Contoh : 03-1234XXXX" name="office_number" value="{{ old('office_number') }}" required autocomplete="office_number" autofocus>
+                                    <input type="text" class="form-control formattedInputPhoneNumber" id="office_number" placeholder="Contoh : 031234XXXX" name="office_number" value="{{ old('office_number') }}" required autocomplete="office_number" autofocus>
                                      @error('office_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -128,7 +128,7 @@
                             <div class="col-md-6">
                                  <div class="mb-3">
                                     <label for="phone_number" class="form-label">No. Telefon Bimbit <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="phone_number" placeholder="Contoh : 0123467XXX" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus>
+                                    <input type="text" class="form-control formattedInputPhoneNumber" id="phone_number" placeholder="Contoh : 0123467XXX" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus>
                                      @error('phone_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

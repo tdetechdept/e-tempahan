@@ -44,7 +44,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Kad Pengenalan *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="identity_card" value="{{ old('identity_card', $user->id_number) }}">
+                                <input type="text" class="formattedInputICWithoutDash form-control" name="identity_card" value="{{ old('identity_card', $user->id_number) }}">
                                 @error('identity_card')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -98,7 +98,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Telefon Pejabat *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="phone_office" value="{{ old('phone_office', $user->office_number) }}">
+                                <input type="text" class="formattedInputPhoneNumber form-control" name="phone_office" value="{{ old('phone_office', $user->office_number) }}">
                                 @error('phone_office')
                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -108,7 +108,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Telefon Bimbit *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="phone_mobile" value="{{ old('phone_mobile', $user->phone_number) }}">
+                                <input type="text" class="formattedInputPhoneNumber form-control" name="phone_mobile" value="{{ old('phone_mobile', $user->phone_number) }}">
                                 @error('phone_mobile')
                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
