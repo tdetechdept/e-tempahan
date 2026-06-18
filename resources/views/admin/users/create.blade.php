@@ -44,7 +44,7 @@
                                 @enderror
                             </td> --}}
                             <td>
-                                <input type="text" class="form-control" name="id_number" value="{{ old('id_number') }}">
+                                <input type="text" class="formattedInputICWithoutDash form-control" name="id_number" value="{{ old('id_number') }}">
                                 @error('id_number')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -96,7 +96,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Telefon Pejabat *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="phone_office" value="{{ old('phone_office') }}">
+                                <input type="text" class="formattedInputPhoneNumber form-control" name="phone_office" value="{{ old('phone_office') }}">
                                 @error('phone_office')
                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -105,7 +105,7 @@
                         <tr>
                             <th class="text-end align-middle">No. Telefon Bimbit *</th>
                             <td style="border: none;">
-                                <input type="text" class="form-control" name="phone_mobile" value="{{ old('phone_mobile') }}">
+                                <input type="text" class="formattedInputPhoneNumber form-control" name="phone_mobile" value="{{ old('phone_mobile') }}">
                                 @error('phone_mobile')
                                    <span class="text-danger">{{ $message }}</span>
                                 @enderror

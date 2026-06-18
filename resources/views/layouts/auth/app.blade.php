@@ -175,6 +175,16 @@
 
             $(this).val(value);
         });
+
+          $(".formattedInputPhoneNumber").on("input", function () {
+            var value = $(this).val().replace(/\D/g, ""); // Remove non-digits
+
+            if (value.length > 11) {
+                value = value.substring(0, 11);
+            }
+
+            $(this).val(value);
+        });
     </script>
     <!-- Custom styles for this page -->
       @stack('js')

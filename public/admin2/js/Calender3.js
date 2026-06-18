@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Function to render the calendar for a given month
         function renderCalendar(date) {
-            monthDisplay.textContent = date.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
+            monthDisplay.textContent = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
 
             const year = date.getFullYear();
             const month = date.getMonth(); // 0-indexed month
